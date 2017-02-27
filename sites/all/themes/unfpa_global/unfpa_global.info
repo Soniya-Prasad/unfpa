@@ -1,0 +1,50 @@
+name = UNFPA Global Website
+description = UNFPA Global Website custom theme.
+core = 7.x
+engine = phptemplate
+;base theme  = zen
+
+stylesheets[all][] = css/h5bp01.css
+;stylesheets[all][] = css/flexslider.css
+stylesheets[all][] = css/style.css
+stylesheets[all][] = css/new-style.css
+stylesheets[all][] = css/h5bp02.css
+stylesheets[all][] = css/responsive.css
+stylesheets[all][] = css/colorbox.css
+stylesheets[all][] = css/blue.css
+stylesheets[all][] = css/slick.css
+stylesheets[all][] = css/slick-theme.css
+
+scripts[] = js/modernizr-2.0.6.min.js
+;scripts[] = js/jquery-1.7.2.min.js
+scripts[] = js/jquery.mobile.custom.min.js
+scripts[] = js/plugins.js
+scripts[] = js/script.js
+scripts[] = js/custom.js
+;scripts[] = js/jquery.flexslider-min.js
+scripts[] = js/jquery.tweetHighlighted.js
+scripts[] = js/icheck.min.js
+scripts[] = js/slick.min.js
+scripts[] = js/jquery.touchSwipe.min.js
+
+regions[header]         = Header
+regions[navigation]     = Navigation
+regions[menu_dropdown]  = Menu DropDown
+regions[highlighted]    = Highlighted
+regions[help]           = Help
+regions[content]        = Content
+regions[content_bottom] = Content Bottom
+regions[sidebar_first]  = First Sidebar
+regions[sidebar_second] = Second Sidebar
+regions[footer_logo]    = Footer Logo
+regions[footer_social]  = Footer Social
+regions[footer_links]   = Footer Links
+
+; Panels layouts
+plugins[panels][layouts] = layouts
+
+; Information added by drupal.org packaging script on 2011-11-02
+version = "7.x-3.6"
+core = "7.x"
+project = "UNFPA"
+datestamp = "1320214533"

@@ -1,0 +1,18 @@
+name = UNFPA Safe Birth Website
+description = UNFPA Safe Birth Website custom theme.
+core = 7.x
+engine = phptemplate
+base theme = bootstrap
+
+stylesheets[all][] = css/new-style-sb.css
+stylesheets[all][] = css/banner-style.css
+stylesheets[all][] = css/responsive-sb.css
+stylesheets[all][] = css/news-publications.css
+stylesheets[all][] = css/responsive-news-publications.css
+scripts[] = js/custom-sb.js
+
+regions[header]      = Header
+regions[navigation]  = Navigation
+regions[help]        = Help
+regions[content]     = Content
+regions[footer]      = Footer

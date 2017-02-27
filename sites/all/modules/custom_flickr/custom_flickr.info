@@ -1,0 +1,8 @@
+name = Custom Flickr Module 
+description = Event Teplate Page Flickr Section
+core = 7.x
+package = UNFPA Custom
+; Information added by drupal.org packaging script on 2013-12-10
+version = "7.x-1"
+project = "unfpa"
+datestamp = "1332461528"

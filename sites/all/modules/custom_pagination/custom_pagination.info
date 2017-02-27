@@ -1,0 +1,9 @@
+name = Custom Pagination Module 
+description = Custom Pagination Setting for Home Page Section
+core = 7.x
+package = UNFPA Custom
+; Information added by drupal.org packaging script on 2013-12-10
+version = "7.x-1"
+project = "drupal"
+datestamp = "1332461528"
+files[] = custom_pagination.module

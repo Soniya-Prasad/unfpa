@@ -1,0 +1,109 @@
+<?php
+
+/**
+ * @file
+ * custom module for Custom Pagination Selection Section
+ */
+
+/**
+ * Implement hook_help().
+ */
+function custom_pagination_help($path, $arg) {
+  if ($path == 'admin/help#custom_pagination') {
+    return t('Custom Pagination allows site adminitrators to set a custom value for showing a specific number of items on Home Page.');
+  }
+}
+
+/**
+ * Implement hook_menu().
+ */
+function custom_pagination_menu() {
+  $items = array();
+
+  $items['admin/structure/custom_pagination'] = array(
+    'title' => 'Custom Pagination',
+    'description' => 'Configuration for the Custom Pagination module.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('custom_pagination_form'),
+    'access arguments' => array('administer users'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['user/%/setting_pagination'] = array(
+    'title' => 'Set Pagination',
+    'description' =>
+    'Set a custom value for showing a specific number of items on Home Page.',
+    'page callback' => 'drupal_get_form',
+    'access arguments' => array('administer users'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Form builder; Create and display the User Warn configuration
+ * settings form.
+ */
+function custom_pagination_form($form, &$form_state) {
+  // Text field for the publication pagination
+  $form['custom_pagination_home_publication'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Set Home-Publications Display Items.'),
+    '#description' => t('Set a custom value for showing a specific number of items on Home Page Publications.'),
+    '#size' => 40,
+    '#maxlength' => 2,
+    '#required' => TRUE,
+    '#default_value' => variable_get('custom_home_publication_value'),
+  );
+  // Text field for the news pagination
+  $form['custom_pagination_home_news'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Set Home-News Display Items.'),
+    '#description' => t('Set a custom value for showing a specific number of items on Home Page News.'),
+    '#size' => 40,
+    '#maxlength' => 2,
+    '#required' => TRUE,
+    '#default_value' => variable_get('custom_home_news_value'),
+  );
+
+// Checkbox to indicate if admin should be sent a Bcc on e-mails.
+  $form['home_page_slider'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Home Page Slider - Set On/Off'),
+    '#description' => t("This provide you an option to set home page featured banner to stop"),
+    '#default_value' => variable_get('home_page_slider_value'),
+  );
+
+// Submit button
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save Settings'),
+  );
+
+  return $form;
+}
+
+/**
+ * Save configuration settings for User Warn module.
+ */
+function custom_pagination_form_submit($form, &$form_state) {
+  variable_set('custom_home_publication_value', $form_state['values']['custom_pagination_home_publication']);
+
+  variable_set('custom_home_news_value', $form_state['values']['custom_pagination_home_news']);
+  variable_set('home_page_slider_value', $form_state['values']['home_page_slider']);
+  drupal_set_message(t('The settings have been saved'));
+}
+
+function custom_pagination_views_pre_build(&$view) {
+  if ($view->name == 'vw_publications' && $view->current_display == 'block_home_publications') {
+    $set_items_cnt = variable_get('custom_home_publication_value');
+    $set_items_cnt = (is_numeric($set_items_cnt)) ? $set_items_cnt : '5';
+    $view->items_per_page = $set_items_cnt;
+  }
+
+  if ($view->name == 'vw_news' && $view->current_display == 'block_home_news') {
+    $set_items_cnt = variable_get('custom_home_news_value');
+    $set_items_cnt = (is_numeric($set_items_cnt)) ? $set_items_cnt : '5';
+    $view->items_per_page = $set_items_cnt;
+  }
+}

@@ -1,0 +1,393 @@
+<?php
+
+/**
+ * @file
+ * Code for UNFPA GLobal SOWMY Data Portal.
+ */
+
+/**
+ * Include theme functions.
+ */
+include_once 'unfpa_global_sowmy.theme.inc';
+include_once 'unfpa_global_sowmy.inc';
+
+/**
+ * Implements hook_block_info().
+ */
+function unfpa_global_sowmy_block_info() {
+  $blocks['custom_sowmy_map'] = array(
+    'info' => t('Block SOWMY Map'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function unfpa_global_sowmy_block_view($delta = '') {
+  if ($delta != 'custom_sowmy_map') {
+    return array();
+  }
+  $block = array();
+  $block['subject'] = t('SOWMY Map Block');
+  $block['content'] = unfpa_global_sowmy_map();
+
+  return $block;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function unfpa_global_sowmy_menu() {
+  $items['sowmy/%'] = array(
+    'page callback' => 'unfpa_global_sowmy_display_page',
+    'access arguments' => array('access content'),
+    'page arguments' => array(1),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function unfpa_global_sowmy_theme($data = array()) {
+  $path = drupal_get_path('module', 'unfpa_global_sowmy');
+
+  return array(
+    // Define template file for SOWMY Page.
+    'unfpa_global_sowmy_page' => array(
+      'variables' => array('country_code' => ''),
+      'template' => 'sowmy_page',
+      'path' => $path . '/templates',
+    ),
+    'unfpa_global_sowmy_map' => array(
+      'variables' => array(),
+      'template' => 'sowmy_map',
+      'path' => $path . '/templates',
+    ),
+    'unfpa_global_sowmy_needs' => array(
+      'variables' => array('sowmy_data' => array(), 'country_code' => ''),
+      'template' => 'sowmy_needs',
+      'path' => $path . '/templates',
+    ),
+    'unfpa_global_sowmy_availability' => array(
+      'variables' => array('availability_data' => array(), 'country_code' => ''),
+      'template' => 'sowmy_availability',
+      'path' => $path . '/templates',
+    ),
+    'unfpa_global_sowmy_education_regulation_association' => array(
+      'variables' => array('midwifery_data' => array(), 'country_code' => ''),
+      'template' => 'sowmy_education_regulation_association',
+      'path' => $path . '/templates',
+    ),
+    'whatif' => array(
+      'variables' => array('whatif_data' => array(), 'country_code' => ''),
+      'template' => 'sowmy_whatif',
+      'path' => $path . '/templates',
+    ),
+  );
+}
+
+/**
+ * Callback function for SOWMY page.
+ *
+ * @param string $country_code
+ *   Two letter country code.
+ *
+ * @return array
+ *   Generates themed output.
+ */
+function unfpa_global_sowmy_display_page($country_code) {
+  // Attach js files - libraries.
+  $path = drupal_get_path('module', 'unfpa_global_sowmy');
+  drupal_add_js($path . '/js/unfpa_global_sowmy.js', array('type' => 'file', 'scope' => 'footer'));
+  // Attach css files.
+  drupal_add_css($path . '/css/sowmy-style.css');
+
+  return theme('unfpa_global_sowmy_page', array('country_code' => $country_code));
+}
+
+/**
+ * Prepare color codes for map in sowmy.
+ *
+ * @param array $color
+ *   The array with all the Color codes.
+ * @param int $percent
+ *   Actual percent value for which the color is decided.
+ *
+ * @return string
+ *   Color code for the Country.
+ */
+function unfpa_global_sowmy_map_color($color, $percent) {
+  foreach ($color as $upto_percent => $color_code) {
+    if ($percent <= $upto_percent) {
+      return $color_code;
+    }
+  }
+}
+
+/**
+ * Prepare Map data to be shown on sowmy template page.
+ *
+ * @return array
+ *    Generates themed output.
+ */
+function unfpa_global_sowmy_map() {
+  $map_data = unfpa_global_sowmy_get_map_data();
+  $data = array();
+  $country_data = array();
+  foreach ($map_data as $value) {
+    $country_name = $value->c_name;
+    $country_code = $value->cc;
+    $met_value = $value->S;
+    $country_data[$country_code][$country_name] = $met_value;
+  }
+
+  foreach ($country_data as $country_code => $country_name) {
+    foreach ($country_name as $value) {
+      $data[$country_code] = $value;
+    }
+  }
+
+  $threshold_value = max($data);
+  $lowest_value = min($data);
+  $color_code = array();
+  foreach ($country_data as $country_code => $country_name) {
+    foreach ($country_name as $value) {
+      $actual_value_percentage = (($value - $lowest_value) / ($threshold_value - $lowest_value)) * 100;
+      $color_code_array = unfpa_global_sowmy_get_color_code();
+
+      $country_color_code = unfpa_global_sowmy_map_color($color_code_array, $actual_value_percentage);
+      $color_code[$country_code] = $country_color_code;
+    }
+  }
+
+  $country = array();
+  foreach ($country_data as $cc => $cname_array) {
+    foreach ($cname_array as $cname => $met_value) {
+      // Returns country name without number.
+      $country_name = ((strpos($cname, '.') == TRUE) ? strstr($cname, '.', TRUE) : $cname);
+      $country[$cc]['name'] = $country_name;
+      $country[$cc]['url'] = url('sowmy/' . $cc);
+      $country[$cc]['description'] = "Estimated met need is " . $met_value . "%";
+      $country[$cc]['color'] = ($color_code[$cc] != "") ? $color_code[$cc] : 'default';
+      $country[$cc]['hover_color'] = 'default';
+      $country[$cc]['hide'] = "no";
+      $country[$cc]['inactive'] = "no";
+    }
+  }
+
+  drupal_add_js(drupal_get_path('theme', 'unfpa_global') . '/templates/html5worldmap/worldmap.js');
+  drupal_add_js(array('unfpa_global_sowmy_map_state_data' => $country), 'setting');
+  drupal_add_js(drupal_get_path('module', 'unfpa_global_sowmy') . '/js/unfpa_global_sowmy_map.js');
+
+  return theme('unfpa_global_sowmy_map', array());
+}
+
+/**
+ * Return renderable array with information about theme for SOWMY Needs.
+ *
+ * @param string $country_code
+ *   Two digit Country code.
+ *
+ * @return array
+ *    Generates themed output.
+ */
+function unfpa_global_sowmy_get_needs($country_code) {
+  $sowmy_needs_data = unfpa_global_sowmy_women_and_newborns_needs_data($country_code);
+
+  return theme('unfpa_global_sowmy_needs', array('sowmy_data' => $sowmy_needs_data, 'country_code' => $country_code));
+}
+
+/**
+ * Return renderable array with information about theme for SOWMY Availability.
+ *
+ * @param string $country_code
+ *   Two digit Country code.
+ *
+ * @return array
+ *    Generates themed output.
+ */
+function unfpa_global_sowmy_get_availability($country_code) {
+  $availability_data = unfpa_global_sowmy_get_availability_data($country_code);
+
+  return theme('unfpa_global_sowmy_availability', array('availability_data' => $availability_data, 'country_code' => $country_code));
+}
+
+/**
+ * Return renderable array for Education Regulation and Professional Assocation.
+ *
+ * @param string $country_code
+ *   Two digit Country code.
+ *
+ * @return array
+ *    Generates themed output.
+ */
+function unfpa_global_sowmy_get_education_regulation_association($country_code) {
+  $midwifery_data = unfpa_global_sowmy_get_education_regulation_association_data($country_code);
+
+  return theme('unfpa_global_sowmy_education_regulation_association', array('midwifery_data' => $midwifery_data, 'country_code' => $country_code));
+}
+
+/**
+ * Return renderable array with information about theme for SOWMY Whatif.
+ *
+ * @param string $country_code
+ *   Two digit Country code.
+ *
+ * @return array
+ *    Generates themed output.
+ */
+function unfpa_global_sowmy_whatif($country_code) {
+  $whatif_data = unfpa_global_sowmy_get_whatif_data($country_code);
+
+  return theme('whatif', array('whatif_data' => $whatif_data, 'country_code' => $country_code));
+}
+
+/**
+ * Fetches data to shown on CURRENT TRAJECTORY chart on SOWMY country page.
+ *
+ * @param string $country_code
+ *   Two digit Country code.
+ *
+ * @return array
+ *    Returns rows and cols data for chart.
+ */
+function unfpa_global_sowmy_current_trajectory($country_code) {
+  $current_data = unfpa_global_sowmy_get_current_trajectory($country_code);
+
+  $chart_cols = array(
+    array('id' => 'year', 'label' => t('year'), 'type' => 'number'),
+    array(
+      'id' => 'workforce-projection',
+      'label' => t('Available workforce projection (adjusted for skill-mix)'),
+      'type' => 'number',
+    ),
+    array(
+      'id' => 'need-projection',
+      'label' => t('Need projection'),
+      'type' => 'number',
+    ),
+  );
+
+  $chart_rows = array();
+  // For current trajectory graph, to fetch the records for the starting year
+  // 2012 till 2030 the total count used here for traversing is 18.
+  for ($i = 0; $i < 19; $i++) {
+    array_push($chart_rows, array(
+      'c' => array(
+        array('v' => intval($current_data['year'][$i])),
+        array('v' => intval($current_data['availability_data'][$i])),
+        array('v' => intval($current_data['need_data'][$i])),
+      ),
+    ));
+  }
+
+  $options = array(
+    'vAxis' => array(
+      'title' => t('MNH workers(full-time equivalent)'),
+      'viewWindow' => array(
+        'min' => 0,
+        'max' => $current_data['max_current_value'],
+      ),
+      'gridlines' => array('color' => 'transparent'),
+    ),
+    'hAxis' => array(
+      'format' => "####",
+      'gridlines' => array('color' => 'transparent'),
+    ),
+    'legend' => array(
+      'position' => 'top',
+      'maxLines' => 3,
+      'alignment' => 'start',
+    ),
+    'seriesType' => "area",
+    'series' => array(
+      1 => array(
+        'type' => 'line',
+        'lineDashStyle' => array(10, 2),
+      ),
+    ),
+    'colors' => array('#977BB7', '#F79C71'),
+  );
+
+  $current_trajectory_data['options'] = $options;
+  $current_trajectory_data['chart_cols'] = $chart_cols;
+  $current_trajectory_data['chart_rows'] = $chart_rows;
+  $current_trajectory_data['met_need'] = $current_data['met_need'];
+
+  return $current_trajectory_data;
+}
+
+/**
+ * Fetches data to shown on WHATIF TRAJECTORY combo chart on SOWMY country page.
+ *
+ * @param string $country_code
+ *   Two digit Country code.
+ *
+ * @return array
+ *    Returns rows and cols for chart.
+ */
+function unfpa_global_sowmy_whatif_trajectory($country_code) {
+  $whatif_data = unfpa_global_sowmy_get_whatif_trajectory_data($country_code);
+  $chart_cols = array(
+    array('id' => 'year', 'label' => t('year'), 'type' => 'number'),
+    array(
+      'id' => 'workforce-projection',
+      'label' => t('Available workforce projection (adjusted for skill-mix : )'),
+      'type' => 'number',
+    ),
+    array(
+      'id' => 'need-projection',
+      'label' => t('Need projection: Scenario 1'),
+      'type' => 'number',
+    ),
+  );
+
+  $chart_rows = array();
+  // For whatif trajectory graph, to fetch the records for the starting year
+  // 2012 till 2030 the total count used here for traversing is 18.
+  for ($i = 0; $i < 19; $i++) {
+    array_push($chart_rows, array(
+      'c' => array(
+        array('v' => intval($whatif_data['year'][$i])),
+        array('v' => intval($whatif_data['availability_data'][$i])),
+        array('v' => intval($whatif_data['need_data'][$i])),
+      ),
+    ));
+  }
+
+  $options = array(
+    'vAxis' => array(
+      'title' => t('MNH workers(full-time equivalent)'),
+      'viewWindow' => array('min' => 0, 'max' => $whatif_data['max_whatif_value']),
+      'gridlines' => array('color' => 'transparent'),
+    ),
+    'hAxis' => array(
+      'format' => "####",
+      'gridlines' => array('color' => 'transparent'),
+    ),
+    'legend' => array(
+      'position' => 'top',
+      'maxLines' => 3,
+      'alignment' => 'start',
+    ),
+    'seriesType' => "area",
+    'series' => array(
+      1 => array(
+        'type' => 'line',
+        'lineDashStyle' => array(10, 2),
+      ),
+    ),
+    'colors' => array('#977BB7', '#F79C71'),
+  );
+
+  $whatif_trajectory_data['options'] = $options;
+  $whatif_trajectory_data['chart_cols'] = $chart_cols;
+  $whatif_trajectory_data['chart_rows'] = $chart_rows;
+  $whatif_trajectory_data['met_need'] = $whatif_data['met_need'];
+
+  return $whatif_trajectory_data;
+}

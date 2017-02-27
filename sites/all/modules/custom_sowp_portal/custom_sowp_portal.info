@@ -1,0 +1,7 @@
+name = Custom SOWP Portal
+description = Custom module for SWOP Portal functionality for UNFPA Project.
+core = 7.x
+package = UNFPA Custom SOWP Portal
+version = "7.x-1"
+project = unfpa
+files[] = includes/custom_sowp_portal.class.inc

@@ -1,0 +1,54 @@
+<?php
+
+/**
+* Implement hook_schema().
+* Define the database tables use this module.
+*/
+
+function custom_subscription_schema(){
+	$schema['tbl_subscription'] = array(
+		'description' => 'Store the Subscription users email ids and other information.',
+		'fields' => array(
+		  	 'id' => array(
+			    'type' => 'serial',
+				'not null' => TRUE,
+				'decription' => 'Primary Key: Unique subscription ID.',
+			  ),
+			  'mail' => array(
+			  	'type' => 'varchar',
+				'length' => 254,
+				'not null' => TRUE,
+				'default' => '',
+				'description' => "User's e-mail address.",
+			  ),
+			'created' => array(
+				'type' => 'int',
+				'not null' => TRUE,
+				'default' => 0,
+				'description' => 'Timestamp for when user was created.',
+			),
+			'status' => array(
+				'type' => 'int',
+				'not null' => TRUE,
+				'default' => 0,
+				'size' => 'tiny',
+				'description' => 'Whether the user is active(1) or blocked(0).',
+			),
+			'ip_address' => array(
+				'type' => 'varchar',
+				'length' => 254,
+				'not null' => TRUE,
+				'default' => 0,				
+				'description' => 'IP Address of the User.',
+			),
+		),
+		'primary key' => array('id'),
+		'indexes'	=> array(
+		'mail'	=> array('mail')	
+		),	
+	);
+	
+	return $schema;
+}
+
+

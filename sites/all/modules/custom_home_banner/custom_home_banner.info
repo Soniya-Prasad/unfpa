@@ -1,0 +1,7 @@
+name = Custom Home Banner Page
+description = Home Page Featured Section
+core = 7.x
+package = UNFPA Custom
+version = "7.x-1.0"
+project = "unfpa"
+datestamp = "1332461528"

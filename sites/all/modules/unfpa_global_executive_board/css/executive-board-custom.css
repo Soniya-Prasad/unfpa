@@ -1,0 +1,865 @@
+/*=====================================
+SOF Common css
+=======================================*/
+
+.inner-page #sub-page-template h3 {
+  color: #272727;
+  text-transform: uppercase;
+}
+
+.inner-page #sub-page-template h4 {
+  color: #272727;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.hide-element {
+  display:none;
+}
+
+/*=====================================
+EOF Common css
+=======================================*/
+
+/*=====================================
+SOF expo page layout css
+=======================================*/
+.inner-page.eb-page #sub-page-template h1.page-title.executive-board.full-width {
+  width: 100%;
+  float: none;
+}
+
+.inner-page h3 {
+  color: #2f3236;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.inner-page.eb-page #sub-page-template h1 {
+  float: left;
+  font-family: "robotoregular";
+  font-size: 28px;
+  line-height: 30px;
+  margin: 0 0 40px;
+  width: 78%;
+}
+
+.inner-page.eb-page #sub-page-template .panel-col-last{
+  width:80%;
+}
+
+.inner-page.eb-page #sub-page-template h2:not(.tl-headline),
+.inner-page .panel-2col-stacked .panel-col-first h2 {
+  border-bottom: 0 none;
+  color: #E98E04;
+  font-family: "robotobold";
+  font-size: 22px;
+  margin: 0 0 15px;
+}
+
+.inner-page.eb-page .social {
+  margin: -40px 0 20px 20px;
+}
+.selected-one{
+  color: #000;
+  font-family: "robotoregular";
+}
+/*=====================================
+EOF expo page layout css
+=======================================*/
+
+/*=====================================
+SOF Common element css
+=======================================*/
+.inner-page.eb-page .views-exposed-form .views-exposed-widgets .views-exposed-widget .form-select,
+.inner-page.node-type-exbo-events .form-select,
+.inner-page.eb-page .form-select {
+  appearance: none;
+  background: #ffffff url('../images/select-drop-arrow-blue.png') right center no-repeat;
+  border: 1px solid #acacac;
+  border-radius: 12px;
+  color: #000000;
+  font-size: 12px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  max-width: 180px;
+  padding: 4px 25px 4px 10px;
+  outline: none;
+  width: auto;
+  line-height: 20px;
+}
+
+/*=====================================
+SOF Common element css
+=======================================*/
+
+/*=====================================
+SOF exbo homepage css
+=======================================*/
+
+.inner-page.eb-page .pane-executive-board-updates-listing-pane {
+  margin: 40px 0;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-row {
+  border-left: 1px solid #E7E7E7;
+  float: left;
+  margin: 0 20px 20px 0;
+  min-height: 470px;
+  padding: 0 0 0 10px;
+  width: 30%;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-row:last-child {
+  margin: 0 0 20px 0;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-field-field-news-image {
+  margin: 0 0 0 -10px;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-field-field-news-image img {
+  border-color: #e7e7e7;
+  border-style: solid solid solid none;
+  border-width: 1px 1px 1px 0;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-field-field-update-date {
+  background-image: url(../images/ic-calendar-orange.png);
+  margin: 15px 0 5px;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-field-field-location {
+  background-image: url(../images/ic-location-orange.png);
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-field-field-update-date .field-content,
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-field-field-location .field-content {
+  color: #3a3a3a;
+  font-family: "robotomedium";
+  font-size: 14px;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-field-field-update-date,
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-field-field-location {
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding: 0 0 0 20px;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-field-title {
+  margin: 15px 0;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-field-title a {
+  color: #0090ca;
+  font-size: 16px;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-field-view-node {
+  margin: 15px 0 0;
+}
+
+/*---SOF bottom featured documents css---*/
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-exbo_featured_documents > .view-content > .views-row {
+  float: left;
+  margin: 0 2% 2% 0;
+  width: 31%;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-exbo_featured_documents > .view-content > .views-row .pdfpreview-image-wrapper img {
+  border: 1px solid #d2d2d2;
+  border-radius: 3px;
+  box-shadow: 0 0 3px #cccccc;
+}
+
+.inner-page.eb-page #sub-page-template .view-id-executive_board.view-display-id-exbo_featured_documents article header h2 {
+  font-size: 16px;
+  margin: -5px 0 10px;
+}
+
+.inner-page.eb-page #sub-page-template .view-id-executive_board.view-display-id-exbo_featured_documents article header h2 a {
+  font-family: 'robotobold', sans-serif;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-exbo_featured_documents article .content .vw-pub-image {
+  width: 100%;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-exbo_featured_documents article .content .vw-pub-image .views-field-field-supporting-doc-upload {
+  float: left;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-exbo_featured_documents article .content .vw-pub-image .views-field-field-supporting-document-title .field-content {
+  color: #000;
+  font-family: robotobold;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-exbo_featured_documents .pdfpreview-image-wrapper {
+  float: left;
+  margin: 0 15px 5px 0;
+}
+
+.view-executive-board.view-id-executive_board article footer {
+  clear: both;
+}
+
+/*---EOF bottom featured documents css---*/
+
+/*=====================================
+EOF exbo homepage css
+=======================================*/
+
+/*=====================================
+SOF Exbo board/bureau members page css
+=======================================*/
+
+.inner-page.eb-page .view-events-header .selected-event {
+  display: none;
+  margin: 0 0 10px;
+  color: #000;
+}
+
+.inner-page.eb-page .view-events-header .select-list {
+  margin: 0 0 50px;
+}
+
+.inner-page.eb-page .view-events-header .select-list .bluelink {
+  background-color: #585A5A;
+  border-radius: 16px;
+  color: #ffffff;
+  display: inline-block;
+  margin: 0 12px 0 0;
+  padding: 5px 20px;
+  text-transform: uppercase;
+}
+.inner-page.eb-page .view-events-header .select-list a:first-child {
+  padding: 5px 24px;
+}
+
+.inner-page.eb-page .view-events-header .select-list .bluelink.active {
+  background-color: #EA8E05;
+}
+
+.inner-page.eb-page .view-events-header .select-list .bluelink:hover, 
+.inner-page.eb-page .view-events-header .select-list .bluelink.active:hover {
+  background-color: #EA8E05;
+}
+
+.inner-page.eb-page.view-id-executive_board .exec-brd-exposed-filter-container .filter-fields {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.inner-page.eb-page .exec-brd-exposed-filter-container .exec-brd-filter-text {
+  color: #EA9111;
+  display: inline-block;
+  font-size: 20px;
+  text-transform: capitalize;
+  vertical-align: middle;
+  margin: 0 15px 0 0;
+}
+
+.inner-page.eb-page .exec-brd-exposed-filter-container .exec-brd-view-filters {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.inner-page.eb-page .view-id-executive_board .views-exposed-form .views-exposed-widgets .views-exposed-widget {
+  width: 150px;
+}
+
+.inner-page.eb-page .exec-brd-view-filters #views-exposed-form-executive-board-bureau-members .form-select {
+  padding: 0 25px 0 10px;
+}
+
+.inner-page.eb-page .exec-brd-view-filters .form-select {
+  margin: 10px 20px 10px 0;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-bureau_members .views-row,
+.inner-page.eb-page .view-id-executive_board.view-display-id-board_members .views-row {
+  border-bottom: 1px solid #d2d2d2;
+  margin: 0 0 20px;
+  padding: 0 0 20px;
+  color:#000000;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-bureau_members .views-row:first-child,
+.inner-page.eb-page .view-id-executive_board.view-display-id-board_members .views-row:first-child {
+  margin: 30px 0 20px;
+}
+
+.inner-page.eb-page .view-id-executive_board.view-display-id-bureau_members .views-row:last-child,
+.inner-page.eb-page .view-id-executive_board.view-display-id-board_members .views-row:last-child {
+  border-bottom: 0 none;
+}
+
+.inner-page.eb-page .view-id-executive_board .views-field-field-eb-small-portrait-picture {
+  float: left;
+  margin: 0 20px 20px 0;
+  min-height: 150px;
+  width: 115px;
+}
+
+.inner-page.eb-page .view-id-executive_board .views-field-field-eb-small-portrait-picture .field-content {
+  border-radius: 50%;
+  height: 115px;
+  overflow: hidden;
+  width: 115px;
+}
+
+.inner-page.eb-page .view-id-executive_board .views-field-field-eb-small-portrait-picture .field-content img {
+  height: auto;
+  width: 100%;
+}
+
+.inner-page.eb-page .view-id-executive_board .views-field-title a {
+  color: #000000;
+  font-family: 'robotobold';
+}
+
+.inner-page.eb-page .view-id-executive_board .views-field-field-eb-title {
+  color: #000000;
+  font-size: 16px;
+}
+
+.inner-page.eb-page .view-id-executive_board .views-field-field-eb-country div.field-content,
+.inner-page.eb-page .view-id-executive_board .views-field-field-eb-regional-group div.field-content,
+.inner-page.eb-page .view-id-executive_board .views-field-field-eb-time-of-mandate-1 div.field-content {
+  display: inline;
+}
+
+.inner-page.eb-page .view-id-executive_board .views-field-field-eb-bio {
+  margin: 20px 0 0;
+}
+
+.inner-page.eb-page .views-field-field-eb-time-of-mandate .date-display-range {
+  display: inline;
+}
+/*=====================================
+EOF Exbo board/bureau members page css
+=======================================*/
+
+/*=====================================
+SOF Board members map page css
+=======================================*/
+
+.executive-board-outer-box {
+  margin: 0 0 40px;
+}
+
+.executive-board-outer-box .executive-board-sec-content {
+  padding: 0;
+}
+
+.region-info-block .exbo-region-columns {
+  float: left;
+  margin: 0 2% 2% 0;
+  width: 27%;
+  border: 1px solid #d2d2d2;
+  padding: 2%;
+}
+
+.region-info-block div.region-0 {
+  border-top: 6px solid #D3E8EE;
+}
+
+.region-info-block div.region-1 {
+  border-top: 6px solid #AAD1E0;
+}
+
+.region-info-block div.region-2 {
+  border-top: 6px solid #7FBBD0;
+}
+
+.region-info-block div.region-3 {
+  border-top: 6px solid #2B8FB1;
+}
+
+.region-info-block div.region-4 {
+  border-top: 6px solid #124455;
+}
+
+.region-info-block .country-title {
+  color: #000000;
+  font-family: 'robotobold';
+}
+
+.region-info-block .regional-group,
+.region-info-block .time-mandate {
+  color: #000000;
+}
+
+/*---SOF Filter section css---*/
+
+.executive-board-filter-container {
+  float: left;
+  margin-top: -175px;
+  width: 150px;
+  position: relative;
+  z-index: 9;
+}
+
+.executive-board-filter-container .filters-title {
+  font-family: 'robotobold';
+}
+
+.executive-board-filter-container ul.square-input-element {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.executive-board-filter-container ul.square-input-element li label{
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  margin-left: 5px;
+  vertical-align: top;
+  width: 85%;
+}
+
+.executive-board-filter-container ul#exbo-map-board-member li .iradio_futurico {
+  background-image: url('../images/exbo-map-legend.png');
+}
+
+.executive-board-filter-container ul#exbo-map-board-member li:nth-child(2) .iradio_futurico.checked {
+  background-position: -90px -18px;
+}
+
+.executive-board-filter-container ul#exbo-map-board-member li:nth-child(3) .iradio_futurico.checked {
+  background-position: -90px -36px;
+}
+
+.executive-board-filter-container ul#exbo-map-board-member li:nth-child(4) .iradio_futurico.checked {
+  background-position: -90px -54px;
+}
+
+.executive-board-filter-container ul#exbo-map-board-member li:nth-child(5) .iradio_futurico.checked {
+  background-position: -90px -72px;
+}
+
+.executive-board-filter-container ul#exbo-map-board-member li:nth-child(6) .iradio_futurico.checked {
+  background-position: -90px -90px;
+}
+
+/*---EOF Filter section css---*/
+
+.loader {
+  display:none;
+  background-position : center center;
+  background-repeat : no-repeat;
+  background-color: #ffffff;
+  opacity: 0.6;
+  position : absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-image : url(../images/loader-icon.gif);
+}
+
+/*=====================================
+EOF Board members map page css
+=======================================*/
+
+/*=====================================
+SOF Executive Document form page css
+=======================================*/
+
+.country-documents-wrapper {
+  border-width: 2px 0 0 1px;
+  border-style: solid none none solid;
+  border-color: #DE8704 transparent transparent #D8D8D8;
+  float: left;
+  margin: 0 3% 3% 0;
+  padding: 10px;
+  width: 27%;
+}
+
+.panel-col-first .country-documents-wrapper {
+  width: 42%;
+}
+
+.country-documents-wrapper > .programme-documents-wrapper + .board-documents-wrapper {
+  border-top: 1px solid #D8D8D8;
+  margin: 5px 0 0;
+}
+
+.board-documents-wrapper > h3 {
+  margin: 5px 0 15px;
+}
+
+.board-documents-wrapper .document-title,
+.programme-documents-wrapper .document-title {
+  color: #000000;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 10px 0 5px;
+}
+
+.board-documents-wrapper .document-language,
+.programme-documents-wrapper .document-language {
+  display: inline-block;
+  margin: 5px 5px 5px 0;
+}
+
+.board-documents-wrapper .document-language > a,
+.programme-documents-wrapper .document-language > a {
+  background-image: url('../images/file-download-icon.png');
+  background-repeat: no-repeat;
+  background-position: 8px center;
+  background-color: #e5e7e6;
+  border-radius: 15px;
+  display: block;
+  font-size: 12px;
+  padding: 2px 10px 2px 25px;
+  text-align: center;
+  width: auto;
+}
+
+/*=====================================
+EOF Executive Document form page css
+=======================================*/
+
+/*=====================================
+SOF CPD page css
+=======================================*/
+/*---SOF Country list popover css---*/
+
+.inner-page.eb-page button.pencil {
+  background-color: transparent;
+  background-image: url("../images/pencil.png");
+  background-position: 0 1px;
+  background-repeat: no-repeat;
+  border: 0 none;
+  color: #0090c9;
+  font-size: 14px;
+  font-weight: 700;
+  padding-left: 18px;
+}
+
+.inner-page.eb-page .popover .thepopover {
+  background: #565656 none repeat scroll 0 0;
+  z-index: 999;
+}
+
+.inner-page.eb-page .popover .thepopover .triangle-img {
+  background: url("../images/popover-triangle.png") no-repeat scroll center center transparent;
+}
+
+.inner-page.eb-page .popover .thepopover ul {
+  column-count: 3;
+  -moz-column-count: 3;
+  -webkit-column-count: 3;
+}
+
+.inner-page.eb-page #sub-page-template .popover .thepopover h4 {
+  color: #df8312;
+  font-family: robotobold;
+  font-size: 16px;
+  line-height: 18px;
+  margin-bottom: 1em;
+  margin-top: 0;
+}
+
+.inner-page.eb-page .popover .thepopover li a {
+  color: #ffffff;
+}
+
+.inner-page.eb-page .popover .thepopover li a:hover {
+  color: #0090c9;
+}
+
+/*---EOF Country list popover css---*/
+
+/*---SOF Tooltip css---*/
+
+#cpd-tooltip {
+  background-color: #ddd;
+  left: 50%;
+  margin: -150px 0 0 -150px;
+  position: absolute;
+  top: 50%;
+  width: 215px;
+  z-index: 9999;
+}
+
+#cpd-tooltip span.close-button{
+  background-image: url('../images/tooltip-close-btn.png');
+  background-repeat: no-repeat;
+  background-position: left top;
+  cursor: pointer;
+  display: block;
+  height: 24px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+}
+
+#cpd-tooltip h4.country-title {
+  background-color: #2B8FB1;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+  padding: 5px 10px;
+  text-transform: capitalize;
+}
+
+.document-box-item {
+  border-width: 0 0 0 4px;
+  border-style: none none none solid;
+  padding: 5px;
+}
+
+.document-box-item .title {
+  color: #000000;
+  font-family: robotobold;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.document-box-item span.pdf-title {
+  display: block;
+  margin: 5px 0;
+}
+
+.document-box-item a {
+  background-image: url('../images/file-download-icon.png');
+  background-repeat: no-repeat;
+  background-position: 8px center;
+  background-color: #D7D6D6;
+  cursor: pointer;
+  padding: 2px 10px 2px 25px;
+  border-radius: 12px;
+  font-size: 11px;
+  margin: 5px 5px 5px 0;
+  display: inline-block;
+  text-align: center;
+  text-transform: uppercase;
+  width: auto;
+}
+
+.approved_container {
+  background-color: #E8E8E8;
+  border-color: #ABD2E1;
+}
+
+.draft_for_review_container {
+  background-color: #e2e2e2;
+  border-color: #1D7C9C;
+}
+
+.for_discussion_container {
+  background-color: #F0F0F0;
+  border-color: #7FBCD1;
+}
+
+/*---EOF Tooltip css---*/
+
+.grey-background {
+  background-color: #000000;
+  height: 100%;
+  opacity: 0.7;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.disclaimer-text{
+  font-size: 10px;
+  line-height: 16px;
+}
+
+/*=====================================
+EOF CPD page css
+=======================================*/
+
+/*=====================================
+SOF Exbo Events Detail page
+=======================================*/
+
+.exbo-filter-wrapper {
+  margin: 0 0 40px;
+}
+.exbo-filter-wrapper .exbo-events-top-filters > .form-item > label,
+.exbo-filter-wrapper .form-radio-buttons-wrapper > .form-item > label {
+  color: #000000;
+  font-size: 16px;
+  margin: 0 0 4px 0;
+}
+
+.exbo-filter-wrapper .exbo-events-top-filters,
+.exbo-filter-wrapper .form-radio-buttons-wrapper {
+  margin: 0px 0 25px;
+}
+
+.exbo-filter-wrapper .exbo-events-top-filters .form-item {
+  float: left;
+  margin: 0 4% 0 0;
+}
+
+.exbo-filter-wrapper .exbo-events-top-filters .form-item.form-type-textfield input {
+  background: #ffffff url('../images/search-icon.jpg') 182px center no-repeat;
+  border: 1px solid #d4d4d4;
+  border-radius: 20px;
+  font-size: 12px;
+  line-height: 16px;
+  outline: none;
+  padding: 5px 36px 5px 8px;
+  width: 170px;
+}
+
+.exbo-filter-wrapper .form-item.form-type-radios {
+  clear: both;
+}
+
+.exbo-filter-wrapper .form-item.form-type-radio.form-item-avail-lang {
+  display: inline-block;
+  margin: 0 5px 5px 0;
+  width: 130px;
+  vertical-align: top;
+}
+
+.exbo-filter-wrapper .form-item.form-type-radios .iradio_polaris {
+  background-image: url('../images/polaris.png');
+  position: relative;
+  display: inline-block;
+  width: 20%;
+  vertical-align: top;
+  margin: 0 5px 0 0;
+}
+
+.exbo-filter-wrapper .form-item.form-type-radios label {
+  display: inline-block;
+  font-weight: normal;
+  margin: 5px 0 0;
+  vertical-align: top;
+  width: 72%;
+}
+
+.exbo-filter-wrapper .form-action-wrapper .form-submit {
+  background-color: #037ca7;
+  border: 0 none;
+  border-radius: 16px;
+  color: #ffffff;
+  margin: 0 12px 0 0;
+  padding: 4px 12px;
+}
+
+/*=====================================
+SOF Exbo Events Detail page
+=======================================*/
+
+/*=====================================
+SOF Exbo Decision board listing page
+=======================================*/
+
+.inner-page.eb-page .view-display-id-reports_board_document_listing_pane > .view-content > .views-row,
+.inner-page.eb-page .view-display-id-decisions_board_document_listing_pane > .view-content > .views-row {
+  border-bottom: 1px dotted #d2d2d2;
+  padding: 0 0 15px 0;
+  margin: 0 0 15px 0;
+  overflow: hidden;
+}
+
+.inner-page.eb-page .view-display-id-reports_board_document_listing_pane .view-content .views-field-field-supporting-document,
+.inner-page.eb-page .view-display-id-decisions_board_document_listing_pane .view-content .views-field-field-supporting-document {
+  float: left;
+  margin-right: 2%;
+  width: 18%;
+}
+
+.inner-page.eb-page .view-display-id-reports_board_document_listing_pane .views-field-field-supporting-doc-upload .pdfpreview-image-wrapper > a > img,
+.inner-page.eb-page .view-display-id-decisions_board_document_listing_pane .views-field-field-supporting-doc-upload .pdfpreview-image-wrapper > a > img {
+  border: 1px solid #d2d2d2;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px 0 #ccc;
+  display: block;
+  width: 100%;
+  max-width: 180px;
+}
+
+.inner-page.eb-page .view-display-id-reports_board_document_listing_pane .views-field-title,
+.inner-page.eb-page .view-display-id-decisions_board_document_listing_pane .views-field-title {
+  padding: 0 0 10px 0;
+}
+
+.inner-page.eb-page .view-display-id-reports_board_document_listing_pane .views-field-title a,
+.inner-page.eb-page .view-display-id-decisions_board_document_listing_pane .views-field-title a {
+  color: #0091ca;
+  font-size: 16px;
+}
+
+.inner-page.eb-page .view-display-id-reports_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .vw-pub-image,
+.inner-page.eb-page .view-display-id-decisions_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .vw-pub-image {
+  border: 1px solid #d2d2d2;
+  border-radius: 5px;
+}
+
+.inner-page.eb-page .view-display-id-reports_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .view.view-vw-support-download-pdf-field-collection-view.vw-pub-image > a,
+.inner-page.eb-page .view-display-id-decisions_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .view.view-vw-support-download-pdf-field-collection-view.vw-pub-image > a {
+  background: #fff url("../images/file-download-icon-grey.png") no-repeat scroll 4px center;
+  border: 1px solid #d9dac4;
+  color: #808080;
+  display: block;
+  float: left;
+  font-family: robotobold;
+  height: 26px;
+  line-height: 26px;
+  padding: 3px 5px 3px 20px;
+}
+
+.inner-page.eb-page .view-display-id-reports_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .view-id-vw_support_download_pdf_field_collection_view .view-content,
+.inner-page.eb-page .view-display-id-decisions_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .view-id-vw_support_download_pdf_field_collection_view .view-content {
+  float: left;
+}
+
+.inner-page.eb-page .view-display-id-reports_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .view-id-vw_support_download_pdf_field_collection_view .views-row,
+.inner-page.eb-page .view-display-id-decisions_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .view-id-vw_support_download_pdf_field_collection_view .views-row {
+  border: 1px solid #d9dac4;
+  float: left;
+}
+
+.inner-page.eb-page .view-display-id-reports_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .view-content .views-field-field-available-languages .items,
+.inner-page.eb-page .view-display-id-decisions_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .view-content .views-field-field-available-languages .items {
+  padding: 3px;
+}
+
+.inner-page.eb-page .view-display-id-reports_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .view-content .views-field-field-available-languages .items > a,
+.inner-page.eb-page .view-display-id-decisions_board_document_listing_pane .views-field-field-supporting-doc-upload-1 .view-content .views-field-field-available-languages .items > a {
+  background: #999 none repeat scroll 0 0;
+  border-radius: 3px;
+  color: #fff;
+  display: block;
+  font-family: robotobold;
+  height: 26px;
+  line-height: 26px;
+  padding: 0 6px;
+}
+
+/*=====================================
+EOF Exbo Decision board listing page
+=======================================*/
+
+/*=====================================
+SOF Exbo board event listing page
+=======================================*/
+
+.inner-page.eb-page .page-executive-board-events .event-list .view-events-header .selected-event{
+  display: none;
+  margin: 0;
+  color: #7e6e5b;
+}

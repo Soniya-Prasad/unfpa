@@ -1,0 +1,99 @@
+/*======================================
+SOF Media query 768px
+========================================*/
+
+@media all and (max-width: 768px) {
+  .inner-page.eb-page .view-id-executive_board.view-display-id-exbo_featured_documents > .view-content > .views-row {
+    width: 100%;
+  }
+}
+
+/*======================================
+EOF Media query 768px
+========================================*/
+
+/*======================================
+SOF Media query 640px
+========================================*/
+
+@media all and (max-width: 640px) {
+  .inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-row {
+    width: 44%;
+  }
+
+  .executive-board-filter-container {
+    margin: 0;
+    width: 100%;
+  }
+
+  .executive-board-filter-container .filter-option {
+    display: inline-block;
+    width: 186px;
+  }
+
+  .region-info-block .exbo-region-columns {
+    width: 42%;
+  }
+
+  .inner-page.eb-page .view-id-executive_board .views-field-field-eb-small-portrait-picture {
+    min-height: auto;
+  }
+  
+  .exbo-filter-wrapper .exbo-events-top-filters .form-item {
+    margin: 0 4% 4% 0;
+  }
+  
+  .country-documents-wrapper {
+    width: 42%;
+  }
+}
+
+/*======================================
+EOF Media query 640px
+========================================*/
+
+/*======================================
+SOF Media query 480px
+========================================*/
+
+@media all and (max-width: 480px) {
+  .inner-page.eb-page .view-id-executive_board.view-display-id-updates_listing_pane .views-row {
+    margin: 0 0 20px 0;
+    width: 97%;
+  }
+
+  .inner-page.eb-page .view-events-header .select-list .bluelink {
+    margin: 0 12px 15px 0;
+  }
+
+  .region-info-block .exbo-region-columns {
+    margin: 0 2% 2% 0;
+    width: 100%;
+  }
+
+  .inner-page.eb-page .view-id-executive_board .views-field-field-eb-small-portrait-picture {
+    float: none;
+  }
+  
+  .exbo-filter-wrapper .exbo-events-top-filters .form-item {
+    margin: 0 4% 6% 0;
+  }
+  
+  .country-documents-wrapper {
+    width: 94%;
+  }
+}
+
+/*======================================
+EOF Media query 640px
+========================================*/
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi), (min-resolution: 1.25dppx) {
+    #executive-board-map .icheckbox_futurico,
+    #executive-board-map .iradio_futurico {
+        background-image: url(futurico@2x.png);
+        -webkit-background-size: initial;
+        background-size: initial;
+    }
+}

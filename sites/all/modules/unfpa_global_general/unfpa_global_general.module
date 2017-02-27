@@ -1,0 +1,76 @@
+<?php
+
+include_once 'unfpa_global_general.preserve_filename.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function unfpa_global_general_menu() {
+  $items = array();
+
+  $items['styleguide'] = array(
+    'title' => t('Styleguide'),
+    'page callback' => 'unfpa_global_general_get_styleguide',
+    'access callback' => TRUE,
+  );
+
+  // The Drupal default node page access to be provided only for administer
+  // users. This is required to hide all the articles for SEO purposes.
+  $items['node'] = array(
+    'page callback' => 'node_page_default',
+    'access arguments' => array('administer content types'),
+    'menu_name' => 'navigation',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function unfpa_global_general_theme() {
+  return array(
+    'styleguide' => array(
+      'template' => 'styleguide',
+      'variables' => array(
+        'styleguide_source' => FALSE,
+      ),
+    ),
+  );
+}
+
+/**
+ * This is a workaround for the style guide page, serve it via an iframe.
+ */
+function unfpa_global_general_get_styleguide() {
+  $variables = array(
+    'styleguide_source' => variable_get('unfpa_global_styleguide_source', 'http://styleguide-unfpa-global.pantheon.io/'),
+  );
+
+  print theme('styleguide', $variables);
+}
+
+/**
+ * Implements hook_file_update().
+ *
+ * Since third-party websites refer to some of the documents in our server we
+ * should keep the same file name when updating the PDF, docx, doc files instead
+ * of the standard logic of drupal that adds an increasing integer as suffix.
+ * An example:
+ *  Updating a PDF, docx, doc on a `resource` node.
+ */
+function unfpa_global_general_file_update($file) {
+  // We should preserve only PDF, Docx, Doc files names.
+  $allowed_filemimes = array(
+    'application/pdf',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/msword'
+  );
+
+  if (!in_array($file->filemime, $allowed_filemimes)) {
+    return;
+  }
+
+  unfpa_global_general_preserve_filename($file);
+}

@@ -1,0 +1,3051 @@
+<?php
+
+/**
+ * @file
+ * Code for UNFPA GLobal Transparency data Portal.
+ */
+include_once 'includes/custom_data_portal.inc';
+// Define default year for transparency portal on funds and funding page.
+define('UNFPA_GLOBAL_FUNDS_DEFAULT_YEAR', '2014');
+
+/**
+ * Implements hook_block_info().
+ */
+function custom_data_portal_block_info() {
+  $blocks['custom_data_portal_map_form'] = array(
+    'info' => t('Block Data Portal Map Form'),
+  );
+  $blocks['custom_data_portal_map'] = array(
+    'info' => t('Block Data Portal Map'),
+  );
+  $blocks['custom_data_portal_country_form'] = array(
+    'info' => t('Block Data Portal Country Form'),
+  );
+  $blocks['custom_data_portal_pa'] = array(
+    'info' => t('Block Data Portal - Program Activities'),
+  );
+  $blocks['custom_data_portal_data_contributions'] = array(
+    'info' => t('Block Data Portal - Data Contributions'),
+  );
+  $blocks['custom_data_portal_donor_form'] = array(
+    'info' => t('Block Data Portal Donor Form'),
+  );
+  $blocks['custom_data_portal_data_contributions_form'] = array(
+    'info' => t('Block Data Portal Total need Form'),
+  );
+  $blocks['custom_data_portal_results_form'] = array(
+    'info' => t('Block Data Portal Results Form'),
+  );
+  $blocks['custom_data_portal_donor_contributions'] = array(
+    'info' => t('Block Data Portal - Donor Contributions'),
+  );
+  $blocks['custom_data_portal_results'] = array(
+    'info' => t('Block Data Portal - Results'),
+  );
+  $blocks['custom_data_portal_transparency_funds'] = array(
+    'info' => t('Transparency Funds and Funding'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function custom_data_portal_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'custom_data_portal_map_form':
+      $block['subject'] = t('Data Portal Map Block');
+      $block['content'] = drupal_get_form('custom_data_portal_form');
+      break;
+
+    case 'custom_data_portal_map':
+      $block['subject'] = t('Data Portal Map Block');
+      $block['content'] = show_data_portal_map();
+      break;
+
+    case 'custom_data_portal_country_form':
+      $block['subject'] = t('Data Portal Country Block Form');
+      $block['content'] = drupal_get_form('custom_data_portal_country_form');
+      break;
+
+    case 'custom_data_portal_pa':
+      $block['subject'] = t('Data Portal Program Activites Block');
+      $block['content'] = data_program_portal();
+      break;
+
+    case 'custom_data_portal_data_contributions':
+      $block['subject'] = t('Data Portal Program Data Contributions Block');
+      $block['content'] = data_contributions();
+      break;
+
+    case 'custom_data_portal_donor_form':
+      $block['subject'] = t('Data Portal Donor Block Form');
+      $block['content'] = drupal_get_form('custom_data_portal_donor_form');
+      break;
+
+    case 'custom_data_portal_data_contributions_form':
+      $block['subject'] = t('Data Portal Total need Block Form');
+      $block['content'] = drupal_get_form('custom_data_portal_data_contributions_form');
+      break;
+
+    case 'custom_data_portal_results_form':
+      $block['subject'] = t('Data Portal Results Block Form');
+      $block['content'] = drupal_get_form('custom_data_portal_results_form');
+      break;
+
+    case 'custom_data_portal_donor_contributions':
+      $block['subject'] = t('Data Portal Program Donor Contributions Block');
+      $block['content'] = donor_contributions();
+      break;
+
+    case 'custom_data_portal_results':
+      $block['subject'] = t('Data Portal Program Results Block');
+      $block['content'] = show_results();
+      break;
+
+    case 'custom_data_portal_transparency_funds':
+      $block['subject'] = t('Transparency Funds and Funding');
+      $block['content'] = custom_data_portal_funding_update_chart('Worldwide');
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function custom_data_portal_theme($data = array()) {
+  $path = drupal_get_path('module', 'custom_data_portal');
+  return array(
+    'custom_data_portal_results' => array(
+      'variables' => array('data' => $data),
+      'template' => 'results',
+    ),
+    'custom_data_portal_region' => array(
+      'variables' => array('data' => $data),
+      'template' => 'portal_region_new',
+    ),
+    'custom_data_portal_results_update' => array(
+      'variables' => array('data' => $data),
+      'template' => 'results_update',
+    ),
+    'custom_data_portal_results_cc_update' => array(
+      'variables' => array('data' => $data),
+      'template' => 'results_cc_update',
+    ),
+    'custom_data_portal_map' => array(
+      'variables' => array('data' => $data),
+      'template' => 'portal_map',
+    ),
+    'custom_data_portal_map_update' => array(
+      'variables' => array('data' => $data),
+      'template' => 'update_portal_map',
+    ),
+    'custom_data_portal_map_update_capita' => array(
+      'variables' => array('data' => $data),
+      'template' => 'update_capita_portal_map',
+    ),
+    'custom_data_portal_program_activities' => array(
+      'variables' => array('data' => $data),
+      'template' => 'portal_program_activities',
+    ),
+    'custom_data_portal_program_activities_update' => array(
+      'variables' => array('data' => $data),
+      'template' => 'portal_program_activities_update',
+    ),
+    'custom_data_portal_ierd_data_contributions' => array(
+      'variables' => array('data' => $data),
+      'template' => 'ierd_data_contributions',
+    ),
+    'custom_data_portal_donor_contributions' => array(
+      'variables' => array('data' => $data),
+      'template' => 'donor_contributions',
+    ),
+    'custom_data_portal_donor_contributions_update' => array(
+      'variables' => array('data' => $data),
+      'template' => 'donor_contributions_update',
+    ),
+    'custom_data_portal_ierd_data_contributions_update' => array(
+      'variables' => array('data' => $data),
+      'template' => 'ierd_data_contributions_update',
+    ),
+    // Define template file for Transparency funds and funding.
+    'custom_data_portal_transparency_funds_funding' => array(
+      'template' => 'transparency_funds_funding',
+      'path' => $path . '/templates',
+    ),
+    // Define template file for Transparency image block.
+    'custom_data_portal_transparency_block_images' => array(
+      'variables' => array(),
+      'template' => 'transparency_block_images',
+      'path' => $path . '/templates',
+    ),
+  );
+}
+
+/**
+ * This function displays data for the updating donut in Funds and Funding page.
+ * @param type $region
+ *  The name of the region.
+ *
+ * @return array
+ *  Array containing the variables for donut chart.
+ */
+function custom_data_portal_funding_update_chart($region) {
+  $path = drupal_get_path('module', 'custom_data_portal');
+
+  // Attach js files.
+  drupal_add_js($path . '/js/data-dashboard-funds.js', array('type' => 'file', 'scope' => 'footer'));
+  // Get country list.
+  $country_name = custom_data_portal_get_list_from_field('field_country_code');
+  // Get outcomes detail.
+  $outcomes = custom_data_portal_transparency_funds_get_outcomes();
+  $query_year = db_select('iatifinal');
+  $query_year->addExpression('MAX(year)');
+  $latest_year = $query_year->execute()->fetchField();
+
+  $query = db_select('iatifinal', 'i');
+  $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+  $query->fields('i');
+  $query->fields('s');
+  $query->condition('i.year', $latest_year);
+  if ($region != 'Worldwide') {
+    // Function to convert all HTML entities to their applicable characters.
+    $query->condition('i.regionName', decode_entities($region), '=');
+  }
+  else {
+    $query->orderBy('i.year');
+    $query->orderBy('i.countryName');
+  }
+  $result = $query->execute()->fetchAll();
+
+  $spending_data = array();
+  $get_year = array();
+  $activities_data = array();
+  $fund_core = array();
+  $fund_noncore = array();
+  $country = array();
+  $location = array();
+  $i = 0;
+  foreach ($result as $record) {
+    // Function to remove the trailing space.
+    $field_office = trim($record->field_office);
+    // Country code with two characters only to be processed.
+    if (strlen($field_office) == 2) {
+      $spending_data[$record->year][$field_office][] = $record->amount;
+      $get_year[$record->year] = $record->year;
+    }
+    $activities_data[$record->year][$record->outcome][] = $record->amount;
+    if ($record->fund_cat != 'CORE') {
+      // Funds with Category 'NONCORE'.
+      $fund_noncore[$record->year][$record->outcome][$i] = $record->amount;
+    }
+    else {
+      // Funds with Category 'CORE'.
+      $fund_core[$record->year][$record->outcome][$i] = $record->amount;
+    }
+    $i++;
+  }
+
+  // Function converts special HTML entities back to characters.
+  $region = htmlspecialchars_decode($region);
+  // Donut and bar chart for all resources.
+  $prepare_donut_updated_chart_all_resource = transparency_funds_and_funding_prepare_donut_chart($activities_data, $outcomes, 'donutchart-all', $region);
+  $prepare_bar_chart_from_donut_updated_all_resources = transparency_funds_and_funding_prepare_bar_chart_from_donut($activities_data, $outcomes, 'bchart-all');
+
+  // Donut and bar chart for core.
+  $prepare_donut_updated_chart_core = transparency_funds_and_funding_prepare_donut_chart($fund_core, $outcomes, 'donutchart-core', $region);
+  $prepare_bar_chart_from_donut_updated_core = transparency_funds_and_funding_prepare_bar_chart_from_donut($fund_core, $outcomes, 'bchart-core');
+
+  // Donut and bar chart for non-core.
+  $prepare_donut_updated_chart_noncore = transparency_funds_and_funding_prepare_donut_chart($fund_noncore, $outcomes, 'donutchart-noncore', $region);
+  $prepare_bar_chart_from_donut_updated_noncore = transparency_funds_and_funding_prepare_bar_chart_from_donut($fund_noncore, $outcomes, 'bchart-noncore');
+
+  $chart_variables = array(
+    'donut_chart_all_resources' => $prepare_donut_updated_chart_all_resource,
+    'bar_chart_from_donut_chart_all_resources' => $prepare_bar_chart_from_donut_updated_all_resources,
+    'donut_chart_core' => $prepare_donut_updated_chart_core,
+    'bar_chart_from_donut_chart_core' => $prepare_bar_chart_from_donut_updated_core,
+    'donut_chart_noncore' => $prepare_donut_updated_chart_noncore,
+    'bar_chart_from_donut_chart_noncore' => $prepare_bar_chart_from_donut_updated_noncore,
+    'region' => $region,
+    'year' => $latest_year
+  );
+
+  drupal_add_js($chart_variables, 'setting');
+
+  $variables = array(
+    'transparency_images_section' => custom_data_portal_transparency_block_images(),
+  );
+
+  return theme('custom_data_portal_transparency_funds_funding', $variables);
+}
+
+/**
+ * Prepare data for Donut chart for transparency portal programme activities.
+ *
+ * @param array $activities_data
+ *  Year wise outcome amount.
+ * @param array $outcomes
+ *  Get outcomes details.
+ * @param string $id
+ *  Chart div id.
+ * @param string $region
+ *   Region name.
+ * 
+ * @return array
+ *  Array containing data for donut chart.
+ */
+function transparency_funds_and_funding_prepare_donut_chart($activities_data, $outcomes, $id, $region) {
+  $label = array();
+  $parent_label = array();
+  $budget = array();
+  $parent_category_data = array();
+  $parent_id = 1;
+  $index = 0;
+  $parent_category_data['P' . $parent_id] = 0;
+  $colors = array('#4495D1', '#F7931D', '#40B879', '#7D79A8', '#C0DB7D');
+  $chart_rows = array();
+  $chart_cols = array();
+  $chart_slices = array();
+  $i = 0;
+  // To prepare parent outcome label.
+  foreach ($outcomes as $type) {
+    // Function to push elements onto the end of array.
+    array_push($label, $type['label']);
+  }
+  // Function to remove duplicate values from an array.
+  $label = array_unique($label);
+  // Change the key of label to match the key of Parent Category's key.
+  foreach ($label as $key) {
+    // Function to push elements onto the end of array.
+    array_push($parent_label, $key);
+  }
+
+  foreach ($activities_data as $activities) {
+    foreach ($activities as $activity => $amount) {
+      $total_value = 0;
+      foreach ($amount as $value) {
+        $total_value+= $value;
+      }
+      // Total budget of individual Category.
+      $budget[$activity] = $total_value;
+    }
+
+    foreach ($outcomes as $project_type => $type) {
+      if ($parent_label[$index] === $type['label']) {
+        if (!isset($budget[$project_type])) {
+          $budget[$project_type] = 0;
+        }
+        $parent_category_data['P' . $parent_id] = $parent_category_data['P' . $parent_id] + $budget[$project_type];
+      }
+      else {
+        $index++;
+        $parent_id++;
+        $parent_category_data['P' . $parent_id] = 0;
+      }
+    }
+
+    $chart_cols = array(
+      array(
+        'id' => 'sector',
+        'label' => t('Sector'),
+        'pattern' => '',
+        'type' => 'string'
+      ),
+      array(
+        'id' => 'percentage',
+        'label' => t('Percentage'),
+        'pattern' => '',
+        'type' => 'number'
+      )
+    );
+    // Ignore the negative values for budget.
+    foreach ($parent_category_data as $parent_key => $parent_budget) {
+      $parent_budget = ($parent_budget < 0 ? 0 : $parent_budget);
+
+      array_push($chart_rows, array('c' => array(
+          array('v' => $outcomes[$parent_key]["label"]),
+          array('v' => $parent_budget)
+        )
+      ));
+      $chart_slices[$i]['color'] = $colors[$i];
+      $i++;
+    }
+  }
+
+  $data['donut_chart'] = array(
+    'rows' => $chart_rows,
+    'cols' => $chart_cols,
+    'color' => $chart_slices,
+  );
+  $data['id'] = $id;
+  $data['region'] = $region;
+
+  return $data;
+}
+
+/**
+ * This function is used to prepare data for Bar chart from Donut chart.
+ *
+ * @param array $activities_data
+ *  Year wise outcome amount.
+ * @param array $outcomes
+ *  Get outcomes details.
+ * @param string $id
+ *  Chart div id.
+ *
+ * @return array
+ *  Array containing data for bar chart.
+ */
+function transparency_funds_and_funding_prepare_bar_chart_from_donut($activities_data, $outcome, $id) {
+  $colors = array('#4495D1', '#1E5985', '#455B7A', '#6CA5D9', '#8FB7E1',
+    '#7587A8', '#F7931D', '#C38743', '#EC9E46', '#FCBB75', '#40B879', '#5F7F6C',
+    '#5E9E78', '#6FC391', '#7D79A8', '#324053', '#4F4261', '#6A618B', '#A9A4C5',
+    '#C0DB7D', '#A2B37C', '#CCE195', '#D8E8AE');
+  $budget = array();
+  foreach ($activities_data as $activities) {
+    foreach ($activities as $activity_type => $activity) {
+      $total_value = 0;
+      foreach ($activity as $activity_value) {
+        $total_value+= $activity_value;
+      }
+      $budget[$activity_type] = $total_value;
+    }
+  }
+  $chart_cols = array(
+    array(
+      'id' => 'sector',
+      'label' => t('Sector'),
+      'pattern' => '',
+      'type' => 'string'
+    ),
+    array(
+      'id' => 'expenses',
+      'label' => t('Expenses'),
+      'pattern' => '',
+      'type' => 'number'
+    ),
+    array(
+      'id' => 'style',
+      'label' => t('Style'),
+      'role' => 'style',
+      'type' => 'string'
+    )
+  );
+  $chart_rows = array();
+  $i = 0;
+  foreach ($outcome as $outcome_key => $support_outcomes) {
+    $budget_outcome = isset($budget[$outcome_key]) ? $budget[$outcome_key] : NULL;
+    // Function to find the position of the first occurrence of letter 'P' in a string $outcome_key.
+    if (strpos($outcome_key, 'P') === FALSE) {
+      if (($budget_outcome === NULL) || ($budget_outcome < 0)) {
+        $budget_outcome = 0;
+      }
+    }
+    else {
+      $budget_outcome = NULL;
+    }
+    array_push($chart_rows, array('c' => array(
+        array('v' => $support_outcomes['outcomes']),
+        array('v' => $budget_outcome),
+        array('v' => $colors[$i]),
+      )
+    ));
+    $i++;
+  }
+  $data['bar_chart'] = array(
+    'rows' => $chart_rows,
+    'cols' => $chart_cols,
+  );
+  $data['id'] = $id;
+
+  return $data;
+}
+
+/**
+ * This function is used to create custom form for Program Expenses.
+ *
+ * @param array $form
+ *   The unique string identifying the desired form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function custom_data_portal_form($form, &$form_state) {
+  $default_year = variable_get('default_year', 2015);
+  $form['custom_data_portal']['year'] = array(
+    '#title' => t('Year:'),
+    '#type' => 'select',
+    '#options' => _load_year(),
+    '#default_value' => isset($form_state['values']['year']) ? $form_state['values']['year'] : $default_year,
+    '#ajax' => array(
+      'event' => 'change',
+      'callback' => 'custom_data_portal_activities',
+      'wrapper' => 'activities-wrapper',
+    ),
+    '#suffix' => '<div id="actvity-selector"><div class="label">Programme Activities:</div><div class="select-activity">Please select</div></div>',
+  );
+  $options01 = array();
+  $options02 = array();
+  $options03 = array();
+  $options04 = array();
+  $options05 = array();
+  if (isset($form_state['values']['year'])) {
+    $options01 = _load_activities($form_state['values']['year'], 'Outcome 1');
+    $options02 = _load_activities($form_state['values']['year'], 'Outcome 2');
+    $options03 = _load_activities($form_state['values']['year'], 'Outcome 3');
+    $options04 = _load_activities($form_state['values']['year'], 'Outcome 4');
+    $options05 = _load_activities($form_state['values']['year'], 'Outcome 5');
+  }
+  else {
+    $options01 = _load_activities($default_year, 'Outcome 1');
+    $options02 = _load_activities($default_year, 'Outcome 2');
+    $options03 = _load_activities($default_year, 'Outcome 3');
+    $options04 = _load_activities($default_year, 'Outcome 4');
+    $options05 = _load_activities($default_year, 'Outcome 5');
+  }
+  $form['custom_data_portal']['resource_type'] = array(
+    '#title' => t('Resource Type:'),
+    '#type' => 'select',
+    '#options' => _load_type_resources(),
+    '#default_value' => isset($form_state['values']['resource_type']) ? $form_state['values']['resource_type'] : '3',
+  );
+  // Form submit button.
+  $form["custom_data_portal"]["submit"] = array(
+    "#value" => t("Submit"),
+    "#type" => "submit",
+    '#ajax' => array(
+      'callback' => '_handle_form_submit',
+      'method' => 'html',
+      'wrapper' => 'map-box-wrapper',
+      'effect' => 'fade',
+    ),
+  );
+  $form['custom_data_portal']['wrapper'] = array(
+    '#prefix' => '<div id="activities-wrapper">',
+    '#suffix' => '<span id="select-all">Select all</span></div>',
+  );
+  // Activity dropdown list.
+  $form['custom_data_portal']['wrapper']['s01'] = array(
+    '#type' => 'checkboxes',
+    '#options' => $options01,
+    '#attributes' => array('class' => array('activities-checkboxes')),
+    '#default_value' => array_keys($options01),
+  );
+  $form['custom_data_portal']['wrapper']['s02'] = array(
+    '#type' => 'checkboxes',
+    '#options' => $options02,
+    '#attributes' => array('class' => array('activities-checkboxes')),
+    '#default_value' => array_keys($options02),
+  );
+  $form['custom_data_portal']['wrapper']['s03'] = array(
+    '#type' => 'checkboxes',
+    '#options' => $options03,
+    '#attributes' => array('class' => array('activities-checkboxes')),
+    '#default_value' => array_keys($options03),
+  );
+  $form['custom_data_portal']['wrapper']['s04'] = array(
+    '#type' => 'checkboxes',
+    '#options' => $options04,
+    '#attributes' => array('class' => array('activities-checkboxes')),
+    '#default_value' => array_keys($options04),
+  );
+  $form['custom_data_portal']['wrapper']['o01'] = array(
+    '#prefix' => '<div id="activities-seperator"></div>',
+    '#type' => 'checkboxes',
+    '#options' => $options05,
+    '#attributes' => array('class' => array('activities-checkboxes')),
+    '#default_value' => array_keys($options05),
+  );
+  $form['map-box'] = array(
+    '#prefix' => '<div id="map-box-wrapper">',
+    '#suffix' => '</div>',
+  );
+
+  return $form;
+}
+
+/**
+ * This function is used to create form for donut contribution.
+ *
+ * @param array $form
+ *   The unique string identifying the desired form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function custom_data_portal_donor_form($form, &$form_state) {
+  $default_year = variable_get('default_year', 2015);
+  $form['custom_data_portal_donor']['year'] = array(
+    '#title' => t('Year:'),
+    '#type' => 'select',
+    '#options' => _load_year_donor(),
+    '#default_value' => isset($form_state['values']['year']) ? $form_state['values']['year'] : $default_year,
+  );
+  $form['custom_data_portal_donor']['resource_type'] = array(
+    '#title' => t('Resource Type:'),
+    '#type' => 'select',
+    '#options' => _load_type_resources(),
+    '#default_value' => isset($form_state['values']['resource_type']) ? $form_state['values']['resource_type'] : '3',
+  );
+  // Form submit button.
+  $form["custom_data_portal_donor"]["submit"] = array(
+    "#value" => t("Submit"),
+    "#type" => "submit",
+    '#ajax' => array(
+      'callback' => '_handle_form_submit_donor',
+      'method' => 'html',
+      'wrapper' => 'map-box-wrapper',
+      'effect' => 'fade',
+    ),
+  );
+  $form['map-box'] = array(
+    '#prefix' => '<div id="map-box-wrapper">',
+    '#suffix' => '</div>',
+  );
+
+  return $form;
+}
+
+/**
+ * This function is used to create form for Total Need.
+ *
+ * @param array $form
+ *   The unique string identifying the desired form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function custom_data_portal_data_contributions_form($form, &$form_state) {
+  $default_year = '2013';
+  $form['custom_data_portal_data_contributions']['year'] = array(
+    '#title' => t('Year:'),
+    '#type' => 'select',
+    '#options' => _load_year_data_contributions(),
+    '#default_value' => isset($form_state['values']['year']) ? $form_state['values']['year'] : $default_year,
+  );
+  // Form submit button.
+  $form["custom_data_portal_data_contributions"]["submit"] = array(
+    "#value" => t("Submit"),
+    "#type" => "submit",
+    '#ajax' => array(
+      'callback' => '_handle_form_submit_data_contributions',
+      'method' => 'html',
+      'wrapper' => 'map-box-wrapper',
+      'effect' => 'fade',
+    ),
+  );
+  $form['map-box'] = array(
+    '#prefix' => '<div id="map-box-wrapper">',
+    '#suffix' => '</div>',
+  );
+
+  return $form;
+}
+
+/**
+ * This function is used to create form for results.
+ *
+ * @param array $form
+ *   The unique string identifying the desired form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function custom_data_portal_results_form($form, &$form_state) {
+  $default_indicator = 1;
+  $form['custom_data_portal_results']['indicator'] = array(
+    '#title' => t('Indicators:'),
+    '#type' => 'select',
+    '#options' => _load_indicator_results(),
+    '#default_value' => isset($form_state['values']['indicator']) ? $form_state['values']['indicator'] : $default_indicator,
+  );
+  // Form submit button.
+  $form["custom_data_portal_results"]["submit"] = array(
+    "#value" => t("Submit"),
+    "#type" => "submit",
+    '#ajax' => array(
+      'callback' => '_handle_form_submit_results',
+      'method' => 'html',
+      'wrapper' => 'map-box-wrapper',
+      'effect' => 'fade',
+    ),
+  );
+  $form['map-box'] = array(
+    '#prefix' => '<div id="map-box-wrapper">',
+    '#suffix' => '</div>',
+  );
+
+  return $form;
+}
+
+/**
+ * This function is used to create form for Country Transparency portal pages.
+ *
+ * @param array $form
+ *   The unique string identifying the desired form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function custom_data_portal_country_form($form, &$form_state) {
+  $form['custom_data_portal_country']['year'] = array(
+    '#title' => t('Year:'),
+    '#type' => 'select',
+    '#options' => _load_year(),
+    '#default_value' => isset($form_state['values']['year']) ? $form_state['values']['year'] : variable_get('default_year', 2015),
+  );
+  $form["custom_data_portal_country"]["country_id"] = array(
+    '#type' => 'hidden',
+    '#value' => arg(1),
+  );
+  // Form submit button.
+  $form["custom_data_portal_country"]["submit"] = array(
+    "#value" => t("Submit"),
+    "#type" => "submit",
+    '#ajax' => array(
+      'callback' => '_handle_form_submit_country',
+      'method' => 'html',
+      'wrapper' => 'map-box-wrapper',
+      'effect' => 'fade',
+    ),
+  );
+
+  return $form;
+}
+
+/**
+ * This function is used to replace string.
+ *
+ * @param string $str_pop
+ *   The string which needs to be renamed.
+ *
+ * @return string
+ *   The value in digits.
+ */
+function remove_mil_text($str_pop) {
+  $val = str_replace("mil", "", $str_pop);
+  $val = trim($val) * 1000000;
+  return $val;
+}
+
+/**
+ * This function is used to handle Submit of Programme Expenses .
+ *
+ * @param array $form
+ *   The unique string identifying the desired form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function _handle_form_submit($form, &$form_state) {
+  $sel_activity = array();
+  $selected_year = $form_state["values"]["year"];
+  $sel_activity = array_slice($form_state["values"]["s01"], 1, 5, TRUE) ? $form_state["values"]["s01"] : array_slice($form_state["values"]["s01"], 1, 5, TRUE);
+  $sel_activity = array_merge($sel_activity, array_slice($form_state["values"]["s02"], 1) ? $form_state["values"]["s02"] : array_slice($form_state["values"]["s02"], 1, 5, TRUE));
+  $sel_activity = array_merge($sel_activity, array_slice($form_state["values"]["s03"], 1) ? $form_state["values"]["s03"] : array_slice($form_state["values"]["s03"], 1, 5, TRUE));
+  $sel_activity = array_merge($sel_activity, array_slice($form_state["values"]["s04"], 1) ? $form_state["values"]["s04"] : array_slice($form_state["values"]["s04"], 1, 5, TRUE));
+  $sel_activity = array_merge($sel_activity, array_slice($form_state["values"]["o01"], 1) ? $form_state["values"]["o01"] : array_slice($form_state["values"]["o01"], 1, 5, TRUE));
+  $sel_type = '1';
+  $res_type = $form_state['values']['resource_type'];
+  $type = array();
+  $type["1"] = t("core");
+  $type["2"] = t("non core");
+  $type["3"] = "";
+  $resource_title = $type[$res_type];
+  switch ($sel_type) {
+    // Fot Total Spending.
+    case '1':
+      $field_data_country_code = custom_data_portal_get_list_from_field('field_country_code');
+      // Fetch Contentt Type Programme Country Data.
+      $cc_data = views_get_view_result("vw_data_portal", "custom_pa_list_panel");
+
+      $cc_arr = array();
+      foreach ($cc_data as $c_data) {
+        $c_nid = $c_data->nid;
+        $c_code = $c_data->field_field_country_code[0]["rendered"]["#markup"];
+        $cc_arr[$c_code]['name'] = $field_data_country_code[$c_code];
+        $cc_arr[$c_code]['url'] = drupal_get_path_alias("node/" . $c_nid);
+        $cc_arr[$c_code]['description'] = "";
+      }
+      $cdp_obj = new CDP();
+      $so_arr = array();
+      $so_arr = $cdp_obj->getOutcomes();
+      // Get Color Code Percentwise.
+      $color_code_arr = array();
+      $color_code_arr = $cdp_obj->getPAColorCode();
+      // Get List of selected activity from dropdown to use in query.
+      $activity_list_arr = $cdp_obj->getActivitylist($sel_activity);
+      $final_data = array();
+      switch ($res_type) {
+        case '1':
+          $query = db_select('iatifinal', 'i');
+          $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+          $query->fields('i');
+          $query->fields('s');
+          $query->condition('i.fund_cat', 'CORE');
+          break;
+
+        case '2':
+          $query = db_select('iatifinal', 'i');
+          $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+          $query->fields('i');
+          $query->fields('s');
+          $query->condition('i.fund_cat', 'EARMARKED');
+          break;
+
+        case '3':
+          $query = db_select('iatifinal', 'i');
+          $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+          $query->fields('i');
+          $query->fields('s');
+          break;
+      }
+      if (count($activity_list_arr) > 0) {
+        $query->condition('i.outcome', $activity_list_arr, 'IN');
+      }
+      $query->orderBy('i.year', "ASC");
+      $query->orderBy('i.outcome', "ASC");
+      $result = $query->execute()->fetchAll();
+      $p_arr_spending = array();
+      $p_year_arr = array();
+      $p_total_spending = array();
+      $p_max_arr = array();
+      $p_outcome = array();
+      $p_description = array();
+      $i = 0;
+      foreach ($result as $p) {
+        $year = $p->year;
+        $amount = $p->amount;
+        $desp = $p->descr;
+        $short_text = $p->short_text;
+        $field_office = trim($p->field_office);
+        $field_office_len = strlen($field_office);
+        // If Country_Code is of two characters.
+        if ($field_office_len == 2) {
+          $p_arr_spending[$year][$field_office][] = $amount;
+          $p_total_spending[$year][] = $amount;
+          $p_outcome[$year] = $sel_activity;
+          $p_year_arr[$year] = $year;
+          $p_description[$desp] = $short_text;
+          $i++;
+        }
+      }
+      if (count($p_arr_spending) > 0) {
+        foreach ($p_arr_spending as $year => $c_office) {
+          foreach ($c_office as $cc => $c_amt) {
+            $p_max_arr[$year][$cc] = array_sum($c_amt);
+          }
+        }
+      }
+      // For Total Expenses.
+      $query = db_select('iatifinal', 'i');
+      $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+      $query->fields('i');
+      $query->fields('s');
+      $query->condition('i.year', $selected_year);
+      $query->orderBy('i.year', "ASC");
+      $query->orderBy('i.outcome', "ASC");
+      $result = $query->execute()->fetchAll();
+      foreach ($result as $p) {
+        $year = $p->year;
+        $amount = $p->amount;
+        $field_office = $p->field_office;
+        $i++;
+      }
+      $query = db_select('iatifinal', 'i');
+      $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+      $query->fields('i');
+      $query->fields('s');
+      $query->condition('i.year', $selected_year);
+      $query->orderBy('i.year', "ASC");
+      $query->orderBy('i.outcome', "ASC");
+      $result = $query->execute()->fetchAll();
+      $p_total_spending_all_activity = array();
+      foreach ($result as $p) {
+        $year = $p->year;
+        $amount = $p->amount;
+        $field_office = $p->field_office;
+        $p_total_spending_all_activity[$year][$field_office][] = $amount;
+        $i++;
+      }
+
+      $final_data["support_outcomes"] = $so_arr;
+      // For generating the Heat Map array.
+      $final_data["map_data"] = $p_arr_spending;
+      // For generating the Heat Map array.
+      $final_data["max_spending"] = $p_max_arr;
+      $final_data["year_arr"] = $p_year_arr;
+      $final_data["total_spending"] = $p_total_spending;
+      $final_data["selected_outcome"] = $p_outcome;
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["total_spending_all_activity"] = $p_total_spending_all_activity;
+      $final_data["selected_year"] = $selected_year;
+      $final_data["selected_type"] = $sel_type;
+      $final_data["selected_activity_list"] = $p_description;
+      $final_data["selected_resource_type"] = $resource_title;
+      $template_name = "custom_data_portal_map_update";
+      break;
+
+    case '2':
+      $field_data_country_code = custom_data_portal_get_list_from_field('field_country_code');
+      // Fetch Contentt Type Programme Country Data.
+      $cc_data = views_get_view_result("vw_data_portal", "custom_pa_list_panel");
+      $cc_arr = array();
+      foreach ($cc_data as $c_data) {
+        $c_nid = $c_data->nid;
+        $c_code = $c_data->field_field_country_code[0]["rendered"]["#markup"];
+        $c_pop = isset($c_data->field_field_population[0]["rendered"]["#markup"]) ? $c_data->field_field_population[0]["rendered"]["#markup"] : '1';
+        $cc_arr[$c_code]['name'] = $field_data_country_code[$c_code];
+        $cc_arr[$c_code]['url'] = drupal_get_path_alias("node/" . $c_nid);
+        $cc_arr[$c_code]['description'] = "";
+        $cc_arr[$c_code]['population'] = $c_pop;
+      }
+      $cdp_obj = new CDP();
+      $so_arr = array();
+      $so_arr = $cdp_obj->getOutcomes();
+      // Get Color Code Percentwise.
+      $color_code_arr = array();
+      $color_code_arr = $cdp_obj->getPAColorCode();
+      // Get List of selected activity from dropdown to use in query.
+      $activity_list_arr = $cdp_obj->getActivitylist($sel_activity);
+      $final_data = array();
+      switch ($res_type) {
+        case '1':
+          $query = db_select('iatifinal', 'i');
+          $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+          $query->fields('i');
+          $query->fields('s');
+          $query->condition('i.fund_cat', 'CORE');
+          break;
+
+        case '2':
+          $query = db_select('iatifinal', 'i');
+          $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+          $query->fields('i');
+          $query->fields('s');
+          $query->condition('i.fund_cat', 'EARMARKED');
+          break;
+
+        case '3':
+          $query = db_select('iatifinal', 'i');
+          $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+          $query->fields('i');
+          $query->fields('s');
+          break;
+      }
+      if (count($activity_list_arr) > 0) {
+        $query->condition('i.outcome', $activity_list_arr, 'IN');
+      }
+      $query->orderBy('i.year', "ASC");
+      $query->orderBy('i.outcome', "ASC");
+      $result = $query->execute()->fetchAll();
+      $p_arr_spending = array();
+      $p_year_arr = array();
+      $p_total_spending = array();
+      $p_total_spending_all_activity = array();
+      $p_max_arr = array();
+      $p_outcome = array();
+      $p_description = array();
+      $i = 0;
+      foreach ($result as $p) {
+        $year = $p->year;
+        $amount = $p->amount;
+        $desp = $p->descr;
+        $short_text = $p->short_text;
+        $field_office = trim($p->field_office);
+        $field_office_len = strlen($field_office);
+        // If Country_Code is of two characters.
+        if ($field_office_len == 2) {
+          $p_arr_spending[$year][$field_office][] = $amount;
+          $p_total_spending[$year][] = $amount;
+          $p_outcome[$year] = $sel_activity;
+          $p_year_arr[$year] = $year;
+          $p_description[$desp] = $short_text;
+          $i++;
+        }
+      }
+      if (count($p_arr_spending) > 0) {
+        foreach ($p_arr_spending as $year => $c_office) {
+          foreach ($c_office as $cc => $c_amt) {
+            $p_max_arr[$year][$cc] = array_sum($c_amt) / remove_mil_text($cc_arr[$cc]["population"]);
+          }
+        }
+      }
+      $query = db_select('iatifinal', 'i');
+      $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+      $query->fields('i');
+      $query->fields('s');
+      $query->condition('i.year', $selected_year);
+      $query->orderBy('i.year', "ASC");
+      $query->orderBy('i.outcome', "ASC");
+      $result = $query->execute()->fetchAll();
+      foreach ($result as $p) {
+        $year = $p->year;
+        $amount = $p->amount;
+        $field_office = $p->field_office;
+        $p_total_spending_all_activity[$year][$field_office][] = $amount;
+        $i++;
+      }
+      $final_data["support_outcomes"] = $so_arr;
+      // For generating the Heat Map array.
+      $final_data["map_data"] = $p_arr_spending;
+      $final_data["max_spending"] = $p_max_arr;
+      $final_data["year_arr"] = $p_year_arr;
+      $final_data["total_spending"] = $p_total_spending;
+      $final_data["total_spending_all_activity"] = $p_total_spending_all_activity;
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["selected_year"] = $selected_year;
+      $final_data["selected_resource_type"] = $resource_title;
+      $final_data["selected_type"] = $sel_type;
+      $final_data["selected_activity_list"] = $p_description;
+      $template_name = "custom_data_portal_map_update_capita";
+      break;
+  }
+
+  // Selected year variable added in drupal settings.
+  drupal_add_js(array('data_portal_selected_year' => $selected_year), 'setting');
+
+  return theme($template_name, array('data' => $final_data));
+}
+
+/**
+ * This function is used to handle Submit of Donor Contributions.
+ *
+ * @param array $form
+ *   The unique string identifying the desired form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function _handle_form_submit_donor($form, &$form_state) {
+  $selected_year = $form_state["values"]["year"];
+  $sel_type = $form_state["values"]["resource_type"];
+  $final_data = array();
+  $chart_array = array();
+  $total_commitments = array();
+  // Fetch data from the allowed value for select field in content type
+  // ct_data_portal.
+  $field_data_country_code = custom_data_portal_get_list_from_field('field_country_code');
+  // Fetch Content Type Programme Country Data.
+  $cc_data = views_get_view_result("vw_data_portal", "custom_pa_list_panel");
+  $cc_arr = array();
+  foreach ($cc_data as $c_data) {
+    $c_nid = $c_data->nid;
+    $c_code = $c_data->field_field_country_code[0]["rendered"]["#markup"];
+    $cc_arr[$c_code]['name'] = $field_data_country_code[$c_code];
+    $cc_arr[$c_code]['url'] = drupal_get_path_alias("node/" . $c_nid);
+    $cc_arr[$c_code]['description'] = "";
+  }
+  switch ($sel_type) {
+    // For Core.
+    case '1':
+      $query = db_select('donor_dataportal_new', 'd')->fields('d')->condition('d.resource_type', 'CORE');
+      $query->addExpression('SUM(d.commitments)', 'total_commitments');
+      $query->addExpression('SUM(d.payments_received)', 'total_payments_received');
+      $query->condition('d.year', $selected_year);
+      $query->groupBy('d.country_code');
+      $query->orderBy('total_commitments', "DESC");
+      $result = $query->execute();
+      $res = $result->fetchAll();
+      $dd_arr = array();
+      $p_year_arr = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = $p->country_code;
+        $commitments = $p->total_commitments;
+        $payments_received = $p->total_payments_received;
+        $year = $p->year;
+        $resource_type = $p->resource_type;
+        $total_commitments[$i] = $commitments;
+        $dd_arr[$year][$country_code]['commitments'] = $commitments;
+        $dd_arr[$year][$country_code]['payments_received'] = $payments_received;
+        $dd_arr[$year][$country_code]['resource_type'] = $resource_type;
+        $chart_array[$year][$i]["cc"] = isset($field_data_country_code[$country_code]) ? $field_data_country_code[$country_code] : $country_code;
+        $chart_array[$year][$i]["donation"] = $commitments;
+        $i++;
+        $p_year_arr[$year] = $year;
+      }
+      break;
+
+    // For Non Core.
+    case '2':
+      $check_array = array(
+        'TTF - Multi Donor',
+        'JP-UNFPA: Administrative Agent',
+        'Multi Donor',
+        'UNFPA',
+      );
+      $q = db_select('donor_dataportal_new', 'd')->fields('d')->condition('d.resource_type', 'NON CORE');
+      $q->addExpression('SUM(d.commitments)', 'total_commitments');
+      $q->addExpression('SUM(d.payments_received)', 'total_payments_received');
+      $q->condition('d.year', $selected_year);
+      $q->groupBy('d.country_code');
+      $q->orderBy('total_commitments', "DESC");
+      $result_q = $q->execute();
+      $res = $result_q->fetchAll();
+      $dd_arr = array();
+      $p_year_arr = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = trim($p->country_code);
+        $commitments = $p->total_commitments;
+        $payments_received = $p->total_payments_received;
+        $year = $p->year;
+        $resource_type = $p->resource_type;
+        $total_commitments[$i] = $commitments;
+        $dd_arr[$year][$country_code]['commitments'] = isset($dd_arr[$year][$country_code]['commitments']) ? $commitments + $dd_arr[$year][$country_code]['commitments'] : $commitments;
+        $dd_arr[$year][$country_code]['payments_received'] = isset($dd_arr[$year][$country_code]['payments_received']) ? $payments_received + $dd_arr[$year][$country_code]['payments_received'] : $payments_received;
+        $dd_arr[$year][$country_code]['resource_type'] = $resource_type;
+        if (!in_array($country_code, $check_array)) {
+          $chart_array[$year][$i]["cc"] = isset($field_data_country_code[$country_code]) ? $field_data_country_code[$country_code] : $country_code;
+          $chart_array[$year][$i]["donation"] = $dd_arr[$year][$country_code]['commitments'];
+        }
+        $i++;
+        $p_year_arr[$year] = $year;
+      }
+      break;
+
+    // For Both Core and Non Core.
+    case '3':
+      $check_array = array(
+        'TTF - Multi Donor',
+        'JP-UNFPA: Administrative Agent',
+        'Multi Donor',
+        'UNFPA',
+      );
+      $res_array = array('CORE', 'NON CORE');
+      $q = db_select('donor_dataportal_new', 'd')->fields('d')->condition('d.resource_type', $res_array, 'IN');
+      $q->condition('d.year', $selected_year);
+      $q->orderBy('commitments', "DESC");
+      $result_q = $q->execute();
+      $res = $result_q->fetchAll();
+      $dd_arr = array();
+      $dd_specific_arr = array();
+      $p_year_arr = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = trim($p->country_code);
+        $commitments = $p->commitments;
+        $payments_received = $p->payments_received;
+        $org_name = $p->donor_name;
+        $year = $p->year;
+        $resource_type = $p->resource_type;
+        $total_commitments[$i] = $commitments;
+        if (!empty($country_code)) {
+          $dd_arr[$year][$country_code]['commitments'] = isset($dd_arr[$year][$country_code]['commitments']) ? $commitments + $dd_arr[$year][$country_code]['commitments'] : $commitments;
+          $dd_arr[$year][$country_code]['payments_received'] = isset($dd_arr[$year][$country_code]['payments_received']) ? $payments_received + $dd_arr[$year][$country_code]['payments_received'] : $payments_received;
+        }
+        else {
+          $country_code = !empty($country_code) ? $field_data_country_code[$country_code] : $org_name;
+        }
+        switch ($resource_type) {
+          case 'CORE':
+            $dd_specific_arr[$year][$country_code]['core_payment'] = isset($dd_specific_arr[$year][$country_code]['core_payment']) ? $commitments + $dd_specific_arr[$year][$country_code]['core_payment'] : $commitments;
+            break;
+
+          case 'NON CORE':
+            $dd_specific_arr[$year][$country_code]['noncore_payment'] = isset($dd_specific_arr[$year][$country_code]['noncore_payment']) ? $commitments + $dd_specific_arr[$year][$country_code]['noncore_payment'] : $commitments;
+            break;
+        }
+        $i++;
+        $p_year_arr[$year] = $year;
+      }
+      $q_chart = db_select('donor_dataportal_new', 'd')->fields('d')
+        ->condition('d.resource_type', $res_array, 'IN')
+        ->condition('d.year', $selected_year)
+        ->groupBy('d.country_code', 'd.year')
+        ->orderBy('total_commitments', "DESC")
+        ->range(0, 23);
+      $q_chart->addExpression('SUM(commitments)', 'total_commitments');
+      $q_chart->addExpression('SUM(payments_received)', 'total_payments_received');
+      $res_chart = $q_chart->execute()->fetchAll();
+      // Prepare Chart Array for Both.
+      $i = 0;
+      foreach ($res_chart as $p) {
+        $country_code = trim($p->country_code);
+        $year = $p->year;
+        $country_label_name = isset($field_data_country_code[$country_code]) ? $field_data_country_code[$country_code] : $country_code;
+        if (!in_array($country_code, $check_array)) {
+          if ($i < 20) {
+            $chart_array[$year][$i]["cc"] = $country_label_name;
+            $chart_array[$year][$i]["donation_c"] = $dd_specific_arr[$year][$country_code]["core_payment"];
+            $chart_array[$year][$i]["donation_nc"] = $dd_specific_arr[$year][$country_code]["noncore_payment"];
+            $i++;
+          }
+          else {
+            break;
+          }
+        }
+      }
+      break;
+  }
+  $final_data = array();
+  // Get Color Code.
+  $color_code_arr = array();
+  $cdp_obj = new CDP();
+  $color_code_arr = $cdp_obj->getCommonColorCodePercent();
+  $final_data["year_arr"] = $p_year_arr;
+  $final_data["country_code_dropdown"] = $field_data_country_code;
+  $final_data["cc_array"] = $cc_arr;
+  $final_data["color_code_array"] = $color_code_arr;
+  $final_data["dd_array"] = $dd_arr;
+  $final_data["chart_array"] = $chart_array;
+  $final_data["selected_year"] = $selected_year;
+  $final_data["selected_res_type"] = $sel_type;
+  $final_data["total_commitments"] = $total_commitments;
+
+  return theme('custom_data_portal_donor_contributions_update', array('data' => $final_data));
+}
+
+/**
+ * This function is used to handle Submit of Total Need.
+ *
+ * @param array $form
+ *   The unique string identifying the desired form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function _handle_form_submit_data_contributions($form, $form_state) {
+  $selected_year = $form_state["values"]["year"];
+  $final_data = array();
+  // Fetch data from the allowed value for select field in content type
+  // ct_data_portal.
+  $field_data_country_code = custom_data_portal_get_list_from_field('field_country_code');
+  $cc_data = views_get_view_result("vw_data_portal", "custom_pa_list_panel");
+  $cc_arr = array();
+  foreach ($cc_data as $c_data) {
+    $c_nid = $c_data->nid;
+    $c_code = $c_data->field_field_country_code[0]["rendered"]["#markup"];
+    $cc_arr[$c_code]['name'] = $field_data_country_code[$c_code];
+    $cc_arr[$c_code]['url'] = drupal_get_path_alias("node/" . $c_nid);
+    $cc_arr[$c_code]['description'] = "";
+  }
+  $q = db_select('total_need_dataportal', 'd')->fields('d')->execute();
+  $res = $q->fetchAll();
+  $dd_arr = array();
+  $p_year_arr = array();
+  $i = 0;
+  foreach ($res as $p) {
+    $country_code = $p->country_code;
+    $score = $p->score;
+    $quadrant = $p->quadrant;
+    $year = $p->year;
+    $dd_arr[$year][$country_code]['score'] = $score;
+    $dd_arr[$year][$country_code]['quadrant'] = $quadrant;
+    $i++;
+    $p_year_arr[$year] = $year;
+  }
+  $final_data["year_arr"] = $p_year_arr;
+  $final_data["country_code_dropdown"] = $field_data_country_code;
+  $final_data["cc_array"] = $cc_arr;
+  $final_data["selected_year"] = $selected_year;
+  $final_data["dd_array"] = $dd_arr;
+
+  return theme('custom_data_portal_ierd_data_contributions_update', array('data' => $final_data));
+}
+
+/**
+ * This function is used to fetch the data to be shown on Total need page.
+ *
+ * @return array
+ *   Array contains data to shown on the map of total need.
+ */
+function data_contributions() {
+  $final_data = array();
+  // Fetch data from the allowed value for select field in content type
+  // ct_data_portal.
+  $field_data_country_code = custom_data_portal_get_list_from_field('field_country_code');
+  // Fetch Contentt Type Programme Country Data.
+  $cc_data = views_get_view_result("vw_data_portal", "custom_pa_list_panel");
+  $cc_arr = array();
+  foreach ($cc_data as $c_data) {
+    $c_nid = $c_data->nid;
+    $c_code = $c_data->field_field_country_code[0]["rendered"]["#markup"];
+    $cc_arr[$c_code]['name'] = $field_data_country_code[$c_code];
+    $cc_arr[$c_code]['url'] = drupal_get_path_alias("node/" . $c_nid);
+    $cc_arr[$c_code]['description'] = "";
+  }
+  $q = db_select('total_need_dataportal', 'd')->fields('d')->orderBy('d.year', "ASC")->execute();
+  $res = $q->fetchAll();
+  $dd_arr = array();
+  $p_year_arr = array();
+  $i = 0;
+  foreach ($res as $p) {
+    $country_code = $p->country_code;
+    $score = $p->score;
+    $quadrant = $p->quadrant;
+    $year = $p->year;
+    $dd_arr[$year][$country_code]['score'] = $score;
+    $dd_arr[$year][$country_code]['quadrant'] = $quadrant;
+    $i++;
+    $p_year_arr[$year] = $year;
+  }
+
+  $final_data["year_arr"] = $p_year_arr;
+  $final_data["country_code_dropdown"] = $field_data_country_code;
+  $final_data["cc_array"] = $cc_arr;
+  $final_data["dd_array"] = $dd_arr;
+
+  return theme('custom_data_portal_ierd_data_contributions', array('data' => $final_data));
+}
+
+/**
+ * This function is ued to fetch and show the data on Donor contributions page.
+ *
+ * @return array
+ *   Array contains all the data to be shown on donor section.
+ */
+function donor_contributions() {
+  $default_year = variable_get('default_year', 2015);
+  $final_data = array();
+  $chart_array = array();
+  $total_commitments = array();
+  // Fetch data from the allowed value for select field in content type
+  // ct_data_portal.
+  $field_data_country_code = custom_data_portal_get_list_from_field('field_country_code');
+  // Fetch Content Type Programme Country Data.
+  $cc_data = views_get_view_result("vw_data_portal", "custom_pa_list_panel");
+  $cc_arr = array();
+  foreach ($cc_data as $c_data) {
+    $c_nid = $c_data->nid;
+    $c_code = $c_data->field_field_country_code[0]["rendered"]["#markup"];
+    $cc_arr[$c_code]['name'] = $field_data_country_code[$c_code];
+    $cc_arr[$c_code]['url'] = drupal_get_path_alias("node/" . $c_nid);
+    $cc_arr[$c_code]['description'] = "";
+  }
+  $check_array = array(
+    'TTF - Multi Donor',
+    'JP-UNFPA: Administrative Agent',
+    'Multi Donor',
+  );
+  $res_array = array('CORE', 'NON CORE');
+  $q = db_select('donor_dataportal_new', 'd')->fields('d')->condition('d.resource_type', $res_array, 'IN');
+  $q->condition('d.year', $default_year);
+  $q->orderBy('commitments', "DESC");
+  $result_q = $q->execute();
+  $res = $result_q->fetchAll();
+  $dd_arr = array();
+  $dd_specific_arr = array();
+  $p_year_arr = array();
+  $i = 0;
+  foreach ($res as $p) {
+    $country_code = trim($p->country_code);
+    $commitments = $p->commitments;
+    $payments_received = $p->payments_received;
+    $year = $p->year;
+    $org_name = $p->donor_name;
+    $resource_type = $p->resource_type;
+    $total_commitments[$i] = $commitments;
+    if (!empty($country_code)) {
+      $dd_arr[$year][$country_code]['commitments'] = isset($dd_arr[$year][$country_code]['commitments']) ? $commitments + $dd_arr[$year][$country_code]['commitments'] : $commitments;
+      $dd_arr[$year][$country_code]['payments_received'] = isset($dd_arr[$year][$country_code]['payments_received']) ? $payments_received + $dd_arr[$year][$country_code]['payments_received'] : $payments_received;
+    }
+    else {
+      $country_code = !empty($country_code) ? $field_data_country_code[$country_code] : $org_name;
+    }
+    switch ($resource_type) {
+      case 'CORE':
+        $dd_specific_arr[$year][$country_code]['core_payment'] = isset($dd_specific_arr[$year][$country_code]['core_payment']) ? $commitments + $dd_specific_arr[$year][$country_code]['core_payment'] : $commitments;
+        if (!isset($dd_specific_arr[$year][$country_code]['noncore_payment'])) {
+          $dd_specific_arr[$year][$country_code]['noncore_payment'] = 0;
+        }
+        break;
+
+      case 'NON CORE':
+        if (!isset($dd_specific_arr[$year][$country_code]['core_payment'])) {
+          $dd_specific_arr[$year][$country_code]['core_payment'] = 0;
+        }
+        $dd_specific_arr[$year][$country_code]['noncore_payment'] = isset($dd_specific_arr[$year][$country_code]['noncore_payment']) ? $commitments + $dd_specific_arr[$year][$country_code]['noncore_payment'] : $commitments;
+        break;
+    }
+    $i++;
+    $p_year_arr[$year] = $year;
+  }
+  $q_chart = db_select('donor_dataportal_new', 'd')->fields('d')
+    ->condition('d.resource_type', $res_array, 'IN')
+    ->condition('d.year', $default_year)
+    ->groupBy('d.country_code', 'd.year')
+    ->orderBy('total_commitments', "DESC")
+    ->range(0, 23);
+  $q_chart->addExpression('SUM(commitments)', 'total_commitments');
+  $q_chart->addExpression('SUM(payments_received)', 'total_payments_received');
+  $res_chart = $q_chart->execute()->fetchAll();
+  // Prepare Chart Array for Both.
+  $i = 0;
+  foreach ($res_chart as $p) {
+    $country_code = trim($p->country_code);
+    $year = $p->year;
+    $country_label_name = isset($field_data_country_code[$country_code]) ? $field_data_country_code[$country_code] : $country_code;
+    if (!in_array($country_code, $check_array)) {
+      if ($i < 20) {
+        $chart_array[$year][$i]["cc"] = $country_label_name;
+        $chart_array[$year][$i]["donation_c"] = $dd_specific_arr[$year][$country_code]['core_payment'];
+        $chart_array[$year][$i]["donation_nc"] = $dd_specific_arr[$year][$country_code]["noncore_payment"];
+        $i++;
+      }
+      else {
+        break;
+      }
+    }
+  }
+  $cdp_obj = new CDP();
+  $color_code_arr = $cdp_obj->getCommonColorCodePercent();
+
+  $final_data["year_arr"] = $p_year_arr;
+  $final_data["country_code_dropdown"] = $field_data_country_code;
+  $final_data["cc_array"] = $cc_arr;
+  $final_data["color_code_array"] = $color_code_arr;
+  $final_data["dd_array"] = $dd_arr;
+  $final_data["chart_array"] = $chart_array;
+  $final_data["selected_year"] = $default_year;
+  $final_data["total_commitments"] = $total_commitments;
+
+  return theme('custom_data_portal_donor_contributions', array('data' => $final_data));
+}
+
+/**
+ * This function is used to show results.
+ */
+function show_results() {
+  $final_data = array();
+  // Fetch data from the allowed value for select field in content type
+  // ct_data_portal.
+  $field_data_country_code = custom_data_portal_get_list_from_field('field_country_code');
+  // Fetch Contentt Type Programme Country Data.
+  $cc_data = views_get_view_result("vw_data_portal", "custom_pa_list_panel");
+  $cc_arr = array();
+  foreach ($cc_data as $c_data) {
+    $c_nid = $c_data->nid;
+    $c_code = $c_data->field_field_country_code[0]["rendered"]["#markup"];
+    $cc_arr[$c_code]['name'] = $field_data_country_code[$c_code];
+    $cc_arr[$c_code]['url'] = drupal_get_path_alias("node/" . $c_nid);
+    $cc_arr[$c_code]['description'] = "";
+  }
+  $color_code_arr = array();
+  $cdp_obj = new CDP();
+  $color_code_arr = $cdp_obj->getCommonColorCodePercent();
+  $q = db_select('results', 'r')->fields('r')->execute();
+  $res = $q->fetchAll();
+  $indicator_arr = array();
+  $total_indicator_3 = array();
+  $i = 0;
+  foreach ($res as $p) {
+    $country_code = $p->cc;
+    $indicator_3 = $p->indicator_3;
+    $indicator_arr[$country_code][1] = $indicator_3;
+    $total_indicator_3[$i] = $indicator_3;
+    $i++;
+  }
+  $final_data["country_code_dropdown"] = $field_data_country_code;
+  $final_data["cc_array"] = $cc_arr;
+  $final_data["total_indicator_3"] = $total_indicator_3;
+  $final_data["indicator_arr"] = $indicator_arr;
+  $final_data["color_code_array"] = $color_code_arr;
+
+  return theme('custom_data_portal_results', array('data' => $final_data));
+}
+
+/**
+ * Handles the submit of Results section.
+ *
+ * @param array $form
+ *   The unique string identifying the desired form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function _handle_form_submit_results($form, &$form_state) {
+  $template_name = "";
+  $sel_ind = $form_state['values']['indicator'];
+  // Fetch data from the allowed value for select field in content type
+  // ct_data_portal.
+  $field_data_country_code = custom_data_portal_get_list_from_field('field_country_code');
+  // Fetch Contentt Type Programme Country Data.
+  $cc_data = views_get_view_result("vw_data_portal", "custom_pa_list_panel");
+  $cc_arr = array();
+  foreach ($cc_data as $c_data) {
+    $c_nid = $c_data->nid;
+    $c_code = $c_data->field_field_country_code[0]["rendered"]["#markup"];
+    $cc_arr[$c_code]['name'] = $field_data_country_code[$c_code];
+    $cc_arr[$c_code]['url'] = drupal_get_path_alias("node/" . $c_nid);
+    $cc_arr[$c_code]['description'] = "";
+  }
+  $color_code_arr = array();
+  $cdp_obj = new CDP();
+  $color_code_arr = $cdp_obj->getCommonColorCodePercent();
+  switch ($sel_ind) {
+    // For indicator_3.
+    case 1:
+      $q = db_select('results', 'r')->fields('r')->execute();
+      $res = $q->fetchAll();
+      $indicator_arr = array();
+      $total_indicator = array();
+      $final_data = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = $p->cc;
+        $indicator = $p->indicator_3;
+        $indicator_arr[$country_code][1] = $indicator;
+        $total_indicator[$i] = $indicator;
+        $i++;
+      }
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["total_indicator"] = $total_indicator;
+      $final_data["indicator_arr"] = $indicator_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["selected_ind"] = $sel_ind;
+      $template_name = "custom_data_portal_results_update";
+      break;
+
+    // For indicator_10_3.
+    case 2:
+      $q = db_select('results', 'r')->fields('r')->orderBy('r.indicator_10_3', 'DESC')->execute();
+      $res = $q->fetchAll();
+      $indicator_arr = array();
+      $total_indicator = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = $p->cc;
+        $indicator = $p->indicator_10_3;
+        $indicator_arr[$country_code][2] = $indicator;
+        $total_indicator[$i] = $indicator;
+        $i++;
+      }
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["total_indicator"] = $total_indicator;
+      $final_data["indicator_arr"] = $indicator_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["selected_ind"] = $sel_ind;
+      $template_name = "custom_data_portal_results_update";
+      break;
+
+    // For indicator_4.
+    case 3:
+      $q = db_select('results', 'r')->fields('r')->execute();
+      $res = $q->fetchAll();
+      $indicator_arr = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = $p->cc;
+        $indicator = $p->indicator_4;
+        $indicator_arr[$country_code][3] = $indicator;
+        $i++;
+      }
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["indicator_arr"] = $indicator_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["selected_ind"] = $sel_ind;
+      $template_name = "custom_data_portal_results_cc_update";
+      break;
+
+    // For indicator_5.
+    case 4:
+      $q = db_select('results', 'r')->fields('r')->execute();
+      $res = $q->fetchAll();
+      $indicator_arr = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = $p->cc;
+        $indicator = $p->indicator_5;
+        $indicator_arr[$country_code][4] = $indicator;
+        $i++;
+      }
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["indicator_arr"] = $indicator_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["selected_ind"] = $sel_ind;
+      $template_name = "custom_data_portal_results_cc_update";
+      break;
+
+    // For indicator_6.
+    case 5:
+      $q = db_select('results', 'r')->fields('r')->execute();
+      $res = $q->fetchAll();
+      $indicator_arr = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = $p->cc;
+        $indicator = $p->indicator_6;
+        $indicator_arr[$country_code][5] = $indicator;
+        $i++;
+      }
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["indicator_arr"] = $indicator_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["selected_ind"] = $sel_ind;
+      $template_name = "custom_data_portal_results_cc_update";
+      break;
+
+    // For indicator_7.
+    case 6:
+      $q = db_select('results', 'r')->fields('r')->execute();
+      $res = $q->fetchAll();
+      $indicator_arr = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = $p->cc;
+        $indicator = $p->indicator_7;
+        $indicator_arr[$country_code][6] = $indicator;
+        $i++;
+      }
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["indicator_arr"] = $indicator_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["selected_ind"] = $sel_ind;
+      $template_name = "custom_data_portal_results_cc_update";
+      break;
+
+    // For indicator_8.
+    case 7:
+      $q = db_select('results', 'r')->fields('r')->execute();
+      $res = $q->fetchAll();
+      $indicator_arr = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = $p->cc;
+        $indicator = $p->indicator_8;
+        $indicator_arr[$country_code][7] = $indicator;
+        $i++;
+      }
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["indicator_arr"] = $indicator_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["selected_ind"] = $sel_ind;
+      $template_name = "custom_data_portal_results_cc_update";
+      break;
+
+    // For indicator_10_1.
+    case 8:
+      $q = db_select('results', 'r')->fields('r')->execute();
+      $res = $q->fetchAll();
+      $indicator_arr = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = $p->cc;
+        $indicator = $p->indicator_10_1;
+        $indicator_arr[$country_code][8] = $indicator;
+        $i++;
+      }
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["indicator_arr"] = $indicator_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["selected_ind"] = $sel_ind;
+      $template_name = "custom_data_portal_results_cc_update";
+      break;
+
+    // For indicator_11.
+    case 9:
+      $q = db_select('results', 'r')->fields('r')->execute();
+      $res = $q->fetchAll();
+      $indicator_arr = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = $p->cc;
+        $indicator = $p->indicator_11;
+        $indicator_arr[$country_code][9] = $indicator;
+        $i++;
+      }
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["indicator_arr"] = $indicator_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["selected_ind"] = $sel_ind;
+      $template_name = "custom_data_portal_results_cc_update";
+      break;
+
+    // For indicators_13.
+    case 10:
+      $q = db_select('results', 'r')->fields('r')->execute();
+      $res = $q->fetchAll();
+      $indicator_arr = array();
+      $i = 0;
+      foreach ($res as $p) {
+        $country_code = $p->cc;
+        $indicator = $p->indicators_13;
+        $indicator_arr[$country_code][10] = $indicator;
+        $i++;
+      }
+      $final_data["country_code_dropdown"] = $field_data_country_code;
+      $final_data["cc_array"] = $cc_arr;
+      $final_data["indicator_arr"] = $indicator_arr;
+      $final_data["color_code_array"] = $color_code_arr;
+      $final_data["selected_ind"] = $sel_ind;
+      $template_name = "custom_data_portal_results_cc_update";
+      break;
+  }
+
+  return theme($template_name, array('data' => $final_data));
+}
+
+/**
+ * Function for handling ajax request.
+ *
+ * @param array $form
+ *   The unique string identifying the desired form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function custom_data_portal_activities($form, $form_state) {
+  // Return the dropdown list including the wrapper.
+  return $form['custom_data_portal']['wrapper'];
+}
+
+/**
+ * Function for populating Expense type..
+ */
+function _load_type() {
+  $type = array('- Select Type -');
+  $type["1"] = t("Expenses in USD");
+  $type["2"] = t("Expenses per capita in USD");
+  return $type;
+}
+
+/**
+ * Function for populating Resource type.
+ */
+function _load_type_resources() {
+  $type = array();
+  $type["1"] = t("Core");
+  $type["2"] = t("Non Core");
+  $type["3"] = t("All");
+  return $type;
+}
+
+/**
+ * This function is used to populated Results indicator.
+ */
+function _load_indicator_results() {
+  $type = array();
+  $type["1"] = t("indicator_3");
+  $type["2"] = t("indicator_10_3");
+  $type["3"] = t("indicator_4");
+  $type["4"] = t("indicator_5");
+  $type["5"] = t("indicator_6");
+  $type["6"] = t("indicator_7");
+  $type["7"] = t("indicator_8");
+  $type["8"] = t("indicator_10_1");
+  $type["9"] = t("indicator_11");
+  $type["10"] = t("indicators_13");
+  return $type;
+}
+
+/**
+ * This function is used to populate year for Programme Expense form.
+ */
+function _load_year() {
+  $year = array('- Select year -');
+  $q = db_select('iatifinal', 'i')->distinct()->fields('i', array('year'))->orderBy('i.year', 'DESC')->execute();
+  $res = $q->fetchAll();
+  foreach ($res as $row) {
+    $year[$row->year] = $row->year;
+  }
+  return $year;
+}
+
+/**
+ * This function is used to populate year for Donor contributions form.
+ */
+function _load_year_donor() {
+  $year = array('- Select year -');
+  $q = db_select('donor_dataportal_new', 'd')->distinct()->fields('d', array('year'))->orderBy('d.year', 'DESC')->execute();
+  $res = $q->fetchAll();
+  foreach ($res as $row) {
+    $year[$row->year] = $row->year;
+  }
+  return $year;
+}
+
+/**
+ * This function is used to populate year for Total need form.
+ */
+function _load_year_data_contributions() {
+  $year = array('- Select year -');
+  $q = db_select('total_need_dataportal', 'd')->distinct()->fields('d', array('year'))->orderBy('d.year', 'DESC')->execute();
+  $res = $q->fetchAll();
+  foreach ($res as $row) {
+    $year[$row->year] = $row->year;
+  }
+  return $year;
+}
+
+/**
+ * Function for populating activities on Programme Expenses form.
+ */
+function _load_activities($year, $outcome_number) {
+  $activities = array();
+  if (!empty($year)) {
+    // Outcomes Array.
+    $cdp_obj = new CDP();
+    // Contains the Support Outcomes Array.
+    $so_arr = array();
+    $so_arr = $cdp_obj->getOutcomes();
+    foreach ($so_arr as $key => $value) {
+      if (isset($so_arr[$key]['outcomes'])) {
+        if ($so_arr[$key]['outcome_number'] == $outcome_number) {
+          $activities[$key] = $so_arr[$key]['outcomes'];
+        }
+      }
+    }
+  }
+  return $activities;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function custom_data_portal_menu() {
+  $items = array();
+  $items['region-update'] = array(
+    "title" => "",
+    "type" => MENU_NORMAL_ITEM,
+    "page callback" => "data_portal_region",
+    "access callback" => 'custom_data_portal_region_access',
+  );
+
+  return $items;
+}
+
+/**
+ * Access callback function for region update.
+ *
+ * @return bool
+ *    Retuens true if the post value is set.
+ */
+function custom_data_portal_region_access() {
+  // Ajax menu will be accessible only if the post data has value.
+  if (isset($_POST['region'])) {
+    return TRUE;
+  }
+}
+
+/**
+ * This function is used to fetch the alloed values of the select list.
+ *
+ * @param string $field_name
+ *   The name of the field.
+ *
+ * @return array
+ *   Allowed values in the field.
+ */
+function custom_data_portal_get_list_from_field($field_name) {
+  $field_data = field_info_field($field_name);
+
+  return ($field_data['settings']['allowed_values']);
+}
+
+/**
+ * This function is used to show the data on the Programme Expense page.
+ *
+ * @return array
+ *   Returns the data to be shown on Map and google charts.
+ */
+function show_data_portal_map() {
+  $default_year = variable_get('default_year', 2015);
+  // Fetch data from the allowed value for select field in content type
+  // ct_data_portal.
+  $field_data_country_code = custom_data_portal_get_list_from_field('field_country_code');
+  // Fetch Contentt Type Programme Country Data.
+  $cc_data = views_get_view_result("vw_data_portal", "custom_pa_list_panel");
+  $cc_arr = array();
+  foreach ($cc_data as $c_data) {
+    $c_nid = $c_data->nid;
+    $c_code = $c_data->field_field_country_code[0]["rendered"]["#markup"];
+    $cc_arr[$c_code]['name'] = $field_data_country_code[$c_code];
+    $cc_arr[$c_code]['url'] = drupal_get_path_alias("node/" . $c_nid);
+    $cc_arr[$c_code]['description'] = "Select for detailed view";
+  }
+  $final_data = array();
+  // Contains the Support Outcomes Array.
+  $so_arr = array();
+  $cdp_obj = new CDP();
+  $color_code_arr = array();
+  $color_code_arr = $cdp_obj->getPAColorCode();
+  $so_arr = $cdp_obj->getOutcomes();
+  $query = db_select('iatifinal', 'i');
+  $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+  $query->fields('i');
+  $query->fields('s');
+  $query->orderBy('i.year', "ASC");
+  $query->orderBy('i.countryName', "ASC");
+  $result = $query->execute()->fetchAll();
+  $p_arr_spending = array();
+  $p_year_arr = array();
+  $p_total_spending = array();
+  $i = 0;
+  foreach ($result as $p) {
+    $outcome = $p->outcome;
+    $year = $p->year;
+    $amount = $p->amount;
+    $region_name = $p->regionName;
+    $field_office = trim($p->field_office);
+    $field_office_len = strlen($field_office);
+    // If Country_Code is of two characters.
+    if ($field_office_len == 2) {
+      $p_arr_spending[$year][$field_office][] = $amount;
+      $p_arr_region_name[$field_office] = $region_name;
+      $p_total_spending[$year][] = $amount;
+      $p_year_arr[$year] = $year;
+      $i++;
+    }
+  }
+  if (count($p_arr_spending) > 0) {
+    foreach ($p_arr_spending as $year => $c_office) {
+      foreach ($c_office as $cc => $c_amt) {
+        $p_max_arr[$year][$cc] = array_sum($c_amt);
+      }
+    }
+  }
+  $final_data["support_outcomes"] = $so_arr;
+  // For generating the Heat Map array.
+  $final_data["map_data"] = $p_arr_spending;
+  // For generating the Heat Map array.
+  $final_data["map_region_name"] = $p_arr_region_name;
+  // For getting the thresold highest value for Heat Map array.
+  $final_data["max_spending"] = $p_max_arr;
+  $final_data["year_arr"] = $p_year_arr;
+  $final_data['selected_year'] = $default_year;
+  $final_data["total_spending"] = $p_total_spending;
+  $final_data["country_code_dropdown"] = $field_data_country_code;
+  $final_data["cc_array"] = $cc_arr;
+  $final_data["color_code_array"] = $color_code_arr;
+  $pa_sub_total_arr = array();
+  $pa_year_total_arr = array();
+  $pa_fund_arr = array();
+  $pa_fund_arr_core = array();
+  $pa_fund_arr_noncore = array();
+  $pa_implemented_arr = array();
+  $pa_implemented_arr_core = array();
+  $pa_implemented_arr_noncore = array();
+  $i = 0;
+  $result = $cdp_obj->getDataPAC();
+  foreach ($result as $pa) {
+    $field_office = $pa->field_office;
+    $outcome = $pa->outcome;
+    $funding = $pa->fund_cat;
+    $implementing = $pa->implementing;
+    $year = $pa->year;
+    $region_name = $pa->regionName;
+    $amount = $pa->amount;
+    if ($outcome != 'XX') {
+      $pa_implemented_arr[$year][$implementing][$i] = $amount;
+      $pa_sub_total_arr[$year][$outcome][] = $amount;
+      if ($funding != 'CORE') {
+        $pa_fund_arr_noncore[$year][$outcome][$i] = $amount;
+      }
+      else {
+        $pa_fund_arr_core[$year][$outcome][$i] = $amount;
+      }
+      $pa_year_total_arr[$year][] = $amount;
+      if ($funding != 'CORE') {
+        $pa_implemented_arr_noncore[$year][$implementing][$i] = $amount;
+        $pa_fund_arr[$year]["Other Resources"][$i] = $amount;
+      }
+      else {
+        $pa_implemented_arr_core[$year][$implementing][$i] = $amount;
+        $pa_fund_arr[$year]["Regular Resources"][$i] = $amount;
+      }
+    }
+    $i++;
+  }
+  // For graph Data.
+  $final_data["sub_total_arr"] = $pa_sub_total_arr;
+  $final_data["region_name"] = $region_name;
+  $final_data["fund_arr_core"] = $pa_fund_arr_core;
+  $final_data["fund_arr_noncore"] = $pa_fund_arr_noncore;
+  $final_data["total_arr"] = $pa_year_total_arr;
+  // Used for Area Charts for Regular/other Resources.
+  $final_data["fund_arr"] = $pa_fund_arr;
+  // For graph Data Implemented Both.
+  $final_data["pa_implemented_arr"] = $pa_implemented_arr;
+  // For graph Data Implemented Core.
+  $final_data["pa_implemented_arr_c"] = $pa_implemented_arr_core;
+  // For graph Data Implemented NOnCore.
+  $final_data["pa_implemented_arr_nc"] = $pa_implemented_arr_noncore;
+
+  drupal_add_js(array('data_portal_selected_year' => $default_year), 'setting');
+
+  return theme('custom_data_portal_map', array('data' => $final_data));
+}
+
+/**
+ * Fetch the data to be shown on transparency portal country page.
+ *
+ * @return array
+ *   Returns array containing data to shown on google charts.
+ */
+function data_program_portal() {
+  $final_data = array();
+  // Fetch Node Id.
+  $nid = arg(1);
+  $node = node_load($nid);
+  // Fetch Country Code from Node ID.
+  $c_code = isset($node->field_country_code[LANGUAGE_NONE]) ? $node->field_country_code[LANGUAGE_NONE][0]['value'] : '';
+  // Fetch the Support Outcomes Array.
+  $q = db_select('support_outcomes', 's')->fields('s')->execute();
+  $res = $q->fetchAll();
+  // Contains the Support Outcomes Array.
+  $so_arr_with_parent = array();
+  $cdp_obj = new CDP();
+  $so_arr_with_parent = $cdp_obj->getOutcomes();
+  // Contains the Support Outcomes Array.
+  $so_arr = array();
+  foreach ($res as $so) {
+    $project_type = $so->project_type;
+    $so_label = $so->descr;
+    $outcome_text = $so->Long_name;
+    $parent_text = $so->Outcome_text;
+    $parent = $so->short_text;
+    $so_arr[$project_type]['parent'] = $parent;
+    $so_arr[$project_type]['type'] = $project_type;
+    $so_arr[$project_type]['label'] = $so_label;
+    $so_arr[$project_type]['des'] = $outcome_text;
+    $so_arr[$project_type]['par_des'] = $parent_text;
+  }
+  $query = db_select('iatifinal', 'i');
+  $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+  $query->fields('i');
+  $query->fields('s');
+  $query->condition('i.field_office', $c_code);
+  $query->orderBy('i.year', "ASC");
+  $query->orderBy('s.Outcome_number', "ASC");
+  $result = $query->execute()->fetchAll();
+  $pa_arr = array();
+  $par_arr = array();
+  $pa_sub_total_arr = array();
+  $pa_year_total_arr = array();
+  $pa_year_arr = array();
+  $pa_fund_arr = array();
+  $pa_fund_arr_core = array();
+  $pa_fund_arr_noncore = array();
+  // For graph Data Implemented Both.
+  $pa_implemented_arr = array();
+  // For graph Data Implemented Core.
+  $pa_implemented_arr_core = array();
+  $pa_implemented_arr_noncore = array();
+  $country_name = '';
+  $year = '';
+  $i = 0;
+  foreach ($result as $pa) {
+    $field_office = $pa->field_office;
+    $outcome = $pa->outcome;
+    $funding = $pa->fund_cat;
+    $fund_code = $pa->funding;
+    $implementing = $pa->implementing;
+    $parent = $pa->short_text;
+    $year = $pa->year;
+    $country_name = $pa->countryName;
+    $amount = $pa->amount;
+    if ($outcome != "XX") {
+      $pa_implemented_arr[$year][$implementing][$i] = $amount;
+      $pa_arr[$year][$field_office][$parent][$outcome]["implemented_by"][$implementing][$i] = $amount;
+      $pa_arr[$year][$field_office][$parent][$outcome]["funded_by"][$funding][$i] = $amount;
+      $pa_arr[$year][$field_office][$parent][$outcome]["budget"][$i] = $amount;
+      $pa_arr[$year][$field_office][$parent][$outcome]["fund_code"][$fund_code][$i] = $amount;
+      $par_arr[$year][$parent]["parent_budget"][$i] = $amount;
+      $par_arr[$year][$parent]["implemented_by"][$implementing][$i] = $amount;
+      $par_arr[$year][$parent]["funded_by"][$funding][$i] = $amount;
+      $par_arr[$year][$parent]["budget"][$i] = $amount;
+      $par_arr[$year][$parent]["fund_code"][$fund_code][$i] = $amount;
+      $pa_sub_total_arr[$year][$outcome][] = $amount;
+      if ($funding != 'CORE') {
+        $pa_fund_arr_noncore[$year][$outcome][$i] = $amount;
+      }
+      else {
+        $pa_fund_arr_core[$year][$outcome][$i] = $amount;
+      }
+      $pa_year_total_arr[$year][] = $amount;
+      $pa_year_arr[$year] = $year;
+      if ($funding != 'CORE') {
+        $pa_implemented_arr_noncore[$year][$implementing][$i] = $amount;
+        $pa_fund_arr[$year]["Other Resources"][$i] = $amount;
+      }
+      else {
+        $pa_implemented_arr_core[$year][$implementing][$i] = $amount;
+        $pa_fund_arr[$year]["Regular Resources"][$i] = $amount;
+      }
+    }
+    $i++;
+  }
+  $final_data["support_outcomes_with_parent"] = $so_arr_with_parent;
+  $final_data["support_outcomes"] = $so_arr;
+  // For generating the Program activities array.
+  $final_data["activities"] = $pa_arr;
+  $final_data["parent_activities"] = $par_arr;
+  // For graph Data.
+  $final_data["sub_total_arr"] = $pa_sub_total_arr;
+  $final_data["total_arr"] = $pa_year_total_arr;
+  $final_data["year_arr"] = $pa_year_arr;
+  // Used for Area Charts for Regular/other Resources.
+  $final_data["fund_arr"] = $pa_fund_arr;
+  $final_data["fund_arr_core"] = $pa_fund_arr_core;
+  $final_data["fund_arr_noncore"] = $pa_fund_arr_noncore;
+  // For graph Data Implemented Both.
+  $final_data["pa_implemented_arr"] = $pa_implemented_arr;
+  // For graph Data Implemented Core.
+  $final_data["pa_implemented_arr_c"] = $pa_implemented_arr_core;
+  // For graph Data Implemented NOnCore.
+  $final_data["pa_implemented_arr_nc"] = $pa_implemented_arr_noncore;
+  $final_data["pa_country_name"] = $country_name;
+  $final_data['selected_year'] = variable_get('default_year', 2015);
+  $final_data["pa_year"] = $year;
+
+  return theme('custom_data_portal_program_activities', array('data' => $final_data));
+}
+
+/**
+ * Callback on submit of transparency portal country form.
+ *
+ * @param array $form
+ *   The unique string identifying the desired form.
+ * @param array $form_state
+ *   A keyed array containing the current state of the form.
+ */
+function _handle_form_submit_country($form, $form_state) {
+  // Fetch Node Id.
+  $nid = $form_state["values"]["country_id"];
+  $selected_year = $form_state["values"]["year"];
+  $final_data = array();
+  // Added 4 tables in the DB;.
+  $node = node_load($nid);
+  // Fetch Country Code from Node ID.
+  $c_code = isset($node->field_country_code[LANGUAGE_NONE]) ? $node->field_country_code[LANGUAGE_NONE][0]['value'] : '';
+  $q = db_select('support_outcomes', 's')->fields('s')->execute();
+  $res = $q->fetchAll();
+  // Contains the Support Outcomes Array.
+  $so_arr = array();
+  foreach ($res as $so) {
+    $project_type = $so->project_type;
+    $so_label = $so->descr;
+    $outcome_text = $so->Long_name;
+    $parent_text = $so->Outcome_text;
+    $parent = $so->short_text;
+    $so_arr[$project_type]['parent'] = $parent;
+    $so_arr[$project_type]['type'] = $project_type;
+    $so_arr[$project_type]['label'] = $so_label;
+    $so_arr[$project_type]['des'] = $outcome_text;
+    $so_arr[$project_type]['par_des'] = $parent_text;
+  }
+  $query = db_select('iatifinal', 'i');
+  $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+  $query->fields('i');
+  $query->fields('s');
+  $query->condition('i.field_office', $c_code);
+  $query->orderBy('i.year', "ASC");
+  $query->orderBy('i.outcome', "ASC");
+  $result = $query->execute()->fetchAll();
+  $pa_arr = array();
+  $pa_sub_total_arr = array();
+  $pa_year_total_arr = array();
+  $pa_year_arr = array();
+  $pa_fund_arr = array();
+  $i = 0;
+  foreach ($result as $pa) {
+    $field_office = $pa->field_office;
+    $outcome = $pa->outcome;
+    $funding = $pa->fund_cat;
+    $fund_code = $pa->funding;
+    $implementing = $pa->implementing;
+    $parent = $pa->short_text;
+    $year = $pa->year;
+    $country_name = $pa->countryName;
+    $amount = $pa->amount;
+    if ($outcome != "XX") {
+      $pa_arr[$year][$field_office][$parent][$outcome]["implemented_by"][$implementing][$i] = $amount;
+      $pa_arr[$year][$field_office][$parent][$outcome]["funded_by"][$funding][$i] = $amount;
+      $pa_arr[$year][$field_office][$parent][$outcome]["budget"][$i] = $amount;
+      $pa_arr[$year][$field_office][$parent][$outcome]["fund_code"][$fund_code][$i] = $amount;
+      $pa_sub_total_arr[$year][$outcome][] = $amount;
+    }
+    $pa_year_total_arr[$year][] = $amount;
+    $pa_year_arr[$year] = $year;
+    if ($funding != 'CORE') {
+      $pa_fund_arr[$year]["Other Resources"][$i] = $amount;
+    }
+    else {
+      $pa_fund_arr[$year]["Regular Resources"][$i] = $amount;
+    }
+    $i++;
+  }
+  $final_data["support_outcomes"] = $so_arr;
+  // For generating the Program activities array.
+  $final_data["activities"] = $pa_arr;
+  // For graph Data.
+  $final_data["sub_total_arr"] = $pa_sub_total_arr;
+  $final_data["total_arr"] = $pa_year_total_arr;
+  $final_data["year_arr"] = $pa_year_arr;
+  // Used for Area Charts for Regular/other Resources.
+  $final_data["fund_arr"] = $pa_fund_arr;
+  $final_data["selected_year"] = $selected_year;
+  $final_data["fund_code"] = $fund_code;
+  $final_data["pa_country_name"] = $country_name;
+
+  return theme('custom_data_portal_program_activities_update', array('data' => $final_data));
+}
+
+/**
+ * This function is ajax callback function for region update.
+ */
+function data_portal_region() {
+  $final_data = array();
+  $region = $_POST['region'];
+  $selected_year = $_POST['year'];
+  $field_data_country_code = custom_data_portal_get_list_from_field('field_country_code');
+  $cc_data = views_get_view_result("vw_data_portal", "custom_pa_list_panel");
+  $cc_arr = array();
+  foreach ($cc_data as $c_data) {
+    $c_nid = $c_data->nid;
+    $c_code = $c_data->field_field_country_code[0]["rendered"]["#markup"];
+    $cc_arr[$c_code]['name'] = $field_data_country_code[$c_code];
+    $cc_arr[$c_code]['url'] = drupal_get_path_alias("node/" . $c_nid);
+    $cc_arr[$c_code]['description'] = "";
+  }
+  $final_data = array();
+  $so_arr = array();
+  $cdp_obj = new CDP();
+  $color_code_arr = array();
+  $color_code_arr = $cdp_obj->getPAColorCode();
+  $so_arr = $cdp_obj->getOutcomes();
+  $query = db_select('iatifinal', 'i');
+  $query->join('support_outcomes', 's', 's.project_type = i.outcome');
+  $query->fields('i');
+  $query->fields('s');
+  if ($region != 'Worldwide') {
+    $query->condition('i.regionName', $region);
+  }
+  $result = $query->execute()->fetchAll();
+  $i = 0;
+  $final_data["support_outcomes"] = $so_arr;
+  $final_data["country_code_dropdown"] = $field_data_country_code;
+  $final_data["cc_array"] = $cc_arr;
+  $final_data["color_code_array"] = $color_code_arr;
+  $pa_sub_total_arr = array();
+  $pa_year_total_arr = array();
+  $pa_year_arr = array();
+  $pa_fund_arr = array();
+  $pa_fund_arr_core = array();
+  $pa_fund_arr_noncore = array();
+  $pa_implemented_arr = array();
+  $pa_implemented_arr_core = array();
+  $pa_implemented_arr_noncore = array();
+  $i = 0;
+  foreach ($result as $pa) {
+    $outcome = $pa->outcome;
+    $funding = $pa->fund_cat;
+    $implementing = $pa->implementing;
+    $year = $pa->year;
+    $region_name = $pa->regionName;
+    $amount = $pa->amount;
+    if ($outcome != 'XX') {
+      $pa_implemented_arr[$year][$implementing][$i] = $amount;
+      $pa_sub_total_arr[$year][$outcome][] = $amount;
+      if ($funding != 'CORE') {
+        $pa_fund_arr_noncore[$year][$outcome][$i] = $amount;
+      }
+      else {
+        $pa_fund_arr_core[$year][$outcome][$i] = $amount;
+      }
+      $pa_year_total_arr[$year][] = $amount;
+      $pa_year_arr[$year] = $year;
+      if ($funding != 'CORE') {
+        $pa_implemented_arr_noncore[$year][$implementing][$i] = $amount;
+        $pa_fund_arr[$year]["Other Resources"][$i] = $amount;
+      }
+      else {
+        $pa_implemented_arr_core[$year][$implementing][$i] = $amount;
+        $pa_fund_arr[$year]["Regular Resources"][$i] = $amount;
+      }
+    }
+    $i++;
+  }
+  // For graph Data.
+  $final_data["sub_total_arr"] = $pa_sub_total_arr;
+  $final_data["region_name"] = $region_name;
+  $final_data["fund_arr_core"] = $pa_fund_arr_core;
+  $final_data["fund_arr_noncore"] = $pa_fund_arr_noncore;
+  $final_data["total_arr"] = $pa_year_total_arr;
+  $final_data["year_arr"] = $pa_year_arr;
+  // Used for Area Charts for Regular/other Resources.
+  $final_data["fund_arr"] = $pa_fund_arr;
+  // For graph Data Implemented Both.
+  $final_data["pa_implemented_arr"] = $pa_implemented_arr;
+  // For graph Data Implemented Core.
+  $final_data["pa_implemented_arr_c"] = $pa_implemented_arr_core;
+  // For graph Data Implemented NOnCore.
+  $final_data["pa_implemented_arr_nc"] = $pa_implemented_arr_noncore;
+  $result_arr = array();
+  $result_arr['prepareDonutChartDataPageRegion'] = prepare_donutchart_datapage_region($final_data["sub_total_arr"], $final_data["total_arr"], $final_data["support_outcomes"], $selected_year);
+  $result_arr['prepareBarChartFromDonutRegion'] = prepare_barchart_from_donut_region($final_data["sub_total_arr"], $final_data["total_arr"], $final_data["support_outcomes"], $selected_year);
+  $result_arr['prepareDonutChartCoreRegion'] = prepare_donutchart_core_region($final_data["fund_arr_core"], $final_data["fund_arr"], $final_data["support_outcomes"], $selected_year);
+  $result_arr['prepareBarChartFromDonutCoreRegion'] = prepare_barchart_from_donut_core_region($final_data["fund_arr_core"], $final_data["total_arr"], $final_data["support_outcomes"], $selected_year);
+  $result_arr['prepareDonutChartNonCoreRegion'] = prepare_donut_chart_noncore_region($final_data["fund_arr_noncore"], $final_data["fund_arr"], $final_data["support_outcomes"], $selected_year);
+  $result_arr['prepareBarChartFromDonutNonCoreRegion'] = prepare_barchart_from_donut_noncore_region($final_data["fund_arr_noncore"], $final_data["total_arr"], $final_data["support_outcomes"], $selected_year);
+  $result_arr['prepareBarChartDataPageRegion'] = prepare_barchart_datapage_region($final_data["fund_arr"], $selected_year);
+  $result_arr['prepareBarChartImplementedRegion'] = prepare_barchart_implemented_region($final_data["pa_implemented_arr"], $selected_year);
+  $result_arr['prepareBarChartImplementedCoreRegion'] = prepare_barchart_implementedcore_region($final_data["pa_implemented_arr_c"], $selected_year);
+  $result_arr['prepareBarChartImplementedNonCoreRegion'] = prepare_barchart_implementednoncore_region($final_data["pa_implemented_arr_nc"], $selected_year);
+
+  echo json_encode($result_arr);
+}
+
+/**
+ * This function is used to draw donut chart of Both Core and Non core data.
+ */
+function prepare_donutchart_datapage_region($arr, $total_arr, $so, $selected_year) {
+  $color_array = array(
+    '0' => '#4495D1',
+    '1' => '#F7931D',
+    '2' => '#40B879',
+    '3' => '#7D79A8',
+    '4' => '#C0DB7D',
+  );
+  // Prepare Pie Chart for Both Regular Resources & Other Resources
+  // E.g CORE,NON CORE.
+  $tmp = array();
+  $temp = array();
+  foreach ($so as $sokey => $soval) {
+    array_push($tmp, $soval['label']);
+  }
+  $tmp = array_unique($tmp);
+  foreach ($tmp as $tmpval) {
+    array_push($temp, $tmpval);
+  }
+  $bud = array();
+  foreach ($arr as $year => $graph_activity) {
+    if ($year == $selected_year) {
+      $parent_total = array();
+      foreach ($graph_activity as $graph_activity_key => $graph_activity_value) {
+        $tot = 0;
+        foreach ($graph_activity_value as $graph_activity_value_val) {
+          $tot += $graph_activity_value_val;
+        }
+        $bud[$graph_activity_key] = $tot;
+      }
+      $parent_number = 1;
+      $temp_index = 0;
+      $parent_total['P' . $parent_number] = 0;
+      foreach ($so as $sokey => $soval) {
+        if ($temp[$temp_index] == $soval['label']) {
+          if (!isset($bud[$sokey])) {
+            $bud[$sokey] = 0;
+          }
+          $parent_total['P' . $parent_number] = $parent_total['P' . $parent_number] + $bud[$sokey];
+        }
+        else {
+          $temp_index++;
+          $parent_number++;
+          $parent_total['P' . $parent_number] = 0;
+        }
+      }
+      $do_chart_cols_arr = array(
+        array(
+          'id' => 'Sector',
+          'label' => 'Sector',
+          'pattern' => '',
+          'type' => 'string',
+        ),
+        array(
+          'id' => 'Percentage',
+          'label' => 'Percentage',
+          'pattern' => '',
+          'type' => 'number',
+        ),
+      );
+      // Array to be converted to json string and used in google chart's
+      // area chart.
+      $do_chart_rows_arr = array();
+      $do_chart_slices_arr = array();
+      $i = 0;
+      $parent_value_budget_total = 0;
+      foreach ($parent_total as $parent_key => $parent_value_budget) {
+        $parent_value_budget_total += $parent_value_budget;
+      }
+      foreach ($parent_total as $parent_key => $parent_value_budget) {
+        if (($parent_value_budget / $parent_value_budget_total) * 100 < 0.1) {
+          $parent_value_budget = 0;
+        }
+        array_push($do_chart_rows_arr, array(
+          'c' => array(
+            array('v' => $so[$parent_key]["label"]),
+            array('v' => $parent_value_budget),
+          ),
+        ));
+        $do_chart_slices_arr[$i]['color'] = $color_array[$i];
+        $i++;
+      }
+    }
+  }
+
+  $final_arr = array();
+  $final_arr['do_chart_cols_arr'] = $do_chart_cols_arr;
+  $final_arr['do_chart_rows_arr'] = $do_chart_rows_arr;
+  $final_arr['year'] = $selected_year;
+  $final_arr['do_chart_slices_arr'] = $do_chart_slices_arr;
+
+  return $final_arr;
+}
+
+/**
+ * Prepare bar chart from donut chart for both Core and Non core data.
+ */
+function prepare_barchart_from_donut_region($arr, $total_arr, $so, $selected_year) {
+  $color_array = array(
+    '0' => '#4495D1',
+    '1' => '#1E5985',
+    '2' => '#455B7A',
+    '3' => '#6CA5D9',
+    '4' => '#8FB7E1',
+    '5' => '#7587A8',
+    '6' => '#F7931D',
+    '7' => '#C38743',
+    '8' => '#EC9E46',
+    '9' => '#FCBB75',
+    '10' => '#40B879',
+    '11' => '#5F7F6C',
+    '12' => '#5E9E78',
+    '13' => '#6FC391',
+    '14' => '#7D79A8',
+    '15' => '#324053',
+    '16' => '#4F4261',
+    '17' => '#6A618B',
+    '18' => '#A9A4C5',
+    '19' => '#C0DB7D',
+    '20' => '#A2B37C',
+    '21' => '#CCE195',
+    '22' => '#D8E8AE',
+  );
+  // Prepare Pie Chart for Both Regular Resources & Other Resources
+  // E.g CORE,NON CORE.
+  foreach ($arr as $year => $graph_activity) {
+    if ($year == $selected_year) {
+      $bud = array();
+      foreach ($graph_activity as $graph_activity_key => $graph_activity_value) {
+        $tot = 0;
+        foreach ($graph_activity_value as $graph_activity_value_val) {
+          $tot += $graph_activity_value_val;
+        }
+        $bud[$graph_activity_key] = $tot;
+      }
+      $do_chart_cols_arr = array(
+        array(
+          'id' => 'Sector',
+          'label' => 'Sector',
+          'pattern' => '',
+          'type' => 'string',
+        ),
+        array(
+          'id' => 'Expenses',
+          'label' => 'Expenses',
+          'pattern' => '',
+          'type' => 'number',
+        ),
+        array(
+          'id' => 'Style',
+          'label' => 'Style',
+          'role' => 'style',
+          'type' => 'string',
+        ),
+      );
+      // Array to be converted to json string and used in google chart's
+      // area chart.
+      $do_chart_rows_arr_bar = array();
+      $i = 0;
+      foreach ($so as $so_key => $so_val) {
+        $budget_outcome = isset($bud[$so_key]) ? $bud[$so_key] : NULL;
+        if (strpos($so_key, 'P') === FALSE) {
+          if (($budget_outcome === NULL) || ($budget_outcome < 0)) {
+            $bud[$so_key] = 0;
+          }
+        }
+        else {
+          $bud[$so_key] = NULL;
+        }
+        array_push($do_chart_rows_arr_bar, array(
+          'c' => array(
+            array('v' => $so_val['outcomes']),
+            array('v' => $bud[$so_key]),
+            array('v' => $color_array[$i]),
+          ),
+        ));
+        $i++;
+      }
+    }
+  }
+
+  $final_arr = array();
+  $final_arr['year'] = $selected_year;
+  $final_arr['do_chart_rows_arr_bar'] = $do_chart_rows_arr_bar;
+  $final_arr['do_chart_cols_arr'] = $do_chart_cols_arr;
+
+  return $final_arr;
+}
+
+/**
+ * This function is used to draw donut chart of Core data.
+ */
+function prepare_donutchart_core_region($arr_fund_core, $total_fund_arr, $so, $selected_year) {
+  $color_array = array(
+    '0' => '#4495D1',
+    '1' => '#F7931D',
+    '2' => '#40B879',
+    '3' => '#7D79A8',
+    '4' => '#C0DB7D',
+  );
+  $tmp = array();
+  $temp = array();
+  foreach ($so as $sokey => $soval) {
+    array_push($tmp, $soval['label']);
+  }
+  $tmp = array_unique($tmp);
+  foreach ($tmp as $tmpval) {
+    array_push($temp, $tmpval);
+  }
+
+  // Prepare Pie Chart for Both Regular Resources & Other Resources
+  // Eg. CORE,NON CORE.
+  foreach ($arr_fund_core as $year => $graph_activity) {
+    if ($year == $selected_year) {
+      $bud = array();
+      $parent_total = array();
+      foreach ($graph_activity as $graph_activity_key => $graph_activity_value) {
+        $tot = 0;
+        foreach ($graph_activity_value as $graph_activity_value_val) {
+          $tot += $graph_activity_value_val;
+        }
+        $bud[$graph_activity_key] = $tot;
+      }
+      $parent_number = 1;
+      $temp_index = 0;
+      $parent_total['P' . $parent_number] = 0;
+      foreach ($so as $sokey => $soval) {
+        if ($temp[$temp_index] == $soval['label']) {
+          if (!isset($bud[$sokey])) {
+            $bud[$sokey] = 0;
+          }
+          $parent_total['P' . $parent_number] = $parent_total['P' . $parent_number] + $bud[$sokey];
+        }
+        else {
+          $temp_index++;
+          $parent_number++;
+          $parent_total['P' . $parent_number] = 0;
+        }
+      }
+      $do_chart_cols_arr = array(
+        array(
+          'id' => 'Sector',
+          'label' => 'Sector',
+          'pattern' => '',
+          'type' => 'string',
+        ),
+        array(
+          'id' => 'Percentage',
+          'label' => 'Percentage',
+          'pattern' => '',
+          'type' => 'number',
+        ),
+      );
+      // Array to be converted to json string and used in google chart's
+      // area chart.
+      $do_chart_rows_arr = array();
+      $do_chart_slices_arr = array();
+      $i = 0;
+      $parent_value_budget_total = 0;
+      foreach ($parent_total as $parent_key => $parent_value_budget) {
+        $parent_value_budget_total += $parent_value_budget;
+      }
+      foreach ($parent_total as $parent_key => $parent_value_budget) {
+        if (($parent_value_budget / $parent_value_budget_total) * 100 < 0.1) {
+
+          $parent_value_budget = 0;
+        }
+        // Array nesting is complex owing to to google charts api.
+        array_push($do_chart_rows_arr, array(
+          'c' => array(
+            array('v' => $so[$parent_key]["label"]),
+            array('v' => $parent_value_budget),
+          ),
+        ));
+        if (isset($color_array[$i])) {
+          $do_chart_slices_arr[$i]['color'] = $color_array[$i];
+        }
+        $i++;
+      }
+    }
+  }
+
+  $final_arr = array();
+  $final_arr['do_chart_cols_arr'] = $do_chart_cols_arr;
+  $final_arr['do_chart_rows_arr'] = $do_chart_rows_arr;
+  $final_arr['year'] = $selected_year;
+  $final_arr['do_chart_slices_arr'] = $do_chart_slices_arr;
+
+  return $final_arr;
+}
+
+/**
+ * This function is used to draw bar chart from donut chart of core data.
+ */
+function prepare_barchart_from_donut_core_region($arr, $total_arr, $so, $selected_year) {
+  $color_array = array(
+    '0' => '#4495D1',
+    '1' => '#1E5985',
+    '2' => '#455B7A',
+    '3' => '#6CA5D9',
+    '4' => '#8FB7E1',
+    '5' => '#7587A8',
+    '6' => '#F7931D',
+    '7' => '#C38743',
+    '8' => '#EC9E46',
+    '9' => '#FCBB75',
+    '10' => '#40B879',
+    '11' => '#5F7F6C',
+    '12' => '#5E9E78',
+    '13' => '#6FC391',
+    '14' => '#7D79A8',
+    '15' => '#324053',
+    '16' => '#4F4261',
+    '17' => '#6A618B',
+    '18' => '#A9A4C5',
+    '19' => '#C0DB7D',
+    '20' => '#A2B37C',
+    '21' => '#CCE195',
+    '22' => '#D8E8AE',
+  );
+  // Prepare Pie Chart for Both Regular Resources & Other Resources
+  // E.g - CORE,NON CORE.
+  $bud = array();
+  foreach ($arr as $year => $graph_activity) {
+    if ($year == $selected_year) {
+      foreach ($graph_activity as $graph_activity_key => $graph_activity_value) {
+        $tot = 0;
+        foreach ($graph_activity_value as $graph_activity_value_val) {
+          $tot += $graph_activity_value_val;
+        }
+        $bud[$graph_activity_key] = $tot;
+      }
+      $do_chart_cols_arr = array(
+        array(
+          'id' => 'Sector',
+          'label' => 'Sector',
+          'pattern' => '',
+          'type' => 'string',
+        ),
+        array(
+          'id' => 'Expenses',
+          'label' => 'Expenses',
+          'pattern' => '',
+          'type' => 'number',
+        ),
+        array(
+          'id' => 'Style',
+          'label' => 'Style',
+          'role' => 'style',
+          'type' => 'string',
+        ),
+      );
+      // Array to be converted to json string and used in google chart's
+      // area chart.
+      $do_chart_rows_arr_bar = array();
+      $i = 0;
+      foreach ($so as $so_key => $so_val) {
+        $budget_outcome = isset($bud[$so_key]) ? $bud[$so_key] : NULL;
+        if (strpos($so_key, 'P') === FALSE) {
+          if (($budget_outcome === NULL) || ($budget_outcome < 0)) {
+            $bud[$so_key] = 0;
+          }
+        }
+        else {
+          $bud[$so_key] = NULL;
+        }
+        array_push($do_chart_rows_arr_bar, array(
+          'c' => array(
+            array('v' => $so_val['outcomes']),
+            array('v' => $bud[$so_key]),
+            array('v' => $color_array[$i]),
+          ),
+        ));
+        $i++;
+      }
+    }
+  }
+
+  $final_arr = array();
+  $final_arr['do_chart_cols_arr'] = $do_chart_cols_arr;
+  $final_arr['do_chart_rows_arr_bar'] = $do_chart_rows_arr_bar;
+
+  return $final_arr;
+}
+
+/**
+ * This function is used to draw donut chart of Non core data.
+ */
+function prepare_donut_chart_noncore_region($arr_fund_noncore, $total_fund_arr, $so, $selected_year) {
+  $color_array = array(
+    '0' => '#4495D1',
+    '1' => '#F7931D',
+    '2' => '#40B879',
+    '3' => '#7D79A8',
+    '4' => '#C0DB7D',
+  );
+  $tmp = array();
+  $temp = array();
+
+  foreach ($so as $sokey => $soval) {
+    array_push($tmp, $soval['label']);
+  }
+  $tmp = array_unique($tmp);
+  foreach ($tmp as $tmpval) {
+    array_push($temp, $tmpval);
+  }
+  $bud = array();
+  // Prepare Pie Chart for Other REsources-NON CORE.
+  foreach ($arr_fund_noncore as $year => $graph_activity) {
+    if ($year == $selected_year) {
+      $parent_total = array();
+      foreach ($graph_activity as $graph_activity_key => $graph_activity_value) {
+        $tot = 0;
+        foreach ($graph_activity_value as $graph_activity_value_val) {
+          $tot += $graph_activity_value_val;
+        }
+        $bud[$graph_activity_key] = $tot;
+      }
+      $parent_number = 1;
+      $temp_index = 0;
+      $parent_total['P' . $parent_number] = 0;
+      foreach ($so as $sokey => $soval) {
+        if ($temp[$temp_index] == $soval['label']) {
+          if (!isset($bud[$sokey])) {
+            $bud[$sokey] = 0;
+          }
+          $parent_total['P' . $parent_number] = $parent_total['P' . $parent_number] + $bud[$sokey];
+        }
+        else {
+          $temp_index++;
+          $parent_number++;
+          $parent_total['P' . $parent_number] = 0;
+        }
+      }
+      $do_chart_cols_arr = array(
+        array(
+          'id' => 'Sector',
+          'label' => 'Sector',
+          'pattern' => '',
+          'type' => 'string',
+        ),
+        array(
+          'id' => 'Percentage',
+          'label' => 'Percentage',
+          'pattern' => '',
+          'type' => 'number',
+        ),
+      );
+      // Array to be converted to json string and used in google chart's
+      // area chart.
+      $do_chart_rows_arr = array();
+      $do_chart_slices_arr = array();
+      $i = 0;
+      $parent_value_budget_total = 0;
+      foreach ($parent_total as $parent_key => $parent_value_budget) {
+        $parent_value_budget_total += $parent_value_budget;
+      }
+      foreach ($parent_total as $parent_key => $parent_value_budget) {
+        // Ignore XX Activity ID.
+        if (($parent_value_budget / $parent_value_budget_total) * 100 < 0.1) {
+
+          $parent_value_budget = 0;
+        }
+        // Array nesting is complex owing to to google charts api.
+        array_push($do_chart_rows_arr, array(
+          'c' => array(
+            array('v' => $so[$parent_key]["label"]),
+            array('v' => $parent_value_budget),
+          ),
+        ));
+        if (isset($color_array[$i])) {
+          $do_chart_slices_arr[$i]['color'] = $color_array[$i];
+        }
+        $i++;
+      }
+    }
+  }
+
+  $final_arr = array();
+  $final_arr['do_chart_cols_arr'] = $do_chart_cols_arr;
+  $final_arr['do_chart_rows_arr'] = $do_chart_rows_arr;
+  $final_arr['year'] = $selected_year;
+  $final_arr['do_chart_slices_arr'] = $do_chart_slices_arr;
+
+  return $final_arr;
+}
+
+/**
+ * This function is used to draw bar chart from donut chart of Non core data.
+ */
+function prepare_barchart_from_donut_noncore_region($arr, $total_arr, $so, $selected_year) {
+  $color_array = array(
+    '0' => '#4495D1',
+    '1' => '#1E5985',
+    '2' => '#455B7A',
+    '3' => '#6CA5D9',
+    '4' => '#8FB7E1',
+    '5' => '#7587A8',
+    '6' => '#F7931D',
+    '7' => '#C38743',
+    '8' => '#EC9E46',
+    '9' => '#FCBB75',
+    '10' => '#40B879',
+    '11' => '#5F7F6C',
+    '12' => '#5E9E78',
+    '13' => '#6FC391',
+    '14' => '#7D79A8',
+    '15' => '#324053',
+    '16' => '#4F4261',
+    '17' => '#6A618B',
+    '18' => '#A9A4C5',
+    '19' => '#C0DB7D',
+    '20' => '#A2B37C',
+    '21' => '#CCE195',
+    '22' => '#D8E8AE',
+  );
+  // Prepare Pie Chart for Both Regular Resources & Other Resources
+  // Eg. CORE,NON CORE.
+  $bud = array();
+  foreach ($arr as $year => $graph_activity) {
+    if ($year == $selected_year) {
+      foreach ($graph_activity as $graph_activity_key => $graph_activity_value) {
+        $tot = 0;
+        foreach ($graph_activity_value as $graph_activity_value_val) {
+          $tot += $graph_activity_value_val;
+        }
+        $bud[$graph_activity_key] = $tot;
+      }
+      $do_chart_cols_arr = array(
+        array(
+          'id' => 'Sector',
+          'label' => 'Sector',
+          'pattern' => '',
+          'type' => 'string',
+        ),
+        array(
+          'id' => 'Expenses',
+          'label' => 'Expenses',
+          'pattern' => '',
+          'type' => 'number',
+        ),
+        array(
+          'id' => 'Style',
+          'label' => 'Style',
+          'role' => 'style',
+          'type' => 'string',
+        ),
+      );
+      // Array to be converted to json string and used in google chart's
+      // area chart.
+      $do_chart_rows_arr_bar = array();
+      $i = 0;
+
+      foreach ($so as $so_key => $so_val) {
+        $budget_outcome = isset($bud[$so_key]) ? $bud[$so_key] : NULL;
+        if (strpos($so_key, 'P') === FALSE) {
+          if (($budget_outcome === NULL) || ($budget_outcome < 0)) {
+            $bud[$so_key] = 0;
+          }
+        }
+        else {
+          $bud[$so_key] = NULL;
+        }
+
+        array_push($do_chart_rows_arr_bar, array(
+          'c' => array(
+            array('v' => $so_val['outcomes']),
+            array('v' => $bud[$so_key]),
+            array('v' => $color_array[$i]),
+          ),
+        ));
+        $i++;
+      }
+    }
+  }
+
+  $final_arr = array();
+  $final_arr['do_chart_cols_arr'] = $do_chart_cols_arr;
+  $final_arr['do_chart_rows_arr_bar'] = $do_chart_rows_arr_bar;
+
+  return $final_arr;
+}
+
+/**
+ * Prepare barchart data for programme expenses by resource type.
+ */
+function prepare_barchart_datapage_region($arr, $selected_year) {
+  $area_chart_cols_arr = array(
+    array('id' => 'Year', 'label' => 'Year', 'type' => 'string'),
+    array(
+      'id' => 'core resources',
+      'label' => 'core resources',
+      'type' => 'number',
+    ),
+    array(
+      'id' => 'non-core resources',
+      'label' => 'non-core resources',
+      'type' => 'number',
+    ),
+  );
+  $i = 1;
+  foreach ($arr as $year => $funds_cat_arr) {
+    if ($year == $selected_year) {
+      $area_chart_rows_arr = array();
+      $budget_value_rr = array_sum($funds_cat_arr['Regular Resources']);
+      $budget_value_or = array_sum($funds_cat_arr['Other Resources']);
+      // Array nesting is complex owing to to google charts api.
+      array_push($area_chart_rows_arr, array(
+        'c' => array(
+          array('v' => $year),
+          array('v' => $budget_value_rr),
+          array('v' => $budget_value_or),
+        ),
+      ));
+      $i++;
+    }
+  }
+
+  $final_arr = array();
+  $final_arr['area_chart_cols_arr'] = $area_chart_cols_arr;
+  $final_arr['area_chart_rows_arr'] = $area_chart_rows_arr;
+  $final_arr['year'] = $selected_year;
+
+  return $final_arr;
+}
+
+/**
+ * Prepare bar chart for programme expenses by implementing agency.
+ */
+function prepare_barchart_implemented_region($arr, $selected_year) {
+  $area_chart_cols_arr = array(
+    array('id' => 'Year', 'label' => 'Year', 'type' => 'string'),
+    array('id' => 'UNFPA', 'label' => 'UNFPA', 'type' => 'number'),
+    array('id' => 'GOV', 'label' => 'GOV', 'type' => 'number'),
+    array('id' => 'NGO', 'label' => 'NGO', 'type' => 'number'),
+    array('id' => 'UN(Other)', 'label' => 'UN(Other)', 'type' => 'number'),
+  );
+  $i = 1;
+  foreach ($arr as $year => $imp_arr) {
+    if ($year == $selected_year) {
+      $area_chart_rows_arr = array();
+      $amount_unfpa = array_sum($imp_arr['UNFPA']);
+      $amount_gov = array_sum($imp_arr['GOV']);
+      $amount_ngo = array_sum($imp_arr['NGO']);
+      $amount_un = array_sum($imp_arr['UN']);
+      // Array nesting is complex owing to to google charts api.
+      array_push($area_chart_rows_arr, array(
+        'c' => array(
+          array('v' => $year),
+          array('v' => $amount_unfpa),
+          array('v' => $amount_gov),
+          array('v' => $amount_ngo),
+          array('v' => $amount_un),
+        ),
+      ));
+      $i++;
+    }
+  }
+
+  $final_arr = array();
+  $final_arr['area_chart_cols_arr'] = $area_chart_cols_arr;
+  $final_arr['area_chart_rows_arr'] = $area_chart_rows_arr;
+  $final_arr['year'] = $selected_year;
+
+  return $final_arr;
+}
+
+/**
+ * Prepare bar chart for programme expenses by implementing agency for core.
+ */
+function prepare_barchart_implementedcore_region($arr, $selected_year) {
+  $area_chart_cols_arr = array(
+    array('id' => 'Year', 'label' => 'Year', 'type' => 'string'),
+    array('id' => 'UNFPA', 'label' => 'UNFPA', 'type' => 'number'),
+    array('id' => 'GOV', 'label' => 'GOV', 'type' => 'number'),
+    array('id' => 'NGO', 'label' => 'NGO', 'type' => 'number'),
+    array('id' => 'UN(Other)', 'label' => 'UN(Other)', 'type' => 'number'),
+  );
+  // Array to be converted to json string and used in google chart's area chart.
+  $i = 1;
+  foreach ($arr as $year => $imp_arr) {
+    if ($year == $selected_year) {
+      $area_chart_rows_arr = array();
+      $amount_unfpa = array_sum($imp_arr['UNFPA']);
+      $amount_gov = array_sum($imp_arr['GOV']);
+      $amount_ngo = array_sum($imp_arr['NGO']);
+      $amount_un = array_sum($imp_arr['UN']);
+      // Array nesting is complex owing to to google charts api.
+      array_push($area_chart_rows_arr, array(
+        'c' => array(
+          array('v' => $year),
+          array('v' => $amount_unfpa),
+          array('v' => $amount_gov),
+          array('v' => $amount_ngo),
+          array('v' => $amount_un),
+        ),
+      ));
+      $i++;
+    }
+  }
+
+  $final_arr = array();
+  $final_arr['area_chart_cols_arr'] = $area_chart_cols_arr;
+  $final_arr['area_chart_rows_arr'] = $area_chart_rows_arr;
+  $final_arr['year'] = $selected_year;
+
+  return $final_arr;
+}
+
+/**
+ * Prepare bar chart for programme expenses for non core.
+ */
+function prepare_barchart_implementednoncore_region($arr, $selected_year) {
+  $area_chart_cols_arr = array(
+    array('id' => 'Year', 'label' => 'Year', 'type' => 'string'),
+    array('id' => 'UNFPA', 'label' => 'UNFPA', 'type' => 'number'),
+    array('id' => 'GOV', 'label' => 'GOV', 'type' => 'number'),
+    array('id' => 'NGO', 'label' => 'NGO', 'type' => 'number'),
+    array('id' => 'UN(Other)', 'label' => 'UN(Other)', 'type' => 'number'),
+  );
+
+  $i = 1;
+  foreach ($arr as $year => $imp_arr) {
+    if ($year == $selected_year) {
+      $area_chart_rows_arr = array();
+      $amount_unfpa = isset($imp_arr['UNFPA']) ? array_sum($imp_arr['UNFPA']) : 0;
+      $amount_gov = isset($imp_arr['GOV']) ? array_sum($imp_arr['GOV']) : 0;
+      $amount_ngo = isset($imp_arr['NGO']) ? array_sum($imp_arr['NGO']) : 0;
+      $amount_un = isset($imp_arr['UN']) ? array_sum($imp_arr['UN']) : 0;
+      // Array nesting is complex owing to to google charts api.
+      array_push($area_chart_rows_arr, array(
+        'c' => array(
+          array('v' => $year),
+          array('v' => $amount_unfpa),
+          array('v' => $amount_gov),
+          array('v' => $amount_ngo),
+          array('v' => $amount_un),
+        ),
+      ));
+      $i++;
+    }
+  }
+
+  $final_arr = array();
+  $final_arr['area_chart_cols_arr'] = $area_chart_cols_arr;
+  $final_arr['area_chart_rows_arr'] = $area_chart_rows_arr;
+  $final_arr['year'] = $selected_year;
+
+  return $final_arr;
+}

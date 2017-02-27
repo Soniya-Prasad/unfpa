@@ -1,0 +1,800 @@
+/* SOWMY page*/
+#sowmy-main-content h1 {
+  text-transform: uppercase;
+  font-size: 50px;
+  color: #7b7b7d;
+  margin: 0;
+}
+#sowmy-main-content h2 {
+  background-color: #999a9e;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 9999px;
+  font-size: 18px;
+  padding: 3px;
+  font-weight: normal;
+}
+#sowmy-main-content #sub-title {
+  color: #000;
+  background-color: transparent;
+  text-align: left;
+  margin-top: 0;
+  padding: 0;
+}
+#episodes-label {
+  text-align: center;
+  color: #72469b;
+  font-size: 20px;
+  margin: 20px 0;
+}
+#sowmy-needs,
+#sowmy-middle-section,
+#sowmy-pregnencies,
+#sowmy-whatif-estimates {
+  width: 100%;
+  float: left;
+}
+#sowmy-middle-section,
+#sowmy-whatif-estimates {
+  background-color: #fef7e8;
+}
+#sowmy-availability {
+  width: 60%;
+  float: left;
+  margin-right: 10%;
+}
+#sowmy-accessibility {
+  width: 30%;
+  float: left;
+}
+#swomy-education,
+#swomy-regulation,
+#swomy-association {
+  width: 30%;
+  float: left;
+  margin-right: 5%;
+}
+#sowmy-current-trajectory,
+#sowmy-whatif-trajectory {
+  width: 46%;
+  float: left;
+  margin: 0 2%;
+  position: relative;
+}
+#sowmy-footnotes {
+  width: 50%;
+  float: left;
+  margin: 0 48% 0 2%;
+  font-size: 11px;
+  line-height: normal;
+}
+#swomy-association {
+  margin-right: 0;
+}
+#sowmy-map-needs {
+  width: 60%;
+  float: left;
+}
+#sowmy-map-details {
+  width: 40%;
+  float: left;
+}
+#sowmy-map-needs img {
+  width: 60%;
+  margin-left: 5%;
+  float: left;
+}
+#sowmy-map-needs .map-title {
+  width: 30%;
+  float: left;
+  color: #52227f;
+  text-align: center;
+  position: relative;
+  margin-top: 170px;
+  margin-right: 5%;
+  font-size: 13px;
+  line-height: normal;
+}
+#sowmy-map-needs .map-legends {
+  float: left;
+}
+#sowmy-map-needs .map-legends .legend {
+  float: left;
+  margin-right: 6px;
+  font-size: 11px;
+  color: #231f24;
+}
+#sowmy-map-needs .map-legends .legend-box {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-right: 3px;
+}
+#sowmy-map-needs .map-legends .legend-1 .legend-box {
+  background-color: #72469b;
+}
+#sowmy-map-needs .map-legends .legend-2 .legend-box {
+  background-color: #4668b2;
+}
+#sowmy-map-needs .map-legends .legend-3 .legend-box {
+  background-color: #4a89be;
+}
+#sowmy-map-needs .map-legends .legend-4 .legend-box {
+  background-color: #00aeef;
+}
+#sowmy-map-needs .map-legends .legend-5 .legend-box {
+  background-color: #68c079;
+}
+#sowmy-map-needs .map-legends .legend-6 .legend-box {
+  background-color: #d6e489;
+}
+#sowmy-map-needs .map-legends .legend-7 .legend-box {
+  background-color: #e9d416;
+}
+#sowmy-map-needs .map-legends .legend-8 .legend-box {
+  background-color: #e3a023;
+}
+#sowmy-map-needs .map-legends .legend-9 .legend-box {
+  background-color: #f36421;
+}
+#sowmy-map-needs .map-legends .legend-10 .legend-box {
+  background-color: #b1292f;
+}
+#sowmy-map-details #approx-text {
+  margin: 0 45%;
+  font-size: 10px;
+  color: #f36421;
+}
+#sowmy-map-details .episode {
+  height: 45px;
+  text-align: center;
+  position: relative;
+  float: left;
+  width: 100%;
+}
+#sowmy-map-details .pre-pregnancy {
+  color: #f36421;
+}
+#sowmy-map-details .antenatal {
+  color: #cf6273;
+}
+#sowmy-map-details .birth {
+  color: #c0488c;
+}
+#sowmy-map-details .post-partum {
+  color: #72469b;
+}
+#sowmy-map-details .postnatal {
+  color: #72469b;
+}
+#sowmy-map-details .episode .label-wrapper {
+  width: 45%;
+  float: left;
+  position: relative;
+}
+#sowmy-map-details .episode .label-wrapper .label {
+  font-size: 16px;
+  margin-top: 13px;
+}
+#sowmy-map-details .episode .label-wrapper .sub-label {
+  font-size: 10px;
+  margin-top: -7px;
+}
+#sowmy-map-details .episode .value-wrapper {
+  width: 45%;
+  float: left;
+  text-align: left;
+}
+#sowmy-map-details .post-partum .value-wrapper {
+  margin-top: 30px;
+}
+#sowmy-map-details .episode .value-wrapper .value {
+  font-size: 23px;
+  margin-top: 10px;
+}
+#sowmy-map-details .episode .value-wrapper .sub-value {
+  font-size: 14px;
+}
+#sowmy-map-details .episode .eq-wrapper {
+  width: 10%;
+  float: left;
+  font-size: 23px;
+  margin-top: 20px;
+}
+#sowmy-map-details .episode .grp-wrapper {
+  width: 2%;
+  position: absolute;
+  border-right: 2px solid;
+  height: 44px;
+  left: 40%;
+}
+#sowmy-map-details .post-partum .grp-wrapper {
+  border-top: 2px solid;
+}
+#sowmy-map-details .postnatal .grp-wrapper {
+  border-bottom: 2px solid;
+}
+#sowmy-map-details .post-partum .eq-wrapper {
+  margin-top: 40px;
+}
+#sowmy-map-details .episode-arrow {
+  width: 40px;
+  height: 45px;
+  position: absolute;
+  left: 23%;
+  margin-left: -22px;
+}
+#sowmy-map-details .episode-arrow:after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+}
+#sowmy-map-details .pre-pregnancy .episode-arrow {
+  background-color: rgba(243, 100, 33, 0.35);
+}
+#sowmy-map-details .antenatal .episode-arrow {
+  background-color: rgba(207, 98, 115, 0.35);
+}
+#sowmy-map-details .birth .episode-arrow {
+  background-color: rgba(192, 72, 140, 0.35);
+}
+#sowmy-map-details .post-partum .episode-arrow {
+  background-color: rgba(114, 70, 155, 0.35);
+}
+#sowmy-map-details .postnatal .episode-arrow {
+  background-color: rgba(114, 70, 155, 0.35);
+}
+#sowmy-map-details .pre-pregnancy .episode-arrow:after {
+  border-top: 15px solid rgba(243, 100, 33, 0.35);
+}
+#sowmy-map-details .antenatal .episode-arrow:after {
+  border-top: 15px solid rgba(207, 98, 115, 0.35);
+}
+#sowmy-map-details .birth .episode-arrow:after {
+  border-top: 15px solid rgba(192, 72, 140, 0.35);
+}
+#sowmy-map-details .post-partum .episode-arrow:after {
+  border-top: 15px solid rgba(114, 70, 155, 0.35);
+}
+#sowmy-map-details .postnatal .episode-arrow:after {
+  border-top: 15px solid rgba(114, 70, 155, 0.35);
+}
+#availability-table,
+#sowmy-map-details-wrapper {
+  width: 45%;
+  float: left;
+  margin: 20px 5% 0;
+}
+#sowmy-map-details-wrapper {
+  position: relative;
+  margin: 70px 0 0;
+}
+#availability-table .row .column {
+  float: left;
+  font-size: 10px;
+  line-height: normal;
+  position: relative;
+  text-align: center;
+  padding-bottom: 15px;
+}
+#availability-table .row .column1 {
+  width: 45%;
+  margin-left: 20%;
+  margin-right: 10%;
+  float: left;
+}
+#availability-table .row .column2 {
+  width: 25%;
+  float: left;
+}
+#availability-table .row .column:after {
+  content: "";
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #636366;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+}
+#availability-table .row {
+  width: 100%;
+  float: left;
+  border-bottom: 1px solid;
+  padding: 3px 0;
+  color: #000;
+}
+#availability-table .row-country-classification-time-spant,
+#availability-table .row-obstetricians-gynaecologists {
+  border: none;
+}
+#availability-table .label-box {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-top: 4px;
+  margin-right: 4px;
+}
+#availability-table .row-midwives .label-box {
+  background-color: #72469b;
+}
+#availability-table .row-midwives-auxiliary .label-box {
+  background-color: #9275b4;
+}
+#availability-table .row-nurse-midwives .label-box {
+  background-color: #bf69aa;
+}
+#availability-table .row-nurses .label-box {
+  background-color: #d38eb3;
+}
+#availability-table .row-nurses-nurse-midwives .label-box {
+  background-color: #fcb814;
+}
+#availability-table .row-clinical-ocers .label-box {
+  background-color: #68c079;
+}
+#availability-table .row-physicians-generalists .label-box {
+  background-color: #4a89be;
+}
+#availability-table .row-obstetricians-gynaecologists .label-box {
+  background-color: #f36421;
+}
+#availability-table .label {
+  float: left;
+  width: 60%;
+}
+#availability-table .value {
+  width: 20%;
+  float: left;
+  text-align: center;
+}
+#availability-table .label span {
+  margin-left: 16px;
+  display: block;
+}
+#sowmy-accessibility h3 {
+  color: #72469b;
+  font-size: 13px;
+  margin: 20px 50px 0;
+  text-align: center;
+  line-height: normal;
+}
+#sowmy-main-content h2 sup,
+#sowmy-accessibility h3 sup {
+  font-size: 10px;
+}
+#sowmy-accessibility .label {
+  width: 30%;
+  float: left;
+  margin-right: 2%;
+}
+#sowmy-accessibility .label .label-box {
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin-top: 4px;
+  margin-right: 4px;
+}
+#sowmy-accessibility .label-accessed-sba .label-box {
+  background-color: #582e91;
+}
+#sowmy-accessibility .label-not-accessed-sba .label-box {
+  background-color: #f36421;
+}
+#sowmy-accessibility .label-no-data-on-rural .label-box {
+  background-color: #b7b794;
+}
+#sowmy-accessibility .label span {
+  margin-left: 20px;
+  display: block;
+  color: #000;
+  line-height: normal;
+  font-size: 12px;
+}
+#sowmy-availability #sowmy-map-details {
+  width: 50%;
+}
+#sowmy-availability #sowmy-map-details .episode-arrow {
+  width: 30px;
+  margin-left: -16px;
+  left: 50%;
+}
+#sowmy-availability #sowmy-map-details .episode .label-wrapper .label {
+  font-size: 12px;
+}
+#sowmy-availability #sowmy-map-details .episode-arrow:after {
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+}
+#sowmy-availability #sowmy-map-details .episode .label-wrapper {
+  width: 100%;
+}
+#sowmy-availability #availability-seperator {
+  width: 3%;
+  border-right: 2px solid #72469b;
+  border-top: 2px solid #72469b;
+  border-bottom: 2px solid #72469b;
+  height: 235px;
+  position: absolute;
+  left: 50%;
+}
+#sowmy-availability #availability-details {
+  color: #72469b;
+  float: left;
+  width: 40%;
+  line-height: normal;
+  margin-left: 10%;
+}
+#sowmy-availability #availability-details .met-need {
+  font-size: 20px;
+}
+#sowmy-availability #availability-details .met-value {
+  font-size: 40px;
+}
+#sowmy-availability #availability-details .time-available,
+#sowmy-availability #availability-details .time-needed,
+#sowmy-availability #availability-details .aggregate-data {
+  font-size: 11px;
+}
+#sowmy-availability #availability-details .time-available,
+#sowmy-availability #availability-details .time-needed {
+  text-align: center;
+}
+#sowmy-availability #availability-details .time-available {
+  border-bottom: 1px solid;
+}
+#sowmy-availability #availability-details .aggregate-data {
+  margin-top: 10px;
+}
+#swomy-education .row,
+#swomy-regulation .row,
+#swomy-association .row {
+  border-bottom: 1px solid;
+  width: 100%;
+  float: left;
+  font-size: 12px;
+  color: #000;
+}
+#swomy-education .label,
+#swomy-regulation .label,
+#swomy-association .label {
+  width: 80%;
+  float: left;
+}
+#swomy-education .value,
+#swomy-regulation .value,
+#swomy-association .value {
+  width: 20%;
+  float: left;
+  text-align: right;
+}
+#swomy-association .list {
+  width: 100%;
+  float: left;
+}
+#swomy-association .list span {
+  float: left;
+  font-size: 12px;
+  color: #000;
+  margin-bottom: 10px;
+}
+#sowmy-whatif-estimates h2 {
+  background-color: transparent;
+  color: #72469b;
+  text-align: left;
+  margin-left: 20px;
+  text-transform: none;
+}
+#sowmy-whatif-estimates h2 span {
+  font-size: 12px;
+}
+#sowmy-whatif-estimates {
+  text-align: center;
+}
+#sowmy-whatif-estimates .block {
+  display: inline-block;
+  width: 200px;
+  padding: 10px;
+  margin: 10px;
+  color: #72469b;
+  background-color: #fff;
+  border-radius: 15px;
+  height: 330px;
+  text-align: left;
+}
+#sowmy-whatif-estimates .block .number {
+  color: white;
+  width: 30px;
+  height: 30px;
+  background-color: #7c61aa;
+  border-radius: 9999px;
+  float: left;
+  text-align: center;
+  font-size: 22px;
+  line-height: 30px;
+  margin-right: 10px;
+}
+#sowmy-whatif-estimates .block .title {
+  width: 160px;
+  float: left;
+  line-height: 18px;
+  height: 60px;
+}
+#sowmy-whatif-estimates .block .current,
+#sowmy-whatif-estimates .block .scenario {
+  width: 76px;
+  margin-top: 30px;
+  float: left;
+}
+#sowmy-whatif-estimates .block .current .visuals,
+#sowmy-whatif-estimates .block .scenario .visuals {
+  background: url(../images/swomy-sprite.png);
+  margin: 0 auto;
+  height: 51px;
+  width: 54px;
+  font-size: 13px;
+  padding-top: 27px;
+}
+#sowmy-whatif-estimates .block.attrition .current .visuals,
+#sowmy-whatif-estimates .block.attrition .scenario .visuals {
+  font-size: 10px;
+}
+#sowmy-whatif-estimates .block .current .visuals span,
+#sowmy-whatif-estimates .block .scenario .visuals span {
+  display: block;
+}
+#sowmy-whatif-estimates .number-of-midwife .current .visuals,
+#sowmy-whatif-estimates .number-of-midwife .scenario .visuals {
+  background-position: -54px -7px;
+  width: 55px;
+  padding: 0;
+}
+#sowmy-whatif-estimates .number-of-midwife .current .visuals {
+  height: 35px;
+  margin: 25px auto 18px;
+}
+#sowmy-whatif-estimates .number-of-midwife .scenario .visuals {
+  height: 71px;
+  margin-top: 7px;
+}
+#sowmy-whatif-estimates .efficiency .current .visuals,
+#sowmy-whatif-estimates .efficiency .scenario .visuals {
+  width: 39px;
+  padding: 0;
+  height: 71px;
+  margin-top: 7px;
+}
+#sowmy-whatif-estimates .efficiency .current .visuals {
+  background-position: -108px -7px;
+}
+#sowmy-whatif-estimates .efficiency .scenario .visuals {
+  background-position: -147px -7px;
+}
+#sowmy-whatif-estimates .attrition .current .visuals,
+#sowmy-whatif-estimates .attrition .scenario .visuals {
+  background-position: -185px -9px;
+  width: 46px;
+  padding: 0;
+  height: 41px;
+  line-height: 11px;
+  margin-top: 9px;
+  color: #fff;
+  text-align: center;
+  padding-top: 28px;
+}
+#sowmy-whatif-estimates .block .current .label,
+#sowmy-whatif-estimates .block .scenario .label {
+  text-align: center;
+}
+#sowmy-whatif-estimates .block .current .visuals span,
+#sowmy-whatif-estimates .block .scenario .visuals span {
+  font-size: 20px;
+}
+#sowmy-whatif-estimates .block.attrition .current .visuals span,
+#sowmy-whatif-estimates .block.attrition .scenario .visuals span {
+  font-size: 12px;
+}
+#sowmy-whatif-estimates .block .arrow {
+  background: url(../images/swomy-sprite.png) -231px -55px;
+  float: left;
+  height: 23px;
+  width: 27px;
+  margin: 106px 10px 0;
+}
+#sowmy-whatif-estimates .block p {
+  font-size: 11px;
+  margin: 5px 0;
+  float: left;
+}
+#sowmy-whatif-estimates .block .current .details,
+#sowmy-whatif-estimates .block .scenario .details,
+#sowmy-current-trajectory .details,
+#sowmy-whatif-trajectory .details {
+  text-align: center;
+  border: 1px solid #f36421;
+  border-radius: 9999px;
+  height: 50px;
+  padding: 8px 5px;
+  width: 55px;
+  margin: 5px auto;
+  font-size: 10px;
+  line-height: normal;
+}
+#sowmy-whatif-estimates .block .current .details,
+#sowmy-whatif-estimates .block .scenario .details {
+  font-size: 8px;
+}
+#sowmy-whatif-estimates .block .current .details span,
+#sowmy-whatif-estimates .block .scenario .details span,
+#sowmy-current-trajectory .details span,
+#sowmy-whatif-trajectory .details span {
+  font-size: 18px;
+  display: block;
+}
+#sowmy-whatif-estimates .block .scenario .details,
+#sowmy-current-trajectory .details,
+#sowmy-whatif-trajectory .details {
+  padding: 8px 5px;
+  margin: 5px auto;
+}
+#sowmy-current-trajectory .details,
+#sowmy-whatif-trajectory .details {
+  position: absolute;
+  bottom: 40px;
+  right: 100px;
+  background-color: #fff;
+  color: #72469b;
+  display: none;
+}
+#sowmy-needs,
+#sowmy-availability,
+#sowmy-accessibility,
+#sowmy-middle-section,
+#sowmy-pregnencies,
+#sowmy-whatif-estimates,
+#sowmy-current-trajectory,
+#sowmy-whatif-trajectory,
+#sowmy-footnotes {
+  margin-bottom: 30px;
+}
+.sowmy-wrapper {
+  max-width: 980px;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+.page-sowmy #main .max_wrapper {
+  max-width: none;
+  padding: 0;
+}
+.page-sowmy #main .breadcrumb {
+  max-width: 980px;
+  padding: 22px 10px 20px;
+  margin: 0 auto;
+}
+
+button.pencil {
+  background-image: url(../images/pencil.png);
+  background-repeat: no-repeat;
+  background-position: 0 1px;
+  background-color: transparent;
+  border: 0 none;
+  color: #0090c9;
+  font-size: 14px;
+  font-weight: 700;
+  padding-left: 18px;
+}
+
+/*===SOF SOWMY french, spanish translation changes===*/
+
+.page-sowmy.i18n-fr #sowmy-main-content h2,
+.page-sowmy.i18n-es #sowmy-main-content h2 {
+  font-size: 14px;
+}
+
+.page-sowmy.i18n-fr #sowmy-map-details .episode .label-wrapper .label,
+.page-sowmy.i18n-es #sowmy-map-details .episode .label-wrapper .label {
+  font-size: 12px;
+}
+
+.page-sowmy.i18n-fr #sowmy-map-details .episode .label-wrapper .sub-label,
+.page-sowmy.i18n-es #sowmy-map-details .episode .label-wrapper .sub-label {
+  font-size: 9px;
+  line-height: 10px;
+  margin-top: -3px;
+}
+
+.page-sowmy.i18n-fr #sowmy-map-details .episode .value-wrapper .sub-value,
+.page-sowmy.i18n-es #sowmy-map-details .episode .value-wrapper .sub-value {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.page-sowmy.i18n-fr #sowmy-map-details .episode .value-wrapper .value,
+.page-sowmy.i18n-es #sowmy-map-details .episode .value-wrapper .value {
+  font-size: 20px;
+}
+
+.page-sowmy.i18n-fr #sowmy-current-trajectory .details, 
+.page-sowmy.i18n-fr #sowmy-whatif-trajectory .details,
+.page-sowmy.i18n-es #sowmy-current-trajectory .details, 
+.page-sowmy.i18n-es #sowmy-whatif-trajectory .details {
+  font-size: 8px;
+}
+
+.page-sowmy.i18n-fr #sowmy-whatif-estimates .block .current .details span, 
+.page-sowmy.i18n-fr #sowmy-whatif-estimates .block .scenario .details span, 
+.page-sowmy.i18n-fr #sowmy-current-trajectory .details span, 
+.page-sowmy.i18n-fr #sowmy-whatif-trajectory .details span,
+.page-sowmy.i18n-es #sowmy-whatif-estimates .block .current .details span, 
+.page-sowmy.i18n-es #sowmy-whatif-estimates .block .scenario .details span, 
+.page-sowmy.i18n-es #sowmy-current-trajectory .details span, 
+.page-sowmy.i18n-es #sowmy-whatif-trajectory .details span {
+  font-size: 16px;
+}
+
+/*===EOF SOWMY french,spanish translation changes===*/
+
+@media all and (max-width:979px) {
+  #sowmy-map {
+    width: 58%;
+  }
+  #sowmy-map-details {
+    width: 42%;
+  }
+}
+@media all and (max-width:767px) {
+  #sowmy-needs,
+  #sowmy-availability,
+  #sowmy-accessibility,
+  #sowmy-middle-section,
+  #sowmy-pregnencies,
+  #sowmy-whatif-estimates,
+  #sowmy-current-trajectory,
+  #sowmy-whatif-trajectory,
+  #sowmy-footnotes {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+}
+@media all and (max-width:720px) {
+  #sowmy-map,
+  #sowmy-needs #sowmy-map-details {
+    width: 90%;
+    margin: 0 5%;
+  }
+  #sowmy-map img {
+    width: 90%;
+    margin: 0 5%;
+  }
+  #sowmy-map .map-title {
+    width: 90%;
+    margin: 10px 5%;
+  }
+  #swomy-education,
+  #swomy-regulation,
+  #swomy-association {
+    width: 100%;
+    margin: 0;
+  }
+}
+@media all and (max-width:480px) {
+  #sowmy-map,
+  #sowmy-needs #sowmy-map-details {
+    width: 100%;
+    margin: 0;
+  }
+  #availability-table,
+  #sowmy-map-details-wrapper {
+    width: 90%;
+    margin: 10px 5%;
+  }
+  #sowmy-current-trajectory .details,
+  #sowmy-whatif-trajectory .details {
+    right: 60px;
+  }
+}

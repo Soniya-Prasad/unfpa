@@ -1,0 +1,228 @@
+<?php
+/**
+ * @file
+ * custom module for Event Page Flickr Section
+ */
+
+/**
+ * Implementation of hook_block_info().
+ * 
+ */
+ 
+function custom_flickr_block_info() {
+ 
+ $blocks['event_flickr_images'] = array(
+    'info' => t('Block Event Flickr Images - Photos'),
+ );
+ 
+ $blocks['event_flickr_video'] = array(
+    'info' => t('Block Event Flickr Images - Videos'),
+ );
+ 
+   return $blocks;
+}
+
+/**
+ * Implementation of hook_block_view().
+ */
+function custom_flickr_block_view($delta='') {
+  $block = array();
+  switch ($delta) {	
+	case 'event_flickr_images':
+      $block['subject'] = t('Event Flickr Block - Photo Template');
+      $block['content'] = event_flickr_images_view();
+    break;
+	case 'event_flickr_video':
+      $block['subject'] = t('Event Flickr Block - Video Template');
+      $block['content'] = event_flickr_video_view();
+    break;
+  }
+  return $block;
+}
+
+function custom_flickr_theme($data=array())
+{
+	return array(
+    'custom_flickr_section' => array(
+      'variables' => array('data' => $data), 
+      'template' => 'event_flickr_photos',
+    ),
+	 'custom_flickr_video' => array(
+      'variables' => array('data' => $data), 
+      'template' => 'event_flickr_videos',
+    ),	
+	
+  );
+}
+
+
+function event_flickr_images_view()
+{
+  if (arg(0) == 'node' && ($nid = (int) arg(1))) {
+   $node = node_load($nid); 
+  //echo '<pre>'; print_r($node); echo '</pre>'; 
+	$output= field_get_items('node', $node, 'field_event_flickr_photo_set');
+        if(isset($output[0]['flickrid']))
+        {
+             $settings = array(
+                'user_id' => '',
+                'show_n' => 5,
+                'size' => '',
+                'photoset_id' => '',
+                'media' => 'all',
+                );
+
+              // Get the default user id as a fallback.
+              if (empty($settings['user_id'])) {
+                $settings['user_id'] = variable_get('flickr_default_userid');
+              }
+              $settings['user_id'] = flickr_user_find_by_identifier($settings['user_id']);
+
+              $nsid	  =	$settings['user_id'];
+              $show_n = $settings['show_n'];
+              $media  = $settings['media'];
+              $size   = $settings['size'];
+              $attribs = NULL;
+            
+	$photoset_id = $output[0]['flickrid'];
+	 $info = flickr_photosets_getinfo($photoset_id);
+	
+ 	$response = flickr_request('flickr.photosets.getPhotos',
+		array(
+		  'photoset_id' => $photoset_id,
+		  'per_page' => $show_n,
+		  'extras' => 'owner',
+		  'media' => $media,
+		)
+	);
+  
+//  echo '<pre>Test::'; print_r($response); echo '</pre>'; 
+
+   $output = '';
+   $flickr_arr = array();
+   
+   $flickr_arr['main_title']  = $info['title']['_content'];
+   $flickr_arr['description'] = $info['description']['_content'];
+   
+  $i = 0;
+  if(isset($response['photoset']['photo']) && !empty($response['photoset']['photo'])){
+	  foreach ($response['photoset']['photo'] as $photo) {
+	  
+		// Insert owner into $photo because theme_flickr_photo needs it.
+		 $photo['owner'] = $info['owner'];
+		 $photo_url 	 = flickr_photo_page_url($photo['owner'], $photo['id']);
+		 $img_url   	 = flickr_photo_img($photo, $size);
+		 
+		 $flickr_arr['photo'][$i]['title'] = $photo['title'];
+		 $flickr_arr['photo'][$i]['url']   = $photo_url; 
+		 $flickr_arr['photo'][$i]['img']   = $img_url; 
+		 
+		 $i++;
+	  } 
+  }	  
+  
+  drupal_add_css(drupal_get_path('module', 'custom_flickr') . '/js/shadowbox/shadowbox.css');
+  drupal_add_js(drupal_get_path('module', 'custom_flickr') . '/js/shadowbox/shadowbox.js');
+  drupal_add_js(drupal_get_path('module', 'custom_flickr') . '/js/jquery.cycle.all.js', array('type' => 'file', 'scope' => 'footer'));
+  
+	//  echo '<pre>Test::'; print_r($flickr_arr); echo '</pre>'; 
+	 return theme('custom_flickr_section',array('data' => $flickr_arr));
+        }
+ } 
+}
+
+function event_flickr_video_view()
+{
+  if (arg(0) == 'node' && ($nid = (int) arg(1))) {
+   $node = node_load($nid);  
+  //echo '<pre>'; print_r($node); echo '</pre>'; 
+	$output= field_get_items('node', $node, 'field_event_flickr_photo_set');
+        if(isset($output[0]['flickrid']))
+        {
+            $settings = array(
+                'user_id' => '',
+                'show_n' => 4,
+                'size' => '',
+                'photoset_id' => '',
+                'media' => 'all',
+                );
+            // Get the default user id as a fallback.
+            if (empty($settings['user_id'])) {
+              $settings['user_id'] = variable_get('flickr_default_userid');
+            }
+            $settings['user_id'] = flickr_user_find_by_identifier($settings['user_id']);
+
+            $nsid	  =	$settings['user_id'];
+            $show_n = $settings['show_n'];
+            $media  = $settings['media'];
+            $size   = $settings['size'];
+            $attribs = NULL;
+            
+        //echo '<pre>'; print_r($output); echo '</pre>'; 
+	$photoset_id = $output[0]['flickrid'];
+	 $info = flickr_photosets_getinfo($photoset_id);
+	
+ 	$response = flickr_request('flickr.photosets.getPhotos',
+		array(
+		  'photoset_id' => $photoset_id,
+		  'per_page' => $show_n,
+		  'extras' => 'owner',
+		  'media' => $media,
+		)
+	);
+  
+ // echo '<pre>Test::'; print_r($response); echo '</pre>'; 
+
+   $output = '';
+   $flickr_arr = array();
+   
+   $flickr_arr['main_title']  = $info['title']['_content'];
+   $flickr_arr['description'] = $info['description']['_content'];
+   
+  $i = 0;
+  if(isset($response['photoset']['photo']) && !empty($response['photoset']['photo'])){
+	  foreach ($response['photoset']['photo'] as $photo) {
+	  
+		// Insert owner into $photo because theme_flickr_photo needs it.
+		 $photo['owner'] = $info['owner'];
+		 $photo_url 	 = flickr_photo_page_url($photo['owner'], $photo['id']);
+		 $img_url   	 = flickr_photo_img($photo, $size);
+		 $img_url_thumb  = flickr_photo_img($photo, 'm');
+		 
+		 $flickr_arr['photo'][$i]['title'] 		 = $photo['title'];
+		 $flickr_arr['photo'][$i]['url']   		 = $photo_url; 
+		 $flickr_arr['photo'][$i]['img']   		 = $img_url; 
+		 $flickr_arr['photo'][$i]['img_thumb']   = $img_url_thumb; 
+		 
+		 $i++;
+	  } 
+  }	  
+  
+  drupal_add_css(drupal_get_path('module', 'custom_flickr') . '/js/shadowbox/shadowbox.css');
+  drupal_add_js(drupal_get_path('module', 'custom_flickr') . '/js/shadowbox/shadowbox.js');
+  
+	//  echo '<pre>Test::'; print_r($flickr_arr); echo '</pre>'; 
+	 return theme('custom_flickr_video',array('data' => $flickr_arr));
+        }
+ } 
+}
+
+/**
+* Implements hook_entity_info_alter().
+*/
+function custom_flickr_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['another_teaser'] = array(
+    'label' => t('Another teaser'),
+    'custom settings' => TRUE,
+  );
+   $entity_info['node']['view modes']['body_teaser'] = array(
+    'label' => t('Body teaser'),
+    'custom settings' => TRUE,
+  );
+}
+
+/* function custom_flickr_js_alter(&$js) {
+    unset(
+        $js['misc/jquery.js']
+     );
+} */

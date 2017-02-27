@@ -1,0 +1,1920 @@
+<?php
+
+/**
+ * @file
+ * Custom module for All other custom functionality for UNFPA Project.
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function custom_block_info() {
+  $blocks['custom_news_related_news'] = array(
+    'info' => t('Block News Related News'),
+  );
+  $blocks['custom_press_related_press'] = array(
+    'info' => t('Block Press Related Press'),
+  );
+  $blocks['custom_news_related_pubs'] = array(
+    'info' => t('Block News Related Publications'),
+  );
+
+  $blocks['custom_pubs_related_news'] = array(
+    'info' => t('Block Publication Related News'),
+  );
+
+  $blocks['custom_pubs_related_pubs'] = array(
+    'info' => t('Block Publication Related Publications'),
+  );
+
+  $blocks['custom_resource_related_news'] = array(
+    'info' => t('Block Resource Related News'),
+  );
+
+  $blocks['custom_resource_related_pub'] = array(
+    'info' => t('Block Resource Related Publications'),
+  );
+
+  $blocks['custom_jobs_related_news'] = array(
+    'info' => t('Block Jobs Related News'),
+  );
+
+  $blocks['custom_jobs_related_pubs'] = array(
+    'info' => t('Block Jobs Related Publications'),
+  );
+
+  $blocks['custom_jobs_related_jobs'] = array(
+    'info' => t('Block Jobs Related Jobs'),
+  );
+
+  $blocks['custom_events_related_admin_res'] = array(
+    'info' => t('Block Events Related admin_res'),
+  );
+
+  $blocks['custom_topic_related_news'] = array(
+    'info' => t('Block Topic Related News'),
+  );
+
+  $blocks['custom_topic_related_pubs'] = array(
+    'info' => t('Block Topic Related Publications'),
+  );
+
+  $blocks['custom_topic_related_res'] = array(
+    'info' => t('Block Topic Related Resources'),
+  );
+
+  $blocks['custom_library_1'] = array(
+    'info' => t('Block Library 1'),
+  );
+  $blocks['custom_library_2'] = array(
+    'info' => t('Block Library 2'),
+  );
+  $blocks['custom_library_3'] = array(
+    'info' => t('Block Library 3'),
+  );
+  $blocks['custom_library_4'] = array(
+    'info' => t('Block Library 4'),
+  );
+
+  $blocks['custom_jobs_feed'] = array(
+    'info' => t('Block Jobs Feed'),
+  );
+  $blocks['custom_site_page_library'] = array(
+    'info' => t('Block Site Page Library'),
+  );
+  $blocks['custom_topic_map'] = array(
+    'info' => t('Block Custom Topic Map'),
+  );
+  $blocks['custom_resource_related_resource'] = array(
+    'info' => t('Block Resource Related Resource'),
+  );
+  $blocks['custom_home_event_block'] = array(
+    'info' => t('Block Events Block on home'),
+  );
+
+  $blocks['custom_updates_related_news'] = array(
+    'info' => t('Block Updates Related News'),
+  );
+
+  $blocks['custom_updates_related_pubs'] = array(
+    'info' => t('Block Updates Related Publications'),
+  );
+  $blocks['custom_updates_related_updates'] = array(
+    'info' => t('Block Updates Related Updates'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function custom_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'custom_home_event_block':
+      $block['subject'] = t('Events - Events Block on Home');
+      $block['content'] = home_event_block();
+      break;
+
+    case 'custom_news_related_news':
+      $block['subject'] = t('News - Related News Block');
+      $block['content'] = show_news_related_news();
+      break;
+
+    case 'custom_press_related_press':
+      $block['subject'] = t('News - Related News Block');
+      $block['content'] = show_press_related_press();
+      break;
+
+    case 'custom_news_related_pubs':
+      $block['subject'] = t('News - Related Publications Block');
+      $block['content'] = show_news_related_pubs();
+      break;
+
+    case 'custom_pubs_related_pubs':
+      $block['subject'] = t('Publication - Related Publications Block');
+      $block['content'] = show_pub_related_pubs();
+      break;
+
+    case 'custom_resource_related_pub':
+      $block['subject'] = t('Resource - Related Publications Block');
+      $block['content'] = show_resource_related_pubs();
+      break;
+
+    case 'custom_pubs_related_news':
+      $block['subject'] = t('Publication - Related News Block');
+      $block['content'] = show_pub_related_news();
+      break;
+
+    case 'custom_resource_related_news':
+      $block['subject'] = t('Resource - Related News Block');
+      $block['content'] = show_resource_related_news();
+      break;
+
+    case 'custom_jobs_related_news':
+      $block['subject'] = t('Jobs - Related News Block');
+      $block['content'] = show_jobs_related_news();
+      break;
+
+    case 'custom_jobs_related_pubs':
+      $block['subject'] = t('Jobs - Related Publications Block');
+      $block['content'] = show_jobs_related_pubs();
+      break;
+
+    case 'custom_resource_related_resource':
+      $block['subject'] = t('Resource - Related Resource Block');
+      $block['content'] = resource_related_resource();
+      break;
+
+    case 'custom_jobs_related_jobs':
+      $block['subject'] = t('Jobs - Related Jobs Block');
+      $block['content'] = show_jobs_related_jobs();
+      break;
+
+    case 'custom_events_related_admin_res':
+      $block_data = show_events_related_admin_res();
+      $block['subject'] = $block_data['title'];
+      $block['content'] = $block_data['content'];
+      break;
+
+    case 'custom_topic_related_news':
+      $block_data = show_topic_related_news();
+      $block['subject'] = $block_data['title'];
+      $block['content'] = $block_data['content'];
+      break;
+
+    case 'custom_topic_related_pubs':
+      $block_data = show_topic_related_pubs();
+      $block['subject'] = $block_data['title'];
+      $block['content'] = $block_data['content'];
+      break;
+
+    case 'custom_topic_related_res':
+      $block_data = show_topic_related_res();
+      $block['subject'] = $block_data['title'];
+      $block['content'] = $block_data['content'];
+      break;
+
+    case 'custom_library_1':
+
+      $block_data = show_library1();
+      $block['subject'] = $block_data['title'];
+      $block['content'] = $block_data['content'];
+      break;
+
+    case 'custom_library_2':
+      $block_data = show_library2();
+      $block['subject'] = $block_data['title'];
+      $block['content'] = $block_data['content'];
+      break;
+
+    case 'custom_library_3':
+      $block_data = show_library3();
+      $block['subject'] = $block_data['title'];
+      $block['content'] = $block_data['content'];
+      break;
+
+    case 'custom_library_4':
+      $block_data = show_library4();
+      $block['subject'] = $block_data['title'];
+      $block['content'] = $block_data['content'];
+      break;
+
+    case 'custom_jobs_feed':
+      $block['subject'] = t('Current Vacancies');
+      $block['content'] = show_jobs_feed_view();
+      break;
+
+    case 'custom_site_page_library':
+      $block_data = show_site_page_library();
+      $block['subject'] = $block_data['title'];
+      $block['content'] = $block_data['content'];
+      break;
+
+    case 'custom_updates_related_news':
+      $block['subject'] = t('Updates - Related News Block');
+      $block['content'] = show_updates_related_news();
+      break;
+
+    case 'custom_updates_related_pubs':
+      $block['subject'] = t('Updates - Related Publications Block');
+      $block['content'] = show_updates_related_pubs();
+      break;
+    case 'custom_updates_related_updates':
+      $block['subject'] = t('Updates - Related Updates Block');
+      $block['content'] = show_updates_related_updates();
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function custom_menu() {
+  $items = array();
+
+  $items['admin/structure/feature-list'] = array(
+    'title' => 'Feature Content List',
+    'description' => 'Feature Content List.',
+    'access arguments' => array('administer users'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Returns the fetched job title and html around it.
+ *
+ * @param string $url
+ *   Third party Job URL.
+ *
+ * @return array
+ *   List of Jobs Title and links.
+ */
+function get_jobs_feed($url) {
+
+  $_curl = curl_init();
+  // curl_setopt($_curl, CURLOPT_SSL_VERIFYHOST, 1);.
+  curl_setopt($_curl, CURLOPT_SSL_VERIFYPEER, TRUE);
+  curl_setopt($_curl, CURLOPT_RETURNTRANSFER, TRUE);
+  curl_setopt($_curl, CURLOPT_COOKIEFILE, './cookiePath.txt');
+  curl_setopt($_curl, CURLOPT_COOKIEJAR, './cookiePath.txt');
+  curl_setopt($_curl, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; InfoPath.1)');
+  // New added.
+  curl_setopt($_curl, CURLOPT_FOLLOWLOCATION, TRUE);
+  curl_setopt($_curl, CURLOPT_URL, $url);
+  $rtn = curl_exec($_curl);
+
+  $html = new simple_html_dom();
+  $html->load($rtn);
+
+  $gridtable = $html->find('.PSLEVEL1GRID', 0);
+  $arr = $gridtable->getElementsByTagName("td");
+  $job_list = array();
+  foreach ($arr as $key => $table) {
+    $job_list[$key] = $table->plaintext;
+  }
+
+  $job_list = array_chunk($job_list, 4);
+  return $job_list;
+}
+
+/**
+ * Returns the job title and themed output using custom template for jobs.
+ */
+function show_jobs_feed_view() {
+  $url = 'https://erecruit.partneragencies.org/psc/UNDPP1HRE/EMPLOYEE/HRMS/c/HRS_HRAM.HRS_CE.GBL?Page=HRS_CE_HM_PRE&Action=A&SiteId=1';
+  $final_data["job_list"] = get_jobs_feed($url);
+  $final_data["job_url"] = $url;
+  return theme('custom_joblist', array('data' => $final_data));
+}
+
+/**
+ * Returns the name of the display name based on the content type.
+ *
+ * @param string $content_type
+ *    The machine name of content type.
+ *
+ * @return string
+ *    Display Panel.
+ */
+function get_display_name($content_type) {
+  $display_panel = '';
+  switch ($content_type) {
+    case 'ct_news':
+      $display_panel = 'panel_pane_1';
+      break;
+
+    case 'ct_publications':
+      $display_panel = 'panel_pane_2';
+      break;
+
+    case 'ct_events':
+      $display_panel = 'panel_pane_3';
+      break;
+
+    case 'ct_video':
+      $display_panel = 'panel_pane_4';
+      break;
+
+    case 'ct_administrative_resource':
+      $display_panel = 'panel_pane_5';
+      break;
+
+    case 'ct_resources':
+      $display_panel = 'panel_pane_6';
+      break;
+
+    case 'ct_updates':
+      $display_panel = 'panel_pane_7';
+      break;
+
+    case 'ct_press':
+      $display_panel = 'panel_pane_8';
+      break;
+  }
+  return $display_panel;
+}
+
+/**
+ * Returns the translated title for custom block.
+ *
+ * @param string $content_type
+ *    The machine name of the content type.
+ *
+ * @return string $panel_title
+ *    The panel_title to be used in the panel for pages.
+ */
+function get_block_title($content_type) {
+  $panel_title = '';
+  switch ($content_type) {
+    case 'ct_news':
+      $panel_title = t('News on');
+      break;
+
+    case 'ct_publications':
+      $panel_title = t('Publication on');
+      break;
+
+    case 'ct_events':
+      $panel_title = t('Events on');
+      break;
+
+    case 'ct_video':
+      $panel_title = t('Videos on');
+      break;
+
+    case 'ct_administrative_resource':
+      $panel_title = t('Resources on');
+      break;
+
+    case 'ct_resources':
+      $panel_title = '';
+      break;
+  }
+  return $panel_title;
+}
+
+/**
+ * Displays events on the home page.
+ *
+ * @return object
+ *    Returns the output of the view.
+ */
+function home_event_block() {
+  global $language;
+  $nodes_array = array();
+
+  $site_language = $language->language;
+  $default_site_language = language_default('language');
+  // The event limit to be shown on the home page event block.
+  $event_limit = 4;
+  $upcoming_events_query = "SELECT node.nid AS nid, field_data_field_event_date.field_event_date_value AS field_data_field_event_date_field_event_date_value
+                            FROM
+                            {node} node
+                            LEFT JOIN {field_data_field_event_date} field_data_field_event_date ON node.nid = field_data_field_event_date.entity_id AND (field_data_field_event_date.entity_type = 'node' AND field_data_field_event_date.deleted = '0')
+                            INNER JOIN {field_data_field_publish_on_home} field_data_field_publish_on_home ON node.nid = field_data_field_publish_on_home.entity_id AND (field_data_field_publish_on_home.entity_type = 'node' AND field_data_field_publish_on_home.deleted = '0')
+                            WHERE (( (node.status = '1') AND (node.type IN  ('ct_events')) AND (node.tnid = 0
+                             OR (node.language = '" . $site_language . "')
+                             OR (node.language  = '" . $default_site_language . "' AND
+                                      0 = (SELECT count(lmfh_node.nid)
+                                             FROM {node} AS lmfh_node
+                                            WHERE lmfh_node.tnid = node.tnid AND
+                                                  ((lmfh_node.language = '" . $site_language . "'))))
+                             OR (node.nid = node.tnid AND
+                                      0 = (SELECT count(lmfh_node.nid)
+                                             FROM {node} AS lmfh_node
+                                            WHERE lmfh_node.tnid = node.tnid AND
+                                                  ((lmfh_node.language = '" . $site_language . "') OR (lmfh_node.language = '" . $default_site_language . "'))))) AND (DATE_FORMAT(field_data_field_event_date.field_event_date_value, '%Y-%m-%d') >= '" . date("Y-m-d") . "') AND (field_data_field_publish_on_home.field_publish_on_home_value = 'yes') ))
+                            ORDER BY field_data_field_event_date_field_event_date_value ASC
+                            LIMIT " . $event_limit . " OFFSET 0";
+
+  $upcoming_view_result = db_query($upcoming_events_query);
+  if ($upcoming_view_result->rowCount() > 0) {
+    foreach ($upcoming_view_result as $obj_result) {
+      $nodes_array[] = $obj_result->nid;
+    }
+  }
+  // The future events less than required event limit
+  // then show remaining past events.
+  $cnt_future_events = count($nodes_array);
+  if ($cnt_future_events < $event_limit) {
+    // The past events limit count set based on the remaining past events.
+    $event_limit = $event_limit - $cnt_future_events;
+    $past_events_query = "SELECT node.nid AS nid, field_data_field_event_date.field_event_date_value AS field_data_field_event_date_field_event_date_value
+                          FROM
+                          {node} node
+                          LEFT JOIN {field_data_field_event_date} field_data_field_event_date ON node.nid = field_data_field_event_date.entity_id AND (field_data_field_event_date.entity_type = 'node' AND field_data_field_event_date.deleted = '0')
+                          INNER JOIN {field_data_field_publish_on_home} field_data_field_publish_on_home ON node.nid = field_data_field_publish_on_home.entity_id AND (field_data_field_publish_on_home.entity_type = 'node' AND field_data_field_publish_on_home.deleted = '0')
+                          WHERE (( (node.status = '1') AND (node.type IN  ('ct_events')) AND (node.tnid = 0
+                           OR (node.language = '" . $site_language . "')
+                           OR (node.language = '" . $default_site_language . "' AND
+                                    0 = (SELECT count(lmfh_node.nid)
+                                           FROM {node} AS lmfh_node
+                                          WHERE lmfh_node.tnid = node.tnid AND
+                                                ((lmfh_node.language ='" . $site_language . "'))))
+                           OR (node.nid = node.tnid AND
+                                    0 = (SELECT count(lmfh_node.nid)
+                                           FROM {node} AS lmfh_node
+                                          WHERE lmfh_node.tnid = node.tnid AND
+                                                ((lmfh_node.language ='" . $site_language . "') OR (lmfh_node.language = '" . $default_site_language . "'))))) AND (DATE_FORMAT(field_data_field_event_date.field_event_date_value, '%Y-%m-%d') < '" . date("Y-m-d") . "') AND (field_data_field_publish_on_home.field_publish_on_home_value = 'yes') ))
+                          ORDER BY field_data_field_event_date_field_event_date_value DESC
+                          LIMIT " . $event_limit . " OFFSET 0";
+    $past_view_result = db_query($past_events_query);
+    if ($past_view_result->rowCount() > 0) {
+      foreach ($past_view_result as $obj_result) {
+        array_push($nodes_array, $obj_result->nid);
+      }
+    }
+  }
+  $node_array_str = implode('+', $nodes_array);
+  $output = views_embed_view('vw_events', 'block_home_event', $node_array_str);
+  return $output;
+}
+
+/**
+ * Returns block title and content for the Site pages Library.
+ *
+ * @return array
+ *    Block title and content.
+ */
+function show_site_page_library() {
+  $type = arg(0);
+  if ($type != 'node') {
+    return array();
+  }
+
+  $nid = arg(1);
+  if (empty($nid)) {
+    return array();
+  }
+
+  $get_block_data = array(
+    'title' => '',
+    'content' => '',
+  );
+  $wrapper = entity_metadata_wrapper('node', $nid);
+  if (($wrapper->getBundle() == 'ct_site_pages') && !empty($wrapper->field_related_library[0])) {
+    // Collection wrapper for field collection item.
+    $collection_wrapper = $wrapper->field_related_library->get(0);
+
+    $get_block_data['title'] = $collection_wrapper->field_library_title->value();
+    // The default number of items to be shown on the page.
+    $page_set_limit = 2;
+    $content_type = $collection_wrapper->field_content_type->value();
+    $load_display = get_display_name($content_type);
+
+    if ($collection_wrapper->__isset('field_related_tags')) {
+      // Get the related tags taxonomy ids for the library.
+      $tid_array = array();
+      foreach ($collection_wrapper->field_related_tags as $related_tag_wrapper) {
+        $tid_array[] = $related_tag_wrapper->getIdentifier();
+      }
+    }
+    $tids = implode('+', $tid_array);
+
+    $view = views_get_view('vw_resource_pages');
+    // Select the view type.
+    $view->set_display($load_display);
+    $view->set_arguments(array($tids));
+    // Set the pager limit.
+    $view->set_items_per_page($page_set_limit);
+    $pager_options = $view->display_handler->get_option('pager');
+    $pager_options['options']['id'] = '0';
+    $pager_options['options']['items_per_page'] = $page_set_limit;
+    $view->display_handler->set_option('pager', $pager_options);
+
+    $view->pre_execute();
+    $view->execute($load_display);
+    $output = $view->render($load_display);
+
+    $get_block_data['content'] = $output;
+  }
+
+  return $get_block_data;
+}
+
+/**
+ * Returns block title and content for the Library used on the pages.
+ *
+ * @return array
+ *    Block title and content.
+ */
+function show_library1() {
+  $get_block_data = array(
+    'title' => '',
+    'content' => '',
+  );
+  $type = arg(0);
+  if ($type == 'node') {
+    $nid = arg(1);
+    if ($nid != '') {
+      $node = node_load($nid);
+
+      if ($node->type == 'ct_resource_pages' || $node->type == 'ct_emergencies') {
+
+        $items = field_get_items('node', $node, 'field_library');
+        $fc = isset($items[0]) ? field_collection_field_get_entity($items[0]) : '';
+        if ($fc != '') {
+          $content_type = $fc->field_content_type[LANGUAGE_NONE][0]['value'];
+          $up_panel_title = get_block_title($content_type);
+          $get_block_data['title'] = $up_panel_title . " " . $fc->field_library_title[LANGUAGE_NONE][0]['value'];
+          $page_set_limit = isset($fc->field_set_item_limit[LANGUAGE_NONE][0]['value']) ? $fc->field_set_item_limit[LANGUAGE_NONE][0]['value'] : 4;
+          $load_display = get_display_name($content_type);
+          $tid_array = array();
+          foreach ($fc->field_related_tags[LANGUAGE_NONE] as $t_value) {
+            $tid_array[] = $t_value['tid'];
+          }
+          $tids = implode('+', $tid_array);
+
+          $view = views_get_view('vw_resource_pages');
+          // Select the view type.
+          $view->set_display($load_display);
+          $view->set_arguments(array($tids));
+          // Set the pager limit.
+          $view->set_items_per_page($page_set_limit);
+          $pager_options = $view->display_handler->get_option('pager');
+          $pager_options['options']['id'] = '0';
+          $pager_options['options']['items_per_page'] = $page_set_limit;
+          $view->display_handler->set_option('pager', $pager_options);
+
+          $view->pre_execute();
+          $view->execute($load_display);
+          $output = $view->render($load_display);
+
+          $get_block_data['content'] = $output;
+        }
+      }
+    }
+  }
+
+  return $get_block_data;
+}
+
+/**
+ * Returns block title and content for the Library used on the pages.
+ *
+ * @return array
+ *    Block title and content.
+ */
+function show_library2() {
+  $get_block_data = array(
+    'title' => '',
+    'content' => '',
+  );
+  $type = arg(0);
+  if ($type == 'node') {
+    $nid = arg(1);
+    if ($nid != '') {
+      $node = node_load(arg(1));
+      if ($node->type == 'ct_resource_pages' || $node->type == 'ct_emergencies') {
+        $items = field_get_items('node', $node, 'field_library');
+        $fc = isset($items[1]) ? field_collection_field_get_entity($items[1]) : '';
+        if ($fc != '') {
+          $get_block_data['title'] = $fc->field_library_title[LANGUAGE_NONE][0]['value'];
+          $page_set_limit = isset($fc->field_set_item_limit[LANGUAGE_NONE][0]['value']) ? $fc->field_set_item_limit[LANGUAGE_NONE][0]['value'] : 4;
+          $content_type = $fc->field_content_type[LANGUAGE_NONE][0]['value'];
+          $load_display = get_display_name($content_type);
+
+          $tid_array = array();
+          foreach ($fc->field_related_tags[LANGUAGE_NONE] as $t_value) {
+            $tid_array[] = $t_value['tid'];
+          }
+          $tids = implode('+', $tid_array);
+          $view = views_get_view('vw_resource_pages');
+          // Select the view type.
+          $view->set_display($load_display);
+          $view->set_arguments(array($tids));
+          // Set the pager limit.
+          $view->set_items_per_page($page_set_limit);
+
+          $pager_options = $view->display_handler->get_option('pager');
+          $pager_options['options']['id'] = '1';
+          $pager_options['options']['items_per_page'] = $page_set_limit;
+          $view->display_handler->set_option('pager', $pager_options);
+
+          $view->pre_execute();
+          $view->execute($load_display);
+          $output = $view->render($load_display);
+
+          $get_block_data['content'] = $output;
+        }
+      }
+    }
+  }
+  return $get_block_data;
+}
+
+/**
+ * Returns block title and content for the Library used on the pages.
+ *
+ * @return array
+ *    Block title and content.
+ */
+function show_library3() {
+  $get_block_data = array(
+    'title' => '',
+    'content' => '',
+  );
+  $type = arg(0);
+  if ($type == 'node') {
+    $nid = arg(1);
+    if ($nid != '') {
+      $node = node_load(arg(1));
+      if ($node->type == 'ct_resource_pages' || $node->type == 'ct_emergencies') {
+        $items = field_get_items('node', $node, 'field_library');
+
+        $fc = isset($items[2]) ? field_collection_field_get_entity($items[2]) : '';
+        if ($fc != '') {
+          $get_block_data['title'] = $fc->field_library_title[LANGUAGE_NONE][0]['value'];
+          $page_set_limit = isset($fc->field_set_item_limit[LANGUAGE_NONE][0]['value']) ? $fc->field_set_item_limit[LANGUAGE_NONE][0]['value'] : 4;
+          $content_type = $fc->field_content_type[LANGUAGE_NONE][0]['value'];
+          $load_display = get_display_name($content_type);
+
+          $tid_array = array();
+          foreach ($fc->field_related_tags[LANGUAGE_NONE] as $t_value) {
+            $tid_array[] = $t_value['tid'];
+          }
+          $tids = implode('+', $tid_array);
+          $view = views_get_view('vw_resource_pages');
+          // Select the view type.
+          $view->set_display($load_display);
+          $view->set_arguments(array($tids));
+          // Set the pager limit.
+          $view->set_items_per_page($page_set_limit);
+
+          $view->pre_execute();
+          $view->execute($load_display);
+          $output = $view->render($load_display);
+
+          $get_block_data['content'] = $output;
+        }
+      }
+    }
+  }
+  return $get_block_data;
+}
+
+/**
+ * Returns block title and content for the Library used on the pages.
+ *
+ * @return array
+ *    Block title and content.
+ */
+function show_library4() {
+  $get_block_data = array(
+    'title' => '',
+    'content' => '',
+  );
+  $type = arg(0);
+  if ($type == 'node') {
+    $nid = arg(1);
+    if ($nid != '') {
+      $node = node_load(arg(1));
+      if ($node->type == 'ct_resource_pages' || $node->type == 'ct_emergencies') {
+        $items = field_get_items('node', $node, 'field_library');
+        $fc = isset($items[3]) ? field_collection_field_get_entity($items[3]) : '';
+        if ($fc != '') {
+          $get_block_data['title'] = $fc->field_library_title[LANGUAGE_NONE][0]['value'];
+
+          $page_set_limit = isset($fc->field_set_item_limit[LANGUAGE_NONE][0]['value']) ? $fc->field_set_item_limit[LANGUAGE_NONE][0]['value'] : 4;
+          $content_type = $fc->field_content_type[LANGUAGE_NONE][0]['value'];
+          $load_display = get_display_name($content_type);
+
+          $tid_array = array();
+          foreach ($fc->field_related_tags[LANGUAGE_NONE] as $t_value) {
+            $tid_array[] = $t_value['tid'];
+          }
+          $tids = implode('+', $tid_array);
+          $view = views_get_view('vw_resource_pages');
+          // Select the view type.
+          $view->set_display($load_display);
+          $view->set_arguments(array($tids));
+          // Set the pager limit.
+          $view->set_items_per_page($page_set_limit);
+
+          $view->pre_execute();
+          $view->execute($load_display);
+          $output = $view->render($load_display);
+
+          $get_block_data['content'] = $output;
+        }
+      }
+    }
+  }
+  return $get_block_data;
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function custom_views_query_alter(&$view, &$query) {
+  // Displays the content based on the order set in the nids array.
+  if ($view->name == 'vw_custom_related_views' || $view->name == 'vw_related_topics_terms') {
+    if (isset($view->args[0])) {
+      $nids = str_replace('+', ',', $view->args[0]);
+
+      $view->query->orderby[0]['field'] = "FIELD(node.nid, " . $nids . ")";
+      $view->query->orderby[0]['direction'] = "ASC";
+    }
+  }
+
+  // Displays the event content based on the order set in the nids array.
+  if ($view->name == 'vw_events' && $view->current_display == 'block_home_event') {
+    if (isset($view->args[0])) {
+      $nids = str_replace('+', ',', $view->args[0]);
+      $view->query->orderby[0]['field'] = "FIELD(node.nid, " . $nids . ")";
+      $view->query->orderby[0]['direction'] = "ASC";
+    }
+  }
+
+  // For Jobs Page Level Exposed Filter.
+  if ($view->name == 'job' && ($view->current_display == 'archived_jobs_page' || $view->current_display == 'jobs_listing_page' || $view->current_display == 'job_list_block')) {
+    if (isset($view->exposed_raw_input['field_level_tid'])) {
+      $parent_tid = $view->exposed_raw_input['field_level_tid'];
+      if ($parent_tid !== 'All') {
+        $children_tid = taxonomy_get_children($parent_tid);
+        $c_tids[0] = $parent_tid;
+        $i = 1;
+        foreach ($children_tid as $key => $val) {
+          $c_tids[$i] = $key;
+          $i++;
+        }
+        // Traverse through the 'where' part of the query.
+        foreach ($query->where as &$condition_group) {
+          foreach ($condition_group['conditions'] as &$condition) {
+            // Query filter on field_level_tid which is a string.
+            if (!is_object($condition['field']) && $condition['field'] == 'field_data_field_level2.field_level_tid') {
+              $condition = array(
+                'field' => 'field_data_field_level2.field_level_tid',
+                'value' => $c_tids,
+                'operator' => 'IN',
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Returns an array of the multiple node ids as related for provided field_name.
+ *
+ * @param string $field_name
+ *    Name of the field.
+ *
+ * @return array $flag
+ *    An array that contains the node ids
+ */
+function get_node_target_id($field_name) {
+  $flag = array();
+  if (isset($field_name[LANGUAGE_NONE])) {
+    foreach ($field_name[LANGUAGE_NONE] as $value) {
+      $flag[] = $value['target_id'];
+    }
+  }
+  return $flag;
+}
+
+/**
+ * Fetch the terms IDs for the thematics area and related tags and for subdomain
+ * fetch the safebirth term id.
+ *
+ * @param object $node
+ *    The allowed bundles are thematic area and related tags.
+ *
+ * @return array
+ *    The terms IDs.
+ */
+function custom_fetch_tids($node) {
+  $active_domain_info = domain_get_domain();
+  $tids = array();
+  // For safebirth domain get only "safe birth" term id.
+  if ($active_domain_info['machine_name'] == 'safebirth_unfpa_org') {
+    $terms = taxonomy_get_term_by_name('safe birth', 'tags');
+    if (!empty($terms)) {
+      $term = array_shift($terms);
+      $tids[] = $term->tid;
+    }
+  }
+  else {
+    $wrapper = entity_metadata_wrapper('node', $node);
+
+    if ($wrapper->__isset('field_thematic_area')) {
+      // Get the thematic area taxonomy ids for the node.
+      foreach ($wrapper->field_thematic_area as $thematic_area_wrapper) {
+        $tids[] = $thematic_area_wrapper->getIdentifier();
+      }
+    }
+
+    if ($wrapper->__isset('field_related_tags')) {
+      // Get the related tags taxonomy ids for the node.
+      foreach ($wrapper->field_related_tags as $related_tag_wrapper) {
+        $tids[] = $related_tag_wrapper->getIdentifier();
+      }
+    }
+  }
+
+  return $tids;
+}
+
+/**
+ * Fetches related node ids for news which are heighest in the weightage.
+ *
+ * @param object $node
+ *    Full node object.
+ *
+ * @return array
+ *    Node array list
+ */
+function custom_fetch_related_news_nids($node) {
+  global $language;
+
+  $node_array = array();
+  if (isset($node->field_related_news)) {
+    $node_array = get_node_target_id($node->field_related_news);
+  }
+
+  // Get the thematic area taxonomy ids for the node.
+  $tids = custom_fetch_tids($node);
+
+  // Fetch the nids which are related to the news in the generated order.
+  if (count($tids) > 0) {
+    $tids_str = implode(',', $tids);
+    $current_language = $language->language;
+    $default_language = language_default('language');
+    $lastyear = strtotime("-2 year", strtotime(date('Y-m-d')));
+    $query = "SELECT node.nid AS nid, field_data_field_news_date.field_news_date_value AS field_data_field_news_date_field_news_date_value, COUNT(node.nid) AS node_nid
+              FROM
+              {node} node
+              INNER JOIN {field_data_field_news_type} field_data_field_news_type ON node.nid = field_data_field_news_type.entity_id AND (field_data_field_news_type.entity_type = 'node' AND field_data_field_news_type.deleted = '0')
+              LEFT JOIN {field_data_field_news_date} field_data_field_news_date ON node.nid = field_data_field_news_date.entity_id AND (field_data_field_news_date.entity_type = 'node' AND field_data_field_news_date.deleted = '0')
+              LEFT JOIN {taxonomy_index} similarterms_taxonomy_index ON node.nid = similarterms_taxonomy_index.nid
+              WHERE (( (similarterms_taxonomy_index.tid IN  (" . $tids_str . ")) AND (node.nid NOT IN  ('" . $node->nid . "')) )AND(( (node.status = '" . NODE_PUBLISHED . "') AND (node.type IN  ('ct_news')) AND (node.tnid = 0
+               OR (node.language =  '" . $current_language . "')
+               OR (node.language ='" . $default_language . "' AND
+                        0 = (SELECT count(lmfh_node.nid)
+                               FROM {node} AS lmfh_node
+                              WHERE lmfh_node.tnid = node.tnid AND
+                                    ((lmfh_node.language =  '" . $current_language . "'))))
+               OR (node.nid = node.tnid AND
+                        0 = (SELECT count(lmfh_node.nid)
+                               FROM {node} AS lmfh_node
+                              WHERE lmfh_node.tnid = node.tnid AND
+                                    ((lmfh_node.language =  '" . $current_language . "') OR (lmfh_node.language = '" . $default_language . "'))))) AND (field_data_field_news_type.field_news_type_value IN  ('News', 'Opinion')) AND (DATE_FORMAT(field_data_field_news_date.field_news_date_value, '%Y') >= '" . date('Y', $lastyear) . "' AND DATE_FORMAT(field_data_field_news_date.field_news_date_value, '%Y') <= '" . date('Y') . "') )))
+              GROUP BY nid, field_data_field_news_date_field_news_date_value
+              ORDER BY field_data_field_news_date_field_news_date_value DESC, node_nid DESC
+              LIMIT 25 OFFSET 0";
+    $result = db_query($query);
+    if ($result->rowCount() > 0) {
+      foreach ($result as $obj_result) {
+        array_push($node_array, $obj_result->nid);
+      }
+    }
+  }
+
+  return $node_array;
+}
+
+/**
+ * Fetches related node ids for updates which are heighest in the weightage.
+ *
+ * @param object $node
+ *    Full node object.
+ *
+ * @return array
+ *    Node array list
+ */
+function custom_fetch_related_updates_nids($node) {
+  $node_array = array();
+  // Get the thematic area taxonomy ids for the node.
+  $tids = custom_fetch_tids($node);
+  // The use of next year is for the query operator which does not support '<='.
+  // Hence we are using current year +1 to show correct result.
+  $next_year = date('Y', strtotime('+1 year'));
+  $last_year = date('Y', strtotime("-5 year", strtotime(date('Y-m-d'))));
+  // Fetch the updates nids which are related in the generated order.
+  if (count($tids) > 0) {
+    $db_and = db_and();
+    $qry = db_select('node', 'n');
+    $qry->join('taxonomy_index', 't', 'n.nid = t.nid');
+    $qry->join('field_data_field_update_date','ud','ud.entity_id = n.nid');
+    $qry->condition('t.tid', $tids, 'IN');
+    $db_and->condition('n.nid', array($node->nid), 'NOT IN');
+    $db_and->condition('n.status', NODE_PUBLISHED, '=');
+    $db_and->condition('n.type', 'ct_updates', '=');
+    $db_and->condition('n.tnid', '0', '=');
+    $db_and->condition('ud.entity_type','node','=');
+    $db_and->condition('ud.deleted','0','=');
+    $db_and->condition('ud.field_update_date_value', $last_year, '>=');
+    $db_and->condition('ud.field_update_date_value', $next_year, '<');
+    $qry->condition($db_and);
+    $qry->fields('n', array('nid'));
+    $qry->groupBy('n.nid');
+    $qry->range(0,25);
+    $result = $qry->execute()->fetchAll();
+    foreach ($result as $obj_result) {
+      // The below code is to make sure to show the node which are not available
+      // for translation in current language to show the default language node.
+      $node_array[] = select_translation_of_node($obj_result->nid);
+    }
+  }
+  return $node_array;
+}
+
+/**
+ * Fetches related node ids for publication which are heighest in the weightage.
+ *
+ * @param object $node
+ *    Full node object.
+ *
+ * @return array
+ *    Node array list
+ */
+function custom_fetch_related_pubs_nids($node) {
+  global $language;
+  $node_array = array();
+  if (isset($node->field_related_publication)) {
+    $node_array = get_node_target_id($node->field_related_publication);
+  }
+
+  // Get the thematic area taxonomy ids for the node.
+  $tids = custom_fetch_tids($node);
+
+  // Fetch the publications nids which are related in the generated order.
+  if (count($tids) > 0) {
+    $tids_str = implode(',', $tids);
+    $current_language = $language->language;
+    $default_language = language_default('language');
+    $lastyear = strtotime("-5 year", strtotime(date('Y-m-d')));
+    $query = "SELECT node.nid AS nid, COUNT(node.nid) AS node_nid
+              FROM
+              {node} node
+              LEFT JOIN {field_data_field_publication_date} field_data_field_publication_date ON node.nid = field_data_field_publication_date.entity_id AND (field_data_field_publication_date.entity_type = 'node' AND field_data_field_publication_date.deleted = '0')
+              LEFT JOIN {taxonomy_index} similarterms_taxonomy_index ON node.nid = similarterms_taxonomy_index.nid
+              WHERE (( (similarterms_taxonomy_index.tid IN  (" . $tids_str . ")) AND (node.nid NOT IN  ('" . $node->nid . "')) )AND(( (node.status = '" . NODE_PUBLISHED . "') AND (node.type IN  ('ct_publications')) AND (node.tnid = 0
+               OR (node.language =  '" . $current_language . "')
+               OR (node.language = '" . $default_language . "' AND
+                        0 = (SELECT count(lmfh_node.nid)
+                               FROM {node} AS lmfh_node
+                              WHERE lmfh_node.tnid = node.tnid AND
+                                    ((lmfh_node.language =  '" . $current_language . "'))))
+               OR (node.nid = node.tnid AND
+                        0 = (SELECT count(lmfh_node.nid)
+                               FROM {node} AS lmfh_node
+                              WHERE lmfh_node.tnid = node.tnid AND
+                                    ((lmfh_node.language =  '" . $current_language . "') OR (lmfh_node.language = '" . $default_language . "'))))) AND (DATE_FORMAT(field_data_field_publication_date.field_publication_date_value, '%Y') >= '" . date('Y', $lastyear) . "' AND DATE_FORMAT(field_data_field_publication_date.field_publication_date_value, '%Y') <= '" . date('Y') . "') )))
+              GROUP BY nid
+              ORDER BY node_nid DESC
+              LIMIT 25 OFFSET 0";
+    $result = db_query($query);
+    if ($result->rowCount() > 0) {
+      foreach ($result as $obj_result) {
+        array_push($node_array, $obj_result->nid);
+      }
+    }
+  }
+
+  return $node_array;
+}
+
+/**
+ * Fetches related node ids for resources which are heighest in the weightage.
+ *
+ * @param object $node
+ *    Full node object.
+ *
+ * @return array
+ *    Node array list.
+ */
+function custom_fetch_related_resources_nids($node) {
+  global $language;
+  $node_array = array();
+  if (isset($node->field_related_resource)) {
+    $node_array = get_node_target_id($node->field_related_resource);
+  }
+
+  // Get the thematic area taxonomy ids for the node.
+  $tids = custom_fetch_tids($node);
+
+  // Fetch the resources nids which are related to the resources in
+  // the generated order.
+  if (count($tids) > 0) {
+    $tids_str = implode(',', $tids);
+    $current_language = $language->language;
+    $default_language = language_default('language');
+    $query = "SELECT node.nid AS nid, COUNT(node.nid) AS node_nid
+              FROM
+              {node} node
+              LEFT JOIN {taxonomy_index} similarterms_taxonomy_index ON node.nid = similarterms_taxonomy_index.nid
+              WHERE (( (similarterms_taxonomy_index.tid IN  (" . $tids_str . ")) AND (node.nid NOT IN  ('" . $node->nid . "')) )AND(( (node.status = '" . NODE_PUBLISHED . "') AND (node.type IN  ('ct_resources')) AND (node.tnid = 0
+               OR (node.language =  '" . $current_language . "')
+               OR (node.language = '" . $default_language . "' AND
+                        0 = (SELECT count(lmfh_node.nid)
+                               FROM {node} AS lmfh_node
+                              WHERE lmfh_node.tnid = node.tnid AND
+                                    ((lmfh_node.language =  '" . $current_language . "'))))
+               OR (node.nid = node.tnid AND
+                        0 = (SELECT count(lmfh_node.nid)
+                               FROM {node} AS lmfh_node
+                              WHERE lmfh_node.tnid = node.tnid AND
+                                    ((lmfh_node.language =  '" . $current_language . "') OR (lmfh_node.language = '" . $default_language . "'))))) )))
+              GROUP BY nid
+              ORDER BY node_nid DESC
+              LIMIT 25 OFFSET 0";
+    $result = db_query($query);
+    if ($result->rowCount() > 0) {
+      foreach ($result as $obj_result) {
+        array_push($node_array, $obj_result->nid);
+      }
+    }
+  }
+
+  return $node_array;
+}
+
+/**
+ * Fetches related node ids for press which are highest in the weightage.
+ *
+ * @param object $node
+ *    Full node object.
+ *
+ * @return array
+ *    Node array list.
+ */
+function custom_fetch_related_press_nids($node) {
+
+  $node_array = array();
+
+  if (isset($node->field_related_news)) {
+    $node_array = get_node_target_id($node->field_related_news);
+  }
+  // Fetch the press nids which are related to the press in the generated order.
+  $tids = custom_fetch_tids($node);
+
+  if (count($tids) > 0) {
+    $tids_str = implode(',', $tids);
+    $query = custom_prepare_query_press($node->nid, $tids_str);
+    $result = db_query($query);
+    if ($result->rowCount() > 0) {
+      foreach ($result as $row) {
+        array_push($node_array, $row->nid);
+      }
+    }
+  }
+
+  return $node_array;
+}
+
+/**
+ * This function return the query for the press related node ids.
+ *
+ * @param int $nid
+ *    Node id.
+ * @param string $tids_str
+ *    Taxononmy terms.
+ *
+ * @return string
+ *   Query for the press related node ids.
+ */
+function custom_prepare_query_press($nid, $tids_str) {
+  global $language;
+  $current_language = $language->language;
+  $default_language = language_default('language');
+
+  $prepare_query = "SELECT node.nid AS nid, field_data_field_news_date.field_news_date_value AS field_data_field_news_date_field_news_date_value, COUNT(node.nid) AS node_nid
+                    FROM
+                    {node} node
+                    LEFT JOIN {taxonomy_index} similarterms_taxonomy_index ON node.nid = similarterms_taxonomy_index.nid
+                    LEFT JOIN {field_data_field_news_date} field_data_field_news_date ON node.nid = field_data_field_news_date.entity_id AND (field_data_field_news_date.entity_type = 'node' AND field_data_field_news_date.deleted = '0')
+                    WHERE (( (similarterms_taxonomy_index.tid IN  ('" . $tids_str . "')) AND (node.nid NOT IN  ('" . $nid . "')) )AND(( (node.status = '" . NODE_PUBLISHED . "') AND (node.type IN  ('ct_press')) AND (node.tnid = 0
+                    OR (node.language = '" . $current_language . "')
+                    OR (node.language = '" . $default_language . "' AND
+                      0 = (SELECT count(lmfh_node.nid)
+                            FROM {node} AS lmfh_node
+                            WHERE lmfh_node.tnid = node.tnid AND
+                            ((lmfh_node.language = '" . $current_language . "'))))
+                            OR (node.nid = node.tnid AND
+                      0 = (SELECT count(lmfh_node.nid)
+                            FROM {node} AS lmfh_node
+                            WHERE lmfh_node.tnid = node.tnid AND
+                            ((lmfh_node.language = '" . $current_language . "') OR (lmfh_node.language = '" . $default_language . "'))))) )))
+                      GROUP BY nid, field_data_field_news_date_field_news_date_value
+                      ORDER BY node_nid DESC, field_data_field_news_date_field_news_date_value DESC";
+
+  return $prepare_query;
+}
+
+/**
+ * This function returns the list of related news based on thematic area.
+ *
+ * @return array $news_array
+ *   Content for related news on news page.
+ */
+function show_news_related_news() {
+  $node_array = array();
+  $node = node_load(arg(1));
+  $news_types = array('News', 'Opinion');
+  $press_types = array(
+    'In the News', 'Media Advisory', 'Press Release', 'Statement', 'Speech',
+  );
+  $is_of_type_news = FALSE;
+  $is_of_type_press = FALSE;
+
+  if (isset($node->field_news_type[LANGUAGE_NONE])) {
+    foreach ($node->field_news_type[LANGUAGE_NONE] as $value) {
+      if (in_array($value['value'], $news_types)) {
+        $is_of_type_news = TRUE;
+      }
+      if (in_array($value['value'], $press_types)) {
+        $is_of_type_press = TRUE;
+      }
+    }
+  }
+
+  if ($is_of_type_news) {
+    $node_array = custom_fetch_related_news_nids($node);
+  }
+  if ($is_of_type_press) {
+    $node_array = custom_fetch_related_press_nids($node);
+  }
+
+  $node_array = array_unique($node_array);
+  $node_array_str = implode('+', $node_array);
+  if (isset($node->field_country[LANGUAGE_NONE])) {
+    $output = views_embed_view('vw_custom_related_views', 'custom_news_related_news', $node_array_str);
+  }
+  else {
+    $output = views_embed_view('vw_custom_related_views', 'custom_news_related_news_with_thumb', $node_array_str);
+  }
+  return $output;
+}
+
+/**
+ * This function returns the list of related press based on thematic area.
+ *
+ * @return array
+ *   Content for related press on press page.
+ */
+function show_press_related_press() {
+  $node_array = array();
+  $output = '';
+  $node = node_load(arg(1));
+  if ($node) {
+    $node_array = custom_fetch_related_press_nids($node);
+
+    $node_array = array_unique($node_array);
+    $node_array_str = implode('+', $node_array);
+
+    $node_wrapper = entity_metadata_wrapper('node', $node);
+    $fld_country = $node_wrapper->field_country->value();
+
+    if (count($fld_country) > 0) {
+      $output = views_embed_view('vw_custom_related_views', 'custom_press_related_press', $node_array_str);
+    }
+    else {
+      $output = views_embed_view('vw_custom_related_views', 'custom_press_related_press_with_thumb', $node_array_str);
+    }
+  }
+  return $output;
+}
+
+/**
+ * This function returns the list of related news based on thematic area.
+ *
+ * @return array
+ *   Content for Related publications on News page.
+ */
+function show_news_related_pubs() {
+  $node_array = array();
+  $node = node_load(arg(1));
+
+  if ($node) {
+    $node_array = custom_fetch_related_pubs_nids($node);
+  }
+
+  $node_array = array_unique($node_array);
+  $node_array_str = implode('+', $node_array);
+  $output = views_embed_view('vw_custom_related_views', 'custom_news_related_pubs', $node_array_str);
+  return $output;
+}
+
+/**
+ * Returns the list of related news based on thematic area.
+ *
+ * @return array
+ *   Title and Content for Related news on Publication page.
+ */
+function show_pub_related_news() {
+  $node_array = array();
+  $node = node_load(arg(1));
+
+  if ($node) {
+    $node_array = custom_fetch_related_news_nids($node);
+  }
+
+  $node_array = array_unique($node_array);
+  $node_array_str = implode('+', $node_array);
+  $output = views_embed_view('vw_custom_related_views', 'custom_pub_related_news', $node_array_str);
+  return $output;
+}
+
+/**
+ * This function returns the list of related news based on thematic area.
+ *
+ * @return array
+ *   Title and Content for Related publications on Resource page.
+ */
+function show_resource_related_news() {
+  $node_array = array();
+  $node = node_load(arg(1));
+
+  if ($node) {
+    $node_array = custom_fetch_related_news_nids($node);
+  }
+
+  $node_array_str = implode('+', $node_array);
+  $output = views_embed_view('vw_custom_related_views', 'custom_resource_related_news', $node_array_str);
+  return $output;
+}
+
+/**
+ * This function returns the list of related news based on thematic area.
+ *
+ * @return array
+ *   Title and Content for Related news on Jobs page.
+ */
+function show_jobs_related_news() {
+  $node_array = array();
+  $node = node_load(arg(1));
+
+  if ($node) {
+    $node_array = custom_fetch_related_news_nids($node);
+  }
+  // The below is for getting all the nids based on countries.
+  if (isset($node->field_country)) {
+    $country_id = get_node_target_id($node->field_country);
+    $country_id_str = implode('+', $country_id);
+  }
+
+  $relatedview1 = views_get_view('vw_job_related_reference', 'news_related_country');
+  $relatedview1->set_arguments(array($country_id_str));
+  $relatedview1->execute('news_related_country');
+
+  foreach ($relatedview1->result as $row) {
+    array_push($node_array, $row->nid);
+  }
+
+  $node_array = array_unique($node_array);
+  $node_array_str = implode('+', $node_array);
+
+  $output = views_embed_view('vw_custom_related_views', 'custom_jobs_related_news', $node_array_str);
+  return $output;
+}
+
+/**
+ * Returns list of related jobs based on thematic area if selected on Jobs page.
+ *
+ * @return array
+ *   Title and Content for Related Jobs on Jobs page.
+ */
+function show_jobs_related_jobs() {
+  $node_array = array();
+  $node = node_load(arg(1));
+
+  if (isset($node->field_related_news)) {
+    $node_array = get_node_target_id($node->field_related_news);
+  }
+
+  // The below is for getting all the nids based on similar by terms.
+  $relatedview = views_get_view('vw_related_news', 'related_jobs_terms');
+  $relatedview->execute('related_jobs_terms');
+
+  foreach ($relatedview->result as $row) {
+    array_push($node_array, $row->nid);
+  }
+
+  // The below is for getting all the nids based on countries.
+  if (isset($node->field_country)) {
+    $country_id = get_node_target_id($node->field_country);
+    $country_id_str = implode('+', $country_id);
+  }
+
+  $relatedview1 = views_get_view('vw_job_related_reference', 'jobs_related_country');
+  $relatedview1->set_arguments(array($country_id_str));
+  $relatedview1->execute('jobs_related_country');
+
+  foreach ($relatedview1->result as $row) {
+    array_push($node_array, $row->nid);
+  }
+
+  $node_array = array_unique($node_array);
+  $node_array_str = implode('+', $node_array);
+  $output = views_embed_view('vw_custom_related_views', 'custom_jobs_related_jobs', $node_array_str);
+  return $output;
+}
+
+/**
+ * Returns the list of related publications based on thematic area.
+ *
+ * @return array
+ *    Title and Content for Related publications on Jobs page.
+ */
+function show_jobs_related_pubs() {
+  $node_array = array();
+  $node = node_load(arg(1));
+
+  if ($node) {
+    $node_array = custom_fetch_related_pubs_nids($node);
+  }
+
+  $node_array = array_unique($node_array);
+  $node_array_str = implode('+', $node_array);
+
+  $output = views_embed_view('vw_custom_related_views', 'custom_jobs_related_pubs', $node_array_str);
+  return $output;
+}
+
+/**
+ * Returns events related admin resources content based on the related tags.
+ *
+ * @return array
+ *    Title and Content for Related admin resources on publication page.
+ */
+function show_events_related_admin_res() {
+  $return_arr = array(
+    'title' => '',
+    'content' => '',
+  );
+  $node = node_load(arg(1));
+  if ($node) {
+    $tid_array = array();
+    $node_wrapper = entity_metadata_wrapper('node', $node);
+    $fld_related_tags = $node_wrapper->field_related_tags->value();
+    $fld_custom_title_for_admin_res = $node_wrapper->field_custom_title_for_admin_res->value();
+
+    foreach ($fld_related_tags as $t_value) {
+      $tid_array[] = $t_value->tid;
+    }
+    $output = '';
+    if (count($tid_array) > 0) {
+      $tids = implode('+', $tid_array);
+      $view = views_get_view('vw_resource_pages');
+      $view->set_display('panel_pane_5');
+      $view->set_arguments(array($tids));
+      $view->pre_execute();
+      $view->execute('panel_pane_5');
+      if ($view->total_rows > 0) {
+        $output = $view->render('panel_pane_5');
+      }
+    }
+
+    $return_arr['content'] = $output;
+    $return_arr['title'] = !empty($fld_custom_title_for_admin_res) ? $fld_custom_title_for_admin_res : t('Related Documentation');
+  }
+
+  return $return_arr;
+}
+
+/**
+ * Returns the list of related publications based on thematic area tags.
+ *
+ * @return array
+ *   Title and Content for Related publications on publication page.
+ */
+function show_pub_related_pubs() {
+  $node_array = array();
+  $node = node_load(arg(1));
+
+  if ($node) {
+    $node_array = custom_fetch_related_pubs_nids($node);
+  }
+
+  $node_array = array_unique($node_array);
+  $node_array_str = implode('+', $node_array);
+
+  $output = views_embed_view('vw_custom_related_views', 'custom_pub_related_pub', $node_array_str);
+  return $output;
+}
+
+/**
+ * Returns the list of related resource based on thematic area tags.
+ *
+ * @return array
+ *   Title and Content for Related resource on resource page.
+ */
+function resource_related_resource() {
+  $node_array = array();
+  $node = node_load(arg(1));
+  if ($node) {
+    $node_array = custom_fetch_related_resources_nids($node);
+  }
+
+  $node_array = array_unique($node_array);
+  $node_array_str = implode('+', $node_array);
+  $output = views_embed_view('vw_related_topics_terms', 'resource_related_resource', $node_array_str);
+  return $output;
+}
+
+/**
+ * Returns the list of related publications based on thematic area.
+ *
+ * @return array
+ *   Title and Content for Related publications on resource page.
+ */
+function show_resource_related_pubs() {
+  $node_array = array();
+  $node = node_load(arg(1));
+
+  if ($node) {
+    $node_array = custom_fetch_related_pubs_nids($node);
+  }
+
+  $node_array = array_unique($node_array);
+  $node_array_str = implode('+', $node_array);
+
+  $output = views_embed_view('vw_custom_related_views', 'custom_resource_related_pub', $node_array_str);
+  return $output;
+}
+
+/**
+ * Returns the list of related news based on thematic area.
+ *
+ * @return array
+ *   Title and Content for Related news on topic page.
+ */
+function show_topic_related_news() {
+  global $language;
+  $node_array = array();
+  $return_arr = array(
+    'title' => '',
+    'content' => '',
+  );
+  $node = node_load(arg(1));
+  if ($node) {
+    // The selected related news items from the node to be shown always on top.
+    if (isset($node->field_related_news)) {
+      $node_array = get_node_target_id($node->field_related_news);
+    }
+
+    // Get the thematic area taxonomy ids for the node.
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $tids = array();
+    foreach ($wrapper->field_thematic_area->value() as $obj) {
+      $tids[] = $obj->tid;
+    }
+
+    // Fetch the news nids which are related to topics in the generated order.
+    if (count($tids) > 0) {
+      $tids_str = implode(',', $tids);
+      $current_language = $language->language;
+      $default_language = language_default('language');
+      $query = "SELECT node.nid AS nid
+              FROM
+              {node} node
+              INNER JOIN {field_data_field_news_type} field_data_field_news_type ON node.nid = field_data_field_news_type.entity_id AND (field_data_field_news_type.entity_type = 'node' AND field_data_field_news_type.deleted = '0')
+              INNER JOIN {taxonomy_index} similarterms_taxonomy_index ON node.nid = similarterms_taxonomy_index.nid
+              LEFT JOIN {field_data_field_news_date} field_data_field_news_date ON node.nid = field_data_field_news_date.entity_id AND (field_data_field_news_date.entity_type = 'node' AND field_data_field_news_date.deleted = '0')
+              WHERE (( (similarterms_taxonomy_index.tid IN  (" . $tids_str . ")) AND (node.nid NOT IN  ('" . $node->nid . "')) )AND(( (node.status = '" . NODE_PUBLISHED . "') AND (node.type IN  ('ct_news')) AND (node.tnid = 0
+               OR (node.language = '" . $current_language . "')
+               OR (node.language = '" . $default_language . "' AND
+                        0 = (SELECT count(lmfh_node.nid)
+                               FROM {node} AS lmfh_node
+                              WHERE lmfh_node.tnid = node.tnid AND
+                                    ((lmfh_node.language = '" . $current_language . "'))))
+               OR (node.nid = node.tnid AND
+                        0 = (SELECT count(lmfh_node.nid)
+                               FROM {node} AS lmfh_node
+                              WHERE lmfh_node.tnid = node.tnid AND
+                                    ((lmfh_node.language = '" . $current_language . "') OR (lmfh_node.language = '" . $default_language . "'))))) AND (field_data_field_news_type.field_news_type_value IN  ('News', 'Opinion')) )))
+              ORDER BY field_data_field_news_date.field_news_date_value DESC
+              LIMIT 25 OFFSET 0";
+
+      $result = db_query($query);
+      if ($result->rowCount() > 0) {
+        foreach ($result as $row) {
+          array_push($node_array, $row->nid);
+        }
+      }
+    }
+
+    // Unique as there might be a possibility of selecting the node id
+    // from the selected related news.
+    $node_array = array_unique($node_array);
+    $node_array_str = implode('+', $node_array);
+    $output = views_embed_view('vw_related_topics_terms', 'related_topic_news_terms', $node_array_str);
+
+    $return_arr['content'] = $output;
+    $n_title = get_title_for_topics($node);
+    $return_arr['title'] = t('News on @title', array('@title' => $n_title));
+  }
+  return $return_arr;
+}
+
+/**
+ * Returns the list of related publications based on thematic area.
+ *
+ * @return array
+ *   Title and Content for Related publications on topic page.
+ */
+function show_topic_related_pubs() {
+  global $language;
+  $node_array = array();
+  $return_arr = array(
+    'title' => '',
+    'content' => '',
+  );
+  $node = node_load(arg(1));
+  if ($node) {
+    // The selected related publications items from
+    // the node to be shown always on top.
+    if (isset($node->field_related_publication)) {
+      $node_array = get_node_target_id($node->field_related_publication);
+    }
+
+    // Get the thematic area taxonomy ids for the node.
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $tids = array();
+    foreach ($wrapper->field_thematic_area->value() as $obj) {
+      $tids[] = $obj->tid;
+    }
+
+    // Fetch the publications nids which are related to the topics
+    // in the generated order.
+    if (count($tids) > 0) {
+      $tids_str = implode(',', $tids);
+      $current_language = $language->language;
+      $default_language = language_default('language');
+
+      $query = "SELECT node.nid AS nid
+              FROM
+              {node} node
+              LEFT JOIN {taxonomy_index} similarterms_taxonomy_index ON node.nid = similarterms_taxonomy_index.nid
+              LEFT JOIN {field_data_field_publication_date} field_data_field_publication_date ON node.nid = field_data_field_publication_date.entity_id AND (field_data_field_publication_date.entity_type = 'node' AND field_data_field_publication_date.deleted = '0')
+              WHERE (( (similarterms_taxonomy_index.tid IN  (" . $tids_str . ")) AND (node.nid NOT IN  ('" . $node->nid . "')) )AND(( (node.status = '" . NODE_PUBLISHED . "') AND (node.type IN  ('ct_publications')) AND (node.tnid = 0
+               OR (node.language = '" . $current_language . "')
+               OR (node.language = '" . $default_language . "' AND
+                        0 = (SELECT count(lmfh_node.nid)
+                               FROM {node} AS lmfh_node
+                              WHERE lmfh_node.tnid = node.tnid AND
+                                    ((lmfh_node.language = '" . $current_language . "'))))
+               OR (node.nid = node.tnid AND
+                        0 = (SELECT count(lmfh_node.nid)
+                               FROM {node} AS lmfh_node
+                              WHERE lmfh_node.tnid = node.tnid AND
+                                    ((lmfh_node.language = '" . $current_language . "') OR (lmfh_node.language = '" . $default_language . "'))))) )))
+              ORDER BY field_data_field_publication_date.field_publication_date_value DESC
+              LIMIT 25 OFFSET 0";
+
+      $result = db_query($query);
+      if ($result->rowCount() > 0) {
+        foreach ($result as $row) {
+          array_push($node_array, $row->nid);
+        }
+      }
+    }
+
+    // Unique since possibility of selecting the multiple nid from
+    // the related publication.
+    $node_array = array_unique($node_array);
+    $node_array_str = implode('+', $node_array);
+
+    $output = views_embed_view('vw_related_topics_terms', 'related_topic_publications_terms', $node_array_str);
+    $return_arr['content'] = $output;
+    $n_title = get_title_for_topics($node);
+    $return_arr['title'] = t('Publications on @title', array('@title' => $n_title));
+  }
+  return $return_arr;
+}
+
+/**
+ * Returns the list of related resources based on thematic area on topic page.
+ *
+ * @return array
+ *   Title and Content for Related resources on topic page.
+ */
+function show_topic_related_res() {
+  global $language;
+  $node_array = array();
+  $return_arr = array(
+    'title' => '',
+    'content' => '',
+  );
+  $node = node_load(arg(1));
+  if ($node) {
+    // The selected related resources items from the node to show always on top.
+    if (isset($node->field_related_resource)) {
+      $node_array = get_node_target_id($node->field_related_resource);
+    }
+
+    // Get the thematic area taxonomy ids for the node.
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $tids = array();
+    foreach ($wrapper->field_thematic_area->value() as $obj) {
+      $tids[] = $obj->tid;
+    }
+
+    // Fetch the nids which are related to the topics in the generated order.
+    if (count($tids) > 0) {
+      $tids_str = implode(',', $tids);
+      $current_language = $language->language;
+      $default_language = language_default('language');
+      $query = "SELECT node.nid AS nid
+              FROM
+              {node} node
+              LEFT JOIN {taxonomy_index} similarterms_taxonomy_index ON node.nid = similarterms_taxonomy_index.nid
+              LEFT JOIN {field_data_field_resource_date} field_data_field_resource_date ON node.nid = field_data_field_resource_date.entity_id AND (field_data_field_resource_date.entity_type = 'node' AND field_data_field_resource_date.deleted = '0')
+              WHERE (( (similarterms_taxonomy_index.tid IN  (" . $tids_str . ")) AND (node.nid NOT IN  ('" . $node->nid . "')) )AND(( (node.status = '" . NODE_PUBLISHED . "') AND (node.type IN  ('ct_resources')) AND (node.tnid = 0
+              OR (node.language = '" . $current_language . "')
+              OR (node.language = '" . $default_language . "' AND
+              0 = (SELECT count(lmfh_node.nid)
+              FROM {node} AS lmfh_node
+              WHERE lmfh_node.tnid = node.tnid AND
+              ((lmfh_node.language = '" . $current_language . "'))))
+              OR (node.nid = node.tnid AND
+              0 = (SELECT count(lmfh_node.nid)
+              FROM {node} AS lmfh_node
+              WHERE lmfh_node.tnid = node.tnid AND
+              ((lmfh_node.language = '" . $current_language . "') OR (lmfh_node.language = '" . $default_language . "'))))) )))
+              ORDER BY field_data_field_resource_date.field_resource_date_value DESC
+              LIMIT 25 OFFSET 0";
+
+      $result = db_query($query);
+      if ($result->rowCount() > 0) {
+        foreach ($result as $row) {
+          array_push($node_array, $row->nid);
+        }
+      }
+    }
+
+    // Unique since possibility of selecting multiple nid from the
+    // selected related resources.
+    $node_array = array_unique($node_array);
+    $node_array_str = implode('+', $node_array);
+    $output = views_embed_view('vw_related_topics_terms', 'related_topic_resources_terms', $node_array_str);
+
+    $return_arr['content'] = $output;
+    $n_title = get_title_for_topics($node);
+    // $return_arr['title'] = t('Resources on') . ' ' . $n_title;.
+    $return_arr['title'] = t('Resources on @title', array('@title' => $n_title));
+  }
+  return $return_arr;
+}
+
+/**
+ * Implements hook_form_views_exposed_form_alter().
+ */
+function custom_form_views_exposed_form_alter(&$form, &$form_state, $form_id) {
+
+  switch ($form['#id']) {
+    // Below for publication listing page.
+    case 'views-exposed-form-vw-publications-publications-listing-panel-pane':
+      $form['submit']['#value'] = 'Go';
+      break;
+
+    case 'views-exposed-form-vw-news-panel-pane-1':
+      $form['submit']['#value'] = 'Go';
+      break;
+
+    case 'views-exposed-form-vw-news-panel-pane-2':
+      $form['submit']['#value'] = 'Go';
+      break;
+
+    case 'views-exposed-form-vw-video-video-listing-pane':
+      $form['submit']['#value'] = 'Go';
+      break;
+
+    case 'views-exposed-form-job-archived-jobs-page':
+    case 'views-exposed-form-job-jobs-listing-page':
+    case 'views-exposed-form-job-job-list-block':
+      if (isset($form['field_level_tid']['#options'])) {
+        foreach ($form['field_level_tid']['#options'] as $term_key => $term) {
+          // Check if this isn't the 'ANY' option.
+          if ($term_key !== 'All') {
+            // Check for child term by looking for '-' as first char in string.
+            $term_value = reset($term->option);
+            if ($term_value[0] == '-') {
+              unset($form['field_level_tid']['#options'][$term_key]);
+            }
+          }
+        }
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function custom_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['alternate'] = array(
+    'label' => t('Alternate'),
+    'custom settings' => TRUE,
+  );
+}
+
+/**
+ * Implements hook_views_pre_build().
+ */
+function custom_views_pre_build(&$view) {
+  $display_array = array(
+    'panel_pane_1', 'panel_pane_2', 'panel_pane_3', 'panel_pane_4',
+    'panel_pane_5', 'panel_pane_6', 'panel_pane_7',
+  );
+  if ($view->name == 'vw_resource_pages' && ($view->current_display == in_array($view->current_display, $display_array))) {
+    $node = node_load(arg(1));
+    if ($node->type == 'ct_site_pages') {
+      $items = field_get_items('node', $node, 'field_related_library');
+
+      foreach ($items as $key => $value) {
+
+        $fc = isset($items[$key]) ? field_collection_field_get_entity($items[$key]) : '';
+        if ($fc != '') {
+
+          $page_set_limit = 2;
+
+          $content_type = $fc->field_content_type[LANGUAGE_NONE][0]['value'];
+          $load_display = get_display_name($content_type);
+
+          if ($view->name == 'vw_resource_pages' && $view->current_display == $load_display) {
+
+            $view->items_per_page = $page_set_limit;
+          }
+        }
+      }
+    }
+    if ($node->type == 'ct_resource_pages' || $node->type == 'ct_emergencies') {
+      $items = field_get_items('node', $node, 'field_library');
+
+      foreach ($items as $key => $value) {
+
+        $fc = isset($items[$key]) ? field_collection_field_get_entity($items[$key]) : '';
+        if ($fc != '') {
+
+          $page_set_limit = isset($fc->field_set_item_limit[LANGUAGE_NONE][0]['value']) ? $fc->field_set_item_limit[LANGUAGE_NONE][0]['value'] : 4;
+
+          $content_type = $fc->field_content_type[LANGUAGE_NONE][0]['value'];
+          $load_display = get_display_name($content_type);
+
+          if ($view->name == 'vw_resource_pages' && $view->current_display == $load_display) {
+
+            $view->items_per_page = $page_set_limit;
+          }
+        }
+      }
+    }
+  }
+
+  if ($view->name == 'vw_related_topics_terms' && ($view->current_display == 'related_topic_news_terms')) {
+
+    $node = node_load(arg(1));
+    if ($node->type == 'ct_topics') {
+      $items = field_get_items('node', $node, 'field_set_news_page_limit');
+
+      if (isset($items[0])) {
+        $page_limit = $items[0]["value"];
+        $view->items_per_page = $page_limit;
+      }
+    }
+  }
+
+  if ($view->name == 'vw_related_topics_terms' && ($view->current_display == 'related_topic_publications_terms')) {
+    $node = node_load(arg(1));
+
+    if ($node->type == 'ct_topics') {
+      $items = field_get_items('node', $node, 'field_set_publication_page_limit');
+
+      if (isset($items[0])) {
+        $page_limit = $items[0]["value"];
+        $view->items_per_page = $page_limit;
+      }
+    }
+  }
+
+  if ($view->name == 'vw_related_topics_terms' && ($view->current_display == 'related_topic_resources_terms')) {
+    $node = node_load(arg(1));
+
+    if ($node->type == 'ct_topics') {
+      $items = field_get_items('node', $node, 'field_set_resources_page_limit');
+
+      if (isset($items[0])) {
+        $page_limit = $items[0]["value"];
+        $view->items_per_page = $page_limit;
+      }
+    }
+  }
+}
+
+/**
+ * Returns the title from the node and shows the updated title in French.
+ *
+ * @return string
+ *   Title for Topics
+ */
+function get_title_for_topics($node) {
+  $n_title = $node->title;
+  switch ($node->language) {
+    case 'fr':
+      $n_title = lcfirst($node->title);
+      break;
+
+    default:
+      $n_title = $node->title;
+      break;
+  }
+  return $n_title;
+}
+
+/**
+ * This function returns the list of related news based on Tag.
+ *
+ * @return array
+ *   Title and Content for Related News on Update Detail page.
+ */
+function show_updates_related_news() {
+  $news_nids = array();
+  $node = node_load(arg(1));
+  if ($node) {
+    $news_nids = custom_fetch_related_news_nids($node);
+  }
+  $news_nids_array_str = implode('+', $news_nids);
+  $output = views_embed_view('vw_custom_related_views', 'custom_updates_related_news', $news_nids_array_str);
+  return $output;
+}
+
+/**
+ * This function returns the list of related publications based on Tag
+ * area for content types Updates.
+ *
+ * @return array
+ *   Title and Content for Related Publications on Update Detail page.
+ */
+function show_updates_related_pubs() {
+  $pubs_nids = array();
+  $node = node_load(arg(1));
+  if ($node) {
+    $pubs_nids = custom_fetch_related_pubs_nids($node);
+  }
+  $pubs_nids_array_str = implode('+', $pubs_nids);
+  $output = views_embed_view('vw_custom_related_views', 'custom_updates_related_pubs', $pubs_nids_array_str);
+  return $output;
+}
+/**
+ * This function returns the list of related updates based on Tag
+ * for content types Updates.
+ *
+ * @return array
+ *   Title and Content for Related Updates on Update Detail page.
+ */
+function show_updates_related_updates() {
+  $updates_nids = array();
+  $node = node_load(arg(1));
+  if ($node) {
+    $updates_nids = custom_fetch_related_updates_nids($node);
+  }
+  $updates_nids_array_str = implode('+', $updates_nids);
+  $output = views_embed_view('vw_custom_related_views', 'custom_updates_related_updates', $updates_nids_array_str);
+  return $output;
+}

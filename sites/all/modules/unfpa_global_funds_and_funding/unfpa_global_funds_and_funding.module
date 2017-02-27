@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UNFPA Global Funds and Funding feature.
+ */
+
+include_once 'unfpa_global_funds_and_funding.features.inc';

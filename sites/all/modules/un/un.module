@@ -1,0 +1,1202 @@
+<?php
+
+/**
+ * @file
+ * Holds custom logic for handling Annual Reports 2014 and 2015 pages.
+ */
+
+
+
+/**
+ * Always include theming stuff.
+ */
+include_once 'un.theme.inc';
+
+
+
+/**
+ * Define report 2014 and 2015 url paths.
+ */
+define('UN_REPORT_PATH_2014', 'annual-report-2014');
+define('UN_REPORT_PATH_2015', 'annual-report-2015');
+
+
+
+/**
+ * Pre development function.
+ */
+function pre($s) {
+  print '<hr><pre>';
+  print_r($s);
+  exit();
+}
+
+
+
+/**
+ * Implements hook_menu().
+ */
+function un_menu() {
+  $items = array();
+
+  /* Annual Report 2014. */
+
+  $items[UN_REPORT_PATH_2014] = array(
+    'title' => 'UNFPA Annual Report 2014',
+    'page callback' => 'un_annual_report_page',
+    'page arguments' => array('2014'),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+    'file' => 'un.pages.inc',
+  );
+
+  /* Annual Report 2015. */
+
+  $items['annual-report'] = array(
+    'title' => 'UNFPA Annual Report 2015',
+    'page callback' => 'un_annual_report_page',
+    'page arguments' => array('2015'),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+    'file' => 'un.pages.inc',
+  );
+
+  /* Config pages - report 2014. */
+
+  $items['admin/config/' . UN_REPORT_PATH_2014] = array(
+    'title' => 'Annual Report 2014',
+    'description' => 'Configure Report 2014 settings',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+    // Special.
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+    'position' => 'right',
+    'weight' => 10000,
+  );
+
+  $items['admin/config/' . UN_REPORT_PATH_2014 . '/general'] = array(
+    'title' => 'General settings',
+    'description' => 'Setup some general aspects of Report 2014',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('un_general_settings_form_2014'),
+    'access arguments' => array('configure annual reports'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 0,
+    'file' => 'un.admin-2014.inc',
+  );
+
+  $items['admin/config/' . UN_REPORT_PATH_2014 . '/introduction'] = array(
+    'title' => 'Introduction section',
+    'description' => 'Setup some aspects of the Introduction section',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('un_introduction_section_settings_form_2014'),
+    'access arguments' => array('configure annual reports'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 1,
+    'file' => 'un.admin-2014.inc',
+  );
+
+  $items['admin/config/' . UN_REPORT_PATH_2014 . '/fromdirector'] = array(
+    'title' => 'From the Executive Director section',
+    'description' => 'Setup some aspects of the From the Executive Director section',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('un_fromdirector_section_settings_form_2014'),
+    'access arguments' => array('configure annual reports'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 2,
+    'file' => 'un.admin-2014.inc',
+  );
+
+  $items['admin/config/' . UN_REPORT_PATH_2014 . '/progress'] = array(
+    'title' => 'Years of Progress section',
+    'description' => 'Setup some aspects of the Years of Progress section',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('un_progress_section_settings_form_2014'),
+    'access arguments' => array('configure annual reports'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 3,
+    'file' => 'un.admin-2014.inc',
+  );
+
+  $items['admin/config/' . UN_REPORT_PATH_2014 . '/inaction'] = array(
+    'title' => 'In Action section',
+    'description' => 'Setup some aspects of the In Action section',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('un_inaction_section_settings_form_2014'),
+    'access arguments' => array('configure annual reports'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 4,
+    'file' => 'un.admin-2014.inc',
+  );
+
+  /* Config pages - report 2015. */
+
+  $items['admin/config/' . UN_REPORT_PATH_2015] = array(
+    'title' => 'Annual Report 2015',
+    'description' => 'Configure Report 2015 settings',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+    // Special.
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+    'position' => 'right',
+    'weight' => 10000,
+  );
+
+  $items['admin/config/' . UN_REPORT_PATH_2015 . '/general'] = array(
+    'title' => 'General settings',
+    'description' => 'Setup some general aspects of Report 2015',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('un_general_settings_form_2015'),
+    'access arguments' => array('configure annual reports'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 0,
+    'file' => 'un.admin-2015.inc',
+  );
+
+  $items['admin/config/' . UN_REPORT_PATH_2015 . '/introduction'] = array(
+    'title' => 'Introduction section',
+    'description' => 'Setup some aspects of the Introduction section',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('un_introduction_section_settings_form_2015'),
+    'access arguments' => array('configure annual reports'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 1,
+    'file' => 'un.admin-2015.inc',
+  );
+
+  $items['admin/config/' . UN_REPORT_PATH_2015 . '/inaction'] = array(
+    'title' => 'In Action section',
+    'description' => 'Setup some aspects of the In Action section',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('un_inaction_section_settings_form_2015'),
+    'access arguments' => array('configure annual reports'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 4,
+    'file' => 'un.admin-2015.inc',
+  );
+
+  return $items;
+}
+
+
+
+/**
+ * Implements hook_permission().
+ */
+function un_permission() {
+  return array(
+    'configure annual reports' => array(
+      'title' => t('Configure annual reports'),
+    ),
+  );
+}
+
+
+
+/**
+ * Implements hook_page_build().
+ *
+ * Redirect to report page when user tries to view detail pages of nodes
+ * that are only used for reports page.
+ */
+function un_page_build(&$page) {
+  $node = menu_get_object();
+
+  if ($node && !arg(2)) {
+    $un_node_types = array('inaction', 'region', 'progressitem', 'artiles');
+    if (in_array($node->type, $un_node_types)) {
+
+      // Redirect options.
+      $options = array();
+
+      // Add language to options.
+      $languages = language_list('enabled');
+      $languages = $languages[1];
+      if (isset($languages[$langcode])) {
+        $options['language'] = $languages[$langcode];
+      }
+
+      // Add url() fragment.
+      $options['fragment'] = '!/Node-' . $node->nid;
+
+      // Get redirect url path.
+      $path = UN_REPORT_PATH_2014;
+
+      $field = field_get_items('node', $node, 'field_un_report');
+
+      if (isset($field[0]['value'])) {
+        $report = $field[0]['value'];
+
+        if ($report == '2014') {
+          // Default anyway.
+          $path = UN_REPORT_PATH_2014;
+        }
+        elseif ($report == '2015') {
+          $path = UN_REPORT_PATH_2015;
+        }
+      }
+
+      // Do redirect.
+      drupal_goto($path, $options);
+    }
+  }
+}
+
+
+
+/**
+ * Implements hook_theme().
+ *
+ * Doing the following:
+ * - Define template file for Report 2014 page
+ * - Let system know that some node tpl.php files are not in theme but here.
+ * - Define 'nomarkup' function used to print field content without any html.
+ * - Let system know that some fields tpl.php files are not in theme but here.
+ */
+function un_theme($existing, $type, $theme, $path) {
+  $path = drupal_get_path('module', 'un');
+
+  return array(
+    // Define template file for Report 2014 page.
+    'un_annual_report_page_2014' => array(
+      'render element' => 'elements',
+      'template' => 'report-page-2014',
+      'path' => $path,
+    ),
+    // Define template file for Report 2015 page.
+    'un_annual_report_page_2015' => array(
+      'render element' => 'elements',
+      'template' => 'report-page-2015',
+      'path' => $path,
+    ),
+
+    // Let system know that some node tpl.php files are not in theme but here.
+    'node__progressitem' => array(
+      'render element' => 'content',
+      'base hook' => 'node',
+      'template' => 'node--progressitem',
+      'path' => $path . '/templates/Progress-Items',
+    ),
+    'node__inaction' => array(
+      'render element' => 'content',
+      'base hook' => 'node',
+      'template' => 'node--inaction',
+      'path' => $path . '/templates/In-Action',
+    ),
+    'node__region' => array(
+      'render element' => 'content',
+      'base hook' => 'node',
+      'template' => 'node--region',
+      'path' => $path . '/templates/Regions',
+    ),
+    'node__artiles' => array(
+      'render element' => 'content',
+      'base hook' => 'node',
+      'template' => 'node--artiles',
+      'path' => $path . '/templates/Artiles',
+    ),
+
+    // Define 'nomarkup' function used to print field content without any html.
+    // Mainly used by fields that are required.
+    'nomarkup' => array(
+      'render element' => 'element',
+    ),
+
+    /* Let system know that some fields tpl.php files are not in theme but here. */
+    /* Mainly used by optional fields. */
+
+    // In Actions.
+    'field__field_action_body_2' => array(
+      'render element' => 'element',
+      'template' => 'field--field-action-body-2',
+      'path' => $path . '/templates/In-Action',
+    ),
+    'field__field_action_video' => array(
+      'render element' => 'element',
+      'template' => 'field--field-action-video',
+      'path' => $path . '/templates/In-Action',
+    ),
+
+    // Regions.
+    'field__field_region_intro_copy_2' => array(
+      'render element' => 'element',
+      'template' => 'field--field-region-intro-copy-2',
+      'path' => $path . '/templates/Regions',
+    ),
+    'field__field_region_body_2' => array(
+      'render element' => 'element',
+      'template' => 'field--field-region-body-2',
+      'path' => $path . '/templates/Regions',
+    ),
+    'field__field_region_video' => array(
+      'render element' => 'element',
+      'template' => 'field--field-region-video',
+      'path' => $path . '/templates/Regions',
+    ),
+  );
+}
+
+
+
+/**
+ * Implements hook_view_api().
+ */
+function un_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'un') . '/views',
+    'template path' => drupal_get_path('module', 'un') . '/templates',
+  );
+}
+
+
+
+/**
+ * Implements hook_variable_info().
+ *
+ * Used to allow for translation of some variables.
+ */
+function un_variable_info($options) {
+  $variables = array();
+
+  /* --- Annual Report 2014 --- */
+
+  /* General variables. */
+
+  $variables['un_rep2014_general_pdfurl'] = array(
+    'type' => 'number',
+    'title' => t('Report 2014: Full report pdf file URL', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  /* Introduction section. */
+
+  $variables['un_rep2014_introduction_title'] = array(
+    'type' => 'string',
+    'title' => t('Report 2014: Introduction section  - Title', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  $variables['un_rep2014_introduction_text'] = array(
+    'type' => 'string',
+    'title' => t('Report 2014: Introduction section - Text', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  $variables['un_rep2014_introduction_videourl'] = array(
+    'type' => 'string',
+    'title' => t('Report 2014: Introduction section - Video URL', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  $variables['un_rep2014_introduction_videotxt'] = array(
+    'type' => 'string',
+    'title' => t('Report 2014: Introduction section - Video description', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  $variables['un_rep2014_introduction_graphstitle'] = array(
+    'type' => 'string',
+    'title' => t('Report 2014: Introduction section - Graphs title', array(), $options),
+    'default' => array('*' => 0),
+
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  /* From Director section. */
+
+  $variables['un_rep2014_fromdirector_videourl'] = array(
+    'type' => 'string',
+    'title' => t('Report 2014: From Director - Video URL', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  $variables['un_rep2014_fromdirector_quote'] = array(
+    'type' => 'string',
+    'title' => t('Report 2014: From Director - Quotation', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  $variables['un_rep2014_fromdirector_author'] = array(
+    'type' => 'string',
+    'title' => t('Report 2014: From Director - Author', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  /* In Progress section. */
+
+  $variables['un_rep2014_progress_intro'] = array(
+    'type' => 'string',
+    'title' => t('Report 2014: Progress section - Intro', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  /* In Action section. */
+
+  $variables['un_rep2014_inaction_intro'] = array(
+    'type' => 'string',
+    'title' => t('Report 2014: InAction section - Intro', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  /* --- Annual Report 2015 --- */
+
+  /* General variables. */
+
+  $variables['un_rep2015_general_pdfurl'] = array(
+    'type' => 'number',
+    'title' => t('Report 2015: Full report pdf file URL', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  /* Introduction. */
+
+  $variables['un_rep2015_introduction_title'] = array(
+    'type' => 'string',
+    'title' => t('Report 2015: Introduction section  - Title', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  $variables['un_rep2015_introduction_text'] = array(
+    'type' => 'string',
+    'title' => t('Report 2015: Introduction section - Text', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  $variables['un_rep2015_introduction_imgtxt'] = array(
+    'type' => 'string',
+    'title' => t('Report 2015: Introduction section - Text under image', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  $variables['un_rep2015_introduction_graphstitle'] = array(
+    'type' => 'string',
+    'title' => t('Report 2015: Introduction section - Graphs top title', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  $variables['un_rep2015_introduction_numbcols_title'] = array(
+    'type' => 'string',
+    'title' => t('Report 2015: Introduction section - Number columns - title', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  for ($i = 1; $i <= 4; $i++) {
+    $variables['un_rep2015_introduction_numbcols_col' . $i] = array(
+      'type' => 'string',
+      'title' => t('Report 2015: Introduction section - Number columns - column !count', array('!count' => $i), $options),
+      'default' => array('*' => 0),
+      'required' => TRUE,
+      'localize' => TRUE,
+      'group' => 'unfpa',
+    );
+  }
+
+  $variables['un_rep2015_introduction_graphs_subtitle'] = array(
+    'type' => 'string',
+    'title' => t('Report 2015: Introduction section - Graphs - title', array(), $options),
+    'default' => array('*' => 0),
+
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  /* In Action section. */
+
+  $variables['un_rep2015_inaction_intro'] = array(
+    'type' => 'string',
+    'title' => t('Report 2015: InAction section - Intro', array(), $options),
+    'default' => array('*' => 0),
+    'required' => TRUE,
+    'localize' => TRUE,
+    'group' => 'unfpa',
+  );
+
+  return $variables;
+}
+
+
+
+/**
+ * Implements hook_variable_group_info().
+ */
+function un_variable_group_info() {
+  $groups['unfpa'] = array(
+    'title' => t('UNFPA'),
+    'description' => t('Custom variables used for UNFPA website'),
+    'access' => 'administer site configuration',
+  );
+
+  return $groups;
+}
+
+
+
+/**
+ * Implements hook_image_default_styles().
+ */
+function un_image_default_styles() {
+  $styles = array();
+
+  /* General use. */
+
+  $styles['rep2014_graph_image'] = array(
+    'label' => 'rep2014_graph_image',
+    'effects' => array(
+      array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 270,
+          'height' => 190,
+          'upscale' => 0,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  $styles['rep2014_video_thumb'] = array(
+    'label' => 'rep2014_video_thumb',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 620,
+          'height' => 348,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  /* Introduction 2015 section. */
+
+  $styles['rep2014_intro_img'] = array(
+    'label' => 'rep2014_intro_img',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 406,
+          'height' => 390,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  /* Director section. */
+
+  $styles['rep2014_director_video'] = array(
+    'label' => 'rep2014_director_video',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 930,
+          'height' => 409,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  /* Progress section. */
+
+  $styles['rep2014_progress'] = array(
+    'label' => 'rep2014_progress',
+    'effects' => array(
+      array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => '',
+          'height' => 412,
+          'upscale' => 0,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  $styles['rep2014_progress_mobile'] = array(
+    'label' => 'rep2014_progress_mobile',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 640,
+          'height' => 430,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  /* In Actions section. */
+
+  $styles['rep2014_inaction_main'] = array(
+    'label' => 'rep2014_inaction_main',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 930,
+          'height' => 375,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  $styles['rep2014_inaction_mobile'] = array(
+    'label' => 'rep2014_inaction_mobile',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 620,
+          'height' => 465,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  /* Regions section. */
+
+  $styles['rep2014_region_main'] = array(
+    'label' => 'rep2014_region_main',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 930,
+          'height' => 395,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  $styles['rep2014_region_tile'] = array(
+    'label' => 'rep2014_region_tile',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 205,
+          'height' => 155,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  /* Report 2015 Tiles. */
+
+  $styles['rep2014_artile_tile'] = array(
+    'label' => 'rep2014_artile_tile',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 420,
+          'height' => 420,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  $styles['rep2014_artile_title'] = array(
+    'label' => 'rep2014_artile_title',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 450,
+          'height' => 76,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  $styles['rep2014_artile_photo'] = array(
+    'label' => 'rep2014_artile_photo',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 450,
+          'height' => 212,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  return $styles;
+}
+
+
+
+/*
+ * .-----------------------------------------------------.
+ * |                       FILTER                        |
+ * '-----------------------------------------------------'
+ */
+
+
+
+/**
+ * Implements hook_filter_info().
+ */
+function un_filter_info() {
+  $filters = array();
+
+  // Text highlighter filter.
+  $filters['un_highlighter'] = array(
+    'title' => t('Text highlighter'),
+    'description' => t('Highlights text wrapped in [| and |].'),
+    'process callback' => 'un_filter_highlighter_process',
+    'tips callback' => 'un_filter_highlighter_tips',
+  );
+
+  return $filters;
+}
+
+
+
+/**
+ * Process callback for the niceform_emptyparagraphs filter.
+ */
+function un_filter_highlighter_process($text, $filter) {
+  // Text higlighter filter.
+  // Converts [|text|] to <span class="rp-highlight">text</span>.
+  $patterns = array('/\[\|/', '/\|\]/');
+  $replace = array('<span class="rp-highlight">', '</span>');
+  $text = preg_replace($patterns, $replace, $text);
+
+  return $text;
+}
+
+
+
+/**
+ * Tips callback for niceform_emptyparagraphs filter.
+ */
+function un_filter_highlighter_tips($filter, $format, $long) {
+  if ($long) {
+    return t('Use [| and |] to wrap piece of text that you want to become highlighted.');
+  }
+  else {
+    return t('Use [| and |] to wrap piece of text that you want to become highlighted.');
+  }
+}
+
+
+
+/*
+ * .-----------------------------------------------------.
+ * |                    ALTERATIONS                      |
+ * '-----------------------------------------------------'
+ */
+
+
+
+/**
+ * Implements hook_form_node_form_alter().
+ *
+ * - Disable the option to select "Language neutral" for selected content types.
+ */
+function un_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $un_node_types = array('inaction', 'region', 'progressitem', 'artiles');
+  if (in_array($form['type']['#value'], $un_node_types)) {
+    if (isset($form['language']['#options'])) {
+      if (isset($form['language']['#options'][LANGUAGE_NONE])) {
+        unset($form['language']['#options'][LANGUAGE_NONE]);
+      }
+      else {
+        // If we have Enabled/Disabled array.
+        foreach ($form['language']['#options'] as $key => $languages) {
+          if (is_array($languages) && isset($form['language']['#options'][$key][LANGUAGE_NONE])) {
+            unset($form['language']['#options'][$key][LANGUAGE_NONE]);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Altering taxonomy_form_term form.
+ * Customize 'un_graphs' vocab term forms a bit.
+ */
+function un_form_taxonomy_form_term_alter(&$form, &$form_state) {
+  $vname = $form['#vocabulary']->machine_name;
+
+  if ($vname == 'un_graphs') {
+    $form['name']['#title'] = t('Administrative name');
+    $form['description']['#access'] = FALSE;
+    $form['relations']['#access'] = FALSE;
+  }
+}
+
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Altering field_ui_field_edit_form.
+ * Alter list of available options for field_graph_language.
+ * This is done by overriding list items callback function.
+ */
+function un_form_field_ui_field_edit_form_alter(&$form, &$form_state, $form_id) {
+  if ($form['#field']['field_name'] == 'field_graph_language') {
+    un_enabled_languages_as_list_options($form['field']['settings']);
+  }
+}
+
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Altering field_ui_field_settings_form.
+ * Alter list of available options for field_graph_language.
+ * This is done by overriding list items callback function.
+ */
+function un_form_field_ui_field_settings_form_alter(&$form, &$form_state, $form_id) {
+  if ($form['field']['field_name']['#value'] == 'field_graph_language') {
+    un_enabled_languages_as_list_options($form['field']['settings']);
+  }
+}
+
+
+
+/**
+ * Alter field definition for field_graph_language.
+ *
+ * Alteration function - changes field definition for field_graph_language
+ * so it uses options callback function instead of manually entered list.
+ */
+function un_enabled_languages_as_list_options(&$field_settings) {
+  $field_settings['allowed_values_function'] = array(
+    '#type' => 'select',
+    '#title' => t('Allowed values'),
+    '#options' => array(
+      'un_enabled_languages_list' => t('Enabled languages'),
+    ),
+    '#default_value' => $field_settings['allowed_values_function']['#value'],
+    '#weight' => -10,
+  );
+}
+
+
+
+/**
+ * List options callback for the list of enabled languages.
+ */
+function un_enabled_languages_list() {
+  return locale_language_list('name');
+}
+
+
+
+/*
+ * .-----------------------------------------------------.
+ * |                  GRAPH FUNCTIONS                    |
+ * '-----------------------------------------------------'
+ */
+
+
+
+/**
+ * Return markup for graph 'doughnut'.
+ *
+ * Graph is rendered using un.chart.js.
+ */
+function un_get_graph_doughnut($percent, $size = 160) {
+  $skrollr = ' data-600-top-top="opacity: 1.0;" data-700-top-top="opacity: 0.0;" data-0="opacity: 0.0;"';
+  return '<div class="graph-doughnut" data-value="' . $percent . '" data-size="' . $size . '"' . $skrollr . '></div>';
+}
+
+
+
+/**
+ * Return markup for graph 'number'.
+ */
+function un_get_graph_number($number, $height = 200) {
+  $style = 'style="height: ' . $height . 'px;"';
+  $skrollr = ' data-650-top-top="opacity: 1.0;" data-700-top-top="opacity: 0.0;" data-0="opacity: 0.0;"';
+  $skrollr2 = ' data-600-top-top="font-size: 1em;" data-700-top-top="font-size: 0.1em;" data-0="font-size: 0.1em;"';
+  return '<div class="graph-number rp-color-1 con-font" ' . $style . $skrollr . '><span' . $skrollr2 . '>' . $number . '</span></div>';
+}
+
+
+
+/**
+ * Return markup for graph 'image'.
+ */
+function un_get_graph_image($uri) {
+  $skrollr = ' data-600-top-top="opacity: 1.0;" data-700-top-top="opacity: 0.0;" data-0="opacity: 0.0;"';
+  $output = '<div class="graph-image"' . $skrollr . '>';
+    $output .= theme('image_style', array(
+      'style_name' => 'rep2014_graph_image',
+      'path' => $uri,
+    ));
+  $output .= '</div>';
+
+  return $output;
+}
+
+
+
+/**
+ * Return markup for graph 'number and image'.
+ */
+function un_get_graph_imgnumb($uri, $number) {
+  $output = '<div class="graph-imgnumb">';
+
+    $skrollr = ' data-600-top-top="opacity: 1.0;" data-700-top-top="opacity: 0.0;" data-0="opacity: 0.0;"';
+    $output .= '<div class="graph-imgnumb-img"' . $skrollr . '>';
+      $output .= theme('image_style', array(
+        'style_name' => 'rep2014_graph_image',
+        'path' => $uri,
+      ));
+    $output .= '</div>';
+
+    $skrollr = ' data-650-top-top="opacity: 1.0;" data-700-top-top="opacity: 0.0;" data-0="opacity: 0.0;"';
+    $skrollr2 = ' data-600-top-top="font-size: 1em;" data-700-top-top="font-size: 0.1em;" data-0="font-size: 0.1em;"';
+    $output .= '<div class="graph-imgnumb-numb rp-color-1 con-font"' . $skrollr . '>';
+      $output .= '<span' . $skrollr2 . '>' . $number . '</span>';
+    $output .= '</div>';
+
+  $output .= '</div>';
+
+  return $output;
+}
+
+
+
+/**
+ * Return markup for graph 'bar'.
+ */
+function un_get_graph_bar($change, $width = 60, $height = 180) {
+  // Calculate data.
+  // Bar height in pixels (Bar height is never more than $height).
+  $bar_height = ($height + $change) * (1 - ($change / 100));
+  if ($change == 100) {
+    $bar_height = ($height + $change) / 2;
+  }
+  elseif ($change > 100) {
+    $bar_height = ($height + $change) * ($change / ($change + 100));
+  }
+
+  // Bar height as % (Never more than 100).
+  $bar_perc_height = ceil($bar_height / $height * 100);
+
+  // Change difference as %.
+  $bar_perc_diff = ceil(100 - $bar_perc_height);
+
+  // Calculate container width - $width + 2x label width.
+  $width_all = $width + ((45 + 18 + 7) * 2);
+
+  // Skrollr stuff.
+  $skrollr = 'data-600-top-top="opacity: 1.0;" data-700-top-top="opacity: 0.0;" data-0="opacity: 0.0;"';
+  $skrollr_bar = 'data-400-top-top="top: 0;" data-' . (500 + 1 / 2 * $height) . '-top-top="top: ' . $height . 'px;" data-0="top: ' . $height . 'px;"';
+
+  $output = '<div class="graph-bar rp-color-7" style="height: ' . $height . 'px; width: ' . $width_all . 'px;" ' . $skrollr . '>';
+
+    // Left label.
+    $output .= '<span class="bar-prev-label" style="height: ' . $bar_perc_height .
+    '%; top: ' . $bar_perc_diff . '%;">' . t('2013') . '</span>';
+
+    // Value bar.
+    $output .= '<span class="bar-val-wrap" style="width: ' . $width . 'px;">';
+      $output .= '<span class="bar-val rp-bg-4" ' . $skrollr_bar . '>';
+        $output .= '<span class="bar-val-change rp-bg-1 unsb-font" style="height: ' . $bar_perc_diff . '%;">';
+        $output .= '<span class="bar-val-change-txt">';
+        $output .= '+' . $change . '%';
+      $output .= '</span></span></span>';
+    $output .= '</span>';
+
+    // Right label.
+    $output .= '<span class="bar-current-label">' . t('2014') . '</span>';
+
+  $output .= '</div>';
+
+  return $output;
+}
+
+
+
+/**
+ * Return markup for graph 'people'.
+ *
+ * $val is integer from 0 to 10. Represents x out of y people.
+ */
+function un_get_graph_people($val) {
+  $path = base_path() . drupal_get_path('module', 'un') . '/images/people-graph/';
+
+  // Negotiate which background images to use.
+  if ($val < 6) {
+    $bg_1 = 0;
+    $bg_2 = $val;
+  }
+  else {
+    $bg_1 = $val - 5;
+    $bg_2 = 5;
+  }
+
+  // Prepare style attrs.
+  $style1 = 'style="background-image: url(' . $path . $bg_1 . '.png);"';
+  $style2 = 'style="background-image: url(' . $path . $bg_2 . '.png);"';
+  $skrollr1 = ' data-520-top-top="width: 100%;" data-750-top-top="width: 0.05%;" data-0="width: 0;"';
+  $skrollr2 = ' data-390-top-top="width: 100%;" data-620-top-top="width: 0.05%;" data-0="width: 0;"';
+
+  $output = '<div class="graph-people">';
+
+    $output .= '<span class="people-row">';
+      $output .= '<span class="people-row-bg" ' . $style2 . $skrollr2 . '></span>';
+    $output .= '</span>';
+
+    $output .= '<span class="people-row">';
+      $output .= '<span class="people-row-bg" ' . $style1 . $skrollr1 . '></span>';
+    $output .= '</span>';
+
+  $output .= '</div>';
+
+  return $output;
+}
+
+
+
+/**
+ * Create graph from special placeholder.
+ *
+ * Currently only used for creating people graph.
+ */
+function un_create_graph_from_placeholder($text) {
+  if (preg_match_all('/\[graph-people\:(.+)?\]/isU', $text, $matches)) {
+    foreach ($matches[0] as $key => $placeholder) {
+      $val = $matches[1][$key];
+      $replacement = un_get_graph_people($val);
+      $text = str_replace($placeholder, $replacement, $text);
+    }
+  }
+
+  return $text;
+}
+
+
+
+/*
+ * .-----------------------------------------------------.
+ * |                   VIDEO FUNCTIONS                   |
+ * '-----------------------------------------------------'
+ */
+
+
+
+/**
+ * Create video thumb.
+ */
+function un_create_video_thumblink($video_url, $video_thumb, $skrollr_on = FALSE) {
+  // First find out what is the handler for this video (youtube vs vimeo).
+  $handler = video_embed_get_handler($video_url);
+  module_load_include('inc', 'video_embed_field', 'video_embed_field.handlers');
+
+  /* Depending on provider find out video id from regular url and build embed url. */
+
+  // Youtube.
+  if ($handler && stristr($handler['function'], 'youtube')) {
+    $video_id = _video_embed_field_get_youtube_id($video_url);
+    $video_url = 'https://www.youtube.com/v/' . $video_id;
+  }
+  // Vimeo video.
+  elseif ($handler && stristr($handler['function'], 'vimeo')) {
+    $video_id = _video_embed_field_get_vimeo_id($video_url);
+    $video_url = 'https://player.vimeo.com/video/' . $video_id;
+  }
+
+  $video_url .= '?width=960&amp;height=540&amp;iframe=true&amp;autoplay=1';
+
+  /* Build output. */
+
+  $skrollr = '';
+  if ($skrollr_on) {
+    $skrollr = ' data-center-top="opacity: 1.0;" data-bottom-top="opacity: 0;" data-0="opacity: 0;"';
+  }
+
+  $output = '<a class="rp-video colorbox-load" href="' . $video_url . '"' . $skrollr . '>';
+    $output .= '<div class="video-button-wrap">';
+      $output .= '<span class="video-button unsb-font">';
+        $output .= '<span class="rp-ico"></span> ' . t('Play');
+      $output .= '</span>';
+    $output .= '</div>';
+    $output .= $video_thumb;
+  $output .= '</a>';
+
+  return $output;
+}

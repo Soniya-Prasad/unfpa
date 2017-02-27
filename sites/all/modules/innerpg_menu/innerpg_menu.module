@@ -1,0 +1,122 @@
+<?php
+/**
+ * @file
+ * custom module for Inner page Menu list inside RHS region
+ */
+
+/**
+ * Implementation of hook_block_info().
+ * 
+ */
+ 
+function innerpg_menu_block_info() {
+ $blocks['innerpg_menu'] = array(
+    'info' => t('Inner page Menu - LHS'),
+  );
+  $blocks['np_menu'] = array(
+    'info' => t('News and Publication Menu - LHS'),
+  );
+   return $blocks;
+}
+ 
+/**
+ * Implementation of hook_block_view().
+ */
+function innerpg_menu_block_view($delta='') {
+  $block = array();
+  switch ($delta) {
+    case 'innerpg_menu':
+      $block['subject'] = t('Inner page Menu - LHS');
+      $block['content'] = innerpg_menu_list();
+    break;
+	case 'np_menu':
+      $block['subject'] = t('News and Publication Menu - LHS');
+      $block['content'] = np_menu_list();
+    break;
+  }
+  return $block;
+}
+
+function innerpg_menu_list(){
+	global $base_url;
+	$result = '';
+	$nid = arg(1);
+	
+	if(isset($nid) && is_numeric($nid))
+	{
+		$nodeval = node_load(arg(1));
+		$nid = ($nodeval->tnid!=0)?$nodeval->tnid:$nodeval->nid;
+		$path = 'node/'.$nid;
+		$parent = menu_link_get_preferred($path);
+	
+		if($parent['has_children'] == 0)
+		{
+			$nochild_menu = _menu_link_find_parent($parent,'');
+		//	echo '<pre>'; print_r($nochild_menu); echo '</pre>';
+			$parameters = array(
+			'active_trail' => array($nochild_menu['plid']),
+			'only_active_trail' => FALSE,
+			'min_depth' => $nochild_menu['depth']+1,
+			'max_depth' => $nochild_menu['depth']+1,
+			'conditions' => array('plid' => $nochild_menu['mlid']),
+		  	);
+		  
+			$block_link = $base_url.'/'.drupal_get_path_alias($nochild_menu['link_path']);	
+				  
+			$children = menu_build_tree($nochild_menu['menu_name'], $parameters);
+			$menu_tree = menu_tree_output($children);
+			//$result.= "<div> <strong><a href='".$block_link."'>".$nochild_menu['link_title']."</a></strong> </div>";
+			$result = drupal_render($menu_tree);
+			
+			return $result;
+		}
+		elseif($parent['link_title'] == 'Where We Work')
+		{
+			$parameters = array(
+			'active_trail' => array($parent['mlid']),
+			'only_active_trail' => TRUE,
+			);
+		   $children = menu_build_tree($parent['menu_name'], $parameters);
+		   $menu_tree = menu_tree_output($children);
+		   //$result.="<div> <strong>".$parent['link_title']."</strong> </div>";
+		   $result = drupal_render($menu_tree);
+	   		return $result;
+		}
+		else
+		{
+			$parameters = array(
+			'active_trail' => array($parent['plid']),
+			'only_active_trail' => FALSE,
+			'min_depth' => $parent['depth']+1,
+			'max_depth' => $parent['depth']+1,
+			'conditions' => array('plid' => $parent['mlid']),
+			);
+		   $children = menu_build_tree($parent['menu_name'], $parameters);
+		   $menu_tree = menu_tree_output($children);
+		   //$result.="<div> <strong>".$parent['link_title']."</strong> </div>";
+		   $result = drupal_render($menu_tree);
+	   		return $result;
+		}
+  	}
+  	else
+  	{
+  		return $result;
+  	}	
+}
+
+
+function np_menu_list($menu = 'main-menu'){
+ 	$tree = menu_tree_all_data($menu,'',3);
+	//echo "<pre>";
+	//print_r($tree);
+	//echo "</pre>";
+	$childtree = array();
+    foreach ($tree as $branch){
+//echo 	$branch['link']['title'];
+	if ($branch['link']['title'] == 'News and Publications'){
+        $childtree = $branch['below'];
+        break;
+      }
+    }
+	return drupal_render(menu_tree_output($childtree));
+}

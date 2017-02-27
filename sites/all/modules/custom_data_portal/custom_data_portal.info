@@ -1,0 +1,6 @@
+name = Custom Data Portal
+description = Custom module for Data Portal functionality for UNFPA Project.
+core = 7.x
+package = UNFPA Custom Data Portal
+project = unfpa
+files[] = includes/custom_data_portal.class.inc

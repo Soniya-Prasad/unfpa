@@ -1,0 +1,9 @@
+name = Custom Map
+description = Custom Map for UNFPA Global Site
+core = 7.x
+package = UNFPA Custom
+; Information added by drupal.org packaging script on 2012-06-13
+version = "7.x-1.0"
+project = "drupal"
+datestamp = "1332461528"
+files[] = custom_map.module

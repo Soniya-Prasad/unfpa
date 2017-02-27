@@ -1,0 +1,465 @@
+.clearfix::before, .clearfix::after {
+  content: "";
+  display: table;
+}
+.clearfix::after {
+  clear: both;
+}
+.clearfix::before, .clearfix::after {
+  content: "";
+  display: table;
+}
+.clearfix::after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+/*===========================================
+SOF ICPD Global Survey country list popup css
+=============================================*/
+
+.popover {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+
+button.pencil {
+  background-color: transparent;
+  background-image: url("../images/pencil.png");
+  background-position: 0 1px;
+  background-repeat: no-repeat;
+  border: 0 none;
+  color: #0090c9;
+  font-size: 14px;
+  font-weight: 700;
+  padding-left: 18px;
+}
+
+button, input[type="button"] {
+  cursor: pointer;
+}
+
+.page-icpd-global-survey .popover .thepopover .triangle-img {
+  background: transparent url("../images/popover-triangle.png") no-repeat scroll center center;
+}
+
+.page-icpd-global-survey .popover .thepopover {
+  background: #565656 none repeat scroll 0 0;
+  z-index: 999;
+}
+
+.popover .thepopover h4 {
+  color: #df8312;
+  font-family: Arial;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 18px;
+  margin-bottom: 1em;
+  margin-top: 0;
+}
+
+.popover .thepopover ul {
+  -moz-column-count: 4;
+  float: left;
+  list-style: outside none none;
+  width: 100%;
+}
+
+.popover .thepopover li {
+  width: 210px;
+}
+
+.thepopover li {
+  display: inline-block;
+  width: 225px;
+}
+
+.page-icpd-global-survey .popover .thepopover li a {
+  color: #ffffff;
+}
+
+/*===========================================
+EOF ICPD Global Survey country list popup css
+=============================================*/
+
+/*===============================
+SOF ICPD Global Survey page css
+=================================*/
+.page-icpd-global-survey #main h1.title {
+  text-align: center;
+}
+
+.page-icpd-global-survey #icpd-survey-banner img {
+  height: auto;
+  width: 100%;
+}
+
+.page-icpd-global-survey .icpd-survey-para {
+  margin: 30px 0;
+}
+
+/*===============================
+EOF ICPD Global Survey page css
+=================================*/
+
+
+/*===============================
+SOF ICPD page css
+=================================*/
+
+#icpd-banner-tiles-images.icpd-banner-tiles-images-block {
+  float: right;
+  width: 50%;
+}
+
+.right-pane-content {
+  float: right; 
+  width: 100%;
+}
+
+.left-col-tiles {
+  float: left; 
+  display: inline; 
+  width: 70%;
+}
+
+.child-tile {
+  float: left; 
+  width: 50%;
+}
+
+.right-col-tiles {
+  float: left; 
+  display: inline; 
+  width: 30%;
+}
+
+.tile-image {
+  position: absolute; 
+  background-position: center; 
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  top: 0; 
+  right: 0; 
+  bottom: 0; 
+  left: 0;
+}
+
+.tile-overlay {
+  margin: 2px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-transition: opacity 0.3s ease, background 0.15s ease 0.15s;
+  -moz-transition: opacity 0.3s ease, background 0.15s ease 0.15s;
+  transition: opacity 0.3s ease, background 0.15s ease 0.15s;
+  padding: 0 10px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  opacity: 0; 
+}
+
+.tile {
+  position: relative; 
+  display: block; 
+  background: #f2f3f4;
+}
+
+.tile:hover .tile-overlay, .tile:focus .tile-overlay { 
+  opacity: 1; 
+}
+
+.tile.tile-lightblue:hover .tile-overlay, .tile.tile-lightblue:focus .tile-overlay { 
+  background: rgba(0, 204, 255, 0.9); 
+}
+
+.tile.tile-orange:hover .tile-overlay, .tile.tile-orange:focus .tile-overlay { 
+  background: rgba(242, 148, 46, 0.9); 
+}
+
+.tile.tile-yellow:hover .tile-overlay, .tile.tile-yellow:focus .tile-overlay { 
+  background: rgba(250, 206, 65, 0.9); 
+}
+
+.tile.tile-blue:hover .tile-overlay, .tile.tile-blue:focus .tile-overlay { 
+  background: rgba(47, 144, 201, 0.9); 
+}
+
+.tile.tile-green:hover .tile-overlay, .tile.tile-green:focus .tile-overlay { 
+  background: rgba(133, 185, 58, 0.9); 
+}
+
+.tile-first {
+  height: 156px;
+}
+
+.tile-adah .tile-image {
+  background-image: url('/sites/default/files/icpd/images/bg-adah.jpg');
+}
+
+.tile-third {
+  height: 208px;
+}
+
+.tile-farid .tile-image {
+  background-image: url('/sites/default/files/icpd/images/bg-farid.jpg'); 
+  background-position: 45% center;
+}
+
+.tile-fourth {
+  height: 104px;
+}
+
+.tile-tarkani .tile-image {
+  background-image: url('/sites/default/files/icpd/images/bg-tarkani.jpg'); 
+  background-position: 45% center;
+}
+
+.tile-sixth {
+  height: 156px;
+}
+
+.tile-jessaline .tile-image {
+  background-image: url('/sites/default/files/icpd/images/bg-jessaline.jpg'); 
+  background-position: 45% center;
+}
+
+.tile-last {
+  height: 260px;
+}
+
+.tile-marta .tile-image {
+  background-image: url('/sites/default/files/icpd/images/bg-marta.jpg'); 
+  background-position: 45% center;
+}
+
+.tile-second {
+  height: 156px;
+}
+
+.tile-mayors .tile-image {
+  background-image: url('/sites/default/files/icpd/images/bg-mayors.jpg'); 
+  background-position: 45% center;
+}
+
+.tile-fifth {
+  height: 364px;
+}
+
+.tile-waman .tile-image {
+  background-image: url('/sites/default/files/icpd/images/bg-waman.jpg'); 
+  background-position: 45% center;
+}
+
+.valign {
+  display: table; 
+  height: 100%; 
+  width: 100%;
+}
+
+.valign-cell {
+  display: table-cell; 
+  height: 100%; 
+  vertical-align: middle;
+}
+
+.valign-content {
+  display: inline-block;
+}
+
+#icpd-banner-tiles-images figure,
+.page-icpd figure {
+  margin: 2px;
+}
+
+.heading-container{
+  float: left;
+  display: inline;
+  margin-top: 0px;
+}
+
+.heading {
+  text-decoration: none;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.primary-heading {
+  text-transform: uppercase;
+  font-size: 1.9em;
+  font-weight: bold;
+  color: rgba(47, 144, 201, 0.9);
+}
+
+.secondary-heading {
+  text-transform: uppercase;
+  font-weight: 500;
+  color: black;
+  font-size: 1.3em;
+}
+
+.small-heading {
+  color: gray;
+  margin-top: 20px;
+  display: block;
+}
+
+/*SOF Navigation bar css*/
+
+#icpd-navigation-block {
+  clear: both;
+  display: inline-block;
+  margin: 30px 0;
+  width: 100%;
+}
+
+#icpd-nav-bar .icpd-nav-list {
+  margin: 0 auto;
+  padding: 0;
+  width: 80%;
+}
+
+#icpd-nav-bar .icpd-nav-item {
+  display: block;
+  float: left;
+  margin: 0 2%;
+  min-height: 85px;
+  text-align: center;
+  vertical-align: top;
+  width: 21%;
+}
+
+#icpd-nav-bar .icpd-nav-item > a {
+  font-family: 'robotobold';
+  font-size: 14px;
+  text-transform: uppercase;
+  outline: none;
+}
+
+#icpd-nav-bar .icpd-nav-item a span.nav-item-icon {
+  background-image: url('../images/icpd-nav-bar-circle-icon.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  display: block;
+  height: 28px;
+  margin-bottom: 15px;
+}
+
+#icpd-nav-bar .icpd-nav-item a:hover span.nav-item-icon {
+  background-position: center -32px;
+}
+
+/*EOF Navigation bar css*/
+
+/*===============================
+EOF ICPD page css
+=================================*/
+
+.page-icpd .social-icons-container {
+  margin-bottom: 25px;
+}
+
+.page-icpd .social a, 
+.page-icpd .social .social-icons {
+  box-sizing: unset;
+}
+
+/*================================
+SOF ICPD library page css
+==================================*/
+
+.view-id-icpd_resources.icpd-listing-library .view-filters {
+  margin: 0 0 40px 0;
+}
+
+.view-id-icpd_resources.icpd-listing-library > .view-content > .views-row {
+  border-bottom: 1px dotted #d9dac4;
+  margin: 0 0 20px;
+  padding: 0 0 20px;
+}
+
+.view-id-icpd_resources.icpd-listing-library > .view-content > .views-row.views-row-last {
+  border-bottom: 0 none;
+}
+
+.view-id-icpd_resources.icpd-listing-library > .view-content > .views-row > .views-field-views-conditional {
+  float: left;
+  margin: 0 15px 0 0;
+}
+
+.view-id-icpd_resources.icpd-listing-library > .view-content > .views-row > .views-field-title {
+  color: #0091ca;
+  font-family: "robotobold";
+  font-size: 16px;
+  line-height: 18px;
+  margin: 10px 0;
+}
+
+.view-id-icpd_resources.icpd-listing-library > .view-content > .views-row > .views-field-field-resource-date span.date-display-single {
+  color: #de7300;
+  display: block;
+  font-family: "robotobold";
+  font-size: 14px;
+  line-height: 14px;
+  margin: 0 0 5px;
+  padding: 0 0 5px;
+}
+
+.view-id-icpd_resources.icpd-listing-library > .view-content > .views-row .pdfpreview-image-wrapper {
+  display: block;
+  height: 235px;
+  border: 1px solid #d2d2d2;
+  border-radius: 3px;
+  box-shadow: 0 0 3px #cccccc;
+  overflow: hidden;
+}
+
+.view-id-icpd_resources.icpd-listing-library .views-field-field-icpd-document-type .field-content {
+  color: #666666;
+  font-family: robotobold;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+/*================================
+EOF ICPD library page css
+==================================*/
+
+/*================================
+SOF ICPD detail page css
+==================================*/
+
+.node-type-icpd-library-resource #detail-page-template .views-field-views-conditional-1 .date-display-single {
+  display: block;
+  font-family: "robotobold";
+  margin: 0 0 20px;
+}
+
+.node-type-icpd-library-resource #detail-page-template .views-field-views-conditional {
+  float: left;
+  margin: 0 3% 0 0;
+}
+
+.node-type-icpd-library-resource #detail-page-template .views-field-views-conditional .pdfpreview-image-wrapper > img {
+  border: 1px solid #d2d2d2;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  height: auto;
+  max-width: 180px;
+  width: 100%;
+}
+
+.node-type-icpd-library-resource #detail-page-template .views-field-field-resource-document {
+  overflow: hidden;
+}
+
+/*================================
+EOF ICPD detail page css
+==================================*/

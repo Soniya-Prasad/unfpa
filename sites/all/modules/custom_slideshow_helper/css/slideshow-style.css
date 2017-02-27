@@ -1,0 +1,222 @@
+/* Image Slideshow */
+.flexslider {
+  border: none;
+  box-shadow: none;
+  margin: 0;
+}
+.flexslider .slides {
+  padding: 0;
+}
+.flex-control-nav {
+  bottom: 5px;
+  z-index: 2;
+}
+.flex-control-paging li a {
+  width: 8px;
+  height: 8px;
+  background: rgba(156,156,156,0.8);
+  box-shadow: none;
+}
+.flex-control-paging li a.flex-active,
+.flex-control-paging li a:hover {
+  background: rgba(224,224,224,1);
+}
+.flexslider .slides img {
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+.slideshow-image {
+  position: relative;
+  float: left;
+  width: 100%;
+}
+.slideshow-image-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url(../images/slideshow-icon.png) no-repeat left bottom;
+  left: 0;
+  top: 0;
+}
+.slideshow-image-overlay:hover {
+  background-color: rgba(0,0,0,0.5);
+}
+.slideshow-open {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  padding: 0 20%;
+  z-index: 9999;
+  background: rgba(0,0,0,0.9);
+}
+.slideshow-close {
+  background: url(../images/closeButton.png);
+  width: 29px;
+  height: 29px;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+  cursor: pointer;
+  display: none;
+}
+.slideshow-open .flexslider {
+  background: none;
+}
+#slideshow-main .views-field-title {
+  color: #fff;
+  font: 36px "unfpatext",Arial;
+  margin: 10% 0 25px;
+  text-align: center;
+}
+#slideshow-main .views-field-field-date {
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+#slideshow-main .views-field-field-slide-caption {
+  font: 16px arial;
+  margin: 25px auto;
+}
+.slideshow-open .flex-direction-nav a {
+  width: 76px;
+  height: 88px;
+  margin-top: -44px;
+}
+.slideshow-open .flex-direction-nav .flex-prev {
+  background: url(../images/leftArrow.png) 0 -3px;
+}
+.slideshow-open .flex-direction-nav .flex-next {
+  background: url(../images/rightArrow.png);
+}
+.slideshow-open .flex-direction-nav a::before {
+  display: none;
+}
+
+.slideshow-open {
+  width: 90%;
+  padding: 0 5%;
+}
+#slideshow-main .views-field-field-slide-caption {
+  margin: 0;
+  width: 90%;
+  padding: 15px 5%;
+}
+#slideshow-main .slideshow-open .views-field-field-slide-caption {
+  background: rgba(0,0,0,0.5);
+  position: absolute;
+  bottom: 0;
+  color: #cccccc;
+}
+.slideshow-open .flex-direction-nav .flex-prev { opacity: 1; left: 10px;}
+.slideshow-open .flex-direction-nav .flex-next { opacity: 1; right: 10px;}
+
+/* Slideshow detail page */
+#slideshow-detail-page .flex-direction-nav a {
+  width: 76px;
+  height: 88px;
+  margin-top: -44px;
+}
+#slideshow-detail-page .flex-direction-nav .flex-prev {
+  background: url(../images/leftArrow.png) 0 -3px;
+}
+#slideshow-detail-page .flex-direction-nav .flex-next {
+  background: url(../images/rightArrow.png);
+}
+#slideshow-detail-page .flex-direction-nav a::before {
+  display: none;
+}
+#slideshow-detail-page #slideshow-main .views-field-title {
+  color: #2f3236;
+  font-weight: bold;
+  text-align: left;
+}
+#slideshow-detail-page #slideshow-main .views-field-field-date {
+  color: #666;
+  text-align: left;
+}
+#slideshow-detail-page #slideshow-main .views-field-field-slide-caption {
+  width: 100%;
+  padding: 15px 0;
+}
+#slideshow-detail-page .view-display-id-slides_block .flexslider {
+  overflow: hidden;
+}
+#slideshow-detail-page #slideshow-main .views-field-title {
+  margin-top: 0;
+}
+
+@media all and (max-height:768px) {
+  #slideshow-main .views-field-title {
+    margin: 5% 0 15px;
+  }
+}
+@media all and (max-width:768px) {
+  #slideshow-main .views-field-title {
+    font-size: 26px;
+    margin: 5% 0 15px;
+  }
+  .slideshow-open .flex-direction-nav .flex-prev {
+    left: 0;
+  }
+  .slideshow-open .flex-direction-nav .flex-next {
+    right: 0;
+  }
+}
+@media all and (max-width:480px) {
+  #slideshow-main .views-field-title {
+    margin: 5% 15px 15px;
+  }
+}
+
+.view-vw-video.view-display-id-block_home_videos .flex-prev{
+  background: url(../images/leftArrow-small-new.png) no-repeat;
+}
+.view-vw-video.view-display-id-block_home_videos .flex-next{
+  background: url(../images/rightArrow-small-new.png) no-repeat;
+}
+.view-vw-video.view-display-id-block_home_videos .flex-next:before,
+.view-vw-video.view-display-id-block_home_videos .flex-prev:before{
+  content: none;
+}
+
+/*===SOF Multimedia Photo feature page===*/
+
+.page-multimedia .view-display-id-multimedia_block .flex-prev {
+  background: url(../images/leftArrow-small-new.png) no-repeat;
+}
+
+.page-multimedia .view-display-id-multimedia_block .flex-next {
+  background: url(../images/rightArrow-small-new.png) no-repeat;
+}
+
+.page-multimedia .view-display-id-multimedia_block .flex-next:before,
+.page-multimedia .view-display-id-multimedia_block .flex-prev:before {
+  content: none;
+}
+
+.inner-page #listing-page-template .pane-feature .view-display-id-feature_main_block .flex-prev {
+  background: url(../images/leftArrow.png) no-repeat;
+}
+
+.inner-page #listing-page-template .pane-feature .view-display-id-feature_main_block .flex-next {
+  background: url(../images/rightArrow.png) no-repeat;
+}
+
+.inner-page #listing-page-template .pane-feature .view-display-id-feature_main_block .flex-prev:before,
+.inner-page #listing-page-template .pane-feature .view-display-id-feature_main_block .flex-next:before {
+  content: none;
+}
+
+#multimedia-photo-feature-main-block .flex-direction-nav a {
+  width: 76px;
+  height: 88px;
+  margin-top: -44px;
+}
+
+/*===EOF Multimedia Photo feature page===*/

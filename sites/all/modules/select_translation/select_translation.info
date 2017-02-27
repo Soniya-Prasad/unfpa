@@ -1,0 +1,11 @@
+name = "Select translation"
+description = "A views filter, allowing users to display only one of the nodes of a group of nodes representing a translation"
+dependencies[] = translation
+dependencies[] = views
+files[] = select_translation.module
+files[] = select_translation_filter_handler.inc
+files[] = select_translation.views.inc
+package = Multilanguage
+core = 7.x
+
+

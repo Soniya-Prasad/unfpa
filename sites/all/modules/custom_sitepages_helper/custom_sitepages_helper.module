@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Custom module for Full text search on Site page(PPM).
+ * @author Anand Sharma <anand.sharma@datamatics.com>.
+ */
+
+/**
+ * Implements hook_block_info().
+ *
+ * @return type
+ */
+function custom_sitepages_helper_block_info() {
+  $blocks['custom_search_sitepage_form'] = array(
+    'info' => t('Block - Search Site Pages Form'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ * @param string $delta
+ * @return array
+ */
+function custom_sitepages_helper_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'custom_search_sitepage_form':
+//      $block['subject'] = t('Search Pages');
+      $block['content'] = drupal_get_form('custom_search_sitepage_form');
+      break;
+  }
+  return $block;
+}
+
+/**
+ *
+ * Implements hook_form().
+ *
+ * @param array $form
+ * @param array $form_state
+ * @return array
+ */
+function custom_search_sitepage_form($form, &$form_state) {
+  $form['custom_sitepages_helper']['txt_search'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Search'),
+    '#size' => 60,
+    '#maxlength' => 128,
+    //'#required' => TRUE,
+  );
+
+  // Form submit button
+  $form["custom_sitepages_helper"]["submit"] = array(
+    "#value" => t("Apply"),
+    "#type" => "submit",
+  );
+
+  $form["#submit"][] = "custom_sitepages_helper_form_submit";
+  return $form;
+}
+
+/**
+ * Implements hook_submit().
+ *
+ * @param array $form
+ * @param array $form_state
+ */
+function custom_sitepages_helper_form_submit($form, &$form_state) {
+  $search_string = check_plain($form_state['values']['txt_search']);
+  drupal_goto("/ppm-search", array('query' => array('search'=>$search_string)));
+}

@@ -1,0 +1,331 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the un module.
+ */
+
+/**
+ * Support for two independent Annual Reports and do some other minor updates.
+ */
+function un_update_7001(&$sandbox) {
+  module_load_include('module', 'taxonomy', 'taxonomy');
+
+  // Annual Report existing content types.
+  $ar_node_bundles = array(
+    'progressitem' => 'AR: Progress entry',
+    'region' => 'AR: Region',
+    'inaction' => 'AR: In Action',
+  );
+
+  /* --- Most Basic Stuff Required To Have Two Annual Reports --- */
+
+  /* First rename our existing content types and taxonomies for better admin UX. */
+
+  $graphs = taxonomy_vocabulary_machine_name_load('un_graphs');
+  $graphs->name = 'AR: Graphs';
+  taxonomy_vocabulary_save($graphs);
+
+  foreach ($ar_node_bundles as $bundle => $name) {
+    $type = node_type_load($bundle);
+    $type->name = $name;
+    $type->old_type = $type->orig_type;
+    node_type_save($type);
+  }
+
+  /* Add new field to all AR node types, used for distinguishing node report years. */
+
+  $field_un_report = array(
+    'field_name' => 'field_un_report',
+    // Using list_text so we can use non-numeric keys in the future as well.
+    'type' => 'list_text',
+    'cardinality' => 1,
+    'settings' => array(
+      'allowed_values' => array(
+        '2014' => '2014',
+        '2015' => '2015',
+      ),
+    ),
+  );
+
+  field_create_field($field_un_report);
+
+  $instance = array(
+    'label' => 'Report year',
+    'field_name' => 'field_un_report',
+    'entity_type' => 'node',
+    'description' => '',
+    'required' => TRUE,
+    'settings' => array(),
+  );
+
+  foreach ($ar_node_bundles as $bundle => $name) {
+    $instance['bundle'] = $bundle;
+    field_create_instance($instance);
+  }
+
+  /* Also attach our new field to un_graphs vocabulary terms. */
+
+  $instance['entity_type'] = 'taxonomy_term';
+  $instance['bundle'] = 'un_graphs';
+  field_create_instance($instance);
+
+  /* Set Report year to '2014' for all existing AR nodes. */
+
+  $or = db_or();
+  foreach ($ar_node_bundles as $bundle => $name) {
+    $or->condition('n.type', $bundle);
+  }
+
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid'))
+    ->condition($or)
+    ->execute();
+  $results = $query->fetchAll();
+
+  foreach ($results as $res) {
+    $node = node_load($res->nid);
+    $field_lang = field_language('node', $node, 'field_un_report');
+    $node->field_un_report[$field_lang][0]['value'] = '2014';
+    node_save($node);
+  }
+
+  /* Set Report year to '2014' for all existing AR graph terms. */
+
+  $graphs_tree = taxonomy_get_tree($graphs->vid);
+
+  foreach ($graphs_tree as $tree_item) {
+    $term = taxonomy_term_load($tree_item->tid);
+    $field_lang = field_language('taxonomy_term', $term, 'field_un_report');
+    $term->field_un_report[$field_lang][0]['value'] = '2014';
+    taxonomy_term_save($term);
+  }
+
+  /* --- Further Changes To Provide New Logic Used By Report 2015 --- */
+
+  /* Create a new content type 'AR: Tiles'. */
+
+  $type = node_type_set_defaults();
+
+  $type->type = 'artiles';
+  $type->name = 'AR: Tiles';
+  $type->base = 'node_content';
+  $type->module = 'node';
+  $type->description = '';
+  $type->help = '';
+
+  $type->custom = TRUE;
+  $type->modified = TRUE;
+  $type->locked = FALSE;
+
+  $type->title_label = 'Title';
+  $type->has_title = ($type->title_label != '');
+
+  $type->orig_type = $type->type;
+
+  // Set content type options before saving it.
+  variable_set('comment_' . $type->type, 0);
+  variable_set('i18n_node_extended_' . $type->type, 4);
+  variable_set('i18n_node_options_' . $type->type, array(0 => 'required'));
+  variable_set('language_content_type_' . $type->type, 1);
+
+  $status = node_type_save($type);
+  node_types_rebuild();
+  menu_rebuild();
+
+  if ($status == SAVED_NEW) {
+    drupal_set_message('Successfuly createt new content type \'AR: Tiles\'', 'status');
+  }
+  else {
+    drupal_set_message('Error while creating new content type \'AR: Tiles\'', 'error');
+  }
+
+  /* --- Create required fields for our new content type. --- */
+
+  $fields = array(
+    array(
+      'field_name' => 'field_artiles_body',
+      'type' => 'text_long',
+      'cardinality' => 1,
+      'settings' => array(),
+    ),
+    array(
+      'field_name' => 'field_artiles_tiles',
+      'type' => 'field_collection',
+      'cardinality' => -1,
+      'settings' => array(),
+    ),
+  );
+
+  foreach ($fields as $field) {
+    field_create_field($field);
+  }
+
+  $instances = array(
+    // This field already exists so add only instance.
+    array(
+      'label' => 'Report year',
+      'field_name' => 'field_un_report',
+      'description' => '',
+      'required' => TRUE,
+      'settings' => array(),
+    ),
+    array(
+      'label' => 'Main copy',
+      'field_name' => 'field_artiles_body',
+      'description' => '',
+      'required' => TRUE,
+      'settings' => array(
+        'text_processing' => 1,
+      ),
+      'widget' => array(
+        'settings' => array(
+          'rows' => 8,
+        ),
+      ),
+    ),
+    array(
+      'label' => 'Tiles',
+      'field_name' => 'field_artiles_tiles',
+      'description' => '',
+      'required' => TRUE,
+      'settings' => array(),
+      'widget' => array(
+        'type' => 'field_collection_embed',
+      ),
+    ),
+  );
+
+  foreach ($instances as $instance) {
+    $instance['entity_type'] = 'node';
+    $instance['bundle'] = 'artiles';
+    field_create_instance($instance);
+  }
+
+  /* We are using field collection for tiles - add fields to our field collection bundle. */
+
+  $fields = array(
+    array(
+      'field_name' => 'field_artile_title',
+      'type' => 'text',
+      'cardinality' => 1,
+      'settings' => array(),
+    ),
+    array(
+      'field_name' => 'field_artile_tileimg',
+      'type' => 'image',
+      'cardinality' => 1,
+      'settings' => array(
+        'default_image' => 0,
+      ),
+    ),
+    array(
+      'field_name' => 'field_artile_titleimg',
+      'type' => 'image',
+      'cardinality' => 1,
+      'settings' => array(
+        'default_image' => 0,
+      ),
+    ),
+    array(
+      'field_name' => 'field_artile_photo',
+      'type' => 'image',
+      'cardinality' => 1,
+      'settings' => array(
+        'default_image' => 0,
+      ),
+    ),
+    array(
+      'field_name' => 'field_artile_copyright',
+      'type' => 'text',
+      'cardinality' => 1,
+      'settings' => array(
+        'max_length' => 255,
+      ),
+    ),
+    array(
+      'field_name' => 'field_artile_copy',
+      'type' => 'text_long',
+      'cardinality' => 1,
+      'settings' => array(),
+    ),
+  );
+
+  foreach ($fields as $field) {
+    field_create_field($field);
+  }
+
+  $instances = array(
+    array(
+      'label' => 'Title',
+      'field_name' => 'field_artile_title',
+      'description' => 'The value of this field is used by screen readers.',
+      'required' => TRUE,
+      'settings' => array(),
+    ),
+    array(
+      'label' => 'Tile image',
+      'field_name' => 'field_artile_tileimg',
+      'required' => TRUE,
+      'settings' => array(
+        'file_extensions' => 'jpg png',
+        'file_directory' => 'unfpa-report/tiles',
+        'max_filesize' => '',
+        'alt_field' => 0,
+        'title_field' => 0,
+        'min_resolution' => '210x210',
+      ),
+    ),
+    array(
+      'label' => 'Detail view title image',
+      'field_name' => 'field_artile_titleimg',
+      'required' => TRUE,
+      'settings' => array(
+        'file_extensions' => 'jpg png',
+        'file_directory' => 'unfpa-report/tiles',
+        'max_filesize' => '',
+        'alt_field' => 0,
+        'title_field' => 0,
+        'min_resolution' => '450x76',
+      ),
+    ),
+    array(
+      'label' => 'Detail view photo',
+      'field_name' => 'field_artile_photo',
+      'required' => TRUE,
+      'settings' => array(
+        'file_extensions' => 'jpg png',
+        'file_directory' => 'unfpa-report/tiles',
+        'max_filesize' => '',
+        'alt_field' => 0,
+        'title_field' => 0,
+        'min_resolution' => '450x212',
+      ),
+    ),
+    array(
+      'label' => 'Detail view photo copyright note',
+      'field_name' => 'field_artile_copyright',
+      'description' => '',
+      'required' => TRUE,
+      'settings' => array(),
+    ),
+    array(
+      'label' => 'Detail view copy',
+      'field_name' => 'field_artile_copy',
+      'description' => '',
+      'required' => TRUE,
+      'settings' => array(),
+      'widget' => array(
+        'settings' => array(
+          'rows' => 3,
+        ),
+      ),
+    ),
+  );
+
+  foreach ($instances as $instance) {
+    $instance['entity_type'] = 'field_collection_item';
+    $instance['bundle'] = 'field_artiles_tiles';
+    field_create_instance($instance);
+  }
+}

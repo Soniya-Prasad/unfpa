@@ -1,0 +1,236 @@
+@font-face {
+    font-family: 'Eureka';
+    src: url('../fonts/EURO____.TTF');
+}
+@font-face {
+    font-family: 'Eureka';
+    src: url('../fonts/EUBD____.TTF');
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'UNFP';
+    src: url('../fonts/UNFWSMRM.ttf');
+}
+.container{ width: 980px; }
+body {
+    color: #453e33;
+    background-color: #ffeecf;
+    font-family: 'Open Sans', sans-serif;
+}
+text { font-family: 'Open Sans', sans-serif; }
+hr {
+    border-top: 2px solid #F2DAB1;
+    margin: 0;
+}
+h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 54px;
+}
+header ul.list-inline {
+    padding-top: 33px;
+    margin-bottom: 23px;
+    display: none;
+}
+header .btn-black {
+    background-color: #000;
+    color: #ffeecf;
+    font-size: 9pt;
+    padding: 7px 10px;
+    font-family: "UN", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+header .btn-black:hover {
+    color: #ffeecf;
+    background-color: #F8991D;
+}
+header .btn-black:focus { color: #ffeecf; }
+
+#intro {
+    margin-top: 20px;
+    margin-bottom: 26px;
+}
+#intro p {
+    margin-bottom: 0;
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+}
+#slide {
+    border-top: 1px solid #CCBB9F;
+    border-left: 1px solid #CCBB9F;
+    border-right: 1px solid #CCBB9F;
+}
+#map {
+    border-left: 1px solid #CCBB9F;
+    border-right: 1px solid #CCBB9F;
+    border-bottom: 1px solid #CCBB9F;
+    height: 380px;
+}
+#slide { padding-top: 10px; }
+#map, #slide {
+    position: relative;
+    background-color: #fff4e0;
+}
+#mapKey {
+    position: absolute;
+    bottom: 20px;
+    left: 28px;
+}
+#greenland, #the-former-yugoslav-republic, #kashmir { fill: #cecece; }
+#map .countries {
+    fill: #453e33;
+    stroke-width:1.5px;
+    stroke: #fff4e0;
+}
+#map .countries:hover { opacity: .8 }
+
+#map .countryfill1  { fill: #F8991D; }
+#map .countryfill2  { fill: #E49D25; }
+#map .countryfill3  { fill: #CEA02E; }
+#map .countryfill4  { fill: #B8A135; }
+#map .countryfill5  { fill: #A3A33C; }
+#map .countryfill6  { fill: #8DA748; }
+#map .countryfill7  { fill: #78AA4F; }
+#map .countryfill8  { fill: #61AD58; }
+#map .countryfill9  { fill: #4DAF62; }
+#map .countryfill10 { fill: #39B26A; }
+#map .countryfill11 { fill: #24B574; }
+#map .countryfill12 { fill: #22B17B; }
+#map .countryfill13 { fill: #1EAE84; }
+#map .countryfill14 { fill: #18AB8C; }
+#map .countryfill15 { fill: #15A795; }
+#map .countryfill16 { fill: #15A39D; }
+#map .countryfill17 { fill: #159FA5; }
+#map .countryfill18 { fill: #139CAF; }
+#map .countryfill19 { fill: #0F98B8; }
+#map .countryfill20 { fill: #0794BF; }
+#map .countryfill21 { fill: #0590C7; }
+.d3-tip {
+    width: 215px;
+    line-height: 1;
+    font-weight: bold;
+    padding: 5px 5px 0px 5px ;
+    background-color: #ffeecf;
+    color: #453e33;
+    border: 1px solid #CCBB9F;
+    border-radius: 2px;
+    top:0;
+}
+.d3-tip hr {
+    margin: 10px 0;
+}
+.d3-tip h4 {
+    margin: 0;
+    font-family: Arial;
+    font-size: 21px;
+    color: #453E33;
+}
+.d3-tip .ratio-info  {
+    font-weight: normal;
+    font-size:10px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+.d3-tip .hilite { color: #F8991D; }
+
+#viz-graph .list-inline>li {
+    text-transform: uppercase;
+    padding: 32px 16px 0px 16px;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.yAxisText path { opacity: 0; }
+.axis worldLine {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+.slideControl text { fill: #ccbb9f; }
+.slideControl, .yAxisText, .xAxis {
+    font: 10px sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.OuterXAxis .domain, .xAxis .tick line { stroke: #7A6F5B; }
+.xAxis .tick, .OuterXAxis .domain, { stroke-width: 2px; }
+.yAxisTextLabels {
+    font: 10px sans-serif;
+    color: #453E33;
+    position: absolute;
+    background: #ffeecf;
+    width: 27px;
+    opacity: .8;
+}
+em {
+    font: 10px sans-serif;
+    color: #453E33;
+    opacity: .8;
+    position: relative;
+    bottom: 30px;
+}
+.ten { top: 114px; }
+.five { top: 210px; }
+.slideControl .domain {
+    fill: none;
+    stroke: #ccbb9f;
+    stroke-width: 10px;
+    stroke-linecap: round;
+}
+.slideControl .domain {
+    fill: none;
+    stroke: #ccbb9f;
+    stroke-width: 10px;
+    stroke-linecap: round;
+}
+
+.slideControl .halo {
+    fill: none;
+    stroke: #ddd;
+    stroke-width: 8px;
+    stroke-linecap: round;
+}
+.tick line {
+    stroke: #F2DAB1;
+    stroke-width: 1px;
+}
+#graph text {
+    fill: #453E33;
+    opacity: .8;
+}
+.slider .handle {
+    stroke: #000;
+    stroke-opacity: .5;
+    stroke-width: 1.25px;
+    pointer-events: none;
+    fill:#ffeecf;
+}
+.sliderLine {
+    stroke:#F8991D;
+    stroke-width:2;
+}
+.worldLine {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+    stroke-dasharray: 5,5;
+}
+.continentLine {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+.regionLine {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+.countryLine {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1.5px;
+    stroke-dasharray: 5,5;
+}

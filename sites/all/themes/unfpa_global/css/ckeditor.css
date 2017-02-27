@@ -1,0 +1,163 @@
+.CSS1Compat {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.CSS1Compat p,
+.CSS1Compat div {
+    color: #808080;
+    line-height: 26px;
+    text-align: justify;
+    font-size: 16px;
+}
+.CSS1Compat a {
+    color: #1c97c8;
+    text-decoration: none;
+}
+.CSS1Compat .call-box-left,
+.CSS1Compat .call-box-right,
+.CSS1Compat .call-box-center {
+    background: url("../images/box_corner.gif") no-repeat #f2ecdc;
+    padding: 20px;
+    width: 200px;
+    color: #575349;
+    text-align: left !important;
+    margin: 20px 0;
+    clear: both;
+    font: 12px/14px arial !important;
+}
+.CSS1Compat .call-box-center {
+    margin: 20px 0;
+    padding: 5%;
+    width: 90%;
+    float: left;
+}
+.CSS1Compat .call-box-left {
+    float: left;
+    margin-right: 25px;
+}
+.CSS1Compat .call-box-right {
+    float: right;
+    margin-left: 25px;
+}
+.CSS1Compat .text-box {
+    background: #999;
+    color: #fff;
+    float: left;
+    width: 94%;
+    padding: 3%;
+    text-align: justify;
+    clear: both;
+}
+.CSS1Compat .fLeft {
+    margin-right: 20px;
+    float: left;
+    width: 500px;
+}
+.CSS1Compat .fRight {
+    margin-left: 20px;
+    float: right;
+    width: 500px;
+}
+.CSS1Compat .fLeft img,
+.CSS1Compat .fLeft iframe,
+.CSS1Compat .fLeft object,
+.CSS1Compat .fRight img,
+.CSS1Compat .fRight iframe,
+.CSS1Compat .fRight object,
+.CSS1Compat .fcenter img,
+.CSS1Compat .fcenter iframe,
+.CSS1Compat .fcenter object {
+    width: 100% !important;
+    display: block;
+}
+.CSS1Compat .fLeft img,
+.CSS1Compat .fRight img,
+.CSS1Compat .fcenter img {
+    height: auto !important;
+}
+.CSS1Compat .fcleft,
+.CSS1Compat .fcright,
+.CSS1Compat .figcaption {
+    text-align: left;
+    background: #404040;
+    color: #CCC;
+    font: 12px/14px arial;
+    margin: 0;
+    padding: 15px;
+    width: 470px;
+}
+.CSS1Compat .figcaption {
+    padding: 3%;
+    width: 94%;
+}
+.CSS1Compat .fcleft p,
+.CSS1Compat .fcright p,
+.CSS1Compat .figcaption p {
+    font: 12px/14px arial;
+}
+.CSS1Compat .fcleft {
+    margin-right: 20px;
+    float: left;
+    clear: left;
+}
+.CSS1Compat .fcright {
+    margin-left: 20px;
+    float: right;
+    clear: right;
+}
+.CSS1Compat .fleft-small,
+.CSS1Compat .fright-small {
+    display: table;
+    margin: 10px 0;
+}
+.CSS1Compat .fleft-small {
+    float: left;
+    margin-right: 20px;
+}
+.CSS1Compat .fright-small {
+    float: right;
+    margin-left: 20px;
+}
+.CSS1Compat .fleft-small img,
+.CSS1Compat .fleft-small iframe,
+.CSS1Compat .fleft-small object,
+.CSS1Compat .fright-small img,
+.CSS1Compat .fright-small iframe,
+.CSS1Compat .fright-small object {
+    margin: 0 !important;
+    max-width: none !important;
+    width: 100%;
+    height: auto;
+}
+.CSS1Compat .fleft-small .figcaption,
+.CSS1Compat .fright-small .figcaption {
+    display: table-caption;
+    caption-side: bottom;
+    width: auto;
+    float: none !important;
+    margin: 0 !important;
+    width: auto !important;
+}
+.CSS1Compat blockquote {
+    background: url("../images/bg_blockquote.gif") no-repeat scroll 40px 30px, url("../images/bg_site.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-color: #E6E6E6;
+    border-image: none;
+    border-style: solid none;
+    border-width: 1px medium;
+    color: #404040;
+    display: block;
+    font: italic 20px/33px Georgia;
+    margin: 20px 0 20px 0;
+    padding: 30px 5% 30px 15%;
+    position: relative;
+    width: 80%;
+    float: left;
+}
+.CSS1Compat blockquote p {
+    line-height: 33px;
+    font: italic 20px/33px Georgia;
+}
+.CSS1Compat blockquote cite {
+    display: block;
+    font: bold 18px Georgia;
+    margin-top: 20px;
+}

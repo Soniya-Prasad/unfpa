@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the sowp_feature feature.
+ */
+
+include_once 'sowp_feature.features.inc';

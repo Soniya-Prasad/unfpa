@@ -1,0 +1,152 @@
+<?php
+/**
+ * @file
+ * custom_subscription module for subscription functionality for UNFPA Project. 
+ */
+
+
+/**
+ * Implements hook_block_info().
+ */
+ 
+ function custom_subscription_block_info(){
+ 	$blocks = array();
+		 $blocks['subscription_form'] = array(
+			'info' => t('Subscription'),
+			'cache' => DRUPAL_CACHE_GLOBAL,
+		 );
+	return $blocks;	 
+ }
+ 
+/**
+ * Implements hook_block_view().
+ */
+ 
+ function custom_subscription_block_view($delta = ''){
+ 	$block = array();
+	
+	switch($delta){
+		case 'subscription_form':
+			$block['subject'] = t('Subscription');
+			$block['content'] = drupal_get_form('subscription_form');
+		break;
+	}
+	
+	return $block;
+ }   
+ 
+ /**
+ *  Define the Subscription form.
+ */
+ 
+ function subscription_form($form, &$form_state){
+ 	
+	//variable_set('custom_subscription_admin_email','eschenbaecher@unfpa.org');
+	variable_set('custom_subscription_admin_email','anands017@gmail.com');
+	$form['#attributes'] = array('class' => 'newsletter');
+	$form['#prefix'] = '<div class="item">';
+	$form['#suffix'] = '</div>';
+	
+	$form['msg_descp'] = array(
+		'#type' => 'item',
+		'#markup' => t('<b>Sign up to receive our monthly newsletter</b>'),
+	);
+	
+ 	$form['user_email'] = array(
+		'#type' => 'textfield',
+		'#required' => TRUE,
+		'#title' => t("Email address"),
+		'#id' => 'newsletter',
+		'#attributes' => array('class' => array('txt')),
+	);
+	
+	$form['submit'] = array(
+		'#type' => 'submit',
+		'#value' => 'Submit',
+		'#attributes' => array('class' => array('button')),
+	);
+	
+	return $form;
+ }
+ 
+ 
+ /**
+  *  Define a Validation function for Subscription form.
+  */
+ 
+ function subscription_form_validate($form, &$form_state){
+ 	$email = $form_state['values']['user_email'];
+	if(valid_email_address($email) == 0){
+		form_set_error('user_email',t('Not a valid email address'));
+	}
+ }
+
+/**
+ *  Define a Submit function for Subscription form.    
+ */ 
+ 
+ function subscription_form_submit($form, &$form_state){
+ 	$email = $form_state['values']['user_email'];
+	
+	$result = db_select('tbl_subscription', 'ts')
+  				->fields('ts', array('mail'))
+  				->condition('mail', $email)
+  				->range(0, 1)
+	  			->execute()
+  				->rowCount();
+    if($result){
+		drupal_set_message(t('You are already subscribed to UNFPA'), 'error');
+	}else{  
+		$params = array('user_email' => $email);
+		$admin_email = variable_get('custom_subscription_admin_email',NULL);
+		$admin_mail = drupal_mail('subscription', 'notify_admin', $admin_email, language_default(),$params);
+		//drupal_set_message(print_r($admin_mail, TRUE));
+		$user_mail = drupal_mail('subscription', 'notify_user', $email, language_default());
+	
+		if($user_mail['result']){
+			 db_insert('tbl_subscription')
+			->fields(array('mail'=>$email,'created'=>REQUEST_TIME, 'status'=>1,'ip_address'=>ip_address()))
+			->execute();
+			drupal_set_message(t('Thank you for the subscription.'));
+		}else{
+			drupal_set_message(t('There was a problem sending your message'), 'error');
+		}
+    }
+ }
+ 
+ /**
+  * Implements hook_mail().
+  */
+  
+  function subscription_mail($key, &$message, $params){
+  		global $base_url;
+		
+		switch($key)
+		{
+			case 'notify_user':
+				$message['subject'] = t('UNFPA : Subscription');
+		
+				$message['body'][] = t("Hello,\nThank you for connecting with UNFPA. One of our support staff will get in touch with you shortly.\n\nBest Regards,\nUNFPA.\n\n!link", array('!link' => $base_url));
+			break;
+			
+			case 'notify_admin':
+				$message['subject'] = t('UNFPA : Subscription Details');
+		
+				$message['body'][] = t("Hello Admin,\n\nSubscription details is as follows.\n\nEmail: !email \n\n!link", array('!email'=> $params['user_email'],'!link' => $base_url));
+			break;
+		}
+  		
+  }
+
+ /**
+ *	Implements hook_views_api().
+ */
+ 
+  function custom_subscription_views_api() {
+    return array(
+        'api' => '3',
+        'path' => drupal_get_path('module','custom_subscription'). '/views',
+    );
+}
+ 
+  

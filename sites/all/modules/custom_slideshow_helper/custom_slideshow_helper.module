@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Code for the slideshow module.
+ */
+
+/**
+ * Implement hook_menu().
+ */
+function custom_slideshow_helper_menu() {
+  $items = array();
+  $items['slideshow/ajax'] = array(
+    'title' => t('Slideshow AJAX'),
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'slideshow_ajax',
+    'access arguments' => array('access content'),
+  );
+  return $items;
+}
+
+function slideshow_ajax() {
+  global $base_url;
+  $node_url = filter_xss($_POST['n_url']);
+  $parts = explode('/', $node_url);
+  $normal_url = drupal_get_normal_path($parts[1]);
+
+  $nid = explode('/', $normal_url);
+  echo views_embed_view('slideshow', 'block', $nid[1]);
+}

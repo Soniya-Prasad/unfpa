@@ -1,0 +1,374 @@
+<?php
+
+/**
+ * @file
+ * Code for the UNFPA Global ICPD feature.
+ */
+include_once 'unfpa_global_icpd.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function unfpa_global_icpd_menu() {
+  $items = array();
+
+  $items['icpd/education-health'] = array(
+    'page callback' => 'unfpa_global_icpd_get_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['icpd/discrimination'] = array(
+    'page callback' => 'unfpa_global_icpd_get_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['icpd/urbanization'] = array(
+    'page callback' => 'unfpa_global_icpd_get_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['icpd/climate-change'] = array(
+    'page callback' => 'unfpa_global_icpd_get_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['icpd/ageing'] = array(
+    'page callback' => 'unfpa_global_icpd_get_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['icpd/women-empowerment'] = array(
+    'page callback' => 'unfpa_global_icpd_get_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['icpd/youth'] = array(
+    'page callback' => 'unfpa_global_icpd_get_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['icpd/5-pillars-population-and-development'] = array(
+    'page callback' => 'unfpa_global_icpd_carousel_five_themes',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['icpd/What-is-the-role-of-Governments-UN-agencies-Civil-Society-and-Youth-to-the-ICPD-Process'] = array(
+    'page callback' => 'unfpa_global_icpd_carousel_whatis_role',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['icpd/global-survey'] = array(
+    'title' => 'ICPD Global Survey',
+    'page callback' => 'unfpa_global_icpd_global_survey',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_menu_breadcrumb_alter().
+ */
+function unfpa_global_icpd_menu_breadcrumb_alter(&$active_trail, $item) {
+  foreach ($active_trail as $key => $crumb) {
+    // Check against the field icpd document type.
+    if (isset($crumb['map'][1]->field_icpd_document_type[LANGUAGE_NONE][0]['tid'])) {
+      $tid = $crumb['map'][1]->field_icpd_document_type[LANGUAGE_NONE][0]['tid'];
+      $term = taxonomy_term_load($tid);
+      $name = $term->name;
+      // Check if the type is country implementation profile.
+      if ($crumb['map'][1]->type == 'icpd_library_resource' && $name == 'Country Implementation Profiles') {
+        // Insert the crumb for icpd global survey.        
+        $link = array(
+          'title' => t("ICPD Global Survey"),
+          'href' => 'icpd/global-survey',
+          'link_path' => 'icpd/global-survey',
+          'localized_options' => array(),
+          'type' => 0,
+        );
+        // Insert the crumb for ICPD landing page.
+        $icpd_link = array(
+          'title' => t("ICPD"),
+          'href' => 'icpd',
+          'link_path' => 'icpd',
+          'localized_options' => array(),
+          'type' => 0,
+        );
+        $active_trail[1] = $icpd_link;
+        $active_trail[2] = $link;
+      }
+      else {
+        $link = array(
+          'title' => t("ICPD"),
+          'href' => 'icpd',
+          'link_path' => 'icpd',
+          'localized_options' => array(),
+          'type' => 0,
+        );
+        $active_trail[$key] = $link;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function unfpa_global_icpd_theme($data = array()) {
+  $path = drupal_get_path('module', 'unfpa_global_icpd');
+  return array(
+    'unfpa_global_icpd_survey_page' => array(
+      'template' => 'unfpa_global_icpd_survey_page',
+      'variables' => array(
+        'image' => '',
+        'icpd_data' => '',
+        'country' => '',
+        'survey_links' => '',
+      ),
+      'path' => $path . '/templates',
+    ),
+  );
+}
+
+/**
+ * Callback function for page.
+ *
+ * @param string $name
+ *    Argument from url.
+ *
+ * @return string
+ *    Page content.
+ */
+function unfpa_global_icpd_get_page($name) {
+  global $language;
+  $path = variable_get('file_public_path', conf_path() . '/files');
+  drupal_add_js($path . '/icpd/js/fitvids.js', array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_js($path . '/icpd/js/transition.js', array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_js($path . '/icpd/js/tooltip.js', array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_js($path . '/icpd/js/slick.js', array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_js($path . '/icpd/js/site.js', array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_css($path . '/icpd/css/un.css');
+  drupal_add_css($path . '/icpd/charts/css/dropcharts.css');
+  $navigation = $path . '/icpd/templates/navigation-' . $language->language . '.php';
+  $filename = $path . '/icpd/templates/' . $name . '-' . $language->language . '.php';
+  $page = file_get_contents($navigation) . file_get_contents($filename);
+
+  return $page;
+}
+
+/**
+ * Callback function for 5-pillars-population-and-development page.
+ */
+function unfpa_global_icpd_carousel_five_themes() {
+  $path = variable_get('file_public_path', conf_path() . '/files');
+  drupal_add_css($path . '/icpd/css/slick.css');
+  drupal_add_css($path . '/icpd/css/slick-theme.css');
+  drupal_add_css($path . '/icpd/css/unfpa_page1_style.css');
+  drupal_add_js($path . '/icpd/js/carousel-page1.js', array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_js($path . '/icpd/js/slick.js', array('type' => 'file', 'scope' => 'footer'));
+  $filename = $path . '/icpd/templates/five-themes.php';
+  $page = file_get_contents($filename);
+
+  return $page;
+}
+
+/**
+ * Callback function for what-is-role page.
+ */
+function unfpa_global_icpd_carousel_whatis_role() {
+  $path = variable_get('file_public_path', conf_path() . '/files');
+  drupal_add_css($path . '/icpd/css/slick.css');
+  drupal_add_css($path . '/icpd/css/slick-theme.css');
+  drupal_add_css($path . '/icpd/css/unfpa_page2_style.css');
+  drupal_add_js($path . '/icpd/js/carousel-page2.js', array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_js($path . '/icpd/js/slick.js', array('type' => 'file', 'scope' => 'footer'));
+  $filename = $path . '/icpd/templates/whatis-role.php';
+  $page = file_get_contents($filename);
+
+  return $page;
+}
+
+/**
+ * Callback function for ICPD Survey page.
+ */
+function unfpa_global_icpd_global_survey() {
+  global $base_url;
+  $path = drupal_get_path('module', 'unfpa_global_icpd');
+  drupal_add_css($path . '/css/icpd-custom.css');
+  drupal_add_js($path . '/js/icpd-map.js');
+  drupal_add_js(drupal_get_path('theme', 'unfpa_global') . '/templates/html5worldmap/worldmap.js');
+  $preview_image = array();
+  $icpd_nodes = node_load_multiple(array(), array('type' => 'icpd_library_resource'));
+  $items = array();
+  foreach ($icpd_nodes as $node) {
+    $wrapper = entity_metadata_wrapper('node', $node);
+    if (isset($wrapper->field_icpd_document_type->value()->name)) {
+      $term_name = $wrapper->field_icpd_document_type->value()->name;
+      // Filter the content which are tagged as 'Country Implementation Profiles'.
+      if ($term_name == 'Country Implementation Profiles') {
+        $node_id = $node->nid;
+        $alias = drupal_get_path_alias('node/' . $node_id);
+        // Obtain the country code fron the url.
+        // e.g. get country code IN from ICPD_IN.
+        $country_code = substr($alias, -2);
+        $items = field_get_items('node', $node, 'field_resource_document');
+        if (!empty($items)) {
+          foreach ($items as $item) {
+            $fc = field_collection_field_get_entity($item);
+            $file_path = $fc->field_resource_pdf_upload[LANGUAGE_NONE][0];
+            $preview_image[$country_code] = _pdfpreview_create_preview($file_path);
+          }
+          $nodes[$country_code] = $alias;
+          $node_title[$country_code] = $node->title;
+        }
+      }
+    }
+  }
+  $color_code = isset($country_code) ? '#5b92e5' : 'default';
+  $field_data = field_info_field('field_country_code');
+  $country_name = $field_data['settings']['allowed_values'];
+  $country = array();
+  $locations = unfpa_global_icpd_static_locations();
+  $static_locations = array_keys($locations);
+  $cnt = 0;
+  $country_list = array();
+  foreach ($nodes as $country_code => $node_url) {
+
+    $color_code = isset($country_code) ? '#5b92e5' : 'default';
+    $country_temp_name = isset($country_name[$country_code]) ? $country_name[$country_code] : $country_code;
+
+    if (!in_array($country_temp_name, $static_locations)) {
+      $country[$country_code]['name'] = isset($country_name[$country_code]) ? $country_name[$country_code] : $country_code;
+      if (isset($preview_image[$country_code])) {
+        $country[$country_code]['description'] = '<span style="border: 1px solid #d2d2d2; vertical-align: top; margin: 5px 15px 0 0 ; display: inline-block;"><img src="' . file_create_url($preview_image[$country_code]) . '". height="100" width="70" /></span><span style="color: #0090c9; font-family: robotobold; font-weight: bold; vertical-align: top; margin: 5px 0 0 0 ; display: inline-block; width: 100px;">' . $node_title[$country_code] . '</span>';
+      }
+      $country[$country_code]['url'] = '/' . $node_url;
+      ;
+      $country[$country_code]['color'] = $color_code;
+      $country[$country_code]['hover_color'] = 'default';
+      $country[$country_code]['hide'] = "no";
+      $country[$country_code]['inactive'] = "no";
+    }
+    else {
+      $location[$cnt]['name'] = isset($country_name[$country_code]) ? $country_name[$country_code] : $country_code;
+      if (isset($preview_image[$country_code])) {
+        $location[$cnt]['description'] = '<span style="border: 1px solid #d2d2d2; vertical-align: top; margin: 5px 15px 0 0 ; display: inline-block;"><img src="' . file_create_url($preview_image[$country_code]) . '". height="100" width="70" /></span><span style="color: #0090c9; font-family: robotobold; font-weight: bold; vertical-align: top; margin: 5px 0 0 0 ; display: inline-block; width: 100px;">' . $node_title[$country_code] . '</span>';
+      }
+      $location[$cnt]['url'] = '/' . $node_url;
+      ;
+      $location[$cnt]['color'] = $color_code;
+      $location[$cnt]['hover_color'] = 'default';
+      $location[$cnt]['type'] = "circle";
+      $location[$cnt]['display'] = "region";
+      $location[$cnt]['size'] = $locations[$country_temp_name]["size"];
+      $location[$cnt]['lat'] = $locations[$country_temp_name]["lat"];
+      $location[$cnt]['lng'] = $locations[$country_temp_name]["lng"];
+      $cnt++;
+    }
+    $country_list[$country_code] = l($country_name[$country_code], $node_url);
+  }
+
+  drupal_add_js(array('icpd_country' => $country), 'setting');
+  drupal_add_js(array('icpd_location' => $location), 'setting');
+  $image_path = array(
+    'path' => $base_url . '/' . $path . '/images/icpd-banner.jpg',
+    'title' => t('ICPD Global Survey'),
+    'alt' => t('ICPD Global Survey'),
+  );
+  $first_options = array(
+    'attributes' => array(
+      'title' => 'The ICPD Beyond 2014 review process',
+      'alt' => 'The ICPD Beyond 2014 review process',
+    ),
+  );
+  $second_options = array(
+    'attributes' => array(
+      'title' => 'First findings and key messages from the initial analysis',
+      'alt' => 'First findings and key messages from the initial analysis',
+    ),
+  );
+  $third_options = array(
+    'attributes' => array(
+      'title' => 'ICPD Programme of Action',
+      'alt' => 'ICPD Programme of Action',
+    ),
+  );
+  $survey_para_links['first'] = l(t('The ICPD Beyond 2014 review process'), $base_url . '/node/9057', $first_options);
+  $survey_para_links['second'] = l(t('First findings and key messages from the initial analysis'), $base_url . '/node/13900', $second_options);
+  $survey_para_links['third'] = l(t('ICPD Programme of Action'), $base_url . '/node/9038', $third_options);
+
+  return theme('unfpa_global_icpd_survey_page', array(
+    'image' => theme('image', $image_path),
+    'icpd_data' => $country_list,
+    'country' => $country_name,
+    'survey_links' => $survey_para_links,
+    )
+  );
+}
+
+/**
+ * Implements hook_form_views_exposed_form_alter().
+ */
+function unfpa_global_icpd_form_views_exposed_form_alter(&$form, &$form_state) {
+  if (isset($form_state['view']->exposed_input['field_icpd_document_type_tid_i18n'])) {
+    return;
+  }
+  // $form_state['view']->exposed_input only hold the value when you have applied any filter.
+  // Initially it doesn't hold any value. while $form_state['input'] hold the actual filter value to be applied.
+  $form_state['input']['field_icpd_document_type_tid_i18n'] = 'All';
+}
+
+/**
+ * This function returns static location array used in simplemap
+ * with geographic information.
+ *
+ * @return array
+ */
+function unfpa_global_icpd_static_locations() {
+  $location_static_latlon = array(
+    "Comoros" => array(
+      "lat" => "-12.1667",
+      "lng" => "44.25",
+      "size" => "16",
+    ),
+    "Maldives" => array(
+      "lat" => "-0.6",
+      "lng" => "73.1",
+      "size" => "16",
+    ),
+    "Sao Tome & Principe" => array(
+      "lat" => "0.333",
+      "lng" => "6.73",
+      "size" => "16",
+    ),
+    "Seychelles" => array(
+      "lat" => "-4.5833",
+      "lng" => "55.6667",
+      "size" => "16",
+    ),
+    "Cape Verde" => array(
+      "lat" => "15.1111",
+      "lng" => "-23.6167",
+      "size" => "16",
+    ),
+    "Pacific-SRO" => array(
+      "lat" => "-18.0000",
+      "lng" => "179.0000",
+      "size" => "16",
+    ),
+    "Caribbean SRO" => array(
+      "lat" => "18.1824",
+      "lng" => "-77.3218",
+      "size" => "16",
+    ),
+  );
+
+  return $location_static_latlon;
+}

@@ -1,0 +1,4225 @@
+@charset "utf-8";
+/* CSS Document */
+@import "../../unfpa_global/css/fonts.css";
+@import "../../unfpa_global/css/fonts/unfpa-font.css";
+@import "../../unfpa_global/css/fonts/roboto/stylesheet.css";
+@import "../../unfpa_global/css/font-icons/sowp-icons.css";
+
+*{
+  -webkit-box-sizing:inherit;
+  -moz-box-sizing:inherit;
+  box-sizing: inherit;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+.clearfix:after {
+  clear: both;
+}
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+body.not-front.domain-safebirth-unfpa-org {
+  background-color: #ffffff;
+}
+
+body.not-front.domain-safebirth-unfpa-org .grey-background {
+  background-color: #ffffff;
+}
+
+.not-front.domain-safebirth-unfpa-org .panel-2col-stacked .panel-separator,
+.not-front.domain-safebirth-unfpa-org .panel-2col-stacked .panel-col-top .inside {
+  margin: 0;
+}
+
+.not-front.domain-safebirth-unfpa-org .max_wrapper {
+  position: relative;
+  display: block;
+  max-width: 980px;
+  margin: 172px auto 0;
+  padding: 40px 10px;
+}
+.not-front.domain-safebirth-unfpa-org #main {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 100%;
+}
+.not-front.domain-safebirth-unfpa-org #main .max_wrapper {
+  background: url("../../unfpa_global/images/header_back.png") no-repeat 340px -264px;
+}
+.not-front.domain-safebirth-unfpa-org #main .content-bottom .max_wrapper {
+  background: none;
+}
+
+
+.not-front.domain-safebirth-unfpa-org .unfpa-slogan {
+  font-family: 'robotoregular';
+  font-size: 22px;
+  text-align: center;
+  color: #706760;
+  letter-spacing: 0.3px;
+  line-height: 32px;
+  margin: 0 auto;
+  display: block;
+  padding: 20px 0;
+  position: relative;
+  width: 100%;
+  font-weight: 400;
+}
+
+/* Content */
+.not-front.domain-safebirth-unfpa-org #home-page-panel {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 14px;
+}
+
+.not-front.domain-safebirth-unfpa-org #home-page-panel .panel-col-top,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .panel-col-center,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .panel-col-bottom {
+  float: left;
+}
+
+.not-front.domain-safebirth-unfpa-org .pane-custom-home-banner-featured-banner-list {
+  width: 70%;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org .pane-custom-home-banner-featured-banner-list .pane-content {
+  margin-right: 10px;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel.panel-3col-33-stacked .panel-col-first {
+  width: 40%;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel.panel-3col-33-stacked .panel-col {
+  width: 30%;
+}
+/*  Results */
+
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+
+}
+
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-content .view-content {
+  border-left: 0 dotted #D9DAC4;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .view-display-id-home_results_panel,
+.not-front.domain-safebirth-unfpa-org #emergencies_overview .pane-vw-results-emergencies-results-panel {
+  margin-top: 14px;
+  margin-bottom: 50px;
+  display: block;
+  position: relative;
+  width: 100%;
+
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content,
+.not-front.domain-safebirth-unfpa-org #emergencies_overview .pane-vw-results-emergencies-results-panel .pane-content .view-content {
+  border-top: 1px dotted #D9DAC4;
+  padding-top: 30px;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .views-row.views-row-first,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .views-row.views-row-first,
+.not-front.domain-safebirth-unfpa-org #emergencies_overview .pane-vw-results-emergencies-results-panel .pane-content .view-content .views-row.views-row-first {
+  border-left: 0 dotted #D9DAC4;
+  margin-left: 0;
+  padding-left: 0;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .views-row,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .views-row,
+.not-front.domain-safebirth-unfpa-org #emergencies_overview .pane-vw-results-emergencies-results-panel .pane-content .view-content .views-row {
+  border-left: 1px dotted #D9DAC4;
+  display: block;
+  float: left;
+  margin-left: 1%;
+  padding-left: 1%;
+  width: 23%;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .views-field-title h3,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .views-field-title h3,
+.not-front.domain-safebirth-unfpa-org #emergencies_overview .pane-vw-results-emergencies-results-panel .pane-content .view-content .views-field-title h3 {
+  color: #808080;
+  font-size: 18px;
+  font-family: 'robotobold';
+  min-height: 40px;
+  line-height: 20px;
+  margin: 0 0 14px;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .views-field-field-logo-icon,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .views-field-field-logo-icon,
+.not-front.domain-safebirth-unfpa-org #emergencies_overview .pane-vw-results-emergencies-results-panel .pane-content .view-content .views-field-field-logo-icon {
+  float: left;
+  margin-right: 5%;
+  width: 15%;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .views-field-nothing,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .views-field-nothing,
+.not-front.domain-safebirth-unfpa-org #emergencies_overview .pane-vw-results-emergencies-results-panel .pane-content .view-content .views-field-nothing {
+  float: left;
+  width: 80%;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .value,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .value,
+.not-front.domain-safebirth-unfpa-org #emergencies_overview .pane-vw-results-emergencies-results-panel .pane-content .view-content .value {
+  float: left;
+  font-size: 34px;
+  font-style: normal;
+  font-family: 'robotobold';
+  line-height: 37px;
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .result_sub_title,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .result_sub_title,
+.not-front.domain-safebirth-unfpa-org #emergencies_overview .pane-vw-results-emergencies-results-panel .pane-content .view-content .result_sub_title {
+  float: left;
+  width: 100%;
+  color: #808080;
+  font-size: 14px;
+  font-family: 'robotoregular';
+  font-style: italic;
+  position: relative;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .result_title,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .result_title{
+  color: #808080;
+  font-size: 18px;
+  min-height: 40px;
+  line-height: normal;
+  margin: 0 0 14px;
+  font-family: 'robotobold';
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .result_logo_icon,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .result_logo_icon
+{
+  float: left;
+  width: 20%;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .value_wrapper,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .value_wrapper
+{
+  float: left;
+  width: 80%;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .text,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .text {
+  background: #808080;
+  color: #fff;
+  display: none;
+  font-size: 14px;
+  line-height: 21px;
+  left: 0;
+  padding: 10px 12px;
+  position: absolute;
+  z-index: 100;
+  border-radius: 3px;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .result_sub_title .arrow,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .result_sub_title .arrow {
+  border-bottom: 10px solid #808080;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  bottom: -15px;
+  position: absolute;
+  display: none;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-panel .pane-content .view-content .star,
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .star {
+  background: url(../../unfpa_global/images/info-ico.png) no-repeat;
+  display: inline-block;
+  height: 20px;
+  position: relative;
+  text-indent: -9999px;
+  width: 20px;
+  margin-left: 5px;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .flexslider {
+  padding-bottom: 50px;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .center-wrapper .pane-vw-results-home-results-mobile-panel .pane-content .view-content .flexslider .slides img {
+  width: auto;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel .panel-col-center .pane-vw-results-home-results-mobile-panel {
+  display: none;
+}
+/*  END Results */
+
+
+/* END */
+
+.not-front.domain-safebirth-unfpa-org #home-page-panel h2 {
+  position: relative;
+  display: block;
+  font-size: 22px;
+  font-family: 'robotobold';
+  color: #5a5047;
+  line-height: 28px;
+  padding: 0 0 13px;
+  margin: 0 0 35px;
+  border-bottom: 1px solid #d9dac4;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel h2 a,
+.not-front.domain-safebirth-unfpa-org #home-page-panel h2 a:visited {
+  color: #5a5047 !important;
+}
+.not-front.domain-safebirth-unfpa-org #home-page-panel h2 a:hover {
+  color: #1C97C8 !important;
+}
+.not-front.domain-safebirth-unfpa-org .stay_connected {
+  float: left;
+  width: 30%;
+}
+.not-front.domain-safebirth-unfpa-org .stay_connected .pane-content {
+  margin-left: 10px;
+}
+
+/* Footer */
+.not-front.domain-safebirth-unfpa-org #footer {
+  background: #f7f5ef;
+  border-top: 2px solid #ded9c8;
+  padding: 0 0 70px;
+  position: relative;
+  display: block;
+  clear: both;
+  z-index: 100;
+}
+.not-front.domain-safebirth-unfpa-org #footer .block-title {
+  color: #5A5047;
+  display: block;
+  font-size: 15px;
+  font-family: 'robotobold';
+  line-height: 17px;
+  margin: 0 0 25px;
+  padding: 0;
+  position: relative;
+}
+.not-front.domain-safebirth-unfpa-org .region.region-footer {
+  position: relative;
+  display: block;
+  width: 980px;
+  margin: 0 auto;
+}
+.not-front.domain-safebirth-unfpa-org .region-footer-social,
+.not-front.domain-safebirth-unfpa-org #footer_logo {
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org #footer #block-block-1 div.content {
+  position: relative;
+  display: block;
+  margin: 20px 0;
+  width: 236px;
+  height: 26px;
+  text-indent: -10000px;
+  background: url(../../unfpa_global/images/logo_footer.png) left top no-repeat;
+}
+.not-front.domain-safebirth-unfpa-org #footer #block-block-1 div.content a {
+  display: block;
+  height: 26px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .block-menu {
+  float: left;
+  padding-right: 5%;
+  width: 30%;
+}
+.not-front.domain-safebirth-unfpa-org #footer .block-menu#block-menu-menu-footer-menu-3 {
+  padding: 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .block-menu ul.menu {
+  position: relative;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+.not-front.domain-safebirth-unfpa-org #footer .block-menu ul.menu li {
+  position: relative;
+  display: block;
+  list-style: none;
+  float: left;
+  width: 100%;
+  padding: 3px 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .block-menu ul.menu li a {
+  font-family: 'robotobold';
+  text-decoration: none;
+  font-size: 14px;
+  color: #1c97c8;
+  line-height: 16px;
+  background: url(../../unfpa_global/images/bullet04.png) center right no-repeat;
+  padding-right: 13px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .block-menu ul.menu li a:hover {
+  text-decoration: underline;
+}
+.not-front.domain-safebirth-unfpa-org #footer .block-menu ul.menu li a.yellow {
+  color: #EF8510;
+  text-transform: uppercase;
+  background: url(../../unfpa_global/images/bullet05.png) center right no-repeat;
+}
+.not-front.domain-safebirth-unfpa-org #footer_social {
+  width: 38%;
+  float: left;
+  margin-top: 30px;
+}
+.not-front.domain-safebirth-unfpa-org #footer_links {
+  width: 62%;
+  float:left;
+  margin: 65px 0 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer_links .block {
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li {
+  position: relative;
+  display: block;
+  width: 38px;
+  float: left;
+  margin: 0 12px 0 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li:first-child {
+  width: 90%;
+  padding-right: 10%;
+  margin: 0 0 10px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a {
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 40px;
+  text-indent: -10000px;
+  background: url(../../unfpa_global/images/social_sprite.png) left top no-repeat;
+  padding: 0;
+  border-radius: 9999px;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li:first-child a {
+  margin-right: 15px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li:first-child span {
+  color: #5A5047;
+  display: block;
+  font-size: 15px;
+  font-family: 'robotobold';
+  line-height: 40px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.twitter {
+  background-position: 0 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.twitter:hover {
+  background-position: 0 -70px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.facebook {
+  background-position: -52px 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.facebook:hover {
+  background-position: -52px -70px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.tumblr {
+  background-position: -104px 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.tumblr:hover {
+  background-position: -104px -70px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.gplus {
+  background-position: -156px 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.gplus:hover {
+  background-position: -156px -70px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.youtube {
+  background-position: -208px 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.youtube:hover {
+  background-position: -208px -70px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.newsletter {
+  background-position: -258px 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.newsletter:hover {
+  background-position: -258px -70px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.rss {
+  background-position: -310px 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.rss:hover {
+  background-position: -310px -70px;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.linkedin {
+  background-position: -361px 0;
+}
+.not-front.domain-safebirth-unfpa-org #footer .column menu li a.linkedin:hover {
+  background-position: -361px -70px;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical {
+  position: relative;
+  display: block;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel {
+  position: relative;
+  display: block;
+  width: 100%;
+  float: left;
+  background: #fff;
+  -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel:after {
+  background: url(../../unfpa_global/images/slideshow_shadow.png) center top no-repeat;
+  bottom: -15px;
+  content: "";
+  height: 15px;
+  left: 50%;
+  margin-left: -315px;
+  position: absolute;
+  width: 630px;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .show,
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .hide {
+  position: relative;
+  display: block;
+  width: 100%;
+  border-radius: 3px 3px 0 0;
+  overflow: hidden;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .hide {
+  position: absolute;
+  left: 100%;
+  top:0;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .show img,
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .hide img {
+
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .show .text,
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .hide .text{
+  position: absolute;
+  display: block;
+  bottom: 0;
+  padding: 5%;
+  width: 90%;
+  background: rgba(0,0,0,.4);
+  background: url(../../unfpa_global/images/overlay.png) center top\9;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .show .text h3,
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .hide .text h3 {
+  font-family: 'robotobold';
+  font-size: 22px;
+  color: #fff;
+  line-height: 22px;
+  margin: 10px 0;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .show .text h3 a,
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .hide .text h3 a {
+  color: #fff;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .show .text span,
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .hide .text span {
+  font-size: 14px;
+  color: #d4d4d4;
+  line-height: 16px;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .show .text span a,
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .hide .text span a {
+  color: #d4d4d4;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .arrow {
+  background: url("../../unfpa_global/images/sprite_arrow_slideshow.png") no-repeat left center;
+  display: block;
+  float: left;
+  height: 96px;
+  margin-top: 39px;
+  overflow: hidden;
+  position: relative;
+  text-indent: -1000px;
+  width: 6%;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .arrow.right {
+  background-position: right center;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .mobile-arrow {
+  display: none;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens {
+  float: left;
+  overflow: hidden;
+  padding: 29px 0;
+  width: 88%;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens .flow {
+  position: relative;
+  display: block;
+  padding: 0;
+  margin: 0;
+  left: 0;
+  width: 184px;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens .flow li {
+  margin: 10px;
+  position: relative;
+  display: block;
+  float: left;
+  width: 180px;
+  height: 96px;
+  margin-top: 10px;
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens .flow li.current {
+  border: 2px solid #fbaf0f;
+  width: 176px;
+  height: 92px;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens .flow li.current img {
+  margin-top: -2px;
+  margin-left: -2px;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens .flow li img {
+  width: 180px;
+  height: 96px;
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens .flow li .text {
+  display: none;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens .flow li:hover .text {
+  display: block;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens .flow li .text {
+  position: absolute;
+  background: rgba(35, 35, 35, 0.65);
+  background: url(../../unfpa_global/images/overlay.png) center top\9;
+  bottom: 0;
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens .flow li .text h3 {
+  margin: 0;
+  padding: 0;
+  font-family: 'robotobold';
+  font-size: 12px;
+  color: #fff;
+  line-height: 16px;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens .flow li .text h3 a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .thumbs .itens .flow li .text span {
+  display: none;
+}
+.not-front.domain-safebirth-unfpa-org #featured_content_vertical .carousel .bullets {
+  display: none;
+}
+
+/* Home News */
+.not-front.domain-safebirth-unfpa-org .news-home-list .views-row, .event-home-list .views-row, .event-list .views-row {
+  position: relative;
+  display: block;
+  padding: 0 0 20px;
+  margin: 0 0 20px;
+  border-bottom: 1px dotted #d9dac4;
+}
+.not-front.domain-safebirth-unfpa-org .news-home-list .views-row {
+  min-height: 120px;
+}
+
+.not-front.domain-safebirth-unfpa-org .news-home-list.view-display-id-team_members_related_news .views-row.views-row-last {
+  border-bottom: 1px dotted #d9dac4;
+}
+.not-front.domain-safebirth-unfpa-org .news-home-list .views-row .news-img {
+  padding: 0;
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org .news-home-list .views-row .news-img img {
+  float: left;
+  margin: 0 15px 0 0;
+  border: 1px solid #D2D2D2;
+  border-radius: 3px;
+  box-shadow: 0 0 3px #CCCCCC;
+}
+.not-front.domain-safebirth-unfpa-org .news-home-list .views-row .news-body .date_time {
+  color: #999;
+  font-family: "robotobold";
+  font-size: 13px;
+  margin: 0 0 5px;
+  line-height: 14px;
+}
+.not-front.domain-safebirth-unfpa-org .news-home-list .views-row .news-body p {
+  margin: 0;
+  padding: 0;
+}
+.not-front.domain-safebirth-unfpa-org .news-home-list .views-row .news-body p.title {
+  line-height: 20px;
+  margin-bottom: 5px;
+}
+.not-front.domain-safebirth-unfpa-org .news-home-list .views-row .news-body p.title a {
+  font-family: 'robotobold';
+  font-size: 16px;
+  color: #0091ca;
+  line-height: 20px;
+  margin: 0 0 5px;
+}
+.not-front.domain-safebirth-unfpa-org .news-home-list .views-row .news-body p.title a:hover {
+  color: #30b3e6;
+}
+.not-front.domain-safebirth-unfpa-org .news-home-list .views-row .news-body p.summary {
+  font-size: 14px;
+  color: #808080;
+  line-height: 20px;
+}
+.not-front.domain-safebirth-unfpa-org .news-home-list .views-row .news-body .category {
+  color: #0091ca;
+  font-family: 'HelveticaNeueLTStd67MdCn';
+  font-size: 19px;
+  margin-bottom: 5px;
+  top: -3px;
+  text-decoration: none;
+  text-transform: uppercase;
+  line-height: normal;
+  position: relative;
+}
+.not-front.domain-safebirth-unfpa-org .view-footer {
+  margin-bottom: 60px;
+}
+.not-front.domain-safebirth-unfpa-org .news-home-list .view-footer {
+  position: relative;
+  display: block;
+  margin-top: -20px;
+  margin-bottom: 60px;
+  padding-top: 20px;
+  /*    border-top: 1px dotted #d9dac4;*/
+  font-weight: bold;
+  font-size: 14px;
+  color: #0091ca;
+  line-height: 16px;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org .browse-all a.more,
+.not-front.domain-safebirth-unfpa-org .view-footer a.more {
+  text-decoration: none;
+  font-family: 'robotobold';
+  font-size: 16px;
+  color: #1c97c8;
+  line-height: 16px;
+  background: url(../../unfpa_global/images/bullet04.png) center right no-repeat;
+  padding-right: 15px;
+}
+.not-front.domain-safebirth-unfpa-org .browse-all a.more:hover,
+.not-front.domain-safebirth-unfpa-org .view-footer a.more:hover {
+  color: #30b3e6;
+}
+
+/* Home Videos */
+.not-front.domain-safebirth-unfpa-org .videos-home-list .view-footer {
+  border-top: 1px dotted #D9DAC4;
+  color: #0091CA;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 16px;
+  margin-bottom: 60px;
+  margin-top: 30px;
+  padding-top: 20px;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-list .views-row .views-field-field-video-thumbnail-image img {
+  position: relative;
+  display: block;
+  border-radius: 3px;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-list .views-row object,
+.not-front.domain-safebirth-unfpa-org .videos-home-list .views-row iframe {
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-list .views-row .views-field-title,
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .views-row .views-field-title {
+  margin: 10px 0 0;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-list .views-row .views-field-title a,
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .views-row .views-field-title a,
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .views-row .views-field-title {
+  text-decoration: none;
+  color: #0091ca;
+  font-family: 'robotobold';
+  position: relative;
+  display: block;
+  font-size: 16px;
+  line-height: 18px;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .view-content {
+  position: relative;
+  display: block;
+  float: left;
+  clear: both;
+  padding-top: 25px;
+  border-top: 1px dotted #D9DAC4;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .view-content .views-row {
+  width: 46%;
+  float: left;
+  padding: 0;
+  margin: 0 2%;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .view-content .divider-video {
+  border-bottom: 1px dotted #d9dac4;
+  width: 100%;
+  margin: 0 0 20px 0;
+  padding: 0;
+  float: left;
+  clear: both;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .view-content .views-row:nth-child(2n+n) {
+  padding: 0 0 20px 0;
+  margin: 0 20px 20px 0;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .view-content .views-row.views-row-first {
+  padding-right: 20px;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .views-row .views-field-field-video-thumbnail-image {
+  position: relative;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .views-row .views-field-field-video-thumbnail-image span.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  background: url(../../unfpa_global/images/play-icon.png) center right no-repeat;
+  z-index: 1;
+  margin: -12px 0 0 -12px;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .views-row .views-field-field-video-thumbnail-image img {
+  position: relative;
+  display: block;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .view-content .views-row .views-field-title {
+  min-height: 73px;
+  cursor: pointer;
+  color: #0F7DBE;
+  display: block;
+  font-family: 'robotobold';
+  font-size: 16px;
+  margin: 17px 0;
+  position: relative;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .view-content .views-row .views-field-title a {
+  font-size: 14px;
+  line-height: 16px;
+}
+.not-front.domain-safebirth-unfpa-org .videos-home-sub-list .view-footer {
+  clear: both;
+  margin-bottom: 60px;
+}
+
+/* Social Updates */
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper h1 {
+  position: relative;
+  display: block;
+  font-size: 22px;
+  font-family: 'robotobold';
+  color: #5a5047;
+  padding: 0 0 10px;
+  margin: 0 0 35px;
+  border-bottom: 1px solid #d9dac4;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item {
+  position: relative;
+  display: block;
+  padding: 0 0 20px;
+  margin: 0 0 10px;
+  border-bottom: 1px dotted #d9dac4;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item.last {
+  border: none;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item img {
+  position: relative;
+  display: block;
+  float: left;
+  margin: 0 20px 0 0;
+  border-radius: 3px;
+  border: 1px solid #d2d2d2;
+  box-shadow: 0 0 3px #ccc;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item .description {
+  position: relative;
+  display: block;
+  width: 205px;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item .description.no-image {
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item .description .user {
+  display: block;
+  text-decoration: none;
+  font-family: 'robotobold';
+  font-size: 16px;
+  color: #5A5047;
+  line-height: 17px;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item .description .user:hover {
+  color: #777;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item .description .username {
+  color: #0091CA;
+  font-size: 12px;
+  display: block;
+  text-decoration: none;
+  font-family: 'robotobold';
+  line-height: 20px;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item .last_tweet {
+  margin-top: 16px;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item .last_tweet .time {
+  display: block;
+  text-decoration: none;
+  font-family: 'robotobold';
+  font-size: 10px;
+  color: #999999;
+  line-height: 18px;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item .last_tweet .time:hover {
+  text-decoration: underline;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item .last_tweet .text {
+  display: inline;
+  font-size: 14px;
+  color: #808080;
+  line-height: 20px;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item .last_tweet .text a {
+  color: #0091ca;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates .wrapper .item .last_tweet .text a:hover {
+  text-decoration: underline;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates iframe {
+  max-width: 100%;
+  width: 100% !important;
+}
+.not-front.domain-safebirth-unfpa-org #social_updates {
+  margin-bottom: 60px;
+}
+
+/* Publications Home List */
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-content {
+  clear: both;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row {
+  position: relative;
+  display: block;
+  margin: 0 0 20px;
+  border-bottom: 1px dotted #d9dac4;
+  clear: both;
+  min-height: 110px;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row .views-row {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-height: 50px;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row .views-row-last {
+  border: 0;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row .cover-image {
+  position: relative;
+  display: block;
+  float: left;
+  margin: 0 20px 0 0;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row .cover-image img {
+  border-radius: 3px;
+  border: 1px solid #d2d2d2;
+  box-shadow: 0 0 3px #ccc;
+}
+
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row .title a {
+  font-family: 'robotobold';
+  font-size: 16px;
+  line-height: 20px;
+  color: #0091ca;
+  line-height: 18px;
+  margin: 0 0 5px;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row .title a:hover {
+  color: #30b3e6;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row .title {
+  line-height: 18px;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row .summary p {
+  font-size: 14px;
+  color: #808080;
+  line-height: 18px;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row .short-blurb {
+  display: block;
+  float: left;
+  line-height: 18px;
+  position: relative;
+  width: 175px;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row .short-blurb a {
+  font-size: 14px;
+  font-family: 'robotobold';
+  color: #0091ca;
+  line-height: 18px;
+  margin: 0 0 5px;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .views-row .display-date {
+  color: #999;
+  font-size: 12px;
+  font-family: 'robotobold';
+  margin: 0 0 5px;
+  line-height: 14px;
+}
+.not-front.domain-safebirth-unfpa-org .publications-home-list .view-footer {
+  margin-bottom: 60px;
+}
+/* Events */
+.not-front.domain-safebirth-unfpa-org .pane-vw-events {
+  width:100%;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org .events-home-list .view-content .views-row {
+  width: 23%;
+  margin: 0 0 0 2%;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  vertical-align: top;
+}
+.not-front.domain-safebirth-unfpa-org .events-home-list .view-content .views-row-first {
+  margin-left: 0;
+}
+.not-front.domain-safebirth-unfpa-org .events-home-list .view-content .views-row .event-date {
+  position: relative;
+  display: block;
+  font-family: 'robotobold';
+  font-size: 14px;
+  color: #de7300;
+  line-height: 14px;
+  text-decoration: none;
+  margin-bottom: 10px;
+  background: url(../../unfpa_global/images/calendar.png) left top no-repeat;
+  padding-left: 20px;
+}
+.not-front.domain-safebirth-unfpa-org .events-home-list .view-content .views-row .views-field-title {
+  text-decoration: none;
+  color: #0091ca;
+  position: relative;
+  display: block;
+  font-family: 'robotobold';
+  font-size: 16px;
+  line-height: 20px;
+}
+.not-front.domain-safebirth-unfpa-org .events-home-list .view-content .views-row .views-field-title:hover {
+  color: #30b3e6;
+}
+.not-front.domain-safebirth-unfpa-org .events-home-list .view-footer {
+  border-top: 1px dotted #D9DAC4;
+  margin-top: 30px;
+  padding-top: 20px;
+}
+
+.not-front.domain-safebirth-unfpa-org .pane-vw-vacancies {
+  float: left;
+  width: 306px;
+  margin-bottom: 60px;
+}
+.not-front.domain-safebirth-unfpa-org .vacancies-home-list .views-row {
+  position: relative;
+  display: block;
+  padding: 0 0 20px;
+  margin: 0 0 20px;
+  border-bottom: 1px dotted #d9dac4;
+}
+.not-front.domain-safebirth-unfpa-org .vacancies-home-list .views-row a {
+  text-decoration: none;
+  color: #0091ca;
+  position: relative;
+  display: block;
+  font-family: 'robotobold';
+  font-size: 14px;
+  line-height: 16px;
+}
+.not-front.domain-safebirth-unfpa-org .vacancies-home-list .views-row a:hover {
+  color: #30b3e6;
+}
+.not-front.domain-safebirth-unfpa-org .vacancies-home-list .view-empty
+{
+  font-style:normal !important;
+}
+/* Call for Submission Block */
+.not-front.domain-safebirth-unfpa-org .pane-block-submission {
+  width: 306px;
+  float: left;
+  margin-bottom: 60px;
+}
+.not-front.domain-safebirth-unfpa-org .pane-block-submission .item {
+  position: relative;
+  display: block;
+  padding: 0;
+  margin: 0;
+  border-top: 0;
+}
+.not-front.domain-safebirth-unfpa-org .pane-block-submission .item p {
+  font-family: 'robotobold';
+  font-size: 14px;
+  color: #5a5047;
+  line-height: 16px;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+.not-front.domain-safebirth-unfpa-org .pane-block-submission .item ~ .item,
+.not-front.domain-safebirth-unfpa-org .pane-block-submission .views-row-even .item
+{
+  border-top: 1px dotted #d9dac4;
+  padding: 20px 0 0;
+  margin: 20px 0;
+}
+.not-front.domain-safebirth-unfpa-org .pane-block-submission .item a {
+  text-decoration: none;
+  color: #0091ca;
+  position: relative;
+  display: block;
+  font-family: 'robotobold';
+  font-size: 14px;
+  line-height: 16px;
+}
+.not-front.domain-safebirth-unfpa-org .pane-block-submission .item a:hover {
+  color: #30b3e6;
+}
+
+/* Regional Office Block */
+.not-front.domain-safebirth-unfpa-org .pane-block-regional-office {
+  width: 230px;
+  float: left;
+  margin-bottom: 60px;
+}
+.not-front.domain-safebirth-unfpa-org .pane-block-regional-office .item {
+  position: relative;
+  display: block;
+}
+.not-front.domain-safebirth-unfpa-org .pane-block-regional-office p {
+  font-size: 14px;
+  color: #808080;
+  line-height: 20px;
+}
+.not-front.domain-safebirth-unfpa-org pane-block-regional-office p a {
+  text-decoration: none;
+  color: #0091ca;
+  position: relative;
+  display: block;
+  font-family: 'robotobold';
+  font-size: 14px;
+  line-height: 16px;
+}
+.not-front.domain-safebirth-unfpa-org .pane-block-regional-office p a:hover {
+  color: #30b3e6;
+}
+
+/* Languages */
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url,
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li {
+  display: block;
+  margin-right: 10px;
+  padding: 0;
+  right: -10px;
+  top:-30px;
+
+}
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li {
+  position: relative;
+  /*    width: 40px;*/
+  float: left;
+  margin: 0px 15px 0 0;
+}
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li a {
+  color: #7E6E5B;
+  font-size: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  position: relative;
+  display: block;
+  outline: none;
+}
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.en a {
+  background-position: 0 0;
+}
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.en a:hover,
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.en.active a {
+  background-position: 0 -50px;
+}
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.fr a {
+  background-position: -45px 0;
+}
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.fr a:hover,
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.fr.active a {
+  background-position: -45px -50px;
+}
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.es a {
+  background-position: -90px 0;
+}
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.es a:hover,
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.es.active a {
+  background-position: -90px -50px;
+}
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.ru a {
+  background-position: -137px 0;
+}
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.ru a:hover,
+.not-front.domain-safebirth-unfpa-org .block-locale ul.language-switcher-locale-url li.ru.active a {
+  background-position: -137px -50px;
+}
+.not-front.domain-safebirth-unfpa-org .view-empty {
+  color: #666;
+  font-family: 'robotoregular';
+  font-style: italic;
+  font-size: 14px;
+}
+
+
+/***** Inner Page *****/
+.not-front.domain-safebirth-unfpa-org.inner-page .panel-col-first.panel-panel {
+  width: 580px;
+  margin-right: 20px;
+}
+.not-front.domain-safebirth-unfpa-org.inner-page .panel-col-last.panel-panel {
+  width: 380px;
+}
+.not-front.domain-safebirth-unfpa-org.inner-page .panel-2col-stacked .panel-col-last.panel-panel .inside {
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org.inner-page .panel-2col-stacked .panel-col-top, .inner-page .panel-2col-stacked .panel-col-bottom {
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template h1 {
+  font-size: 24px;
+  font-family: 'robotobold';
+  color: #2f3236;
+  line-height: normal;
+  margin-top: 0
+}
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template h1 ~ h1 {
+  margin-top: 16px
+}
+
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template h3 {
+  color: #2f3236;
+  font-size: 18px;
+}
+
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template h2 {
+  font-size: 20px;
+  color: #808080;
+  line-height: 24px
+}
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template p {
+  font-size: 14px;
+  color: #808080;
+  line-height: 20px
+}
+
+/* Breadcrumb */
+.not-front.domain-safebirth-unfpa-org #header .breadcrumb {
+  display: block;
+  width: 980px;
+  margin: 0 auto;
+  clear: both;
+  padding: 22px 0 20px;
+}
+.not-front.domain-safebirth-unfpa-org #main .breadcrumb {
+  background: url(../../unfpa_global/images/bg_bread.png) left bottom repeat-x;
+  position: relative;
+  display: block;
+  height: 20px;
+  margin: 0;
+  padding: 22px 0 20px;
+  margin-bottom: 35px;
+  overflow: hidden;
+}
+.not-front.domain-safebirth-unfpa-org #main .breadcrumb a {
+  position: relative;
+  display: block;
+  margin: 0 15px 0 0;
+  padding: 0 20px 0 0;
+  float: left;
+  height: 20px;
+  background: url(../../unfpa_global/images/bullet02.png) 100% 50% no-repeat;
+  line-height: 20px;
+  font-size: 14px;
+  color: #7e6e5b;
+  text-decoration: none;
+  font-family: 'robotobold';
+}
+.not-front.domain-safebirth-unfpa-org #main .breadcrumb a:hover {
+  text-decoration: underline;
+}
+.not-front.domain-safebirth-unfpa-org.inner-page #main .max_wrapper,
+.not-front.domain-safebirth-unfpa-org.page-search #main .max_wrapper
+{
+  background: url(../../unfpa_global/images/header_back.png) 340px -268px no-repeat;
+}
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template {
+  background: none;
+}
+
+/* Gallery */
+.not-front.domain-safebirth-unfpa-org .pane-custom-flickr-event-flickr-video .gallery {
+  font-size: 14px;
+  font-family: 'robotobold';
+  color: #808080;
+  line-height: 20px
+}
+.not-front.domain-safebirth-unfpa-org .pane-custom-flickr-event-flickr-video .gallery img {
+  position: relative;
+  display: block;
+  float: left;
+  height: 104px;
+  width: 180px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+.not-front.domain-safebirth-unfpa-org .pane-custom-flickr-event-flickr-video .gallery a:nth-child(2n+1) img {
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+
+/* Events & News List */
+.not-front.domain-safebirth-unfpa-org.page-events #page-title,
+.not-front.domain-safebirth-unfpa-org.page-past-events #page-title {
+  display: none;
+}
+.not-front.domain-safebirth-unfpa-org.page-events .view-vw-events.event-list,
+.not-front.domain-safebirth-unfpa-org.page-past-events .view-vw-events.event-list {
+  padding-bottom: 30px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .view-header h1.title {
+  border-bottom: 1px solid #D9DAC4;
+  color: #5A5047;
+  display: block;
+  font-size: 22px;
+  font-family: 'robotobold';
+  margin: 0 0 35px;
+  padding: 0 0 6px;
+  position: relative;
+}
+
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row {
+  position: relative;
+  display: block;
+  border-bottom: 1px dotted #d9dac4;
+  padding-bottom: 20px;
+  margin-bottom: 20px
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row img {
+  float: left;
+  width: 180px;
+  margin-right: 20px;
+  border-radius: 4px !important;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .right {
+  float: left;
+  width: 587px
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .right.no-image {
+  width: 100%
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .views-field-field-end-date,
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .event-list-date {
+  font-size: 12px;
+  font-family: 'robotobold';
+  color: #999;
+  line-height: 14px;
+  text-decoration: none
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .views-field-field-end-date span {
+  text-decoration: none
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .views-field-field-end-date span:hover {
+  text-decoration: underline
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .views-field-title {
+  font-family: 'robotobold';
+  font-size: 16px;
+  color: #0091ca;
+  line-height: 18px;
+  margin: 10px 0
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .views-field-title a {
+  color: #0091ca;
+  text-decoration: none
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .views-field-title a hover {
+  text-decoration: underline
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .views-field-body p {
+  font-size: 14px;
+  color: #808080;
+  line-height: 18px;
+  margin: 0
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .views-field-body p a {
+  color: #808080;
+  text-decoration: none
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .selected-event,
+.not-front.domain-safebirth-unfpa-org .view-job.job-list .selected-job {
+  background: url("../../unfpa_global/images/general_menu_arrow.png") no-repeat scroll center right #FFCC33;
+  border-radius: 3px;
+  color: #7E6E5B;
+  float: left;
+  font-size: 18px;
+  font-family: 'robotobold';
+  line-height: 45px;
+  padding: 0 35px 0 15px;
+  text-decoration: none;
+  cursor: pointer;
+  width: 160px;
+  display: none;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .bluelink,
+.not-front.domain-safebirth-unfpa-org .view-job.job-list .bluelink {
+  background: #808080;
+  border-radius: 3px;
+  color: #FFFFFF;
+  float: left;
+  font-size: 18px;
+  font-family: 'robotobold';
+  line-height: 45px;
+  margin-bottom: 50px;
+  margin-right: 20px;
+  padding: 0 15px;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .bluelink:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .bluelink.active:hover,
+.not-front.domain-safebirth-unfpa-org .view-job.job-list .bluelink:hover,
+.not-front.domain-safebirth-unfpa-org .view-job.job-list .bluelink.active:hover {
+  background: #30B3E6;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .bluelink.active,
+.not-front.domain-safebirth-unfpa-org .view-job.job-list .bluelink.active {
+  background: #0091CA;
+}
+.not-front.domain-safebirth-unfpa-org #edit-field-level-tid-1-wrapper {
+  width: 100%;
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org #edit-field-level-tid-1-wrapper .form-type-radio {
+  margin-right: 30px;
+  display: inline-block;
+}
+.not-front.domain-safebirth-unfpa-org #edit-field-level-tid-1-wrapper .form-type-radio label {
+  display: inline-block;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages.view-display-id-panel_pane_3 .views-row .views-field-field-photo {
+  float: left;
+  margin-top: 8px;
+  margin-right: 20px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .infos,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages.view-display-id-panel_pane_3 .views-row .infos {
+  margin-top: 6px;
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-5 .views-row .infos {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .infos p,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages.view-display-id-panel_pane_3 .views-row .infos p,
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template .panel-pane.pane-views-panes.pane-vw-events-panel-pane-5 .views-row .infos p {
+  color: #DE7300;
+  font-size: 14px;
+  font-family: 'robotobold';
+  line-height: 16px;
+  margin: 0 0 10px;
+  padding-left: 20px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .infos p.calendar,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages.view-display-id-panel_pane_3 .views-row .infos p.calendar,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-5 .views-row .infos p.calendar {
+  background: url("../../unfpa_global/images/ic-calendar.png") no-repeat scroll 0 center rgba(0, 0, 0, 0);
+  width: 100%;
+  display: inline-block;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages.view-display-id-panel_pane_3 .views-row .infos p.calendar .date-display-single {
+  color: #DE7300;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .infos p.location,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages.view-display-id-panel_pane_3 .views-row .infos p.location,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-5 .views-row .infos p.location {
+  background: url("../../unfpa_global/images/ic-location.png") no-repeat scroll 0 center rgba(0, 0, 0, 0);
+  width: 50%;
+  display: inline-block;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .event {
+  float: left;
+  margin-left: 20px;
+  width: 730px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages.view-display-id-panel_pane_3 .views-row .event {
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .event h2 a,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages.view-display-id-panel_pane_3 .views-row .event h2 a {
+  color: #0091CA;
+  font-size: 16px;
+  display: block;
+  font-family: 'robotobold';
+  line-height: 22px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .event h2,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages.view-display-id-panel_pane_3 .views-row .event h2 {
+  margin: 0 0 10px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .event p,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages.view-display-id-panel_pane_3 .views-row .event p {
+  color: #808080;
+  font-family: "robotoregular";
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 18px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.event-list .views-row .event a,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages.view-display-id-panel_pane_3 .views-row .event a {
+  color: #0091CA;
+  font-size: 14px;
+  font-family: 'robotobold';
+  line-height: 16px;
+  text-decoration: none;
+}
+
+/* News Listing */
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .view-header h1 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-family: 'robotobold';
+  color: #5a5047;
+  line-height: 28px;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-vacancies .views-row .item,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-submissions .views-row .item
+{
+  position: relative;
+  display: block;
+  *display: inline-block;
+  *display: inline;
+  zoom: 1;
+  border-bottom: 1px dotted #d9dac4;
+  padding-bottom: 20px;
+  margin-bottom: 20px
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-submissions .views-row .item
+{
+  *display: inline-block;
+  *display: inline;
+  zoom: 1;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item img,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item img,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item img,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item img {
+  float: left;
+  margin: 0 20px 0 0;
+  border-radius:4px;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-vacancies .views-row .item .right,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-submissions .views-row .item .right
+{
+  float: left;
+  width:100%;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right.no-image,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right.no-image,
+.view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right.no-image,
+.view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right.no-image {
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right .date-display-single,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right .date-display-single,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right .date-display-single,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right .date-display-single {
+  font-size: 12px;
+  font-family: 'robotobold';
+  color: #999;
+  line-height: 14px;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right .date-display-single span,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right .date-display-single span,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right .date-display-single span,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right .date-display-single span {
+  color: #0091ca;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right .date-display-single span:hover,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right .date-display-single span:hover,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right .date-display-single span:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right .date-display-single span:hover {
+  text-decoration: underline;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right h1,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right .news-title,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right h1,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right .news-title,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right h1,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right .news-title,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right h1,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right .news-title,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-vacancies .views-row .item .right .title,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-submissions .views-row .item .right .title {
+  font-family: 'robotobold';
+  font-size: 16px;
+  color: #0091ca;
+  line-height: 20px;
+  margin: 10px 0;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right h1 a,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right .news-title a,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right h1 a,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right .news-title a,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right h1 a,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right .news-title a,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right h1 a,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right .news-title a {
+  color: #0091ca;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right h1 a:hover,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right .news-title a:hover,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right h1 a:hover,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right .news-title a:hover,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right h1 a:hover,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right .news-title a:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right h1 a:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right .news-title a:hover {
+  text-decoration: underline;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right p,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right p,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right p,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right p,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-vacancies .views-row .item .right p,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-submissions .views-row .item .right p
+{
+  font-size: 14px;
+  color: #808080;
+  line-height: 18px;
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-news .views-row .item .right p a,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-press.view-display-id-panel_pane_2 .views-row .item .right p a,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .views-row .item .right p a,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .views-row .item .right p a,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-vacancies .views-row .item .right p a,
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-submissions .views-row .item .right p a
+{
+  color: #808080;
+  text-decoration: none;
+}
+
+.not-front.domain-safebirth-unfpa-org #listing-page-template .pane-title {
+  display: none;
+}
+/*Pagination CSS below*/
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager {
+  padding: 0;
+  margin-bottom: 50px;
+}
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li {
+  display: inline;
+  padding: 0;
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li,
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li a {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  border-radius: 2px;
+  font-size: 16px;
+  font-family: 'robotobold';
+  color: #0091ca;
+  line-height: 24px;
+  text-decoration: none;
+  text-align: center;
+  height: 24px;
+  width: 24px;
+  overflow: hidden;
+}
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li a {
+  display: block;
+}
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li.pager-current,
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li a:hover {
+  background: #0091ca;
+  color: #fff;
+}
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li.pager-previous a {
+  padding: 0 10px;
+  background: url(../../unfpa_global/images/pagination.png) 0 0 no-repeat #fff;
+  text-indent: -1000px;
+}
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li.pager-next a {
+  padding: 0 10px;
+  background: url(../../unfpa_global/images/pagination.png) -26px 0 no-repeat transparent;
+  text-indent: -1000px;
+}
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li.pager-previous a:hover {
+  background: url(../../unfpa_global/images/pagination.png) 0 -26px no-repeat #0091ca;
+}
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li.pager-next a:hover {
+  background: url(../../unfpa_global/images/pagination.png) -26px -26px no-repeat #0091ca;
+}
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li.pager-first,
+.not-front.domain-safebirth-unfpa-org .item-list ul.pager li.pager-last
+{
+  display: none;
+}
+
+/* Events Page */
+.not-front.domain-safebirth-unfpa-org #event-news-template .panel-col-first,
+.not-front.domain-safebirth-unfpa-org #event-video-template .panel-col-first,
+.not-front.domain-safebirth-unfpa-org #event-photo-template .panel-col-first,
+.not-front.domain-safebirth-unfpa-org #event-default-template .panel-col-first {
+  width: 59%;
+  margin-right: 2%;
+}
+.not-front.domain-safebirth-unfpa-org #event-news-template .panel-col-first .inside,
+.not-front.domain-safebirth-unfpa-org #event-video-template .panel-col-first .inside,
+.not-front.domain-safebirth-unfpa-org #event-photo-template .panel-col-first .inside,
+.not-front.domain-safebirth-unfpa-org #event-default-template .panel-col-first .inside {
+  padding: 0;
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org #event-news-template .panel-col-last,
+.not-front.domain-safebirth-unfpa-org #event-video-template .panel-col-last,
+.not-front.domain-safebirth-unfpa-org #event-photo-template .panel-col-last,
+.not-front.domain-safebirth-unfpa-org #event-default-template .panel-col-last {
+  width: 39%;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org #event-news-template .panel-col-last .inside,
+.not-front.domain-safebirth-unfpa-org #event-video-template .panel-col-last .inside,
+.not-front.domain-safebirth-unfpa-org #event-photo-template .panel-col-last .inside,
+.not-front.domain-safebirth-unfpa-org #event-default-template .panel-col-last .inside {
+  padding: 0;
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-2 .field-content,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-3 .field-content,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-administrative-resources-panel-pane-1 .field-content {
+  position: relative;
+  display: block;
+  width: 100%
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-2 .field-content h2,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-3 .field-content h2,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-administrative-resources-panel-pane-1 .field-content h2 {
+  font-size: 13px;
+  font-family: 'robotobold';
+  color: #316789;
+  line-height: 18px;
+  margin:0 0 15px;
+}
+
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-4 .field-content .item-list {
+  text-align:left;
+}
+
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-2 .field-content ul,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-3 .field-content ul,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-4 .field-content ul,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-administrative-resources-panel-pane-1 .field-content ul {
+  border: 1px solid #d9dac4;
+  border-radius: 3px;
+  margin: 0 0 20px;
+  padding: 0
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-2 .field-content ul li,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-3 .field-content ul li,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-4 .field-content ul li,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-administrative-resources-panel-pane-1 .field-content ul li {
+  border-top: 1px dotted #d9dac4;
+  background: #FFF;
+  padding: 12px;
+  list-style: none
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-2 .field-content ul li:first-child,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-3 .field-content ul li:first-child,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-4 .field-content ul li:first-child,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-administrative-resources-panel-pane-1 .field-content ul li:first-child {
+  border-top: 0
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-2 .field-content ul li h3,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-3 .field-content ul li h3,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-4 .field-content ul li h3,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-administrative-resources-panel-pane-1 .field-content ul li h3 {
+  font-size: 14px;
+  font-family: 'robotobold';
+  color: #808080;
+  margin: 0 0 15px;
+  line-height: 20px
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-2 .field-content ul li span,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-3 .field-content ul li span,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-4 .field-content ul li span,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-administrative-resources-panel-pane-1 .field-content ul li span {
+  position: relative;
+  display: block;
+  font-size: 16px;
+  font-family: 'robotobold';
+  color: #000;
+  line-height: 18px
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-2 .field-content ul li a,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-3 .field-content ul li a,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-4 .field-content ul li a,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-administrative-resources-panel-pane-1 .field-content ul li a {
+  font-size: 16px;
+  font-family: 'robotobold';
+  color: #0091ca;
+  line-height: 18px;
+  text-decoration: none
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-2 .field-content ul li a:hover,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-3 .field-content ul li a:hover,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-4 .field-content ul li a:hover,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-administrative-resources-panel-pane-1 .field-content ul li a:hover {
+  text-decoration: underline
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-5 .views-field-title .field-content a {
+  color: #0091CA;
+  font-size: 18px;
+  font-family: 'robotobold';
+  line-height: 22px;
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-5 .views-row {
+  position: relative;
+  float: left;
+  width: 100%;
+  border-bottom: 1px dotted #d9dac4;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-5 .views-field-field-photo .field-content img {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  -moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+}
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-5 .views-field-body .field-content h2,
+.not-front.domain-safebirth-unfpa-org .panel-pane.pane-views-panes.pane-vw-events-panel-pane-5 .views-field-body .field-content h3 {
+  font-size: 15px !important;
+}
+
+.not-front.domain-safebirth-unfpa-org .downButtons {
+  position: relative;
+  display: block;
+  background-color: #FFF;
+  border: 1px solid #d9dac4;
+  float: left;
+  border-radius: 5px;
+  margin: 10px 0 3px 0
+}
+.not-front.domain-safebirth-unfpa-org .downButtons .view-header,
+.not-front.domain-safebirth-unfpa-org .downButtons .view-content {
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org .downButtons .items {
+  position: relative;
+  display: block;
+  float: left;
+  border: 1px solid #d9dac4;
+  padding: 4px 4px !important;
+}
+.not-front.domain-safebirth-unfpa-org .downButtons .items ~ .items {
+  border: 0;
+  padding: 4px 3px
+}
+.not-front.domain-safebirth-unfpa-org .downButtons .items p {
+  position: relative;
+  display: block;
+  height: 26px;
+  line-height: 26px!important;
+  font-size: 15px!important;
+  font-family: 'robotobold' !important;
+  color: #808080!important;
+  margin: 0!important;
+  background: url(../../unfpa_global/images/ic-download.png) left center no-repeat #fff;
+  padding-left: 20px;
+  padding-right: 5px;
+}
+.not-front.domain-safebirth-unfpa-org .downButtons .items a {
+  color: #808080!important;
+  font-size: 15px!important;
+  font-family: 'robotobold' !important;
+}
+.not-front.domain-safebirth-unfpa-org .downButtons .views-field-field-available-language .items a,
+.not-front.domain-safebirth-unfpa-org .downButtons .view-vw-data-portal-field-collection-view .items a {
+  position: relative;
+  display: block;
+  height: 26px;
+  line-height: 26px!important;
+  padding: 0 6px;
+  font-size: 14px!important;
+  font-family: 'robotobold';
+  color: #fff!important;
+  background: #999;
+  text-decoration: none;
+  border-radius: 3px
+}
+.not-front.domain-safebirth-unfpa-org .downButtons .views-field-field-available-language .items a:hover,
+.not-front.domain-safebirth-unfpa-org .downButtons .view-vw-data-portal-field-collection-view .items a:hover {
+  background: #bbb;
+  text-decoration: none
+}
+.not-front.domain-safebirth-unfpa-org .downButtons .items:after {
+  clear: both
+}
+
+.not-front.domain-safebirth-unfpa-org .view.view-documents-pdf-of-field-collection-view,
+.not-front.domain-safebirth-unfpa-org .view.view-documents-pdf-of-field-collection-view .views-row {
+  float: left;
+}
+
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .views-field-field-photo {
+  -moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  float: left;
+  margin-right: 4%;
+  width: 23%;
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .views-field-field-photo-1 img {
+  height: auto;
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .views-field-field-photo .photo_desc {
+  padding: 5%;
+  width:90%;
+  font-size:xx-small;
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .views-field-title {
+  float: left;
+  margin-bottom: 20px;
+  /*    width: 75%;*/
+  width: 100%;
+  *text-align:left;
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .views-field-body {
+  clear: both;
+}
+.not-front.domain-safebirth-unfpa-org #event-video-template .pane-vw-events-panel-pane-1 .views-field-body .field-content p {
+  padding: 15px 0 10px 0;
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .title h1 {
+  margin: 0 0 20px;
+  font-family: 'robotobold';
+  font-size: 32px;
+  color: #5a5047;
+  line-height: 37px;
+}
+.not-front.domain-safebirth-unfpa-org #event-video-template .panel-col-last h1 {
+  font-size:16px;
+  font-family: 'robotobold';
+  color:#5a5047;
+  line-height:20px;
+  margin-bottom:14px;
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .title .infos {
+  float: left;
+  width: 280px;
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .title .infos .calendar {
+  width: auto;
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .title .infos p {
+  font-size: 14px;
+  font-family: 'robotobold';
+  color: #de7300;
+  line-height: 16px;
+  padding-left: 20px;
+  margin: 0 0 10px;
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .title .infos p.calendar {
+  background: url(../../unfpa_global/images/ic-calendar.png) 0 center no-repeat
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .title .infos p.location {
+  background: url(../../unfpa_global/images/ic-location.png) 0 center no-repeat
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .views-field-nothing figure img {
+  float: left;
+  width: 100%;
+  height: auto;
+}
+.not-front.domain-safebirth-unfpa-org .pane-vw-events-panel-pane-1 .views-field-nothing figure figcaption {
+  background: none repeat scroll 0 0 #404040;
+  color: #CCCCCC;
+  float: left;
+  font-size: 12px;
+  line-height: 14px;
+  margin: 0;
+  padding: 3%;
+  width: 94%;
+  margin-bottom: 20px;
+}
+.not-front.domain-safebirth-unfpa-org .view-events-related-terms > .view-content,
+.not-front.domain-safebirth-unfpa-org .view-vw-events.view-display-id-event_video_pane > .view-content {
+  border-bottom: 1px dotted #D9DAC4;
+  float: left;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org .view-events-related-terms .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-events.view-display-id-event_video_pane .views-row {
+  border: none;
+  float: left;
+  width: 31%;
+  margin: 0;
+  padding: 0 2% 0 0;
+}
+.not-front.domain-safebirth-unfpa-org .view-events-related-terms .views-row .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-events.view-display-id-event_video_pane .views-row .views-row {
+  padding: 0 !important;
+}
+.not-front.domain-safebirth-unfpa-org .view-events-related-terms .views-row img {
+  border: 1px solid #D2D2D2;
+  border-radius: 3px;
+  box-shadow: 0 0 3px #CCCCCC;
+  float: left;
+  margin: 0 20px 10px 0;
+}
+
+.not-front.domain-safebirth-unfpa-org .view-events-related-terms .views-row .date-display-single {
+  color: #999999;
+  font-size: 12px;
+  font-family: 'robotobold';
+  line-height: 14px;
+  margin-bottom: 3px;
+}
+.not-front.domain-safebirth-unfpa-org .view-events-related-terms .views-row .item .description .summary {
+  color: #808080;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.5;
+
+}
+.not-front.domain-safebirth-unfpa-org .view-events-related-terms .views-row .item .description a {
+  /*    position: relative;*/
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: 'robotobold';
+  color: #0091ca;
+  line-height: 18px;
+  margin: 0 0 5px;
+}
+.not-front.domain-safebirth-unfpa-org .view-events-related-terms .views-row .description a:hover {
+  color: #30b3e6;
+}
+
+/* Slideshow */
+.not-front.domain-safebirth-unfpa-org #slideshow {
+  position: relative;
+  display: block;
+  background: #FFF;
+  -moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  margin-bottom: 40px;
+  border-radius: 3px
+}
+.not-front.domain-safebirth-unfpa-org #slideshow #slideitems {
+  height: 215px;
+  width: 380px;
+  overflow: hidden
+}
+.not-front.domain-safebirth-unfpa-org #slideshow #nav {
+  text-align: center;
+  margin-top: 18px;
+  *padding-left: 42px
+}
+.not-front.domain-safebirth-unfpa-org #slideshow #nav a {
+  background: url(../../unfpa_global/images/slideshow.png) -8px 0 no-repeat;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  width: 8px;
+  height: 8px;
+  overflow: hidden;
+  text-indent: -10000px;
+  margin-left: 20px;
+  *display: block;
+  *float: left;
+  *zoom: 1
+}
+.not-front.domain-safebirth-unfpa-org #slideshow #nav a.activeSlide {
+  background-position: 0 0
+}
+.not-front.domain-safebirth-unfpa-org #slideshow #nav a:focus {
+  outline: 0
+}
+.not-front.domain-safebirth-unfpa-org #slideshow #prev {
+  cursor: pointer;
+  position: absolute;
+  top: 225px;
+  left: 0
+}
+.not-front.domain-safebirth-unfpa-org #slideshow #next {
+  cursor: pointer;
+  position: absolute;
+  top: 225px;
+  right: 0
+}
+.not-front.domain-safebirth-unfpa-org #slideshow #output {
+  font-size: 14px;
+  color: #808080;
+  line-height: 20px;
+  padding: 15px 20px 15px 20px;
+  text-align: left
+}
+
+
+/***** Menu *****/
+.not-front.domain-safebirth-unfpa-org .pane-innerpg-menu-innerpg-menu .pane-content {
+  position: relative;
+  display: block;
+  background: url(../../unfpa_global/images/gradient-bg-left.png) top right no-repeat;
+  float: left;
+  min-height: 453px;
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org .pane-innerpg-menu-innerpg-menu .pane-content ul.menu {
+  padding: 0;
+  margin: 0 !important;
+}
+.not-front.domain-safebirth-unfpa-org .pane-innerpg-menu-innerpg-menu .pane-content ul.menu li {
+  list-style-type:none !important;
+  list-style-image: none;
+  border-top: 0;
+  padding: 10px 10px 10px 0;
+}
+.not-front.domain-safebirth-unfpa-org .pane-innerpg-menu-innerpg-menu .pane-content ul.menu li a {
+  font-size: 13px;
+  font-family: 'robotobold';
+  color: #0090ca;
+  line-height: normal;
+  text-decoration: none;
+  padding: 0 14px 0 0
+}
+.not-front.domain-safebirth-unfpa-org .pane-innerpg-menu-innerpg-menu .pane-content ul.menu li a:hover {
+  text-decoration: underline;
+}
+.not-front.domain-safebirth-unfpa-org .pane-innerpg-menu-innerpg-menu .pane-content ul.menu li a.active {
+  background: url(../../unfpa_global/images/bullet_02.png) center left no-repeat;
+  padding: 0 0 0 15px;
+  *padding: 2px 0 0 15px;
+  color: #fca100;
+  *display:block;
+}
+.not-front.domain-safebirth-unfpa-org .pane-innerpg-menu-innerpg-menu .pane-content ul.menu li ~ li {
+  border-top: 1px dotted #d9dac4;
+  line-height: 16px;
+}
+.not-front.domain-safebirth-unfpa-org .pane-custom-custom-site-page-library {
+  clear: both;
+  padding-top: 50px;
+}
+
+
+/* Sub page template */
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template .panel-col-first {
+  width: 17%;
+  margin-right: 3%;
+}
+
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template .panel-col {
+  display: block;
+  float: left;
+  margin: 0 3% 60px 0;
+  padding: 0;
+  position: relative;
+  width: 60%;
+}
+
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template .panel-col .inside {
+  margin: 0;
+}
+
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template .panel-col-last {
+  width: 17%;
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 7px 0 0 0;
+  position: relative;
+  /*    min-width: 170px;*/
+}
+.not-front.domain-safebirth-unfpa-org.inner-page #sub-page-template .panel-col-last.panel-panel .inside {
+  margin: 0 0 60px 0;
+}
+
+/* Listing page template */
+.not-front.domain-safebirth-unfpa-org.inner-page #listing-page-template .panel-col-first.panel-panel {
+  width: 17%;
+  margin-right: 3%;
+}
+.not-front.domain-safebirth-unfpa-org.inner-page #listing-page-template .panel-col-last.panel-panel {
+  width: 80%;
+}
+.not-front.domain-safebirth-unfpa-org.inner-page #listing-page-template .panel-2col-stacked .panel-col-last.panel-panel .inside {
+  margin: 0;
+}
+
+/* Search Publication */
+.not-front.domain-safebirth-unfpa-org #page-title {
+  color: #5A5047;
+  font-size: 34px;
+  font-family: 'robotobold';
+  line-height: 40px;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-vw-publications .view-filters {
+  margin-bottom: 30px;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template h1 {
+  position: relative;
+  display: block;
+  font-size: 24px;
+  line-height:40px;
+  font-family: 'robotobold';
+  color: #5a5047;
+  padding: 0 0 10px;
+  padding: 0 0 6px;
+  margin: 0 0 35px;
+  border-bottom: 1px solid #d9dac4;
+}
+.not-front.domain-safebirth-unfpa-org .views-exposed-form .views-exposed-widgets {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.not-front.domain-safebirth-unfpa-org .views-exposed-form .views-exposed-widgets .views-exposed-widget {
+  position: relative;
+  display: block;
+  float: left;
+  margin: 10px 20px 10px 0;
+  padding: 0;
+  list-style: none;
+  width: 250px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_2 .views-exposed-form .views-exposed-widgets .views-exposed-widget {
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org .views-exposed-form .views-exposed-widgets .views-submit-button {
+  width: auto !important;
+}
+.not-front.domain-safebirth-unfpa-org .views-exposed-form .views-exposed-widgets .views-exposed-widget label {
+  position: relative;
+  display: block;
+  font-size: 16px;
+  font-family: 'robotobold';
+  color: #808080;
+  height: 30px;
+  line-height: 30px;
+  margin: 10px 0 0;
+}
+.not-front.domain-safebirth-unfpa-org .views-exposed-form .views-exposed-widgets .form-text {
+  position: relative;
+  display: block;
+  font-size: 13px;
+  color: #5a5047;
+  width: 214px;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid #d1cdc2;
+  border-radius: 3px;
+  background: url(../../unfpa_global/images/input_background.jpg) 0 0 repeat-x;
+  line-height: 28px;
+}
+.not-front.domain-safebirth-unfpa-org .views-exposed-form .views-exposed-widgets .views-exposed-widget .form-select {
+  position: relative;
+  display: block;
+  z-index: 3;
+  width: 235px;
+  height: 30px;
+  line-height: 30px;
+  background: url(../../unfpa_global/images/select_background.png) top right no-repeat;
+  border-radius: 3px;
+  font-size: 13px;
+  color: #5a5047;
+  z-index: 2;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  padding:5px;
+  border:0;
+  border-left:1px solid #ccc;
+}
+.not-front.domain-safebirth-unfpa-org .views-exposed-form .views-exposed-widgets .views-exposed-widget #edit-field-news-date-value-value-year option,
+.not-front.domain-safebirth-unfpa-org .views-exposed-form .views-exposed-widgets .views-exposed-widget #edit-field-video-date-value-value-year option {
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org .views-submit-button {
+  width: 100%;
+  text-align: right;
+}
+.not-front.domain-safebirth-unfpa-org .views-exposed-form .form-submit {
+  position: relative;
+  height: 30px;
+  margin: 40px 0 0 0 !important;
+  float: right;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: 'robotobold';
+  background: #0091ca;
+  border: 0;
+  border-radius: 3px;
+}
+.not-front.domain-safebirth-unfpa-org #listing-page-template .view-display-id-publications_listing_panel_pane {
+  margin-bottom: 45px;
+}
+
+/* News Listing Page*/
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_1,
+.not-front.domain-safebirth-unfpa-org .view-vw-press.view-display-id-panel_pane_2,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page,
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_2,
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_1 .view-filters,
+.not-front.domain-safebirth-unfpa-org .view-vw-press.view-display-id-panel_pane_2 .view-filters,
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_2 .view-filters,
+.not-front.domain-safebirth-unfpa-org .view-vw-video.view-display-id-video_listing_pane .view-filters {
+  margin-bottom: 45px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_1 .item .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-press.view-display-id-panel_pane_2 .item .left,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .item .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .item .left {
+  float: left;
+  margin-right: 20px;
+  width: 130px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_2 .item .left {
+  margin-bottom: 10px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_1 .item .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-press.view-display-id-panel_pane_2 .item .right,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .item .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .item .right {
+  margin-left: 150px;
+  font-size: 14px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_1 .item .left span.date-display-single,
+.not-front.domain-safebirth-unfpa-org .view-vw-press.view-display-id-panel_pane_2 .item .left span.date-display-single,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .item .left span.date-display-single,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .item .left span.date-display-single {
+  border-bottom: 1px solid #D9DAC4;
+  color: #808080;
+  font-size: 12px;
+  font-family: 'robotobold';
+  margin: 0 0 5px;
+  padding: 0 0 5px;
+  display: block;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_2 .item .left span.date-display-single {
+  color: #808080;
+  font-size: 13px;
+  line-height: 20px;
+  font-family: 'robotobold';
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_1 .item .left .news-type,
+.not-front.domain-safebirth-unfpa-org .view-vw-press.view-display-id-panel_pane_2 .item .left .news-type,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .item .left .news-type,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .item .left .news-type {
+  color: #0091CA;
+  font-family: 'robotobold' !important;
+  font-size: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_2 .item .left .news-type {
+  color: #666666;
+  font-family: 'robotobold' !important;
+  font-size: 18px;
+  line-height: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_1 .item .right .views-more-link,
+.not-front.domain-safebirth-unfpa-org .view-vw-press.view-display-id-panel_pane_2 .item .right .views-more-link,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-news_list_page .item .right .views-more-link,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-news_lib_list_page .item .right .views-more-link,
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-panel_pane_2 .item .right .views-more-link,
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-team_members_related_news .news-body .summary .views-more-link,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-updates_listing_page .view-content .views-row .right .views-more-link {
+  color: #0091CA;
+  font-size: 15px;
+  font-family: 'robotobold';
+  text-decoration: none;
+  display: block;
+  margin-top: 10px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-news.view-display-id-team_members_related_news .views-field-nothing .date-display-single {
+  color: #808080;
+  font-size: 11px;
+  font-family: 'robotobold';
+}
+
+/* Publications List */
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-admin_res_lib_list_page .view-content .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-internal_audit_reports_list_page .view-content .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-updates_listing_page .view-content .views-row{
+  border-bottom: 1px dotted #d9dac4;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  *display: block;
+  zoom: 1;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-internal_audit_reports_list_page .view-content .views-row .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-updates_listing_page .view-content .views-row .views-row{
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-admin_res_lib_list_page .view-content .views-row .views-row{
+  border-bottom: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row .views-row,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row .views-row,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row .views-row,
+.not-front.domain-safebirth-unfpa-org .view-display-id-resources_block .view-content .views-row .views-row {
+  padding: 0;
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-admin_res_lib_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-admin_res_lib_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-internal_audit_reports_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-internal_audit_reports_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-updates_listing_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-updates_listing_page .view-content .views-row .right{
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-admin_res_lib_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-internal_audit_reports_list_page .view-content .views-row .left,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-updates_listing_page .view-content .views-row .left{
+  margin-right: 2%;
+  width: 18%;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row .left img,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row .left img,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row .left img,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row .left img,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row .left img,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-internal_audit_reports_list_page .view-content .views-row .left img,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-updates_listing_page .view-content .views-row .left img{
+  border-radius: 3px;
+  border: 1px solid #d2d2d2;
+  -moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  height: auto;
+  width: 100%;
+  max-width: 180px;
+}
+
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-admin_res_lib_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-internal_audit_reports_list_page .view-content .views-row .right,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-updates_listing_page .view-content .views-row .right{
+  width: 60%;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-internal_audit_reports_list_page .view-content .views-row .right p,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-updates_listing_page .view-content .views-row .right p{
+  margin-bottom: 0.5em;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row .right .title,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row .right .title,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row .right .title,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row .right .title,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row .right .title,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-admin_res_lib_list_page .view-content .views-row .right .title,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-internal_audit_reports_list_page .view-content .views-row .right .title,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-updates_listing_page .view-content .views-row .right .title{
+  padding: 0 0 10px 0;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row .right .sub-title,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row .right .sub-title,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row .right .sub-title,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row .right .sub-title,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row .right .sub-title {
+  font-family: 'robotobold';
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row .right a,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row .right a,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row .right a,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row .right a,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row .right a,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-admin_res_lib_list_page .view-content .views-row .right a,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-internal_audit_reports_list_page .view-content .views-row .right .title a,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-updates_listing_page .view-content .views-row .right .title a{
+  color: #0091ca;
+  text-decoration: none;
+  font-family: 'robotobold';
+  font-size: 16px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row .right a:hover,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row .right a:hover,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row .right a:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row .right a:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row .right a:hover {
+  text-decoration: underline;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .views-row .right a.review,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .views-row .right a.review,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .views-row .right a.review,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .views-row .right a.review,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .views-row .right a.review {
+  font-size: 14px;
+}
+.not-front.domain-safebirth-unfpa-org .views-field-field-admin-resource-documents .view .views-row,
+.not-front.domain-safebirth-unfpa-org .downButtons .view,
+.not-front.domain-safebirth-unfpa-org .downButtons .view .views-row {
+  float: left;
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  width: auto;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .left .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-publications .view-content .right .views-row,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .left .views-row,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-resource_list_page .view-content .right .views-row,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .left .views-row,
+.not-front.domain-safebirth-unfpa-org .view-topics-page-listing-library.view-display-id-pub_list_page .view-content .right .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .left .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-pub_lib_list_page .view-content .right .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .left .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-library-listing-page.view-display-id-resource_lib_list_page .view-content .right .views-row {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* Details Page */
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body h3,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body h3 {
+  margin: 1.25em 0 0.25em;
+  color: #404040;
+  font-family: 'robotobold';
+  font-size: 1em;
+  line-height: 1.5;
+  text-align: left;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .panel-col-first,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .panel-col-first {
+  margin-right: 2%;
+  width: 69%;
+  margin-bottom: 50px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .panel-col-last,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .panel-col-last {
+  width: 29%;
+  margin-bottom: 50px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .panel-col-first .inside,
+.not-front.domain-safebirth-unfpa-org #detail-page-template .panel-col-last .inside,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .panel-col-first .inside,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .panel-col-last .inside {
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template h1.pub-title {
+  float: left;
+  width: 77%;
+  margin: 0 0 20px;
+  font-size: 36px;
+  font-family: 'robotobold';
+  color: #5a5047;
+  line-height: 40px;
+  word-wrap: break-word;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template h2.pub-sub-title {
+  font-family: 'robotobold';
+  font-size: 21px;
+  color: #808080;
+  line-height: 33px;
+  margin: 0 0 20px;
+  width: 100%;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pub-date .date-display-single {
+  color: #808080;
+  font-size: 14px;
+  font-family: 'robotobold';
+  line-height: 16px;
+  float: left;
+  clear: left;
+  margin: 0 0 20px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .img {
+  float: left;
+  margin-right: 3%;
+  width: 26%;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .template-2 .img {
+  width: 94%;
+  margin: 3%;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .text {
+  float: left;
+  width: 71%;
+  font-size: 14px;
+  color: #808080;
+  line-height: 22px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .template-2 .text,
+.not-front.domain-safebirth-unfpa-org #detail-page-template .template-3 .text {
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .img img {
+  border-radius: 3px;
+  border: 1px solid #d2d2d2;
+  -moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+  height: auto;
+  width: 100%;
+  max-width: 180px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .template-2 .img img {
+  max-width: none;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .text p {
+  font-size: 14px;
+  color: #808080;
+  line-height: 27px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .text p.info {
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .text p.info strong {
+  font-family: 'robotobold';
+}
+.not-front.domain-safebirth-unfpa-org .social {
+  position: relative;
+  display: block;
+  float: right;
+  margin-left: 20px;
+}
+.not-front.domain-safebirth-unfpa-org .panel-2col-stacked .social {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+.not-front.domain-safebirth-unfpa-org .social .social-icons > span {
+  display: block;
+  background: #fff;
+}
+.not-front.domain-safebirth-unfpa-org .social a,
+.not-front.domain-safebirth-unfpa-org .social .social-icons {
+  position: relative;
+  display: block;
+  background: url(../../unfpa_global/images/social.png) top left no-repeat #888;
+  color: #666;
+  font-family: 'robotobold';
+  font-size: 12px;
+  float: left;
+  line-height: 22px;
+  margin-right: 6px;
+  padding-top: 29px;
+  padding-bottom: 1px;
+  text-align: center;
+  text-decoration: none;
+  min-width: 26px;
+  height:22px;
+  overflow:hidden;
+  cursor: pointer;
+  border: 1px solid #888;
+  border-radius: 3px;
+}
+.not-front.domain-safebirth-unfpa-org .social a.tw,
+.not-front.domain-safebirth-unfpa-org .social .st_twitter_custom {
+  background-position: center 0;
+}
+.not-front.domain-safebirth-unfpa-org .social a.tw:hover,
+.not-front.domain-safebirth-unfpa-org .social .st_twitter_custom:hover {
+  background-color: #12c7ef;
+  border-color: #12c7ef;
+}
+.not-front.domain-safebirth-unfpa-org .social a.fb,
+.not-front.domain-safebirth-unfpa-org .social .st_facebook_custom {
+  background-position: center -52px;
+}
+.not-front.domain-safebirth-unfpa-org .social a.fb:hover,
+.not-front.domain-safebirth-unfpa-org .social .st_facebook_custom:hover {
+  background-color: #305fb3;
+  border-color: #305fb3;
+}
+.not-front.domain-safebirth-unfpa-org .social a.gp,
+.not-front.domain-safebirth-unfpa-org .social .st_googleplus_custom {
+  background-position: center -104px;
+}
+.not-front.domain-safebirth-unfpa-org .social a.gp:hover,
+.not-front.domain-safebirth-unfpa-org .social .st_googleplus_custom:hover {
+  background-color: #d7482a;
+  border-color: #d7482a;
+}
+.not-front.domain-safebirth-unfpa-org .social a.in,
+.not-front.domain-safebirth-unfpa-org .social .st_linkedin_custom {
+  background-position: center -156px;
+}
+.not-front.domain-safebirth-unfpa-org .social a.in:hover,
+.not-front.domain-safebirth-unfpa-org .social .st_linkedin_custom:hover {
+  background-color: #0077B5;
+  border-color: #0077B5;
+}
+.not-front.domain-safebirth-unfpa-org .social a.em,
+.not-front.domain-safebirth-unfpa-org .social .st_email_custom {
+  background-position: center -208px;
+  margin-right: 0;
+}
+.not-front.domain-safebirth-unfpa-org .social a.em:hover,
+.not-front.domain-safebirth-unfpa-org .social .st_email_custom:hover {
+  background-color: #000;
+  border-color: #000;
+}
+.not-front.domain-safebirth-unfpa-org .stButton .st-yahoo-counter,
+.not-front.domain-safebirth-unfpa-org .stButton .st-linkedin-counter {
+  width: auto !important;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .downButtons .view-content .views-row {
+  margin: 0;
+  padding: 0;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .downButtons {
+  margin: 10px 0 15px 0;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .downButtons .view-content .views-row .items,
+.not-front.domain-safebirth-unfpa-org #detail-page-template .downButtons .items ~ .items {
+  margin: 0;
+  padding: 0;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .downButtons .items .view-content .views-row .items {
+  padding: 4px 5px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .date-display-single {
+  font-size: 16px;
+  color: #808080;
+  line-height: 27px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .views-field-field-news-date {
+  margin-bottom: 20px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .panel-col-first .view-vw-publications .view-content .views-row {
+  border: 0;
+}
+
+.not-front.domain-safebirth-unfpa-org .social .stButton .st-twitter-counter,
+.not-front.domain-safebirth-unfpa-org .social .stButton .st-facebook-counter,
+.not-front.domain-safebirth-unfpa-org .social .stButton .stButton_gradient,
+.not-front.domain-safebirth-unfpa-org .social .stButton .st-linkedin-counter,
+.not-front.domain-safebirth-unfpa-org .social .stButton .st-email-counter {
+  display:none !important;
+}
+.not-front.domain-safebirth-unfpa-org .social .stButton .stBubble {
+  height: auto !important;
+  margin: 0 !important;
+  margin-top: 3px !important;
+  margin-bottom: 3px !important;
+  width: auto !important;
+}
+.not-front.domain-safebirth-unfpa-org .social .st_twitter_vcount .stBubble_count,
+.not-front.domain-safebirth-unfpa-org .social .st_facebook_vcount .stBubble_count,
+.not-front.domain-safebirth-unfpa-org .social .st_googleplus_vcount .stBubble,
+.not-front.domain-safebirth-unfpa-org .social .st_linkedin_vcount .stBubble_count,
+.not-front.domain-safebirth-unfpa-org .social .st_email_vcount .stBubble_count {
+  border:0 !important;
+  background:none !important;
+}
+.not-front.domain-safebirth-unfpa-org .social .stButton .stBubble_count {
+  font-size:11px !important;
+  width:auto !important;
+  height:auto !important;
+  padding:0  !important;
+  background:none !important;
+  border:0 !important;
+}
+.not-front.domain-safebirth-unfpa-org .current-path {
+  display: none;
+}
+
+/* Related publications */
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane {}
+
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane h1 {
+  position: relative;
+  display: block;
+  font-size: 22px;
+  font-family: 'robotobold';
+  color: #5a5047;
+  padding: 0 0 10px;
+  margin: 0 0 35px;
+  border-bottom: 1px solid #d9dac4
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .view-row {
+  position: relative;
+  display: block;
+  padding: 0 0 20px;
+  margin: 0 0 20px;
+  border-bottom: 1px dotted #d9dac4
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .view-row-last {
+  border: 0;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .views-field-field-languages {
+  position: relative;
+  display: block;
+  float: left;
+  margin: 0 20px 0 0;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .views-field-field-languages img {
+  border-radius: 3px;
+  border: 1px solid #d2d2d2;
+  box-shadow: 0 0 3px #ccc
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .view-row .views-field-title {
+  position: relative;
+  display: block;
+  width: 175px;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .view-row .views-field-title.no-image {
+  width: 100%
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .view-row .description a {
+  position: relative;
+  display: block;
+  text-decoration: none
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .view-row .description a.title {
+  font-size: 14px;
+  font-family: 'robotobold';
+  color: #0091ca;
+  line-height: 18px;
+  margin: 0 0 5px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .view-row .description a.title:hover {
+  color: #30b3e6
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .view-row .description a.text {
+  font-size: 14px;
+  color: #808080;
+  line-height: 20px
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .view-row .description a.text:hover {
+  color: #c0c0c0
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-publications-related-publications-pane .browse_more {
+  font-size: 14px;
+  color: #0091ca;
+  text-decoration: none;
+  font-family: 'robotobold'
+}
+.not-front.domain-safebirth-unfpa-org #publications .wrapper .browse_more:hover {
+  text-decoration: underline
+}
+.not-front.domain-safebirth-unfpa-org #publications .browse {
+  position: relative;
+  display: block;
+  margin-top: -20px;
+  margin-bottom: 60px;
+  padding-top: 20px;
+  border-top: 1px dotted #d9dac4;
+  font-family: 'robotobold';
+  font-size: 14px;
+  color: #0091ca;
+  line-height: 16px;
+  text-decoration: none
+}
+.not-front.domain-safebirth-unfpa-org #publications .browse span {
+  background: url("../../unfpa_global/images/bullet04.png") no-repeat scroll center center transparent;
+  content: " ";
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  height: 12px;
+  margin-left: 6px;
+  position: relative;
+  top: 1px;
+  width: 7px;
+}
+.not-front.domain-safebirth-unfpa-org #publications .browse:hover {
+  color: #30b3e6;
+}
+
+/*News Detail Page*/
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .center-wrapper {
+  position: relative;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col-first {
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col-last {
+  position: absolute;
+  width: 18%;
+  top: 180px;
+  z-index: 1;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col-last {
+  background: #fff;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col .panel-pane,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col-last .panel-pane {
+  margin-bottom: 40px;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col .inside,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col-first .inside,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col-last .inside {
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col {
+  left: 0;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-3col-stacked .panel-col-last {
+  right: 0;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-press-panel-pane-1 .views-field-body{
+  min-height: 560px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-nothing,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-nothing,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-press-panel-pane-1 .views-field-nothing,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-press-panel-pane-1 .views-field-body{
+  border-left: 1px solid #E6E6E6;
+  border-right: 1px solid #E6E6E6;
+  color: #808080;
+  font-size: 18px;
+  margin: 0 auto;
+  padding: 0 10%;
+  width: 60%;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-vw-press-panel-pane-1 .views-field-nothing,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-vw-press-panel-pane-1 .views-field-body{
+  padding: 0;
+  width: 100%;
+  border: none;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-field-news-document,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-field-news-document {
+  margin: 0 auto;
+  padding: 0 10% 100px;
+  width: 60%;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-vw-news-panel-pane-news-detail .views-field-field-news-document {
+  margin: 0 auto;
+  padding: 0 0 100px;
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-vw-news-panel-pane-news-detail .views-field-nothing,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-vw-news-panel-pane-news-detail .views-field-body {
+  padding: 0;
+  width: 100%;
+  border: none;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-nothing figure,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body figure,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-nothing figure,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body figure,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-press-panel-pane-1 .views-field-nothing figure{
+  margin-bottom: 20px;
+  float: left;
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-nothing figure img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body figure img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-nothing figure img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body figure img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-press-panel-pane-1 .views-field-nothing figure img{
+  float: left;
+  width: 100%;
+  height:auto;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body iframe,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body object,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body iframe,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body object {
+  float: left;
+  margin: 20px 5%;
+  max-width: 90%;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-nothing figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-nothing .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcleft,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcright,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-nothing figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-nothing .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcleft,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcright,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-press-panel-pane-1 .views-field-nothing figcaption{
+  background: none repeat scroll 0 0 #404040;
+  color: #CCCCCC;
+  float: left;
+  font-size: 14px;
+  margin: 0;
+  padding: 3%;
+  width: 94%;
+  line-height: 20px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-nothing figcaption p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-nothing .figcaption p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body figcaption p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcleft p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcright p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .figcaption p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-nothing figcaption p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-nothing .figcaption p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body figcaption p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcleft p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcright p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .figcaption p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 14px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcleft,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcright,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcleft,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcright {
+  width: 470px;
+  margin: -20px 25px 20px;
+  padding: 15px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body div,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body div {
+  font-size: 16px;
+  line-height: 26px;
+  text-align: justify;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body blockquote,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body blockquote,
+blockquote {
+  background: url("../../unfpa_global/images/bg_blockquote.gif") no-repeat scroll 40px 30px, url("../../unfpa_global/images/bg_site.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+  border-color: #E6E6E6;
+  border-image: none;
+  border-style: solid none;
+  border-width: 1px medium;
+  color: #404040;
+  display: block;
+  font-size: 26px;
+  margin: 20px 0 20px -35%;
+  padding: 30px 5% 30px 25%;
+  position: relative;
+  width: 140%;
+  float: none;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-vw-news-panel-pane-news-detail .views-field-body blockquote,
+.not-front.domain-safebirth-unfpa-org blockquote {
+  margin-left: 0;
+  width: 70%;
+}
+.not-front.domain-safebirth-unfpa-org blockquote {
+  padding-left: 15%;
+  width: 80%;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body blockquote p,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body blockquote p,
+blockquote p {
+  line-height: 33px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body blockquote cite,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body blockquote cite,
+blockquote cite {
+  display: block;
+  font-size: 18px;
+  margin-top: 20px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft {
+  float: left;
+  margin: 0px 25px 20px -200px;
+  width: 500px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight {
+  float: right;
+  margin: 0px -200px 20px 25px;
+  width: 500px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-vw-news-panel-pane-news-detail .views-field-body .fRight {
+  width: 100%;
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcleft,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcleft {
+  margin: -20px 25px 20px -200px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcright,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcright {
+  margin: -20px -200px 20px 25px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-vw-news-panel-pane-news-detail .views-field-body .fcleft,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-vw-news-panel-pane-news-detail .views-field-body .fcright,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight .figcaption {
+  width: 94%;
+  padding: 3%;
+  margin: 0 0 20px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcleft,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft iframe,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft object,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcleft,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft iframe,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft object {
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcright,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight iframe,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight object,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight .figcaption,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcright,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight iframe,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight object {
+  float: right;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft iframe,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft object,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight iframe,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight object,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft iframe,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft object,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight iframe,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight object {
+  margin: 0;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fLeft img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fRight img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fLeft img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fRight img {
+  height: auto !important;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .panel-col-first .views-field-field-news-date .left {
+  width: 70%;
+  float: left;
+  margin-bottom: 30px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .panel-col-first .pane-updates-panel-pane-updates-detail .left .title {
+  margin-top: 0;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .panel-col-first .views-field-field-news-date .left {
+  width: 100%;
+  margin-bottom: 0;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-updates-panel-pane-updates-detail .views-field-body {
+  padding: 0;
+  width: 100%;
+  border: none;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-updates-panel-pane-updates-detail .views-field-nothing{
+  padding: 0;
+  width: 100%;
+  border: none;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template.panel-2col-stacked .pane-updates-panel-pane-updates-detail .views-field-field-news-document{
+  float: left;
+  padding: 0;
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .panel-col-first .views-field-field-news-date .news-type {
+  color: #0091CA;
+  font-family: 'robotobold';
+  font-size: 22px;
+  text-transform: uppercase;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .panel-col-first  .views-field-field-news-date .left h1.title,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .panel-col-first .pane-updates-panel-pane-updates-detail .left h1.title {
+  color: #5A5047;
+  font-size: 36px;
+  margin: 25px 0 10px;
+  font-family: 'robotobold';
+  line-height: normal;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .panel-col-first .date-display-single {
+  font-family: 'robotobold';
+  color: #808080;
+  font-size: 13px;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .panel-col-first .news-author {
+  font-family: 'robotobold';
+  display: none;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .panel-col-first .news-author span {
+  font-weight: normal;
+}
+.not-front.domain-safebirth-unfpa-org .panel-col-bottom .view-vw-custom-related-views > .view-content,
+.not-front.domain-safebirth-unfpa-org .content-bottom .view-vw-custom-related-views > .view-content,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .panel-col-bottom .view-vw-custom-related-views > .view-content {
+  border-bottom: 1px dotted #D9DAC4;
+  float: left;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org .panel-col-bottom .view-vw-custom-related-views .views-row,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .panel-col-bottom .view-vw-custom-related-views >.view-content>.views-row {
+  border: none;
+  float: left;
+  width: 31%;
+  margin: 0;
+  padding: 0 2% 0 0;
+}
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .view-vw-press.view-display-id-panel_pane_1 .views-field-body div{
+  font-size: 1em;
+  line-height: 1.5;
+}
+/*#news-detail-page-template .panel-col-bottom .view-vw-custom-related-views .views-row .views-row {
+    width: 100%;
+    padding: 0;
+}*/
+.not-front.domain-safebirth-unfpa-org .panel-col-bottom .view-vw-custom-related-views .views-row img,
+.not-front.domain-safebirth-unfpa-org #news-detail-page-template .panel-col-bottom .view-vw-custom-related-views .views-row img
+{
+  border: 1px solid #D2D2D2;
+  border-radius: 3px;
+  box-shadow: 0 0 3px #CCCCCC;
+}
+/*#news-detail-page-template .panel-col-bottom .view-vw-custom-related-views .views-row .description p {
+    color: #808080;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 18px;
+}*/
+.not-front.domain-safebirth-unfpa-org #detail-page-template div.news-title {
+  float: left;
+  width: 680px;
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-family: 'robotobold';
+  color: #5a5047;
+  line-height: 28px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template h1.title {
+  float: left;
+  width: 525px;
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-family: 'robotobold';
+  color: #5a5047;
+  line-height: 28px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template figure {
+  margin: 0 0 20px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template figure img {
+  vertical-align: bottom;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template figure figcaption {
+  margin: 0;
+  padding: 11px 15px;
+  background-color: #404040;
+  font-size: 12px;
+  line-height: 14px;
+  color: #ccc;
+  line-height: 18px;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body p {
+  font-size: 14px;
+  color: #808080;
+  line-height: 20px;
+  padding:10px 0 0 0;
+}
+.not-front.domain-safebirth-unfpa-org #detail-page-template strong {
+  font-family: 'robotobold';
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-feature-list th {
+  background-color:#CCC;
+  font-size:14px;
+  font-family: 'robotobold';
+  border:thin #000000 solid;
+  padding:5px;
+}
+.not-front.domain-safebirth-unfpa-org .call-box-left,
+.not-front.domain-safebirth-unfpa-org .call-box-right,
+.not-front.domain-safebirth-unfpa-org .call-box-center {
+  background: url("../../unfpa_global/images/box_corner.gif") no-repeat #f2ecdc;
+  padding: 20px;
+  width: 200px;
+  color: #575349;
+  text-align: left !important;
+  margin: 20px 0;
+  clear: both;
+  font-size: 12px;
+  line-height: 14px;
+}
+.not-front.domain-safebirth-unfpa-org .call-box-center {
+  margin: 20px 0;
+  padding: 5%;
+  width: 90%;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org .call-box-left {
+  float: left;
+  margin-right: 25px;
+}
+.not-front.domain-safebirth-unfpa-org .call-box-right {
+  float: right;
+  margin-left: 25px;
+}
+.not-front.domain-safebirth-unfpa-org .text-box {
+  background: #999;
+  color: #fff;
+  float: left;
+  width: 94%;
+  padding: 3%;
+  text-align: justify;
+  clear: both;
+}
+.not-front.domain-safebirth-unfpa-org .fLeft {
+  margin-right: 20px;
+  float: left;
+  width: 500px;
+}
+.not-front.domain-safebirth-unfpa-org .fRight {
+  margin-left: 20px;
+  float: right;
+  width: 500px;
+}
+.not-front.domain-safebirth-unfpa-org .fLeft img,
+.not-front.domain-safebirth-unfpa-org .fLeft iframe,
+.not-front.domain-safebirth-unfpa-org .fLeft object,
+.not-front.domain-safebirth-unfpa-org .fRight img,
+.not-front.domain-safebirth-unfpa-org .fRight iframe,
+.not-front.domain-safebirth-unfpa-org .fRight object,
+.not-front.domain-safebirth-unfpa-org .fcenter img,
+.not-front.domain-safebirth-unfpa-org .fcenter iframe,
+.not-front.domain-safebirth-unfpa-org .fcenter object {
+  width: 100% !important;
+  display: block;
+}
+.not-front.domain-safebirth-unfpa-org .fLeft img,
+.not-front.domain-safebirth-unfpa-org .fRight img,
+.not-front.domain-safebirth-unfpa-org .fcenter img {
+  height: auto !important;
+}
+.not-front.domain-safebirth-unfpa-org .fcleft,
+.not-front.domain-safebirth-unfpa-org .fcright,
+.not-front.domain-safebirth-unfpa-org .figcaption {
+  text-align: left;
+  background: #404040;
+  color: #CCC;
+  font-size: 12px;
+  line-height: 14px;
+  margin: 0;
+  padding: 15px;
+  width: 470px;
+}
+.not-front.domain-safebirth-unfpa-org .figcaption {
+  padding: 3%;
+  width: 94%;
+}
+.not-front.domain-safebirth-unfpa-org .fcleft p,
+.not-front.domain-safebirth-unfpa-org .fcright p,
+.not-front.domain-safebirth-unfpa-org .figcaption p {
+  font-size: 12px;
+  line-height: 14px;
+}
+.not-front.domain-safebirth-unfpa-org .fcleft {
+  margin-right: 20px;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org .fcright {
+  margin-left: 20px;
+  float: right;
+}
+.not-front.domain-safebirth-unfpa-org .fleft-small,
+.not-front.domain-safebirth-unfpa-org .fright-small {
+  display: table;
+  margin: 10px 0;
+}
+.not-front.domain-safebirth-unfpa-org .fleft-small {
+  float: left;
+  margin-right: 20px;
+}
+.not-front.domain-safebirth-unfpa-org .fright-small {
+  float: right;
+  margin-left: 20px;
+}
+.not-front.domain-safebirth-unfpa-org .fleft-small img,
+.not-front.domain-safebirth-unfpa-org .fleft-small iframe,
+.not-front.domain-safebirth-unfpa-org .fleft-small object,
+.not-front.domain-safebirth-unfpa-org .fright-small img,
+.not-front.domain-safebirth-unfpa-org .fright-small iframe,
+.not-front.domain-safebirth-unfpa-org .fright-small object {
+  margin: 0 !important;
+  max-width: none !important;
+  width: 100%;
+  height: auto;
+}
+.not-front.domain-safebirth-unfpa-org .fleft-small .figcaption,
+.not-front.domain-safebirth-unfpa-org .fright-small .figcaption {
+  display: table-caption;
+  caption-side: bottom;
+  width: auto;
+  float: none !important;
+  margin: 0 !important;
+  width: auto !important;
+}
+
+/* Country Block*/
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row {
+  background: url("../../unfpa_global/images/bg-news-info2.png");
+  border: 1px solid #D9D9C5;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-title {
+  background: url("../../unfpa_global/images/bg-news-info.png");
+  border-bottom: 1px solid #D9D9C5;
+  border-radius: 5px 5px 0 0;
+  color: #594F47;
+  font-family: 'HelveticaNeueLTStd67MdCn';
+  font-size: 19px;
+  line-height: normal;
+  margin: 0;
+  padding: 12px 10px;
+  text-align: center;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-globe-image {
+  padding: 10px;
+  text-align: center;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-globe-image img {
+  width: 100%;
+  height: auto;
+  max-width: 150px;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-population,
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-indicator li {
+  color: #808080;
+  font-size: 12px;
+  line-height: 14px;
+  font-family: 'robotobold';
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #D9D9C5;
+  margin: 0;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-indicator .views-field-field-indicator-value,
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-population .field-content,
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-ssc-enrollment-boys strong,
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-ssc-enrollment-girls strong {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  color: #594F47;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-indicator ul {
+  padding: 0;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-indicator li {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  border: none;
+  border-bottom: 1px dotted #D9D9C5;
+  text-align: left;
+  border-radius: 0;
+  background: none;
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-indicator .views-field-field-indicator-name {
+  border-right: 1px dotted #d9d9c5;
+  float: left;
+  padding: 6%;
+  width: 63%;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-indicator .views-field-field-indicator-value {
+  padding: 6%;
+  text-align: center;
+  width: 12%;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-body,
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-php {
+  margin: 10px;
+  text-align: left;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  font-size: 12px;
+  line-height: 14px;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-php {
+  float: left;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-ssc-enrollment-boys,
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-ssc-enrollment-girls {
+  width: 38%;
+  float: left;
+  padding: 0 6% 6%;
+  font-size: 12px;
+  line-height: 14px;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-ssc-enrollment-boys {
+  border-right: 1px dotted #D9D9C5;
+  width: 37%;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-ssc-enrollment-boys span,
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-ssc-enrollment-girls span {
+  padding: 4px 0 4px 15px;
+  text-transform: uppercase;
+  font-family: 'robotobold';
+  display: block;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-ssc-enrollment-boys span {
+  background: url(../../unfpa_global/images/icon_boy_infobox.png) no-repeat top left;
+  color: #73c9f9;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-field-ssc-enrollment-girls span {
+  background: url(../../unfpa_global/images/icon_girl_infobox.png) no-repeat top left;
+  color: #f387a8;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-body p {
+  margin: 0;
+  color: #594F47;
+  font-size: 12px;
+  line-height: 14px;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-news_detail_country_block .views-row .views-field-nothing span {
+  color: #808080;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: left;
+}
+
+/* Related News */
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms h2 a,.view-vw-related-topics-terms h2 a:visited {
+  color: #5A5047 !important;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms  h2 a:hover {
+  color: #1C97C8 !important;
+}
+.not-front.domain-safebirth-unfpa-org h2.pane-title {
+  font-size: 22px;
+  font-family: 'robotobold';
+  color: #5a5047;
+  padding: 0 0 10px;
+  margin: 0 0 35px;
+  border-bottom: 1px solid #d9dac4;
+  line-height: 28px;
+  clear:left;
+}
+.not-front.domain-safebirth-unfpa-org .pane-custom-show-related-pub-news {
+  padding:30px 0;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views.view-display-id-custom_jobs_related_jobs .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .views-row,
+.not-front.domain-safebirth-unfpa-org .view-display-id-resources_block .views-row,
+.not-front.domain-safebirth-unfpa-org .view-display-id-event_news_pane .views-row,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views .views-row,
+.not-front.domain-safebirth-unfpa-org .pane-custom-custom-press-related-press .views-row,
+.not-front.domain-safebirth-unfpa-org .pane-custom-show-related-pub-news .item,
+.not-front.domain-safebirth-unfpa-org .pane-resources .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-events.view-display-id-events_related_publications .views-row,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views.view-display-id-custom_jobs_related_news .views-row{
+  position: relative;
+  display: block;
+  zoom: 1;
+  padding: 0 0 20px;
+  margin: 0 0 20px;
+  border-bottom: 1px dotted #d9dac4;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .views-row{
+  padding: 0px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-events.view-display-id-events_related_publications .views-row .views-row{
+  padding: 0px;
+  margin: 0px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .views-row{
+  width: 22%;
+  margin-right: 4%;
+  float: left;
+  border: none;
+  overflow: hidden;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .views-row .view-vw-publication-field-collection-view,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .views-row .view-vw-publication-field-collection-view .views-row{
+  width:100%;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .views-row .view-vw-publication-field-collection-view .views-row img{
+  border: none;
+  box-shadow: none;
+}
+
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .views-row-last {
+  margin-right: 0px;
+  margin-bottom: 2%;
+}
+.not-front.domain-safebirth-unfpa-org .panel-col-bottom .view-display-id-event_news_pane .view-content {
+  border-bottom: 1px dotted #D9DAC4;
+  float: left;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org .panel-col-bottom .view-display-id-event_news_pane .views-row {
+  border: none;
+  float: left;
+  width: 31%;
+  padding: 0 2% 0 0;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .views-row .views-row {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.not-front.domain-safebirth-unfpa-org .pane-resources .views-row-last {
+  /*    border: none;*/
+}
+.not-front.domain-safebirth-unfpa-org .pane-resources .view-footer {
+  border-top: 1px dotted #D9DAC4;
+  color: #0091CA;
+  display: block;
+  font-size: 14px;
+  font-family: 'robotobold';
+  line-height: 16px;
+  margin-bottom: 60px;
+  margin-top: -20px;
+  padding-top: 20px;
+  position: relative;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_report_pane .views-row .views-field-field-audit-reports,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .views-row .views-field-field-news-image,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .item img,
+.not-front.domain-safebirth-unfpa-org .view-display-id-resources_block .item img,
+.not-front.domain-safebirth-unfpa-org .view-display-id-event_news_pane .item img,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages .item img,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .views-row .views-field-field-news-image,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .item img,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views .item img,
+.not-front.domain-safebirth-unfpa-org .pane-custom-custom-press-related-press .item img,
+.not-front.domain-safebirth-unfpa-org .pane-custom-show-related-pub-news .item img,
+.not-front.domain-safebirth-unfpa-org .view-vw-events.view-display-id-events_related_publications .item img,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views.view-display-id-custom_jobs_related_pubs .item img{
+  position: relative;
+  display: block;
+  float: left;
+  margin: 0 20px 10px 0;
+}
+
+.not-front.domain-safebirth-unfpa-org .vw-pub-image{
+  float:left;
+}
+
+.not-front.domain-safebirth-unfpa-org .view-display-id-resources_block .item img,
+.not-front.domain-safebirth-unfpa-org .view-display-id-event_news_pane .item img,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages .item img,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .views-row .views-field-field-news-image img,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .vw-pub-image img,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .views-row .views-field-field-news-image img,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .vw-pub-image img,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views .vw-pub-image img,
+.not-front.domain-safebirth-unfpa-org .pane-custom-custom-pubs-related-pubs .item img,
+.not-front.domain-safebirth-unfpa-org .pane-custom-show-related-pub-news .item img,
+.not-front.domain-safebirth-unfpa-org .view-vw-events.view-display-id-events_related_publications .item img{
+  border-radius: 3px;
+  border: 1px solid #d2d2d2;
+  box-shadow: 0 0 3px #ccc;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_news_terms .item img,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .item img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  float: none;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .item img {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .item .field-name-field-publication-cover-image .field-items .field-item > a,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .item .pdfpreview-image-wrapper {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  height: 304px;
+  display: block;
+  background-color: #000;
+}
+
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_topic_publications_terms > .view-content {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+}
+
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_topic_publications_terms .item-list + a.more,
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_topic_publications_terms .view-content + a.more,
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_topic_news_terms .item-list + a.more,
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_topic_news_terms .view-content + a.more,
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_topic_resources_terms .item-list + a.more,
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_topic_resources_terms .view-content + a.more {
+  background: rgba(0, 0, 0, 0) url("../../unfpa_global/images/bullet04.png") no-repeat scroll right center;
+  float: right;
+  font-family: robotobold;
+  font-size: 16px;
+  margin-bottom: 60px;
+  padding-right: 15px;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .item > .news-title {
+  font-size: 16px;
+  line-height: 22px;
+  margin-top: 10px;
+  color: #d2d2d2;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .views-row-1 .item > .news-title {
+  position: absolute;
+  bottom: 0;
+  padding: 3% 5%;
+  background-color: rgba(0,0,0,.4);
+  font-family: 'robotobold';
+  font-size: 16px;
+  line-height: 22px;
+  width: 90%;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .description .news-title {
+  margin-top: 0;
+  color: #c1c2c3;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: normal;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .views-row .date-display-single,
+.not-front.domain-safebirth-unfpa-org .pane-resources .views-row .date-display-single {
+  color: #999999;
+  font-size: 12px;
+  font-family: 'robotobold';
+  line-height: 14px;
+  margin-bottom: 3px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .views-row .item .description .summary,
+.not-front.domain-safebirth-unfpa-org .view-display-id-resources_block .views-row .item .description .summary,
+.not-front.domain-safebirth-unfpa-org .view-display-id-event_news_pane .views-row .item .description .summary,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages .views-row .item .description .summary {
+  color: #808080;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: normal;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views.view-display-id-custom_jobs_related_jobs .views-row .views-field-title,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .views-row .views-field-title,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages .views-row .views-field-title,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .views-row .views-field-title,
+.not-front.domain-safebirth-unfpa-org .pane-custom-custom-press-related-press .views-row .views-field-title {
+  position: relative;
+  display: block;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .views-row .views-field-title,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .description,
+.not-front.domain-safebirth-unfpa-org .view-display-id-resources_block .description,
+.not-front.domain-safebirth-unfpa-org .view-display-id-event_news_pane .description,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages .description,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .views-row .views-field-title,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .description,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views .description,
+.not-front.domain-safebirth-unfpa-org .view-display-id-site_page_related_publication .description,
+.not-front.domain-safebirth-unfpa-org .view-display-id-site_page_related_resource .description,
+.not-front.domain-safebirth-unfpa-org .pane-custom-show-related-pub-news .description,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views.view-display-id-custom_jobs_related_pubs .description{
+  font-family: 'robotobold';
+  font-size: 13px !important;
+  color: #808080;
+  line-height: normal !important;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_news_terms .description,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .item .description {
+  display: none;
+  position: absolute;
+  top: 0;
+  background-color: #1c2028;
+  width: 100%;
+  height: 100%;
+  padding: 14%;
+  box-sizing: border-box;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_news_terms .views-row-1 .description {
+  padding: 10%;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_news_terms .description-container,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .description-container {
+  height: 100%;
+  overflow: hidden;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .description a{
+  color: #fffefe;
+  font-size: 18px;
+  font-weight:normal;
+  /*    margin-top: 18%;*/
+  display: inline-block;
+  line-height: 1.5em;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_news_terms .description a{
+  color: #fffefe;
+  font-size: 16px;
+  font-weight:normal;
+  line-height: 24px;
+  /*    margin-top: 18%;*/
+  display: inline-block;
+  line-height: 1.5em;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .description a:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_news_terms .description a:hover{
+  color: #fffefe;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .description .read-more a,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_news_terms .description .read-more a{
+  color: #fffefe;
+  font-size: 14px;
+  margin-top: 0px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_publications_terms .views-row .item .description .summary,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms.view-display-id-related_topic_news_terms .views-row .item .description .summary
+{
+  color: #a8a8aa;
+  font-size: 14px;
+  margin: 5% 0px;
+}
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .views-row .views-field-title a,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .description a,
+.not-front.domain-safebirth-unfpa-org .view-display-id-resources_block .description a,
+.not-front.domain-safebirth-unfpa-org .view-display-id-event_news_pane .description a,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages .description a,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .views-row .views-field-title a,
+.not-front.domain-safebirth-unfpa-org .pane-custom-custom-press-related-press .views-row .views-field-title a,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .description a,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views .description a,
+.not-front.domain-safebirth-unfpa-org .pane-custom-custom-press-related-press .description a,
+.not-front.domain-safebirth-unfpa-org .view-display-id-site_page_related_publication .description a,
+.not-front.domain-safebirth-unfpa-org .view-display-id-site_page_related_resource .description a,
+.not-front.domain-safebirth-unfpa-org .pane-custom-show-related-pub-news .description a,
+.not-front.domain-safebirth-unfpa-org .view-vw-events.view-display-id-events_related_publications .item .description a,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views.view-display-id-custom_jobs_related_news .item .description a,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views.view-display-id-custom_jobs_related_pubs .item .description a,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views.view-display-id-custom_jobs_related_jobs .views-row .views-field-title a {
+  display: block;
+  text-decoration: none;
+  font-family: 'robotobold';
+  font-size: 16px;
+  color: #0091ca;
+  line-height: 20px;
+  margin: 0 0 5px;
+}
+
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views .views-row .views-field-title a:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views.view-display-id-custom_jobs_related_jobs .views-row .views-field-title a:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .views-row .views-field-title a:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-related-topics-terms .description a:hover,
+.not-front.domain-safebirth-unfpa-org .view-display-id-resources_block .description a:hover,
+.not-front.domain-safebirth-unfpa-org .view-display-id-event_news_pane .description a:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-resource-pages .description a:hover,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .views-row .views-field-title a:hover,
+.not-front.domain-safebirth-unfpa-org .pane-custom-custom-press-related-press .views-row .views-field-title a:hover,
+.not-front.domain-safebirth-unfpa-org .pane-vw-related-news .description a:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views .description a:hover,
+.not-front.domain-safebirth-unfpa-org .pane-custom-custom-press-related-press .description a:hover,
+.not-front.domain-safebirth-unfpa-org .view-display-id-site_page_related_publication .description a:hover,
+.not-front.domain-safebirth-unfpa-org .view-display-id-site_page_related_resource .description a:hover,
+.not-front.domain-safebirth-unfpa-org .pane-custom-show-related-pub-news .description a:hover,
+.not-front.domain-safebirth-unfpa-org .view-vw-custom-related-views.view-display-id-custom_jobs_related_pubs .item .description a:hover {
+  color: #30b3e6;
+}
+
+.not-front.domain-safebirth-unfpa-org #topics_overview .view-vw-related-topics-terms .views-row .views-row {
+  width: 100%;
+}
+
+.not-front.domain-safebirth-unfpa-org #topics_overview .view-vw-related-topics-terms .vw-pub-image img {
+  border: 0 none;
+  border-radius: initial;
+  box-shadow: none;
+}
+
+.not-front.domain-safebirth-unfpa-org #emergencies_overview {
+  padding-bottom: 30px;
+}
+.not-front.domain-safebirth-unfpa-org #topics_overview .panel-col-center-left .pane-content img {
+  max-width: 100%;
+}
+.not-front.domain-safebirth-unfpa-org .pane-content .browse-all {
+  border-top: 1px dotted #D9DAC4;
+  margin-bottom: 60px;
+  margin-top: 30px;
+  padding-top: 20px;
+}
+
+/* Related Resources Block*/
+.not-front.domain-safebirth-unfpa-org .view-resources.view-display-id-resources_block .views-field-views-conditional a,
+.not-front.domain-safebirth-unfpa-org .view-display-id-event_news_pane .views-field-views-conditional a,
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_topic_resources_block .views-field-views-conditional a,
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_topic_resources_block_1 .views-field-views-conditional a {
+  font-size: 16px;
+  font-family: 'robotobold';
+  line-height: 14px;
+  margin: 3px 0 5px;
+  text-decoration: none;
+}
+.not-front.domain-safebirth-unfpa-org .view-resources.view-display-id-resources_block .summary,
+.not-front.domain-safebirth-unfpa-org .view-display-id-event_news_pane .summary,
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_topic_resources_block .summary,
+.not-front.domain-safebirth-unfpa-org .view-display-id-related_topic_resources_block_1 .summary {
+  color: #808080;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/*---SOF Exposed filter---*/
+
+.not-front.domain-safebirth-unfpa-org .views-exposed-form .form-item,
+.not-front.domain-safebirth-unfpa-org .views-exposed-form .form-submit {
+  box-sizing: border-box;
+}
+
+/*---EOF Exposed filter---*/
+
+/*Custom Styles for CK Editor */
+em
+{
+  font-family: 'robotoregular';
+  font-style: italic;
+}
+strong, b {
+  font-family: 'roboto_condensedbold';
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.ie7Hack {
+  position: relative;
+  display: block;
+  height: 1px;
+  clear: both;
+}
+.oldie #featured_content_vertical .carousel {
+  margin-right: 18px;
+  border: 1px solid #EBEBEB;
+}
+.oldie .side_boxes .item {
+  border: 1px solid #EBEBEB;
+  *margin:0;
+}
+
+.oldie .pane-block-newsletter {
+  border: 1px solid #EBEBEB;
+  *padding-bottom:0px;
+}
+.oldie .button.lightgrey {
+  border: 1px solid #c3c3c3;
+}
+.oldie .button.blue {
+  border: 1px solid #008ac0;
+}
+.oldie .button.green {
+  border: 1px solid #529623;
+}
+.oldie .list .video h3 {
+  padding: 0;
+  margin-top: -24px !important;
+}
+.ie9 .button {
+  filter: none;
+}
+.ie7 #news_detail .share {
+  height: 66px;
+  overflow: hidden;
+}
+.ie7 #news_detail .share .gplus-button {
+  display: none;
+}
+.ie7 .video .share,
+.ie7 .videos .share {
+  display: none !important;
+}
+
+/*--Page 404--*/
+#sub-page-template #search-block-form .form-text {
+  background: url("../../unfpa_global/images/input_background.jpg") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+  border: 1px solid #d1cdc2;
+  border-radius: 3px;
+  color: #5a5047;
+  display: inline;
+  font-size: 13px;
+  height: 28px;
+  margin: 10px 0 0;
+  padding: 0 10px;
+  position: relative;
+  width: 260px;
+}
+#sub-page-template #search-block-form .form-submit {
+  background: none repeat scroll 0 0 #0091ca;
+  border: 0 none;
+  border-radius: 3px;
+  color: #ffffff;
+  display: inline;
+  font-size: 14px;
+  font-family: 'robotobold';
+  margin: 10px 0 0;
+  padding: 5px 10px;
+  position: relative;
+  text-transform: uppercase;
+}
+/*Page 404 Ends*/
+
+
+
+/* IE7 */
+
+.ie7 .view-vw-resource-pages .item .view-field-collection-view,
+.ie7 .view-display-id-resources_block .item .view-field-collection-view {
+  float: left;
+}
+.ie7 .views-exposed-form .views-exposed-widgets .form-text {
+  background: none;
+  height: 20px;
+  line-height: 20px;
+  line-height: normal;
+}
+.ie7 .views-exposed-form .form-submit {
+  height: 22px;
+}
+.ie7 #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body blockquote,
+.ie7 #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body blockquote,
+.ie7 blockquote {
+  background: url("../../unfpa_global/images/bg_blockquote.gif") no-repeat scroll 40px 30px #fff;
+}
+.ie7 #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcleft,
+.ie7 #news-detail-page-template .pane-vw-news-panel-pane-news-detail .views-field-body .fcright,
+.ie7 #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcleft,
+.ie7 #news-detail-page-template .pane-updates-panel-pane-updates-detail .views-field-body .fcright {
+  clear: both;
+}
+.ie7 .pane-custom-home-banner-featured-banner-list {
+  width: 69%;
+}
+.ie7 .stay_connected {
+  width: 29%;
+  float: right;
+}
+.ie7 #featured_content_vertical .carousel .thumbs .itens {
+  position: relative;
+}
+.ie7 #footer .block-menu ul.menu li a {
+  display: inline-block;
+}
+
+/*
+  The CSS below is used to hide the description help text that appears by
+  default for the exposed filters when the views module is upgraded to 7.x.3.12.
+*/
+.view-filters .views-exposed-widget .description {
+  display:none;
+}
+
+/*--SOF Pagination--*/
+
+.pagination {
+  margin: 5px 0 50px;
+}
+
+.text-center ul.pagination li,
+.text-center ul.pagination li a,
+.text-center ul.pagination li.active span {
+  border: 0 none;
+  display: inline-block;
+  zoom: 1;
+  border-radius: 2px;
+  font-size: 16px;
+  font-family: 'robotobold';
+  color: #0091ca;
+  line-height: 24px;
+  padding: 0;
+  text-decoration: none;
+  text-align: center;
+  height: 24px;
+  width: 24px;
+  overflow: hidden;
+}
+
+.text-center ul.pagination li.active span,
+.text-center ul.pagination li a:hover,
+.text-center ul.pagination li a:focus {
+  background: #0091ca;
+  color: #fff;
+}
+
+.text-center ul.pagination li.next a {
+  padding: 0 10px;
+  background: url(../../unfpa_global/images/pagination.png) -26px 0 no-repeat transparent;
+  text-indent: -1000px;
+}
+
+.text-center ul.pagination li.prev a {
+  padding: 0 10px;
+  background: url(../../unfpa_global/images/pagination.png) 0 0 no-repeat #fff;
+  text-indent: -1000px;
+}
+
+.text-center ul.pagination li.pager-first,
+.text-center ul.pagination li.pager-last,
+.text-center ul.pagination li.pager-ellipsis {
+  display: none;
+}
+
+/*--EOF Pagination--*/
+

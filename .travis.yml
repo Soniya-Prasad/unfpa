@@ -1,0 +1,49 @@
+language: php
+php:
+  - 5.5
+
+sudo: false
+
+mysql:
+  database: unfpa
+  username: root
+  encoding: utf8
+
+before_install:
+  - date
+
+  - composer self-update
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - cd sites/default
+  - cp default.travis.settings.php settings.local.php
+  - cd -
+
+install:
+  - date
+
+  # Install drush.
+  - $TRAVIS_BUILD_DIR/ci/bin/install_drush.sh
+
+  # Install selenium
+  - $TRAVIS_BUILD_DIR/ci/bin/install_selenium.sh
+
+  # Install solr.
+  - $TRAVIS_BUILD_DIR/ci/bin/install_solr.sh
+
+  # Configure Behat + Install dependencies.
+  - $TRAVIS_BUILD_DIR/ci/bin/install_behat.sh
+
+before_script:
+  - date
+
+  # Download and install the db
+  - $TRAVIS_BUILD_DIR/ci/bin/import_db.sh
+
+script:
+  - date
+
+  # Run behat tests, different run based on the environment setting.
+  - $TRAVIS_BUILD_DIR/ci/bin/run_behat.sh
+
+after_script:
+  - date

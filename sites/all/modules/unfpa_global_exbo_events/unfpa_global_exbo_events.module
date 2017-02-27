@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Code for the UNFPA Global Exbo Events feature.
+ */
+
+require_once 'unfpa_global_exbo_events.features.inc';
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function unfpa_global_exbo_events_preprocess_views_view(&$variables) {
+  global $base_url;
+  if ($variables['view']->name != 'exbo_events') {
+    return;
+  }
+  if (!in_array($variables['view']->current_display, array('upcoming_informal_meetings', 'past_informal_meetings'))) {
+    return;
+  }
+  // Function to include common css and js files.
+  unfpa_global_executive_board_common_css_js();
+  $path = drupal_get_path('module', 'unfpa_global_exbo_events');
+  drupal_add_css($path . '/css/exbo-events-custom.css');
+  drupal_add_css($path . '/css/exbo-events-responsive.css');
+  $variables['upcoming_events_link'] = $base_url . '/executive-board-events/upcoming';
+  $variables['past_events_link'] = $base_url . '/executive-board-events/past';
+  $variables['executive_board_link'] = 'https://executiveboard.unfpa.org/';
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function unfpa_global_exbo_events_views_query_alter(&$view, &$query) {
+
+  if ($view->name != 'exbo_events') {
+    return;
+  }
+  if (!in_array($view->current_display, array('upcoming_informal_meetings', 'past_informal_meetings'))) {
+    return;
+  }
+  $combine_filter_value = isset($view->exposed_input['combine']) ? $view->exposed_input['combine'] : "";
+  $query->add_table('field_data_body');
+  $condition = db_or()->condition('field_data_body.body_value', '%' . db_like($combine_filter_value) . '%', 'LIKE')->condition('node.title', '%' . db_like($combine_filter_value) . '%', 'LIKE');
+  $query->add_where(0, $condition);
+}

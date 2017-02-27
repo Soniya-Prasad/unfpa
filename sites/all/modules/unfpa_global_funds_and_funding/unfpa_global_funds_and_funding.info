@@ -1,0 +1,13 @@
+name = UNFPA Global Funds and Funding
+description = UNFPA Funds and Funding
+core = 7.x
+package = UNFPA Global
+dependencies[] = page_manager
+dependencies[] = views
+dependencies[] = views_content
+features[ctools][] = page_manager:pages_default:1
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[page_manager_handlers][] = node_view__funds-and-funding-page
+features[views_view][] = funds_and_funding_updates
+features_exclude[dependencies][ctools] = ctools

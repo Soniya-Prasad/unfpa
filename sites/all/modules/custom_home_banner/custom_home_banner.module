@@ -1,0 +1,124 @@
+<?php
+
+/**
+ * @file
+ * custom module for Home Page Featured Section and Emergencies Page Featured Section
+ * @author Anand Sharma <anand.sharma@datamatics.com>.
+ */
+
+/**
+ * Implements hook_block_info().
+ *
+ * Custom Block defination for Featured Section on home and emergencies page.
+ * @return type
+ */
+function custom_home_banner_block_info() {
+  $blocks['featured_banner_list'] = array(
+    'info' => t('Block Home Featured List'),
+  );
+  $blocks['emergencies_banner_list'] = array(
+    'info' => t('Block Emergencies Featured List'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ * Custom Block for Featured Section on home and emergencies page.
+ * @param string $delta
+ * @return type
+ */
+function custom_home_banner_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'featured_banner_list':
+      $block['subject'] = t('Home Featured Banner Block List');
+      $block['content'] = featured_banner_list_view();
+      break;
+    case 'emergencies_banner_list':
+      $block['subject'] = t('Emergencies Featured Banner Block List');
+      $block['content'] = emergencies_banner_list_view();
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * @param array $data
+ * @return array
+ */
+function custom_home_banner_theme($data = array()) {
+  return array(
+    'custom_home_banner_section' => array(
+      'variables' => array('data' => $data),
+      'template' => 'featured_home_banner',
+    ),
+    'custom_emergencies_banner_section' => array(
+      'variables' => array('data' => $data),
+      'template' => 'featured_emergencies_banner',
+    ),
+  );
+}
+
+/**
+ * The function featured_banner_list_view customize the output from the view result and the output
+ * is provided to the custom template for showing the feature banner section on Home page.
+ * title and html around it.
+ *
+ * @return array
+ */
+function featured_banner_list_view() {
+  $result = views_get_view_result('vw_home_feature_banner', 'home_feature_banner');
+
+  $arr_bod = array();
+  if (is_array($result) && count($result) > 0) {
+    foreach ($result as $key => $obj_result) {
+      $arr_bod[$key]["nid"] = $obj_result->nid;
+      $arr_bod[$key]["title"] = $obj_result->node_title;
+      $arr_bod[$key]["language"] = $obj_result->node_language;
+      //$arr_bod[$key]["designation"] 	=  	$obj_result->field_field_designation['0']['rendered']['#markup'];
+      //$arr_bod[$key]["description"] 	=  	$obj_result->field_body['0']['rendered']['#markup'];
+      $arr_bod[$key]["field_field_feature_title"] = $obj_result->field_field_feature_title['0']['rendered']['#markup'];
+      $arr_bod[$key]["field_field_feature_short_text"] = $obj_result->field_field_feature_short_text['0']['rendered']['#markup'];
+      $arr_bod[$key]["field_field_feature_banner_image"] = !empty($obj_result->field_field_feature_banner_image) ? $obj_result->field_field_feature_banner_image['0']['rendered']['#item']['filename'] : '';
+
+      $arr_bod[$key]["field_field_feature_banner_image_uri"] = !empty($obj_result->field_field_feature_banner_image) ? $obj_result->field_field_feature_banner_image['0']['rendered']['#item']['uri'] : '';
+    }
+  }
+  else {
+    $arr_bod = array();
+  }
+
+  return theme('custom_home_banner_section', array('data' => $arr_bod));
+}
+
+/**
+ * The function emergencies_banner_list_view customize the output from the view result and the output
+ * is provided to the custom template for showing the feature banner section on Emergencies page.
+ * title and html around it.
+ *
+ * @return array
+ */
+function emergencies_banner_list_view() {
+  $result = views_get_view_result('vw_home_feature_banner', 'emergency_feature_panel');
+  $arr_bod = array();
+  if (is_array($result) && count($result) > 0) {
+    foreach ($result as $key => $obj_result) {
+      $arr_bod[$key]["nid"] = $obj_result->nid;
+      $arr_bod[$key]["title"] = $obj_result->node_title;
+      //$arr_bod[$key]["designation"] 	=  	$obj_result->field_field_designation['0']['rendered']['#markup'];
+      //$arr_bod[$key]["description"] 	=  	$obj_result->field_body['0']['rendered']['#markup'];
+      $arr_bod[$key]["field_field_feature_title"] = $obj_result->field_field_feature_title['0']['rendered']['#markup'];
+      $arr_bod[$key]["field_field_feature_short_text"] = $obj_result->field_field_feature_short_text['0']['rendered']['#markup'];
+      $arr_bod[$key]["field_field_feature_banner_image"] = !empty($obj_result->field_field_feature_banner_image) ? $obj_result->field_field_feature_banner_image['0']['rendered']['#item']['filename'] : '';
+
+      $arr_bod[$key]["field_field_feature_banner_image_uri"] = !empty($obj_result->field_field_feature_banner_image) ? $obj_result->field_field_feature_banner_image['0']['rendered']['#item']['uri'] : '';
+    }
+  }
+  else {
+    $arr_bod = array();
+  }
+  return theme('custom_emergencies_banner_section', array('data' => $arr_bod));
+}

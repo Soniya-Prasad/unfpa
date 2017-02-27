@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="icon-5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="37.769px" height="37.844px" viewBox="0 0 37.769 37.844" enable-background="new 0 0 37.769 37.844" xml:space="preserve">
+<g>
+	<g>
+		<defs>
+			<rect id="SVGID_1_" x="1.629" width="34.51" height="37.844"/>
+		</defs>
+		<clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_1_"  overflow="visible"/>
+		</clipPath>
+		<polyline clip-path="url(#SVGID_2_)" fill="none" stroke="#FFFFFF" stroke-width="1.3347" stroke-miterlimit="10" points="
+			15.293,37.097 35.343,33.117 28.685,2.291 23.536,3.449 		"/>
+		<polyline clip-path="url(#SVGID_2_)" fill="none" stroke="#FFFFFF" stroke-width="1.3347" stroke-miterlimit="10" points="
+			13.073,24.021 15.847,36.91 29.565,30.984 23.089,0.906 9.252,6.278 10.092,10.176 		"/>
+	</g>
+	<polyline fill="none" stroke="#FFFFFF" stroke-width="0.6669" stroke-miterlimit="10" points="16.483,28.777 17.149,27.71 
+		19.952,28.376 20.755,26.776 22.354,26.107 23.956,26.507 24.757,25.172 25.29,25.441 	"/>
+	<polyline fill="none" stroke="#FFFFFF" stroke-width="0.6669" stroke-miterlimit="10" points="16.349,26.374 17.149,25.441 
+		17.817,25.841 18.751,24.907 19.151,25.306 20.087,24.907 20.753,23.972 21.554,24.24 23.288,23.438 24.356,23.17 	"/>
+	<polygon fill="#FFFFFF" points="12.346,7.596 21.421,4.354 24.224,17.433 20.042,18.805 15.164,7.877 12.651,8.924 	"/>
+	<g>
+		<defs>
+			<rect id="SVGID_3_" x="1.629" width="34.51" height="37.844"/>
+		</defs>
+		<clipPath id="SVGID_4_">
+			<use xlink:href="#SVGID_3_"  overflow="visible"/>
+		</clipPath>
+		
+			<rect x="4.752" y="10.231" transform="matrix(-0.4226 -0.9063 0.9063 -0.4226 0.9983 34.6921)" clip-path="url(#SVGID_4_)" fill="none" stroke="#FFFFFF" stroke-width="1.3347" stroke-miterlimit="10" width="13.595" height="13.595"/>
+		
+			<circle clip-path="url(#SVGID_4_)" fill="none" stroke="#FFFFFF" stroke-width="1.0595" stroke-miterlimit="10" cx="11.55" cy="17.028" r="3.911"/>
+	</g>
+</g>
+</svg>

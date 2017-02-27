@@ -1,0 +1,886 @@
+@font-face {
+  font-family: 'unfpabold';
+  src: url('../fonts/unfpa-fonts/unfpa-bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'unfpalight';
+  src: url('../fonts/unfpa-fonts/unfpa-light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'unfpalightitalic';
+  src: url('../fonts/unfpa-fonts/unfpa-lightItalic.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'unfpasemibold';
+  src: url('../fonts/unfpa-fonts/unfpa-semibold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'unfpasemibolditalic';
+  src: url('../fonts/unfpa-fonts/unfpa-semiboldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'unfpatext';
+  src: url('../fonts/unfpa-fonts/unfpa-text.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'unfpatextitalic';
+  src: url('../fonts/unfpa-fonts/unfpa-textitalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'unfpatextsc';
+  src: url('../fonts/unfpa-fonts/unfpa-textsc.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'montserratregular';
+  src: url('../fonts/montserrat/montserrat-regular.otf');
+}
+
+@font-face {
+  font-family: 'montserratlight';
+  src: url('../fonts/montserrat/montserrat-light.otf');
+}
+
+@font-face {
+  font-family: 'montserratblack';
+  src: url('../fonts/montserrat/montserrat-black.otf');
+}
+
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('../fonts/bebas-neue/open-type-ccf-std/BebasNeue.otf');
+}
+
+body {
+  background-color: #212121;
+  margin: 0;
+  padding: 0;
+}
+
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+.container-section  {
+  overflow: hidden;
+  padding: 0;
+}
+
+.inner-wrapper {
+  padding: 0 1%;
+  width: 98%;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+.content .page {
+  padding: 0;
+}
+
+/*===============================================================
+ *       SOF Site page css
+ *===============================================================*/
+
+.is-intro-page {
+  height: 100%;
+  position: relative;
+}
+
+.is-intro-page .intro-page {
+  display: block;
+}
+
+.intro-page {
+  background-position: 89% -30%;
+}
+
+.intro-page {
+  color: #000;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  transition: opacity 1s ease 0s;
+  font-size: 68px;
+  line-height: 40px;
+  z-index: 5;
+}
+
+.page {
+  min-height: 100%;
+  width: 100%;
+}
+
+/*===============================================================
+ *       EOF Site page css
+ *===============================================================*/
+
+/*===============================================================
+ *       SOF Header css
+ *===============================================================*/
+
+#header {
+  background-color: #ffffff;
+  width: 100%;
+  z-index: 5;
+  position: fixed;
+  top: 0px;
+  left: 0;
+}
+
+#header .site-information-content {
+  padding: 15px 0;
+}
+
+#header .mobile-menu-icon-container {
+  display: none;
+  float: left;
+  margin: -24px 20px 0 0;
+  width: 45px;
+}
+
+#header .logo {
+  float: left;
+  width: 140px;
+}
+
+#header .donate-button {
+  float: right;
+}
+
+a.donate-link {
+  background-color: #ff5a00;
+  color: #fff;
+  display: block;
+  font-family: "unfpasemibold", tahoma;
+  font-size: 16px;
+  margin: -15px 0 0;
+  padding: 22px 42px;
+  text-align: center;
+  text-decoration: none;
+  width: 110px;
+}
+
+a.donate-link:hover {
+  background-color: #e65202;
+}
+
+/*===============================================================
+ *       EOF Header css
+ *===============================================================*/
+
+/*===============================================================
+ *       SOF Nav css
+ *===============================================================*/
+
+#nav {
+  background-color: #00a7f6;
+  /*  display: none;*/
+  width: 100%;
+  z-index: 2;
+  margin: 2px 0 0 0;
+}
+
+ul#main-menu {
+  list-style-type: none;
+  margin: 32px 0;
+  padding: 0;
+}
+
+ul#main-menu li {
+  display: inline-block;
+  margin: 0 50px;
+}
+
+ul#main-menu li a {
+  color: #fff;
+  display: block;
+  font-family: "unfpabold", tahoma;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+ul#main-menu li a:hover {
+  text-decoration: underline;
+}
+
+ul#main-menu li a.active {
+  color: #ff5a00;
+}
+
+/*===============================================================
+ *       EOF Nav css
+ *===============================================================*/
+
+/*===============================================================
+ *       SOF Banner css
+ *===============================================================*/
+
+#img-banner{
+  width: 100%;
+  height: auto;
+}
+.panel-2col-stacked .panel-separator{
+  margin: 0;
+}
+.panel-2col-stacked .center-wrapper .panel-panel .inside{
+  margin: 0;
+}
+.panel-2col-stacked .panel-col-top .inside{
+  margin-bottom:0;
+}
+
+
+.panel-2col-stacked .panel-col-top,
+.panel-2col-stacked .panel-col-bottom{
+  width: 100%;
+}
+.panel-2col-stacked .panel-col-last{
+  width: 50%;
+}
+
+.image-overlay .news-read-more a.pdf-links:hover {
+  color: #333;
+}
+
+.banner {
+  text-align: center;
+}
+
+.intro-page,
+.safebirth-banner {
+  height: 923px;
+  width: 1280px;
+}
+
+.intro-page .banner-top-information,
+.banner .banner-top-information {
+  left: auto;
+  padding-top: 40px;
+  position: absolute;
+  right: auto;
+  text-transform: uppercase;
+  width: 100%;
+  z-index: 4;
+}
+
+.intro-page .banner-top-information p,
+.banner .banner-top-information p {
+  color: #ffffff;
+  font-family: "unfpasemibold",tahoma;
+  font-size: 24px;
+  line-height: 30px;
+  max-width: 810px;
+}
+
+.intro-page .banner-top-information p.banner-top-information-paragraph {
+  display: inline-block;
+  line-height: 38px;
+  margin: 0;
+  padding: 5px;
+}
+
+.banner-middle-site-tagline {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  z-index: 4;
+}
+
+.banner-middle-site-tagline .site-taglines {
+  color: #fff;
+  font-family: "BebasNeue", tahoma;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.left-site-tagline.site-taglines {
+  float: left;
+  margin-left: 10%;
+}
+
+.right-site-tagline.site-taglines {
+  float: right;
+  margin-right: 10%;
+}
+
+.banner-bottom-information {
+  left: auto;
+  bottom: 65px;
+  position: absolute;
+  right: auto;
+  width: 100%;
+  z-index: 4;
+}
+
+.intro-page .banner-bottom-information p.banner-bottom-information-paragraph {
+  color: #ffffff;
+  display: inline-block;
+  font-family: "unfpasemibold",tahoma;
+  font-size: 24px;
+  line-height: 24px;
+  margin: 0;
+  padding: 5px;
+}
+
+.explore-footer > div {
+  position: relative;
+}
+
+#explore > a {
+  bottom: 8%;
+  color: #ffffff;
+  font-family: "tahoma";
+  font-size: 18px;
+  left: 48%;
+  position: absolute;
+  text-decoration: none;
+}
+
+#explore span.explorer-down-arrow {
+  background-image: url("../images/explorer_arrow_icon.png");
+  background-position: left top;
+  background-repeat: no-repeat;
+  display: block;
+  height: 18px;
+  margin: 10px auto 0;
+  width: 32px;
+}
+
+#introduction-section .banner {
+  line-height: 0;
+}
+/*===============================================================
+ *       EOF Banner css
+ *===============================================================*/
+
+/*===============================================================
+ *       SOF Video css
+ *===============================================================*/
+
+#video-section {
+  background-color: #000000;
+}
+
+.front .inside-wrapper-spacer {
+  padding: 0 0 100px;
+}
+
+.container-section h1{
+  color: #fff;
+  font-family: "BebasNeue",tahoma;
+  font-size: 90px;
+  letter-spacing: 6px;
+  margin: 5px 0;
+  text-align: center;
+  text-transform: none;
+  font-weight: 700;
+}
+
+.sub-header {
+  color: #fff;
+  font-family: "montserratlight",tahoma;
+  font-size: 24px;
+  margin-bottom: 50px;
+  margin-top: -10px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.uppercase {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.container-section  .centered-text,
+.container-section  p {
+  color: #fff;
+  font-family: "montserratregular", tahoma;
+  font-size: 14px;
+  line-height: 26px;
+  letter-spacing: 0;
+  margin: 0 auto;
+  max-width: 770px;
+}
+
+.video-player {
+  margin: 0px auto 70px;
+  max-width: 970px;
+}
+
+.video-player {
+  position: relative;
+  transition: z-index 0s ease 1s;
+  z-index: 1;
+  text-align: center;
+}
+
+.container-section  h3 {
+  color: #fff;
+  font-family: "unfpasemibold", tahoma;
+  font-size: 20px;
+  text-align: center;
+}
+
+/*===============================================================
+ *       EOF Video css
+ *===============================================================*/
+
+/*===============================================================
+ *       SOF News & Events css
+ *===============================================================*/
+
+#news-events-section.container-section {
+  padding: 0;
+}
+
+.container-section  h4 {
+  color: #ffffff;
+  font-family: "unfpabold", tahoma;
+  font-size: 44px;
+  margin: 0 0 15px;
+}
+
+.container-section  h6 {
+  color: #ffffff;
+  font-family: "unfpabold", tahoma;
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+.grey-background {
+  background-color: #f5f5f5;
+}
+
+#news-events-section h1 {
+  color: #FF5A00;
+}
+
+.image-section-container img {
+  display: block;
+  width: 100%;
+}
+
+.image-section-container .hover-effect {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.event-overlay {
+  background-image: url("../images/hovergradient_summit.png");
+  opacity: 0.8;
+  background-repeat: repeat;
+  background-position: left top;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.publication-overlay {
+  background-image: url("../images/hovergradient_puhlication.png");
+  opacity: 0.8;
+  background-repeat: repeat;
+  background-position: left top;
+  background-size: cover;
+}
+
+.news-overlay {
+  background-image: url("../images/hovergradient_news.png");
+  opacity: 0.8;
+  background-repeat: repeat;
+  background-position: left top;
+  background-size: cover;
+}
+
+.image-overlay {
+  color: #fff !important;
+  display: none;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  left: 0;
+  text-align: left;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.overlay-inner-wrapper {
+  padding: 6%;
+}
+
+.image-section-container {
+  background-color: #dddddd;
+  margin: 0 auto;
+  max-width: 1220px;
+}
+
+.events-left-section {
+  float: left;
+  position: relative;
+  width: 100%;
+}
+
+.front .center-wrapper{
+  margin: 0px auto 60px;
+  max-width: 1220px;
+}
+
+.column-wrapper{
+  width: 100%;
+}
+
+.news-right-section {
+  float: left;
+  position: relative;
+  width: 100%;
+}
+
+.news-right-section .news-block{
+  position: relative;
+  float: left;
+  width: 50%;
+}
+
+.image-overlay .news-date {
+  font-size: 14px;
+  font-family: "montserratlight", tahoma;
+  color: #ffffff;
+}
+
+.image-overlay .news-location,
+.image-overlay .section-category {
+  font-size: 18px;
+  font-family: "montserratlight", tahoma;
+  color: #ffffff;
+  margin: 10px 0;
+}
+
+.image-overlay .news-title {
+  font-size: 24px;
+  font-family: "montserratblack", tahoma;
+  line-height: 28px;
+  color: #ffffff;
+}
+
+.image-overlay p.description {
+  font-size: 24px;
+  font-family: "montserratlight", tahoma;
+  line-height: 32px;
+  margin: 10px 0;
+  color: #ffffff;
+}
+
+.image-overlay .news-read-more {
+  float: right;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-family: "montserratlight", tahoma;
+  line-height: 32px;
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+}
+
+.image-overlay a.section_hover {
+  text-decoration: none;
+  color: #001EFF;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.image-overlay a.section_hover:hover .news-read-more {
+  text-decoration: underline;
+  color: #ffffff;
+}
+
+/*===============================================================
+ *       EOF News & Events css
+ *===============================================================*/
+
+/*===============================================================
+ *       SOF About css
+ *===============================================================*/
+
+#about-section {
+  background-color: #ffffff;
+  padding: 40px 0 80px;
+}
+
+#about-section h1 {
+  color: #FF5A00;
+}
+
+.highlighted-text {
+  color: #9b9b9b;
+  display: block;
+  font-family: "montserratblack",tahoma;
+  font-size: 24px;
+  line-height: 32px;
+  margin: 25px 0;
+}
+
+#about-section p {
+  color: #9b9b9b;
+  font-family: "montserratlight",tahoma;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.capitalize {
+  color: #9b9b9b;
+  text-transform: capitalize;
+}
+
+/*===============================================================
+ *       EOF About css
+ *===============================================================*/
+
+/*===============================================================
+ *       SOF Sponsers css
+ *===============================================================*/
+
+#sponsers-section {
+  padding: 50px 0;
+}
+
+#sponsers-section h1 {
+  color: #4A4A4A;
+}
+
+.unfpa.sponser-logo {
+  margin: 0;
+  width: 100%;
+}
+
+.sponsers-logo-container {
+  margin: 50px auto;
+  max-width: 86%;
+  text-align: center;
+}
+
+.unfpa.sponser-logo .sponser-img {
+  margin: 0 auto;
+  width: 190px;
+}
+
+.logo-box {
+  float: left;
+  margin: 0 4% 0 0;
+  width: 12%;
+}
+
+.ge.sponser-logo.logo-box,
+.bayer.sponser-logo.logo-box {
+  width: 8%;
+}
+
+.logo-box.the-baby-box {
+  margin: 0;
+}
+
+.logo-box .sponser-img {
+  display: table-cell;
+  height: 100px;
+  vertical-align: middle;
+}
+
+/*===============================================================
+ *       EOF Sponsers css
+ *===============================================================*/
+
+/*===============================================================
+ *       SOF Footer css
+ *===============================================================*/
+
+#footer {
+  background-color: #4a4a4a;
+  padding: 50px 0;
+}
+
+#footer .copyright-text {
+  color: #ffffff;
+  text-align: center;
+  font-size: 18px;
+  font-family: "montserratlight", tahoma;
+  line-height: 32px;
+}
+
+#footer .copyright-text a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#footer .copyright-text a:hover {
+  color: #ff5a00;
+}
+
+/*===============================================================
+ *       EOF Footer css
+ *===============================================================*/
+
+.bg-img{
+  height: 100%;
+  position: relative;
+}
+
+.banner-img img,
+.overlay img{
+  width: 100%;
+}
+
+#text img{
+  width: 100%;
+  height: auto;
+}
+#text p{
+  margin: 0;
+}
+
+#canvas-wrapper{
+  position: relative;
+}
+#baby-head{
+  cursor: pointer;
+  position: absolute;
+  height: 65%;
+  width: 30%;
+  top: 20%;
+  left: 35%;
+  right: 35%;
+  z-index: 999;
+}
+
+#explore {
+  bottom: 0;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: "unfpabold", tahoma;
+  font-size: 16px;
+  left: 48%;
+  position: absolute;
+  z-index: 999;
+}
+
+#explore span.explorer-down-arrow {
+  background-image: url("../images/explorer_arrow_icon.png");
+  background-position: left top;
+  background-repeat: no-repeat;
+  display: block;
+  height: 18px;
+  margin: 5px auto 0;
+  width: 32px;
+}
+
+#video-container {
+  display: block;
+  height: 800px;
+  width: 100%;
+  background-color: #d3d3d3;
+}
+
+#container-wrapper .page {
+  margin-top: 172px;
+}
+
+audio, canvas, progress, video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+*::-moz-selection {
+  background: #fff none repeat scroll 0 0;
+  color: #000;
+  text-shadow: none;
+}
+
+.is-intro-page > .content {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  transform: translate3d(0px, 100%, 0px);
+  width: 100%;
+}
+
+body > .content {
+  height: calc(100% - 180px);
+}
+
+.is-intro-page > .content.active {
+  transform: translate3d(0px, 0px, 0px);
+  transition: transform 1.2s ease 0.5s;
+}
+
+.overlay.video-player-overlay.active {
+  background-color: rgba(0, 0, 0, 0.92);
+  transition: background-color 1s ease 0s;
+}
+
+.overlay.video-player-overlay {
+  transition: background-color 1s ease 0s, z-index 0s ease 1s;
+}
+
+.overlay.active {
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: background-color 1.4s ease 0s;
+  z-index: auto;
+}
+
+.overlay {
+  background-color: transparent;
+  transition: background-color 1.4s ease 0s, z-index 0s ease 1.4s;
+  width: 100%;
+  z-index: -1;
+}
+
+.offcanvas-menu, .overlay {
+  left: 0;
+  position: fixed;
+  top: 0;
+}
+
+.offcanvas-menu nav, .overlay {
+  height: 100%;
+}
+/*====================================================================
+ *     SOF Banner animation
+ *====================================================================*/
+
+#cycler img {
+  position:absolute;
+  z-index:1;
+  left:0;
+  top: 0;
+}
+
+#cycler img.active {
+  z-index:3
+}
+/*====================================================================
+ *     EOF Banner animation
+ *====================================================================*/

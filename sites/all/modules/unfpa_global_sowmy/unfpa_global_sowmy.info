@@ -1,0 +1,5 @@
+name = UNFPA Global SOWMY
+description = Custom dashboard for State of the World Midwifery.
+core = 7.x
+package = UNFPA Global
+features[features_api][] = api:2

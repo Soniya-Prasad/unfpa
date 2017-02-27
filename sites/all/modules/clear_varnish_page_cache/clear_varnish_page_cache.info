@@ -1,0 +1,13 @@
+name				= Clear Varnish Page Cache
+description = Creates a button that will clear the current viewed page varnish cache.
+core				= 7.x
+package			= Cache
+
+dependencies[] = varnish
+
+; Information added by Drupal.org packaging script on 2014-03-25
+version = "7.x-1.1"
+core = "7.x"
+project = "clear_varnish_page_cache"
+datestamp = "1395752059"
+

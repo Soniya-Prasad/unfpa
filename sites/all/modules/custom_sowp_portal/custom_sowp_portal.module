@@ -1,0 +1,635 @@
+<?php
+
+/**
+ * @file
+ * Code for Custom SOWP Data.
+ */
+
+/**
+ * Implements hook_block_view().
+ * @return array
+ */
+function custom_sowp_portal_block_info() {
+  $blocks['custom_sowp_portal_map'] = array(
+      'info' => t('Block Sowp Page Map'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ * @param type $delta
+ * @return array
+ */
+function custom_sowp_portal_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'custom_sowp_portal_map':
+      $block['subject'] = t('SOWP Portal Map Block');
+      $block['content'] = show_sowp_portal_map();
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * 1.Define template file for SOWP Report 2015 page
+ * 2.Let system know that some node tpl.php files are not in theme but here.
+ * @param type $data
+ * @return array
+ */
+function custom_sowp_portal_theme($data = array()) {
+  return array(
+      'custom_sowp_portal_map' => array(
+          'template' => 'sowp_portal_map',
+      ),
+  );
+}
+
+/**
+ *
+ * Implements hook_menu().
+ */
+function custom_sowp_portal_menu() {
+  $items = array();
+  $items['swop-chart-update'] = array(
+      "title" => "",
+      "type" => MENU_NORMAL_ITEM,
+      "page callback" => "sowp_update",
+      "access arguments" => array("access content"),
+  );
+  $items['swop-map-update'] = array(
+      "title" => "",
+      "type" => MENU_NORMAL_ITEM,
+      "page callback" => "map_update",
+      "access arguments" => array("access content"),
+  );
+  return $items;
+}
+
+/**
+ * This function is used to get the color code depending on percent defined in country_code table
+ * @param type $arr
+ * @param type $val
+ * @return type
+ */
+function get_color_code_sowp($arr, $val) {
+  $final_cc = '';
+  foreach ($arr as $color_code => $upto_percent) {
+    if ($val >= $upto_percent) {
+      $final_cc = $color_code;
+      break;
+    }
+  }
+  return $final_cc;
+}
+
+/**
+ * This function returns the json array for updating the map
+ */
+function map_update() {
+  $selected_cid = check_plain($_POST['cid']);
+  $csp_obj = new CSP();
+  $color_code_arr = array();
+  $scale_color = array();
+//data for map onload
+  $color_code_arr = $csp_obj->get_color_code_sowp($selected_cid);
+  $result = $csp_obj->get_data($selected_cid);
+  $scale_color = $csp_obj->get_scale_color($selected_cid);
+  $cc_array = array();
+  foreach ($result as $key => $p) {
+    $country_code = $p->c_code;
+    $category_value = $p->c_value;
+    $c_name = $p->c_name;
+    $region_id = $p->region_id;
+    $cid = $p->c_id;
+    $label_name = t($p->category_name);
+    $arr_val[$cid][$country_code] = $category_value;
+    $c_total_value[$cid][] = $category_value;
+    $count_code[$country_code] = $c_name;
+    $cc_array[$country_code] = $region_id;
+  }
+  foreach ($arr_val as $cid => $cc) {
+    foreach ($cc as $ccode => $c_val) {
+      if (strlen($ccode) == 2) {
+        $p_max_arr[$cid][$ccode] = $c_val;
+      }
+    }
+  };
+
+
+  $location_static_array = array('Comoros', 'Maldives', 'Pacific-SRO', 'Sao Tome & Principe', 'Seychelles', 'Cape Verde', 'Caribbean SRO');
+  $location_static_latlon = array(
+      "Comoros" => array("lat" => "-12.1667", "lng" => "44.25", "size" => "16"),
+      "Maldives" => array("lat" => "-0.6", "lng" => "73.1", "size" => "16"),
+      "Sao Tome & Principe" => array("lat" => "0.333", "lng" => "6.73", "size" => "16"),
+      "Seychelles" => array("lat" => "-4.5833", "lng" => "55.6667", "size" => "16"),
+      "Cape Verde" => array("lat" => "15.1111", "lng" => "-23.6167", "size" => "16"),
+      "Pacific-SRO" => array("lat" => "-18.0000", "lng" => "179.0000", "size" => "16"),
+      "Caribbean SRO" => array("lat" => "18.1824", "lng" => "-77.3218", "size" => "16"),
+  );
+  $cnt = 0;
+  foreach ($arr_val as $cid => $arr_value) {
+    $threshold_value = max($p_max_arr[$cid]);
+    $lowest_value = min($p_max_arr[$cid]);
+    foreach ($arr_value as $cc => $current_value) {
+      $cc_code = '';
+      if ($current_value == NULL) {
+        $cc_code = '#CCCCCC';
+        $description = "Data not available";
+      }
+      else {
+        $actual_value_percentage = (($current_value - $lowest_value) / ($threshold_value - $lowest_value)) * 100;
+        $cc_code = get_color_code_sowp($color_code_arr, $actual_value_percentage);
+        $description = $label_name . " : " . floatval($current_value);
+      }
+      //echo $cid . "," . $cc . "," . $cc_code . "," . $actual_value_percentage . "<br />";
+// echo  "****" . $cc_code . "<br />";
+//echo $cc . "---" . $current_value . " Lowest:" . $lowest_value . "****" . $threshold_value . '----' . $actual_value_percentage . $cc_code . "<br />";
+      $country_temp_name = isset($count_code[$cc]) ? t($count_code[$cc]) : $cc;
+      if (!in_array($country_temp_name, $location_static_array)) {
+        $country = strpos($count_code[$cc], '.');
+        if ($country === FALSE) {
+          $country_arr[$cc]['name'] = isset($count_code[$cc]) ? t($count_code[$cc]) : t($cc);
+        }
+        else {
+          $country_array = explode(".", $count_code[$cc]);
+          $country_1 = $country_array[0];
+          $country_2 = $country_array[1];
+          $country_name = $country_1 . '<sup>' . $country_2 . '</sup>';
+          $country_arr[$cc]['name'] = isset($count_code[$cc]) ? t($country_name) : t($cc);
+        }
+        $descr = '';
+        if (isset($data["cc_array"][$cc]["description"])) {
+          $descr = $data["cc_array"][$cc]["description"];
+        }
+
+        $country_arr[$cc]['description'] = $description . "<br/>" . $descr;
+        $country_arr[$cc]['color'] = ($cc_code != "") ? $cc_code : 'default';
+        $country_arr[$cc]['hover_color'] = 'default';
+        $country_arr[$cc]['url'] = "javascript: update_charts_states('" . $cc . "')";
+        $country_arr[$cc]['hide'] = "no";
+        $country_arr[$cc]['inactive'] = "no";
+        $country_arr[$cc]['region'] = isset($cc_array[$cc]) ? $cc_array[$cc] : NULL;
+      }
+      else {
+        $location_arr[$cnt]['name'] = isset($count_code[$cc]) ? t($count_code[$cc]) : t($cc);
+        $descr = '';
+        if (isset($data["cc_array"][$cc]["description"])) {
+          $descr = $data["cc_array"][$cc]["description"];
+        }
+        $location_arr[$cnt]['description'] = $description . "<br/>" . $descr;
+        $location_arr[$cnt]['color'] = ($cc_code != "") ? $cc_code : 'default';
+        $location_arr[$cnt]['hover_color'] = 'default';
+        $location_arr[$cnt]['url'] = "javascript: update_charts_locations('" . $cc . "','" . $cnt . "')";
+        $location_arr[$cnt]['type'] = "circle";
+        $location_arr[$cnt]['display'] = "region";
+        $location_arr[$cnt]['label'] = "yes";
+        $location_arr[$cnt]['hide'] = "no";
+        $location_arr[$cnt]['size'] = $location_static_latlon[$country_temp_name]["size"];
+        $location_arr[$cnt]['lat'] = $location_static_latlon[$country_temp_name]["lat"];
+        $location_arr[$cnt]['lng'] = $location_static_latlon[$country_temp_name]["lng"];
+        $cnt++;
+      }
+    }
+  }
+  $country_list_arr = array();
+  foreach ($country_arr as $key => $value) {
+    if (strlen($key) <= 4) {
+      $country_list_arr[$key]['name'] = $value['name'];
+      $country_list_arr[$key]['region'] = $value['region'];
+    }
+  }
+  foreach ($location_arr as $key => $value) {
+    $location_list_arr[$key]['name'] = $value['name'];
+  }
+  $final_data["country_arr"] = $country_arr;
+  $final_data["location_arr"] = $location_arr;
+  $final_data["country_list_arr"] = $country_list_arr;
+  $final_data["location_list_arr"] = $location_list_arr;
+  $final_data["category_name"] = $label_name;
+  $final_data["arr_val"] = $arr_val;
+  $final_data["scale_color"] = $scale_color;
+  echo json_encode($final_data);
+}
+
+/**
+ * This function is used to show the intial data
+ * @return type
+ */
+function show_sowp_portal_map() {
+  $path = drupal_get_path('module', 'sowp');
+  $js_path = drupal_get_path('module', 'custom_sowp_portal');
+//Attach css files
+  drupal_add_css($path . '/images/font-icons/sowp-icons.css');
+  //drupal_add_css($path . '/sowp-style.css');
+  drupal_add_js($js_path . '/sowp.portal.js', array('type' => 'file', 'scope' => 'footer'));
+  $selected_cid = '7';
+  $csp_obj = new CSP();
+  $data_arr = array();
+  $color_code_arr = array();
+// for menu generation
+  $query = db_select(' tbl_sowp_category', 'c');
+  $query->fields('c');
+  $result = $query->execute()->fetchAll();
+  $cat_arr = array();
+  $full_category_arr = array();
+  foreach ($result as $key => $p) {
+    $cid = $p->cid;
+    $category_name = t($p->category_name);
+    $pid = $p->pid;
+    $full_category_arr[$cid] = $p;
+    if ($pid != 0) {
+      $cat_arr[$pid][] = $cid;
+    }
+  }
+  $data["cat_arr"] = $cat_arr;
+  $data["full_category_arr"] = $full_category_arr;
+  return theme('custom_sowp_portal_map', array('data' => $data));
+}
+
+/**
+ * Removes the trailing zeros after decimal.
+ * @param float $nbr
+ * @return float
+ */
+function custom_swop_portal_trim_trailing_zeros($nbr) {
+  return strpos($nbr, '.') !== false ? rtrim(rtrim($nbr, '0'), '.') : $nbr;
+}
+
+/**
+ * sowp_update function is used to get the data used for Charts below map using Ajax
+ * $total_value array returns data for donut chart for Population
+ * $total_mat_value array returns data for Maternal and new born health donut chart
+ * $rh_value_old array returns data for inner donut chart of Reproductive Heath chart
+ * $rh_value_new array returns data for outer donut chart of Reproductive Heath chart
+ * $total_value_ed array returns data for Education bar chart
+ */
+function sowp_update() {
+  $selected_country = check_plain($_POST['cc']);
+// data for population in donut chart
+  $cid_array = array(10, 11, 12);
+  $csp_obj = new CSP();
+  $data_arr = array();
+  $query = db_select('tbl_sowp_data', 'd');
+  $query->join('tbl_sowp_category', 's', 's.cid = d.c_id');
+  $query->fields('d');
+  $query->fields('s');
+  $query->condition('d.c_id', $cid_array);
+  $query->condition('d.c_code', $selected_country);
+  $result = $query->execute()->fetchAll();
+  $total_value = array();
+  foreach ($result as $key => $p) {
+    $country_code = $p->c_code;
+    $category_value = $p->c_value;
+    $c_id = $p->c_id;
+    $cat_name = t($p->category_name);
+    $pid = $p->pid;
+    $total_value[$country_code][$c_id]["label"] = $cat_name;
+    $total_value[$country_code][$c_id]["value"] = $category_value;
+  }
+
+//generate data for the labels below donut chart
+  $sel_cid = array(7, 8, 9, 10, 11, 12, 13, 30);
+  $data_array = $csp_obj->get_data($sel_cid);
+  $cat_total_value = array();
+  $i = 0;
+  foreach ($data_array as $key => $p) {
+    if ($selected_country == $p->c_code) {
+      $category_value = $p->c_value;
+      $c_id = $p->c_id;
+      $cat_name = t($p->category_name);
+      $cat_total_value[$c_id]['label'] = $cat_name;
+      $float_val = number_format($category_value, 2);
+      $cat_total_value[$c_id]['value'] = custom_swop_portal_trim_trailing_zeros($float_val);
+    }
+  }
+
+//generate data for maternal and new born health donut chart
+  $cid_array = array(15);
+  $csp_obj = new CSP();
+  $data_arr = array();
+  $query = db_select('tbl_sowp_data', 'd');
+  $query->join('tbl_sowp_category', 's', 's.cid = d.c_id');
+  $query->condition('d.c_code', $selected_country);
+  $query->fields('d');
+  $query->fields('s');
+  $query->condition('d.c_id', $cid_array);
+  $result = $query->execute()->fetchAll();
+  $total_mat_value = array();
+  foreach ($result as $key => $p) {
+    $country_code = $p->c_code;
+    $category_value = $p->c_value;
+    $c_id = $p->c_id;
+    $cat_name = t($p->category_name);
+    $pid = $p->pid;
+    $total_mat_value[$country_code] = $category_value;
+  }
+
+//generate data for the labels below donut chart for maternal section
+  $sel_cid = array(14, 15, 16);
+  $data_array = $csp_obj->get_data($sel_cid);
+  $mat_total_value = array();
+  $i = 0;
+  foreach ($data_array as $key => $p) {
+    if ($selected_country == $p->c_code) {
+      $category_value = $p->c_value;
+      $c_id = $p->c_id;
+      $cat_name = t($p->category_name);
+      $mat_total_value[$c_id]['label'] = $cat_name;
+      $mat_total_value[$c_id]['value'] = floatval($category_value);
+    }
+  }
+
+//generate data for Sexual and Reproductive health donut chart
+  $cid_array = array(17);
+  $csp_obj = new CSP();
+  $data_arr = array();
+  $query = db_select(' tbl_sowp_data', 'd');
+  $query->join('tbl_sowp_category', 's', 's.cid = d.c_id');
+  $query->fields('d');
+  $query->fields('s');
+  $query->condition('d.c_id', $cid_array);
+  $query->condition('d.c_code', $selected_country);
+  $result = $query->execute()->fetchAll();
+  $rh_value_old = array();
+  foreach ($result as $key => $p) {
+    $country_code = $p->c_code;
+    $category_value = $p->c_value;
+    $c_id = $p->c_id;
+    $cat_name = t($p->category_name);
+    $pid = $p->pid;
+    $rh_value_old[$country_code] = $category_value;
+  }
+  $cid_array = array(19);
+  $csp_obj = new CSP();
+  $data_arr = array();
+  $query = db_select(' tbl_sowp_data', 'd');
+  $query->join('tbl_sowp_category', 's', 's.cid = d.c_id');
+  $query->fields('d');
+  $query->fields('s');
+  $query->condition('d.c_id', $cid_array);
+  $query->condition('d.c_code', $selected_country);
+  $result = $query->execute()->fetchAll();
+  $rh_value_new = array();
+  foreach ($result as $key => $p) {
+    $country_code = $p->c_code;
+    $category_value = $p->c_value;
+    $c_id = $p->c_id;
+    $cat_name = t($p->category_name);
+    $pid = $p->pid;
+    $rh_value_new[$country_code] = $category_value;
+  }
+
+//generate data for the labels below donut chart for Sexual and Reproductive health section
+  $sel_cid = array(17, 18, 19, 20, 31);
+  $data_array = $csp_obj->get_data($sel_cid);
+  $rh_total_value = array();
+  $i = 0;
+  foreach ($data_array as $key => $p) {
+    if ($selected_country == $p->c_code) {
+      $category_value = $p->c_value;
+      $c_id = $p->c_id;
+      $cat_name = t($p->category_name);
+      $rh_total_value[$c_id]['label'] = $cat_name;
+      $rh_total_value[$c_id]['value'] = floatval($category_value);
+    }
+  }
+
+// data for Education in BAr chart
+  $cid_array = array(21, 22);
+  $csp_obj = new CSP();
+  $data_arr = array();
+  $query = db_select('tbl_sowp_data', 'd');
+  $query->join('tbl_sowp_category', 's', 's.cid = d.c_id');
+  $query->fields('d');
+  $query->fields('s');
+  $query->condition('d.c_id', $cid_array);
+  $query->condition('d.c_code', $selected_country);
+  $result = $query->execute()->fetchAll();
+  $total_value_ed = array();
+  foreach ($result as $key => $p) {
+    $country_code = $p->c_code;
+    $category_value = $p->c_value;
+    $c_id = $p->c_id;
+    $cat_name = t($p->category_name);
+    $pid = $p->pid;
+    if ($c_id == 21) {
+      $total_value_ed[$country_code][$c_id]['label'] = t('male');
+      $total_value_ed[$country_code][$c_id]['value'] = $category_value;
+    }
+    else {
+      $total_value_ed[$country_code][$c_id]['label'] = t('female');
+      $total_value_ed[$country_code][$c_id]['value'] = $category_value;
+    }
+  }
+
+//generate data for the labels below barchart chart
+  $sel_cid = array(21, 22, 23, 24, 25, 26);
+  $data_array = $csp_obj->get_data($sel_cid);
+  $ed_total_value = array();
+  $i = 0;
+  foreach ($data_array as $key => $p) {
+    if ($selected_country == $p->c_code) {
+      $category_value = $p->c_value;
+      $c_id = $p->c_id;
+      $cat_name = t($p->category_name);
+      $ed_total_value[$c_id]['label'] = $cat_name;
+      $ed_total_value[$c_id]['value'] = floatval($category_value);
+    }
+  }
+
+//generate data for fertility
+  $sel_cid = array(27);
+  $data_array = $csp_obj->get_data($sel_cid);
+  $fertility_value = array();
+  $i = 0;
+  foreach ($data_array as $key => $p) {
+    if ($selected_country == $p->c_code) {
+      $category_value = $p->c_value;
+      $c_id = $p->c_id;
+      $cat_name = t($p->category_name);
+
+      $fertility_value[$c_id]['label'] = $cat_name;
+      $fertility_value[$c_id]['value'] = floatval($category_value);
+    }
+  }
+
+//generate data for Life expectancy
+  $sel_cid = array(28, 29);
+  $data_array = $csp_obj->get_data($sel_cid);
+  $life_expectancy = array();
+  $i = 0;
+  foreach ($data_array as $key => $p) {
+    if ($selected_country == $p->c_code) {
+      $category_value = $p->c_value;
+      $c_id = $p->c_id;
+      $cat_name = t($p->category_name);
+      $life_expectancy[$c_id]['label'] = $cat_name;
+      $life_expectancy[$c_id]['value'] = floatval($category_value);
+    }
+  }
+
+  $final_data = array();
+  $final_data["cat_total_value"] = $cat_total_value;
+  $final_data["mat_total_value"] = $mat_total_value;
+  $final_data["fertility_value"] = $fertility_value;
+  $final_data["life_expectancy"] = $life_expectancy;
+  $final_data["ed_total_value"] = $ed_total_value;
+  $final_data["rh_total_value"] = $rh_total_value;
+  $final_data['population_donut_chart'] = population_donut_chartajax($total_value);
+  $final_data['maternal_donut_chart'] = maternal_donut_chartajax($total_mat_value);
+  $final_data['sexual_donut_chart'] = sexual_donut_chartajax($rh_value_new, $rh_value_old);
+  $final_data['prepareBarChartDataPage'] = prepare_bar_chart_datapage_ajax($total_value_ed);
+  echo json_encode($final_data);
+}
+
+/**
+ * Returns Rows and Col array for Google donut chart
+ * @param type $total_array
+ * @return string
+ */
+function population_donut_chartajax($total_array) {
+  $color_array = array('0' => '#F7931D', '1' => '#40B879',
+      '2' => '#7D79A8', '3' => '#C0DB7D');
+  $do_chart_rows_arr = array();
+  $do_chart_slices_arr = array();
+  $do_chart_rows_arr_final = array();
+  $i = 0;
+  $do_chart_cols_arr = array(
+      array('id' => 'Sector', 'label' => 'Sector', 'pattern' => '', 'type' => 'string'),
+      array('id' => 'Percentage', 'label' => 'Percentage', 'pattern' => '', 'type' => 'number'),
+      array('id'=>'Tooltip', 'type' => 'string', 'role'=>'tooltip')
+  );
+  foreach ($total_array as $cc_code => $cat_array) {
+    $do_chart_rows_arr = array();
+    foreach ($cat_array as $cid => $category) {
+      array_push($do_chart_rows_arr, array('c' => array(
+              array('v' => $category["label"]),
+              array('v' => floatval($category["value"])),
+              array('v' => $category["label"]." : ".floatval($category["value"]))
+      )));
+      $do_chart_slices_arr[$i]['color'] = $color_array[$i];
+      $i++;
+    }
+  }
+  $final_arr = array();
+  $final_arr['do_chart_cols_arr'] = $do_chart_cols_arr;
+  $final_arr['do_chart_rows_arr'] = $do_chart_rows_arr;
+  $final_arr['do_chart_slices_arr'] = $do_chart_slices_arr;
+  return $final_arr;
+}
+
+/**
+ * Returns Rows and Col array for Google donut chart
+ * @param type $total_array
+ * @return array
+ */
+function maternal_donut_chartajax($total_array) {
+  $do_chart_rows_arr = array();
+  $do_chart_rows_arr_final = array();
+  $i = 0;
+  $do_chart_cols_arr = array(
+      array('id' => 'Sector', 'label' => 'Sector', 'pattern' => '', 'type' => 'string'),
+      array('id' => 'Percentage', 'label' => 'Percentage', 'pattern' => '', 'type' => 'number'),
+      array('id'=>'Tooltip', 'type' => 'string', 'role'=>'tooltip')
+  );
+  foreach ($total_array as $cc_code => $cat_value) {
+    $do_chart_rows_arr = array();
+    array_push($do_chart_rows_arr, array('c' => array(
+            array('v' => ''),
+            array('v' => floatval($cat_value)),
+            array('v' => 'Births attended by skilled health personnel, per cent, 2006-2015: '.floatval($cat_value))
+    )));
+    array_push($do_chart_rows_arr, array('c' => array(
+            array('v' => ''),
+            array('v' => floatval(100 - $cat_value)),
+            array('v' => 'Births attended by skilled health personnel, per cent, 2006-2015: '.floatval($cat_value)),
+    )));
+  }
+  $final_arr = array();
+  $final_arr['do_chart_cols_arr'] = $do_chart_cols_arr;
+  $final_arr['do_chart_rows_arr'] = $do_chart_rows_arr;
+  return $final_arr;
+}
+
+/**
+ * Returns Rows and Col array for inner and outer Google donut chart
+ * @param type $inner_array
+ * @param type $outer_array
+ * @return array
+ */
+function sexual_donut_chartajax($inner_array, $outer_array) {
+  $do_chart_rows_arr_inner = array();
+  $do_chart_rows_arr_outer = array();
+  $i = 0;
+  $do_chart_cols_arr = array(
+      array('id' => 'Sector', 'label' => 'Sector', 'pattern' => '', 'type' => 'string'),
+      array('id' => 'Percentage', 'label' => 'Percentage', 'pattern' => '', 'type' => 'number')
+  );
+  foreach ($inner_array as $cc_code => $cat_value) {
+    $do_chart_rows_arr_inner = array();
+
+    array_push($do_chart_rows_arr_inner, array('c' => array(
+            array('v' => ''),
+            array('v' => intval(100 - $cat_value))
+    )));
+    array_push($do_chart_rows_arr_inner, array('c' => array(
+            array('v' => ''),
+            array('v' => intval($cat_value))
+    )));
+  }
+  foreach ($outer_array as $cc_code => $cat_value) {
+    $do_chart_rows_arr_outer = array();
+    array_push($do_chart_rows_arr_outer, array('c' => array(
+            array('v' => ''),
+            array('v' => intval($cat_value))
+    )));
+    array_push($do_chart_rows_arr_outer, array('c' => array(
+            array('v' => ''),
+            array('v' => intval(100 - $cat_value))
+    )));
+  }
+  $final_arr = array();
+  $final_arr['do_chart_cols_arr'] = $do_chart_cols_arr;
+  $final_arr['do_chart_rows_arr_outer'] = $do_chart_rows_arr_outer;
+  $final_arr['do_chart_rows_arr_inner'] = $do_chart_rows_arr_inner;
+  return $final_arr;
+}
+
+/**
+ * Returns Rows and Col array for Google bar chart
+ * @param type $arr
+ * @return array
+ */
+function prepare_bar_chart_datapage_ajax($arr) {
+  $area_chart_cols_arr = array(
+      array('id' => 'label', 'label' => 'label', 'type' => 'string'),
+      array('id' => 'value', 'label' => 'value', 'type' => 'number'),
+      array('id' => 'value', 'label' => 'value', 'type' => 'number', 'role' => 'annotation'),
+      array('id' => 'value', 'label' => 'value', 'type' => 'string', 'role' => 'style'),
+  );
+// array to be converted to json string and used in google chart's bar chart
+  $color_arr = array('#0084C4', '#CD41AC');
+  $area_chart_rows_arr = array();
+  $cnt_arr = count($arr);
+  foreach ($arr as $cc_code => $cat_array) {
+    $do_chart_rows_arr = array();
+    $i = 0;
+    foreach ($cat_array as $key => $value) {
+      array_push($do_chart_rows_arr, array('c' => array(
+              array('v' => $value["label"]),
+              array('v' => $value["value"]),
+              array('v' => intval($value["value"])),
+              array('v' => $color_arr[$i]),
+      )));
+      $i++;
+    }
+  }
+  $final_arr = array();
+  $final_arr['area_chart_cols_arr'] = $area_chart_cols_arr;
+  $final_arr['do_chart_rows_arr'] = $do_chart_rows_arr;
+  return $final_arr;
+}

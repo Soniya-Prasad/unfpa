@@ -1,0 +1,251 @@
+/*-----SOF Executive Board events page css-----*/
+
+.page-executive-board-events .view-filters .views-exposed-form {
+  margin: 20px 0 40px;
+}
+
+.page-executive-board-events .views-exposed-form .views-exposed-widgets .views-exposed-widget {
+  width: auto;
+}
+
+.page-executive-board-events .views-exposed-form .views-exposed-widgets .views-exposed-widget#edit-field-exbo-date-value-wrapper {
+  margin: 44px 10px 0 0;
+}
+
+.page-executive-board-events .views-exposed-form .views-submit-button .form-submit {
+  background: #037ca7;
+  border-radius: 16px;
+  margin: 34px 0 0 0 !important;
+  padding: 5px 10px;
+  text-transform: capitalize;
+}
+
+.page-executive-board-events .view-events-header .select-list .bluelink {
+  background-color: #585A5A;
+  border-radius: 16px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 22px;
+  margin: 0 12px 0 0;
+  padding: 0 10px;
+  padding: 5px 20px;
+  text-transform: uppercase;
+}
+
+.page-executive-board-events .view-events-header .select-list .bluelink.active {
+  background-color: #EA8E05;
+}
+
+.page-executive-board-events .view-events-header .select-list .bluelink:hover, 
+.page-executive-board-events .view-events-header .select-list .bluelink.active:hover {
+    background-color: #EA8E05;
+}
+
+.page-executive-board-events .views-exposed-form .views-exposed-widgets .views-exposed-widget label {
+  color: #000000;
+  font-family: 'robotregular', sans-serif;
+  font-size: 16px;
+  margin: 0 0 4px 0;
+  font-weight: normal;
+}
+
+.page-executive-board-events .views-exposed-form .views-exposed-widgets .views-exposed-widget .form-select {
+  appearance: none;
+  background: transparent url('../images/select-drop-arrow-blue.png') right center no-repeat;
+  border: 1px solid #d4d4d4;
+  border-radius: 12px;
+  color: #000000;
+  font-size: 12px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0 30px 0 10px;
+  outline: none;
+  width: auto;
+}
+
+.page-executive-board-events .form-item.form-type-textfield input {
+  background: #ffffff url('../images/search-icon.jpg') 182px center no-repeat;
+  border: 1px solid #d4d4d4;
+  border-radius: 20px;
+  font-size: 12px;
+  outline: none;
+  padding: 5px 36px 5px 8px;
+  height: auto;
+  line-height: 16px;
+  width: 170px;
+}
+
+.page-executive-board-events h1#page-title {
+  border-bottom: 1px solid #d9dac4;
+  color: #5a5047 !important;
+  display: block;
+  font-size: 22px !important;
+  margin: 0 0 35px !important;
+  padding: 0 0 6px;
+  position: relative;
+  font-family: 'robotobold' !important;
+}
+
+.view-exbo-events.event-list .view-header h1.title {
+  border-bottom: 1px solid #d9dac4;
+  color: #5a5047;
+  display: block;
+  font-size: 22px;
+  margin: 0 0 35px;
+  padding: 0 0 6px;
+  position: relative;
+}
+
+.view-exbo-events.event-list .selected-event {
+  background: #ffcc33 url("../images/general_menu_arrow.png") no-repeat scroll right center;
+  border-radius: 3px;
+  color: #7e6e5b;
+  cursor: pointer;
+  display: none;
+  float: left;
+  font-size: 18px;
+  line-height: 45px;
+  padding: 0 35px 0 15px;
+  text-decoration: none;
+  width: 160px;
+}
+
+.view-exbo-events.event-list .bluelink {
+  background: #808080 none repeat scroll 0 0;
+  border-radius: 3px;
+  color: #ffffff;
+  float: left;
+  font-size: 18px;
+  line-height: 45px;
+  margin-bottom: 50px;
+  margin-right: 20px;
+  padding: 0 15px;
+  text-decoration: none;
+}
+
+.view-exbo-events.event-list .bluelink.active {
+  background: #0091ca none repeat scroll 0 0;
+}
+
+.view-exbo-events.event-list .bluelink:hover,
+.view-exbo-events.event-list .bluelink.active:hover {
+  background: #30B3E6;
+}
+
+.view-exbo-events.event-list .views-row {
+  border-bottom: 1px dotted #d9dac4;
+  display: block;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.view-exbo-events.event-list .views-row .node-exbo-events.node-teaser {
+  margin: 0;
+}
+
+.view-exbo-events.event-list .views-row .calendar {
+  background: rgba(0, 0, 0, 0) url("../images/ic-calendar-orange.png") no-repeat scroll 0 center;
+  display: inline-block;
+  width: 50%;
+}
+
+.view-exbo-events.event-list .views-row .calendar .date-display-single {
+  font-family: 'robotobold';
+}
+
+.view-exbo-events.event-list .views-row .calendar .date-display-range {
+  font-family: 'robotobold';
+  display: inline;
+}
+
+.view-exbo-events.event-list .views-row .location,
+.view-exbo-events.event-list .views-row .calendar {
+  color: #2f3236;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 6px 0 10px;
+  padding-left: 20px;
+}
+
+.view-exbo-events.event-list .views-row .location {
+  background: rgba(0, 0, 0, 0) url("../images/ic-location-orange.png") no-repeat scroll 0 center;
+  color: #2f3236;
+  display: inline-block;
+  width: 50%;
+}
+
+.view-exbo-events.event-list .views-row .location .field-item {
+  font-family: 'robotobold';
+}
+
+.view-exbo-events.event-list .views-row .event {
+  float: left;
+  margin-left: 20px;
+  width: 730px;
+}
+
+.view-exbo-events.event-list .views-row h2,
+.view-exbo-events.event-list .views-row .field-name-body {
+  margin: 0 0 10px 20px;
+}
+
+.view-exbo-events.event-list .views-row h2 a {
+  color: #0091ca;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.view-exbo-events.event-list .views-row ul.links {
+  margin: 0 0 0 20px;
+}
+
+.view-exbo-events.event-list .views-row ul.links li.node-readmore a {
+  color: #0091ca;
+  font-size: 14px;
+  line-height: 16px;
+  text-decoration: none;
+}
+
+.view-exbo-events.event-list .upcoming-events-footer {
+  margin-bottom: 60px;
+}
+
+.view-exbo-events.event-list .views-row .event p {
+  color: #808080;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 18px;
+}
+
+.upcoming-events-footer-link {
+  background: rgba(0, 0, 0, 0) url("../images/bullet04.png") no-repeat scroll right center;
+  font-size: 14px;
+  line-height: 16px;
+  padding-right: 13px;
+}
+
+.pane-exbo-events-panel-pane-1 .view-exbo-events .content .field-name-field-exbo-date span.date-display-single {
+  font-family: 'robotobold';
+}
+
+.pane-exbo-events-panel-pane-1 .view-exbo-events .content .field-name-field-photo img {
+  height: auto;
+  width: 100%;
+}
+
+.pane-exbo-events-panel-pane-1 .view-exbo-events .content .field.field-name-field-photo-description {
+  background-color: #404040;
+  color: #cccccc;
+  font-size: 12px;
+  line-height: 14px;
+  margin: -30px 0 20px;
+  padding: 3%;
+  position: relative;
+  width: 94%;
+}
+
+.node-type-exbo-events #event-default-template .panel-panel .view-exbo-events .view-event-documents-pdf-of-field-collection-view .views-field-field-document-upload .field-content > span {
+  display: block;
+}

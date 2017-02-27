@@ -1,0 +1,12 @@
+; $Id: custom_subscription.info,v 1.0 2014/01/07 16:05:00 deepak $
+name = Custom Subscription
+description = Custom Subscription module for subscription functionality for UNFPA Project. 
+core = 7.x
+package = UNFPA Custom
+
+version = "7.x-1"
+project = unfpa
+dependencies[] = views
+files[] = custom_subscription.module
+files[] = custom_subscription.install
+files[] = views/custom_subscription.views.inc

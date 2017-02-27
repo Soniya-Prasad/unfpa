@@ -1,0 +1,9 @@
+name = Inner Page Side bar Menu list
+description = Inner Page RHS Menu list
+core = 7.x
+package = UNFPA Custom
+; Information added by drupal.org packaging script on 2013-11-22
+version = "7.x-1"
+project = "drupal"
+datestamp = "1332461528"
+

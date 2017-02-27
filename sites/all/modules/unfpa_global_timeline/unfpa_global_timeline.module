@@ -1,0 +1,252 @@
+<?php
+
+/**
+ * @file
+ * Code for the Timeline Feature.
+ */
+include_once 'unfpa_global_timeline.features.inc';
+
+/**
+ * Implements hook_block_view().
+ */
+function unfpa_global_timeline_block_info() {
+  $blocks['timeline_block'] = array(
+    'info' => t('Timeline Block'),
+  );
+  $blocks['eb_timeline_block'] = array(
+    'info' => t('EB Timeline Block'),
+  );
+
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function unfpa_global_timeline_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'timeline_block':
+      $block['content'] = unfpa_global_timeline_block_data();
+      break;
+    case 'eb_timeline_block':
+      $block['content'] = unfpa_global_eb_data();
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Content wrapper for the timeline block.
+ *
+ * @return array
+ *   Generates themed output.
+ */
+function unfpa_global_timeline_block_data() {
+  // Only proceed if the arg(0) is a node and arg(1) should be a numeric
+  // node id.
+  if (arg(0) != 'node' && !is_numeric(arg(1))) {
+    return;
+  }
+  // Here arg(1) is the node id of the page.
+  $wrapper = entity_metadata_wrapper('node', arg(1));
+  // To show the timeline block for the current resource page node the
+  // field related timeline should be selected.
+  if (!$wrapper->field_related_timeline->value()) {
+    return;
+  }
+
+  // Check if the node type for the selected node id is of content timline.
+  if ($wrapper->field_related_timeline->getBundle() != 'ct_timeline') {
+    return;
+  }
+
+  $base_path = drupal_get_path('theme', 'unfpa_global');
+  drupal_add_css($base_path . '/css/timeline/timeline.css');
+  drupal_add_css($base_path . '/css/timeline/font.default.css');
+  drupal_add_js($base_path . '/js/timeline.js');
+  drupal_add_js($base_path . '/js/unfpa_timeline.js');
+
+  return theme('unfpa_global_timeline_template', array('node_id' => $wrapper->field_related_timeline->getIdentifier()));
+}
+
+/**
+ * Generate timeline block for executive board home page.
+ *
+ * @return array
+ *   Generates themed output.
+ */
+function unfpa_global_eb_data() {
+  $base_path = drupal_get_path('theme', 'unfpa_global');
+  drupal_add_css($base_path . '/css/timeline/timeline.css');
+  drupal_add_css($base_path . '/css/timeline/font.default.css');
+  drupal_add_js($base_path . '/js/timeline.js');
+  drupal_add_js($base_path . '/js/unfpa_timeline.js');
+
+  return theme('unfpa_global_timeline_template', array('node_id' => variable_get('exbo_page_timeline_nid', '')));
+}
+
+/**
+ * Implements hook_menu()
+ */
+function unfpa_global_timeline_menu() {
+  $items = array();
+
+  $items['timeline-data/%'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'unfpa_global_timeline_json_data',
+    'page arguments' => array(1),
+    'access callback' => 'unfpa_global_timeline_json_data_access',
+    'access arguments' => array(1),
+  );
+
+  return $items;
+}
+
+/**
+ * Callback function to get timeline data in json format as required by timeline
+ * library.
+ *
+ * @param numeric $nid
+ *   Node id of the timeline.
+ *
+ * @return string
+ *  Timeline data in json format.
+ */
+function unfpa_global_timeline_json_data($nid) {
+  $final_data = array();
+  $node_wrapper = entity_metadata_wrapper('node', $nid);
+  foreach ($node_wrapper->field_timeline_events->getIterator() as $timeline_collection_wrapper) {
+    // Related events wrapper for each timeline collection.
+    $related_events_wrapper = entity_metadata_wrapper('node', $timeline_collection_wrapper->field_event->getIdentifier());
+
+    switch ($related_events_wrapper->getBundle()) {
+      case 'ct_events':
+        $start_date = $related_events_wrapper->field_event_date->value();
+        $end_date = $related_events_wrapper->field_end_date->value();
+        // For content events prepare the end-date as per the timeline format.
+        $data['end_date']['year'] = date('Y', $end_date);
+        $data['end_date']['month'] = date('m', $end_date);
+        $data['end_date']['day'] = date('d', $end_date);
+        // The below condition check if the event image is present which is
+        // selected for the timeline.
+        $photo_uri = isset($related_events_wrapper->field_photo->value()['uri']) ? $related_events_wrapper->field_photo->value()['uri'] : '';
+        break;
+      case 'ct_news':
+      case 'ct_press':
+        $start_date = $related_events_wrapper->field_news_date->value();
+        // The below condition check if the news/press image is present which is
+        // selected for the timeline.
+        $photo_uri = isset($related_events_wrapper->field_news_image->value()['uri']) ? $related_events_wrapper->field_news_image->value()['uri'] : '';
+        break;
+      case 'ct_resources':
+        $start_date = $related_events_wrapper->field_resource_date->value();
+        // The below condition check if the resources image is present which is
+        // selected for the timeline.
+        $photo_uri = isset($related_events_wrapper->field_resource_cover_image->value()['uri']) ? $related_events_wrapper->field_resource_cover_image->value()['uri'] : '';
+        break;
+      case 'ct_publications':
+        $start_date = $related_events_wrapper->field_publication_date->value();
+        // The below condition check if the publications image is present which
+        // is selected for the timeline.
+        $photo_uri = isset($related_events_wrapper->field_publication_cover_image->value()['uri']) ? $related_events_wrapper->field_publication_cover_image->value()['uri'] : '';
+        break;
+      case 'photo_gallery':
+        $start_date = $related_events_wrapper->field_pic_date->value();
+        // The below condition check if the photo gallery image is present which
+        // is selected for the timeline.
+        $photo_uri = isset($related_events_wrapper->field_photo->value()['uri']) ? $related_events_wrapper->field_photo->value()['uri'] : '';
+        break;
+      case 'slideshow':
+        $start_date = $related_events_wrapper->field_date->value();
+        break;
+      case 'ct_video':
+        $start_date = $related_events_wrapper->field_video_date->value();
+        // The below condition check if the video image is present which is
+        // selected for the timeline.
+        $photo_uri = isset($related_events_wrapper->field_video_thumbnail_image->value()['uri']) ? $related_events_wrapper->field_video_thumbnail_image->value()['uri'] : '';
+        break;
+      case 'exbo_events':
+        //$start_date = 1431670535;
+        $start_date = $related_events_wrapper->field_exbo_date->value->value();
+        ;
+        //$end_date = $related_events_wrapper->field_end_date->value2->value();
+        // The below condition check if the video image is present which is
+        // selected for the timeline.
+        $photo_uri = isset($related_events_wrapper->field_photo->value()['uri']) ? $related_events_wrapper->field_photo - value()['uri'] : '';
+    }
+
+    // Timeline event photo if uploaded otherwise show image for the actual
+    // content.
+    $slide_photo_uri = !empty($timeline_collection_wrapper->field_event_image->value()['uri']) ? $timeline_collection_wrapper->field_event_image->value()['uri'] : $photo_uri;
+    // Get default image url for timele exbo events.
+    $field_data = field_info_field('field_event_image');
+    $default_image = file_load($field_data['settings']['default_image']);
+    if (!empty($slide_photo_uri)) {
+      $data['media']['url'] = file_create_url($slide_photo_uri);
+      $data['media']['thumbnail'] = image_style_url('thumbnail', $slide_photo_uri);
+    }
+    else {
+      $data['media']['url'] = file_create_url($default_image->uri);
+      $data['media']['thumbnail'] = image_style_url('thumbnail', $default_image->uri);
+    }
+    // If timeline field collection title is empty then use actual event title.
+    $headline = !empty($timeline_collection_wrapper->field_event_title->value()) ? $timeline_collection_wrapper->field_event_title->value() : $related_events_wrapper->label();
+
+    // If timeline description is empty then use actual event description.
+    $text = !empty($timeline_collection_wrapper->field_event_description->value()) ? $timeline_collection_wrapper->field_event_description->value() : '';
+    if (empty($text)) {
+      // Check if the related content summary property isset
+      if ($related_events_wrapper->__isset('summary')) {
+        $text = !empty($related_events_wrapper->body->summary->value()) ? $related_events_wrapper->body->summary->value() : '';
+      }
+    }
+
+    // The start date format as required for the timeline json string.
+    if (!empty($start_date)) {
+      $data['start_date']['year'] = date('Y', $start_date);
+      $data['start_date']['month'] = date('m', $start_date);
+      $data['start_date']['day'] = date('d', $start_date);
+    }
+
+    $data['text']['headline'] = l($headline, 'node/' . $related_events_wrapper->getIdentifier(), array('attributes' => array('title' => $headline)));
+    $data['text']['text'] = $text . '<p class="browse-all">' . l(t('Read more'), 'node/' . $related_events_wrapper->getIdentifier(), array('attributes' => array('title' => t('Read more'), 'class' => 'more'))) . '</p>';
+
+    // Assign the events timeline format to events.
+    $final_data['events'][] = $data;
+  }
+
+  // Prepare timeline events json data.
+  $final_data['title']['text']['headline'] = $node_wrapper->label();
+  $final_data['title']['text']['text'] = $node_wrapper->body->value->value();
+  $final_data['title']['background']['url'] = isset($node_wrapper->field_timelime_image->value()['uri']) ? file_create_url($node_wrapper->field_timelime_image->value()['uri']) : '';
+
+  echo drupal_json_encode($final_data);
+}
+
+/**
+ * Check given node id is numeric.
+ *
+ * @param numeric $nid
+ *   Node id of the timeline.
+ */
+function unfpa_global_timeline_json_data_access($nid) {
+
+  return is_numeric($nid);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function unfpa_global_timeline_theme() {
+  $path = drupal_get_path('module', 'unfpa_global_timeline');
+  return array(
+    // Define template file for timeline block.
+    'unfpa_global_timeline_template' => array(
+      'variables' => array('node_id' => ''),
+      'template' => 'unfpa_global_timeline_section',
+      'path' => $path . '/templates',
+    ),
+  );
+}

@@ -1,0 +1,1161 @@
+<?php
+
+/**
+ * @file
+ * Contains logic required for handling SOWP Reports.
+ */
+
+
+
+/**
+ * Always include theme functions.
+ */
+include_once 'sowp.theme.inc';
+
+
+
+/**
+ * Defines SOWP Report pages paths.
+ */
+define('SOWP_PAGE_PATH_2015', 'swop-2015');
+define('SOWP_PAGE_PATH_2016', 'swop-2016');
+
+
+
+/**
+ * Implements hook_menu().
+ */
+function sowp_menu() {
+  $items = array();
+
+  /* SOWP Report 2015. */
+
+  $items[SOWP_PAGE_PATH_2015] = array(
+    'title' => 'State of World Population 2015',
+    'page callback' => 'sowp_report_page',
+    'page arguments' => array('2015'),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+    'file' => 'sowp.pages.inc',
+  );
+
+  /* SOWP Report 2016. */
+
+  $items[SOWP_PAGE_PATH_2016] = array(
+    'title' => 'State of World Population 2016',
+    'page callback' => 'sowp_report_page',
+    'page arguments' => array('2016'),
+    'access arguments' => array('view sowp reports'),  
+    'type' => MENU_CALLBACK,
+    'file' => 'sowp.pages.inc',
+  );
+
+  /* Config pages - Report 2015 */
+
+  $items['admin/config/' . SOWP_PAGE_PATH_2015] = array(
+    'title' => 'State of World Population 2015',
+    'description' => 'Configure SOWP 2015 settings',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+    // Special.
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+    'position' => 'right',
+    'weight' => 10000,
+  );
+
+  $items['admin/config/' . SOWP_PAGE_PATH_2015 . '/general'] = array(
+    'title' => 'General settings',
+    'description' => 'Setup some general aspects of SOWP 2015',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sowp_general_settings_form_2015'),
+    'access arguments' => array('configure sowp reports'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 0,
+    'file' => 'sowp.admin.inc',
+  );
+
+  /* Config pages - Report 2016 */
+
+  $items['admin/config/' . SOWP_PAGE_PATH_2016] = array(
+    'title' => 'State of World Population 2016',
+    'description' => 'Configure SOWP 2016 settings',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+    // Special.
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+    'position' => 'right',
+    'weight' => 10000,
+  );
+
+  $items['admin/config/' . SOWP_PAGE_PATH_2016 . '/general'] = array(
+    'title' => 'General settings',
+    'description' => 'Setup some general aspects of SOWP 2016',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sowp_general_settings_form_2016'),
+    'access arguments' => array('configure sowp reports'),
+    'type' => MENU_NORMAL_ITEM,
+    'weight' => 0,
+    'file' => 'sowp.admin.inc',
+  );
+
+  return $items;
+}
+
+
+
+/**
+ * Implements hook_permission().
+ */
+function sowp_permission() {
+  return array(
+    'configure sowp reports' => array(
+      'title' => t('Configure sowp reports'),
+    ),
+    'view sowp reports' => array(
+      'title' => t('View sowp reports'),
+    ),
+  );
+}
+
+
+
+/**
+ * Implements hook_page_build().
+ *
+ * Redirect to SOWP report page when user tries to view detail pages of nodes
+ * that are only used for reports page.
+ */
+function sowp_page_build(&$page) {
+  $node = menu_get_object();
+
+  if ($node && !arg(2)) {
+    $sowp_node_types = array(
+      'sowp_bigintro',
+      'sowp_story',
+      'sowp_body',
+      'sowp_chart',
+    );
+
+    if (in_array($node->type, $sowp_node_types)) {
+      // Redirect options.
+      $options = array();
+
+      // Add language to options.
+      $languages = language_list('enabled');
+      if (isset($languages[$node->language])) {
+        $options['language'] = $languages[$node->language];
+      }
+
+      // Add url() fragment.
+      $options['fragment'] = '!/Node-' . $node->nid;
+
+      // Get redirect url path.
+      $path = SOWP_PAGE_PATH_2015;
+
+      $field = field_get_items('node', $node, 'sowp_report');
+      if (isset($field[0]['value'])) {
+        $report = $field[0]['value'];
+
+        if ($report == '2015') {
+          // Default anyway.
+          $path = SOWP_PAGE_PATH_2015;
+        }
+        elseif ($report == '2016') {
+          $path = SOWP_PAGE_PATH_2016;
+        }
+      }
+
+      // Do redirect.
+      drupal_goto($path, $options);
+    }
+  }
+}
+
+
+
+/**
+ * Implements hook_theme().
+ *
+ * Doing the following:
+ * - Define template file for SOWP Report 2015 page
+ * - Let system know that some node tpl.php files are not in theme but here.
+ * - Define 'nomarkup' function used to print field content without any html.
+ * - Let system know that some fields tpl.php files are not in theme but here.
+ */
+function sowp_theme($existing, $type, $theme, $path) {
+  $path = drupal_get_path('module', 'sowp');
+
+  return array(
+
+    /* Define template file for SOWP Report pages. */
+
+    'sowp_report_page_2015' => array(
+      'render element' => 'elements',
+      'template' => 'sowp-page-2015',
+      'path' => $path,
+    ),
+    'sowp_report_page_2016' => array(
+      'render element' => 'elements',
+      'template' => 'sowp-page-2016',
+      'path' => $path,
+    ),
+
+    /* Define custom template functions. */
+
+    'sowp_intro' => array(
+      'variables' => array(
+        'title' => '',
+        'subtitle' => '',
+        'type' => 'regular',
+        'logo' => FALSE,
+        'year' => 2015,
+        'extra_markup' => '',
+      ),
+    ),
+    'sowp_imagegrid' => array(
+      'variables' => array(),
+    ),
+    'sowp_stories' => array(
+      'variables' => array(
+        'section_id' => 0,
+      ),
+    ),
+    'sowp_videothumb' => array(
+      'variables' => array(
+        'video_url' => '',
+        'video_thumb' => '',
+      ),
+    ),
+    'sowp_sharelinks' => array(
+      'variables' => array(
+        'nid' => FALSE,
+        'title' => '',
+        'description' => '',
+        'twitter_share' => '',
+        'twitter_hashtags' => '',
+      ),
+    ),
+    'sowp_circle' => array(
+      'variables' => array(
+        'label' => '',
+        'color' => FALSE,
+        'class' => FALSE,
+        'info' => '',
+        'icon' => '',
+      ),
+    ),
+    'sowp_download_buttons' => array(
+      'variables' => array(
+        'year' => 2015,
+      ),
+    ),
+
+    /* Let system know that some node tpl.php files are not in theme but here. */
+
+    'node__sowp_bigintro' => array(
+      'render element' => 'content',
+      'base hook' => 'node',
+      'template' => 'node--sowp-bigintro',
+      'path' => $path . '/templates/big-intros',
+    ),
+    'node__sowp_body' => array(
+      'render element' => 'content',
+      'base hook' => 'node',
+      'template' => 'node--sowp-body',
+      'path' => $path . '/templates/regular-bodies',
+    ),
+    'node__sowp_chart' => array(
+      'render element' => 'content',
+      'base hook' => 'node',
+      'template' => 'node--sowp-chart',
+      'path' => $path . '/templates/chart-nodes',
+    ),
+    'node__sowp_story' => array(
+      'render element' => 'content',
+      'base hook' => 'node',
+      'template' => 'node--sowp-story',
+      'path' => $path . '/templates/feat-stories',
+    ),
+
+    /* Define 'nomarkup' function used to print field content without any html. */
+    /* Mainly used by fields that are required. */
+
+    'sowp_nomarkup' => array(
+      'render element' => 'element',
+    ),
+
+    /* Let system know that some fields tpl.php files are not in theme but here. */
+    /* Mainly used by optional fields. */
+
+    /* Regular Bodies. */
+
+    'field__sowp_body_sideimgs' => array(
+      'render element' => 'element',
+      'template' => 'field--sowp-body-sideimgs',
+      'path' => $path . '/templates/regular-bodies',
+    ),
+    'field__sowp_body_sidevids' => array(
+      'render element' => 'element',
+      'template' => 'field--sowp-body-sidevids',
+      'path' => $path . '/templates/regular-bodies',
+    ),
+    'field__sowp_body_download' => array(
+      'render element' => 'element',
+      'template' => 'field--sowp-body-download',
+      'path' => $path . '/templates/regular-bodies',
+    ),
+
+    /* Chart nodes. */
+
+    'field__sowp_chart_images' => array(
+      'render element' => 'element',
+      'template' => 'field--sowp-chart-images',
+      'path' => $path . '/templates/chart-nodes',
+    ),
+    'field__sowp_chart_charts' => array(
+      'render element' => 'element',
+      'template' => 'field--sowp-chart-charts',
+      'path' => $path . '/templates/chart-nodes',
+    ),
+    'field__sowp_chart_smallnote' => array(
+      'render element' => 'element',
+      'template' => 'field--sowp-chart-smallnote',
+      'path' => $path . '/templates/chart-nodes',
+    ),
+    'field_collection_item__sowp_chart_charts' => array(
+      'render element' => 'element',
+      'template' => 'field-collection-item--sowp-chart-charts',
+      'path' => $path . '/templates/chart-nodes',
+    ),
+
+    /* Featured stories. */
+
+    'field__sowp_story_imgs' => array(
+      'render element' => 'element',
+      'template' => 'field--sowp-story-imgs',
+      'path' => $path . '/templates/feat-stories',
+    ),
+  );
+}
+
+
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function sowp_theme_registry_alter(&$theme_registry) {
+  $theme_registry['video_filter_iframe']['function'] = 'theme_video_filter_iframe_override';
+  $theme_registry['video_filter_flash']['function'] = 'theme_video_filter_flash_override';
+}
+
+
+
+/**
+ * Implements hook_view_api().
+ */
+function sowp_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'sowp') . '/views',
+    'template path' => drupal_get_path('module', 'sowp') . '/templates',
+  );
+}
+
+
+
+/**
+ * Implements hook_variable_info().
+ *
+ * Used to allow for translation of some variables.
+ */
+function sowp_variable_info($options) {
+  $variables = array();
+
+  /* General config variables */
+
+  $variables['sowp_reportfile_en'] = array(
+    'type' => 'number',
+    'title' => t('Report File - English', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_reportfile_fr'] = array(
+    'type' => 'number',
+    'title' => t('Report File - French', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_reportfile_es'] = array(
+    'type' => 'number',
+    'title' => t('Report File - Spanish', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_reportfile_ru'] = array(
+    'type' => 'number',
+    'title' => t('Report File - Russian', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_reportfile_ar'] = array(
+    'type' => 'number',
+    'title' => t('Report File - Arabic', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+
+  $variables['sowp_highlights_en'] = array(
+    'type' => 'number',
+    'title' => t('Highlights File - English', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_highlights_fr'] = array(
+    'type' => 'number',
+    'title' => t('Highlights File - French', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_highlights_es'] = array(
+    'type' => 'number',
+    'title' => t('Highlights File - Spanish', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_highlights_ru'] = array(
+    'type' => 'number',
+    'title' => t('Highlights File - Russian', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_highlights_ar'] = array(
+    'type' => 'number',
+    'title' => t('Highlights File - Arabic', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+
+  $variables['sowp_reportfile_en_2016'] = array(
+    'type' => 'number',
+    'title' => t('Report File 2016 - English', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_reportfile_fr_2016'] = array(
+    'type' => 'number',
+    'title' => t('Report File 2016 - French', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_reportfile_es_2016'] = array(
+    'type' => 'number',
+    'title' => t('Report File 2016 - Spanish', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_reportfile_ru_2016'] = array(
+    'type' => 'number',
+    'title' => t('Report File 2016 - Russian', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+  $variables['sowp_reportfile_ar_2016'] = array(
+    'type' => 'number',
+    'title' => t('Report File 2016 - Arabic', array(), $options),
+    'default' => array('*' => 0),
+    'required' => FALSE,
+    'localize' => FALSE,
+    'group' => 'sowp',
+  );
+
+  return $variables;
+}
+
+
+
+/**
+ * Implements hook_variable_group_info().
+ */
+function sowp_variable_group_info() {
+  $groups['sowp'] = array(
+    'title' => t('SOWP'),
+    'description' => t('Custom variables used for SOWP page'),
+    'access' => 'administer site configuration',
+  );
+
+  return $groups;
+}
+
+
+
+/**
+ * Implements hook_image_default_styles().
+ */
+function sowp_image_default_styles() {
+  $styles = array();
+
+  /* Featured stories. */
+
+  $styles['sowp_story_large'] = array(
+    'label' => 'sowp_story_large',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 890,
+          'height' => 516,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  $styles['sowp_story_thumb'] = array(
+    'label' => 'sowp_story_thumb',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 635,
+          'height' => 335,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  /* Main bodies. */
+
+  $styles['sowp_body_sideimg'] = array(
+    'label' => 'sowp_body_sideimg',
+    'effects' => array(
+      array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 635,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  $styles['sowp_body_sidevid'] = array(
+    'label' => 'sowp_body_sidevid',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 635,
+          'height' => 357,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  /* Main bodies as photosplit. */
+
+  $styles['sowp_photosplit'] = array(
+    'label' => 'sowp_photosplit',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 601,
+          'height' => 408,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  /* Chart nodes. */
+
+  $styles['sowp_subsection_bg'] = array(
+    'label' => 'sowp_subsection_bg',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1280,
+          'height' => 850,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  $styles['sowp_chart_static'] = array(
+    'label' => 'sowp_chart_static',
+    'effects' => array(
+      array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 974,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  $styles['sowp_chart_imgsingle'] = array(
+    'label' => 'sowp_chart_imgsingle',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1034,
+          'height' => 573,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  $styles['sowp_chart_imgslider'] = array(
+    'label' => 'sowp_chart_imgslider',
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 914,
+          'height' => 506,
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  return $styles;
+}
+
+
+
+/*
+ * .-----------------------------------------------------.
+ * |                    ALTERATIONS                      |
+ * '-----------------------------------------------------'
+ */
+
+
+
+/**
+ * Implements hook_form_node_form_alter().
+ *
+ * - Disable the option to select "Language neutral" for selected content types.
+ * - Hook in states API for selected content types.
+ */
+function sowp_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $sowp_nodes = array(
+    'sowp_bigintro',
+    'sowp_story',
+    'sowp_body',
+    'sowp_chart',
+  );
+
+  /* Make language field required. */
+
+  if (in_array($form['type']['#value'], $sowp_nodes)) {
+    if (isset($form['language']['#options'])) {
+      $form['language']['#required'] = TRUE;
+
+      if (isset($form['language']['#options'][LANGUAGE_NONE])) {
+        unset($form['language']['#options'][LANGUAGE_NONE]);
+      }
+      else {
+        // If we have Enabled/Disabled array.
+        foreach ($form['language']['#options'] as $key => $languages) {
+          if (is_array($languages) && isset($form['language']['#options'][$key][LANGUAGE_NONE])) {
+            unset($form['language']['#options'][$key][LANGUAGE_NONE]);
+          }
+        }
+      }
+    }
+  }
+
+  /* Leverage States API (for sowp_chart node bundle). */
+
+  if ($form['type']['#value'] == 'sowp_chart') {
+    $name = 'sowp_chart_usetype';
+    if (!empty($form['sowp_chart_usetype']['#language'])) {
+      $name .= '[' . $form['sowp_chart_usetype']['#language'] . ']';
+    };
+
+    // Define field names and based on what sowp_chart_usetype value
+    // they should be visible.
+    $fields = array(
+      'sowp_chart_charts' => 1,
+      'sowp_chart_images' => 2,
+      'sowp_chart_include' => 3,
+    );
+
+    foreach ($fields as $field_name => $usetype_val) {
+      $form[$field_name]['#states'] = array(
+        'visible' => array(
+          ':input[name="' . $name . '"]' => array('value' => $usetype_val),
+        ),
+        'required' => array(
+          ':input[name="' . $name . '"]' => array('value' => $usetype_val),
+        ),
+      );
+    }
+
+    // Need to custom validate these fields.
+    $form['#validate'][] = 'sowp_form_node_form_validate';
+  }
+}
+
+
+
+/**
+ * Additional validation for SOWP node types.
+ */
+function sowp_form_node_form_validate($form, &$form_state) {
+  if (isset($form_state['values']['sowp_chart_usetype'][LANGUAGE_NONE][0]['value'])) {
+
+    if ($form_state['values']['sowp_chart_usetype'][LANGUAGE_NONE][0]['value'] == 3) {
+      if (!isset($form_state['values']['sowp_chart_include'][LANGUAGE_NONE][0]['value'])) {
+        form_set_error('sowp_chart_include', t('For &quot;Custom html include&quot; entry type, at least one image is required.'));
+      }
+    }
+    if ($form_state['values']['sowp_chart_usetype'][LANGUAGE_NONE][0]['value'] == 2) {
+      if (!isset($form_state['values']['sowp_chart_images'][LANGUAGE_NONE][0]['fid'])) {
+        form_set_error('sowp_chart_images', t('For &quot;Static image or image slider&quot; entry type, at least one image is required.'));
+      }
+    }
+    elseif ($form_state['values']['sowp_chart_usetype'][LANGUAGE_NONE][0]['value'] == 1) {
+      if (!isset($form_state['values']['sowp_chart_charts'][LANGUAGE_NONE][0]['sowp_chart_static'])) {
+        form_set_error('sowp_chart_charts', t('For &quot;Animated charts&quot; entry type, all chart fields are required.'));
+      }
+    }
+  }
+}
+
+
+
+/*
+ * .-----------------------------------------------------.
+ * |                OTHER CUSTOM FUNCTIONS               |
+ * '-----------------------------------------------------'
+ */
+
+
+
+/**
+ * Creates a video embed url from video page url.
+ */
+function sowp_get_video_embed_url($video_url) {
+  // First find out what is the handler for this video (youtube vs vimeo).
+  $handler = video_embed_get_handler($video_url);
+  module_load_include('inc', 'video_embed_field', 'video_embed_field.handlers');
+
+  // Depending on provider find out video id from regular url
+  // and build embed url.
+  $embed_url = '';
+
+  // Youtube.
+  if ($handler && stristr($handler['function'], 'youtube')) {
+    $video_id = _video_embed_field_get_youtube_id($video_url);
+    $embed_url = 'https://www.youtube.com/embed/' . $video_id;
+    $embed_url .= '?width=960&amp;height=540&amp;iframe=true&amp;autoplay=1';
+  }
+  // Vimeo video.
+  elseif ($handler && stristr($handler['function'], 'vimeo')) {
+    $video_id = _video_embed_field_get_vimeo_id($video_url);
+    $embed_url = 'https://player.vimeo.com/video/' . $video_id;
+    $embed_url .= '?width=960&amp;height=540&amp;iframe=true&amp;autoplay=1';
+  }
+
+  return $embed_url;
+}
+
+
+
+/**
+ * Custom function to embed a view in page.
+ *
+ * Params: view name, display name, arguments.
+ * This function is to be used instead of views_embed_view().
+ * This returns false if view has no results (views_embed_view does not).
+ */
+function sowp_embed_view($view_name, $display_name = 'default', $args = array()) {
+  $output = FALSE;
+
+  if (module_exists('views')) {
+    $view = views_get_view($view_name);
+
+    if ($view) {
+      if (!empty($args)) {
+        $view_output = $view->preview($display_name, $args);
+      }
+      else {
+        $view_output = $view->preview($display_name);
+      }
+
+      if ($view->result) {
+        $output = $view_output;
+      }
+    }
+  }
+
+  return $output;
+}
+
+
+
+/*
+ * .-----------------------------------------------------.
+ * |                SHARING FUNCTIONALITY                |
+ * '-----------------------------------------------------'
+ */
+
+
+
+/**
+ * Get site base url as http/https + domain + base_path().
+ */
+function sowp_base_url() {
+  return $GLOBALS['base_url'] . base_path();
+}
+
+
+
+/**
+ * Get share href from node id.
+ *
+ * If no nid is provided then the share url will be for the whole current page.
+ */
+function sowp_share_href($nid = FALSE) {
+  global $language;
+
+  $lang_prefix = '';
+  if (!empty($language->prefix)) {
+    $lang_prefix = $language->prefix . '/';
+  }
+
+  $url = sowp_base_url() . $lang_prefix . drupal_get_path_alias(current_path());
+
+  $params = '';
+  if ($nid) {
+    $params .= '?shareid=' . $nid;
+  }
+
+  return $url . $params;
+}
+
+
+
+/**
+ * Make a curl call to refresh og meta data.
+ *
+ * How to use this:
+ * sowp_share_refresh(sowp_share_href($node->nid));
+ */
+function sowp_share_refresh($url) {
+  $get = 'https://graph.facebook.com/?id=[' . urlencode($url) . ']&scrape=true';
+
+  $curl = curl_init($get);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+
+  curl_exec($curl);
+  curl_close($curl);
+}
+
+
+
+/**
+ * Get locale in a form of en_US.
+ *
+ * Used by og:locale sharing meta tag.
+ */
+function sowp_share_locale() {
+  global $language;
+  $lang = $language->language;
+
+  if ($lang == 'en') {
+    return 'en_US';
+  }
+  else {
+    return $lang . '_' . strtoupper($lang);
+  }
+}
+
+
+
+/**
+ * Adds og:xxx meta tag.
+ *
+ * @params:
+ * - $type - either 'twitter' or 'og'
+ * - $prop - for example 'image' will create tag like 'og:image'
+ * - $content - value of the property
+ * - $weight - for grouping tags somehow
+ */
+function sowp_share_add_metatag($type, $prop, $content, $weight) {
+  if ($content) {
+    $element = array(
+      '#tag' => 'meta',
+      '#attributes' => array(),
+      '#weight' => $weight,
+    );
+
+    // Set meta propert or name depending of facebook og vs twitter.
+    if ($type == 'og') {
+      $element['#attributes']['property'] = $type . ':' . $prop;
+    }
+    elseif ($type == 'twitter') {
+      $element['#attributes']['name'] = $type . ':' . $prop;
+    }
+
+    // Set meta content.
+    $element['#attributes']['content'] = $content;
+
+    drupal_add_html_head($element, 'sowp_' . $type . '_' . $prop);
+  }
+}
+
+
+
+/**
+ * Attach og: meta tags to report page.
+ *
+ * Debugging:
+ * FB: https://developers.facebook.com/tools/debug/og/object/
+ * TW: https://cards-dev.twitter.com/validator.
+ */
+function sowp_share_metatags($year = 2015) {
+  $b = sowp_base_url();
+  $p = drupal_get_path('module', 'sowp');
+
+  /* Setup values shared across FB and Twitter. */
+
+  if ($year == 2015) {
+    $gen_title = t('State of World Population');
+    $gen_url = $b . drupal_get_path_alias(current_path());
+    $gen_image = $b . $p . '/images/intro-cover.jpg';
+    $gen_description = t('Shelter From The Storm - A transformative agenda for women and girls in a crisis-prone world.');
+  }
+  elseif ($year == 2016) {
+    $gen_title = t('State of World Population 2016');
+    $gen_url = $b . drupal_get_path_alias(current_path());
+    $gen_image = $b . $p . '/images/2016/share-default.jpg';
+    $gen_description = t('10: How our future depends on a girl at this decisvive age.');
+  }
+
+  /* Facebook/Google specific tags. */
+
+  $og_locale = sowp_share_locale();
+  $og_sitename = variable_get('site_name', '');
+  $og_updated_time = time();
+  $og_type = 'article';
+
+  /* Twitter specific tags. */
+
+  $tw_site = '@UNFPA';
+  $tw_card = 'summary_large_image';
+
+  /* Set different tags if there is a node->nid argument in the url. */
+  /* Tags are set based on loaded node titles, descriptions, etc. */
+
+  $query = drupal_get_query_parameters();
+
+  if (isset($query['shareid']) && ctype_digit($query['shareid'])) {
+    // Share ID is nid of node to share.
+    $node = node_load($query['shareid']);
+
+    // If the nid is valid for any SOWP content type node.
+    $sowp_nodes = array(
+      'sowp_bigintro',
+      'sowp_story',
+      'sowp_body',
+      'sowp_chart',
+    );
+    if ($node && in_array($node->type, $sowp_nodes)) {
+      // Setup title.
+      $gen_title = $node->title;
+
+      // Setup share url.
+      $gen_url .= '?shareid=' . $node->nid;
+
+      // Setup section default image.
+      $section_field = field_get_items('node', $node, 'sowp_gen_section');
+      $section = $section_field[0]['value'];
+
+      if ($year == 2015) {
+        switch ($section) {
+          case '1':
+            $gen_image = $b . $p . '/images/intro-risk.jpg';
+            break;
+
+          case '2':
+            $gen_image = $b . $p . '/images/intro-response.jpg';
+            break;
+
+          case '3':
+            $gen_image = $b . $p . '/images/intro-resilence.jpg';
+            break;
+
+          case '4':
+            $gen_image = $b . $p . '/images/intro-moving.jpg';
+            break;
+
+          case '5':
+            $gen_image = $b . $p . '/images/intro-data.jpg';
+            break;
+        }
+      }
+      elseif ($year == 2016) {
+        switch ($section) {
+          case '1':
+            $gen_image = $b . $p . '/images/2016/intro-im10.jpg';
+            break;
+
+          case '2':
+            $gen_image = $b . $p . '/images/2016/intro-challenges.jpg';
+            break;
+
+          case '3':
+            $gen_image = $b . $p . '/images/2016/intro-opportunities.jpg';
+            break;
+
+          case '4':
+            $gen_image = $b . $p . '/images/2016/intro-potential.jpg';
+            break;
+
+          case '5':
+            $gen_image = $b . $p . '/images/2016/intro-future.jpg';
+            break;
+
+          case '6':
+            $gen_image = $b . $p . '/images/2016/intro-data.jpg';
+            break;
+        }
+      }
+
+      // Setup descriptions and optionally additional images.
+      // If node is Big Intro.
+      if ($node->type == 'sowp_bigintro') {
+        $desc_field = 'sowp_bigintro_body';
+      }
+
+      // If node is Featured Story.
+      elseif ($node->type == 'sowp_story') {
+        $desc_field = 'sowp_story_body';
+
+        $img = field_get_items('node', $node, 'sowp_story_imgs');
+        if (isset($img[0]['uri'])) {
+          $uri = $img[0]['uri'];
+          $gen_image = image_style_url('sowp_story_large', $uri);
+        }
+      }
+
+      // If node is Regular Body.
+      elseif ($node->type == 'sowp_body') {
+        $desc_field = 'sowp_body_content';
+
+        $img = field_get_items('node', $node, 'sowp_body_sideimgs');
+        if (isset($img[0]['uri'])) {
+          $uri = $img[0]['uri'];
+          $gen_image = image_style_url('sowp_body_sideimg', $uri);
+        }
+      }
+
+      // If node is Chart Node.
+      elseif ($node->type == 'sowp_chart') {
+        $desc_field = 'sowp_chart_description';
+
+        $img = field_get_items('node', $node, 'sowp_chart_shareimg');
+        if (isset($img[0]['uri'])) {
+          $uri = $img[0]['uri'];
+          $gen_image = image_style_url('sowp_chart_imgsingle', $uri);
+        }
+      }
+
+      // Apply descriptions.
+      $desc = field_get_items('node', $node, $desc_field);
+      $new_description = truncate_utf8(preg_replace('!\s+!', ' ', preg_replace('/\r|\n/', ' ', strip_tags($desc[0]['value']))), 300, TRUE, TRUE);
+      if (trim($new_description) != '') {
+        $gen_description = $new_description;
+      }
+    }
+
+    // Also if share id is present in url and user agent is not share service,
+    // then redirect the user to normal url without share id, but with hash tag.
+    $agent = $_SERVER['HTTP_USER_AGENT'];
+    if (!preg_match('/FacebookExternalHit/i', $agent) &&
+        !preg_match('/Facebot/i', $agent) &&
+        !preg_match('/Twitterbot/i', $agent) &&
+        !preg_match('/Google/i', $agent) &&
+        !preg_match('/LinkedInBot/i', $agent)) {
+      // Not social site user agent - redirect.
+      if ($year == 2015) {
+        $redirect = SOWP_PAGE_PATH_2015;
+      }
+      else {
+        $redirect = SOWP_PAGE_PATH_2016;
+      }
+      drupal_goto($redirect, array(
+        'fragment' => '!/Node-' . $node->nid,
+      ));
+    }
+  }
+
+  /* Add Open graph tags to head. */
+
+  sowp_share_add_metatag('og', 'site_name', $og_sitename, 15);
+  sowp_share_add_metatag('og', 'locale', $og_locale, 15);
+  sowp_share_add_metatag('og', 'updated_time', $og_updated_time, 15);
+  sowp_share_add_metatag('og', 'type', $og_type, 15);
+
+  sowp_share_add_metatag('og', 'url', $gen_url, 15);
+  sowp_share_add_metatag('og', 'title', $gen_title, 15);
+  sowp_share_add_metatag('og', 'image', $gen_image, 15);
+  sowp_share_add_metatag('og', 'description', $gen_description, 15);
+
+  /* Add Twitter tags to head. */
+
+  sowp_share_add_metatag('twitter', 'site', $tw_site, 16);
+  sowp_share_add_metatag('twitter', 'card', $tw_card, 16);
+
+  sowp_share_add_metatag('twitter', 'url', $gen_url, 16);
+  sowp_share_add_metatag('twitter', 'title', $gen_title, 16);
+  sowp_share_add_metatag('twitter', 'image', $gen_image, 16);
+  sowp_share_add_metatag('twitter', 'description', $gen_description, 16);
+}

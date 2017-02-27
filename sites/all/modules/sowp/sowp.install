@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the sowp module.
+ */
+
+/**
+ * Support for two independent SOWP Reports and for 6th section in Report 2016.
+ */
+function sowp_update_7001(&$sandbox) {
+
+  return true;
+
+}
+
+/**
+ * Support for 6th section in Report 2016.
+ */
+function sowp_update_7003(&$sandbox) {
+  /* Update sowp_gen_section select field to support 6th section for 2016 report. */
+  // Change 'Cover' to use new key 0, since key 6 we need for section 6.
+  // Add 'Section 6' with key 6, previously used by 'Cover'.
+  // Change wording so the labels include titles of sections from both years.
+  $section_field_update = array(
+    'field_name' => 'sowp_gen_section',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'Cover',
+        1 => 'S1 (2015: Risks - 2016: I\'m 10!)',
+        2 => 'S2 (2015: Response - 2016: My Challenges)',
+        3 => 'S3 (2015: Resilience - 2016: My Opportunities)',
+        4 => 'S4 (2015: Moving forward - 2016: My Potential)',
+        5 => 'S5 (2015: Data - 2016: My Future)',
+        6 => 'S6 (2015: none - 2016: Data)',
+      ),
+    ),
+  );
+  return field_update_field($section_field_update);    
+  
+}

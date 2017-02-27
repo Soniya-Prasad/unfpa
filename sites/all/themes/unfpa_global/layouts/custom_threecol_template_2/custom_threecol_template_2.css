@@ -1,0 +1,37 @@
+
+.panel-3col-33-stacked {
+    /*  overflow: hidden;  */
+}
+
+.panel-3col-33-stacked .panel-col-top,
+.panel-3col-33-stacked .panel-col-bottom,
+.panel-3col-33-stacked .panel-col-middle {
+    width: 100%;
+    clear: both;
+}
+
+.panel-3col-33-stacked .panel-col-top .inside {
+    margin-bottom: 1em;
+}
+
+.panel-3col-33-stacked .panel-col-first {
+    float: left;
+    width: 70%;
+}
+
+.panel-3col-33-stacked .panel-col-last {
+    float: left;
+    width: 30%;
+}
+
+.panel-3col-33-stacked .panel-col-first .inside {
+    margin: 0 1em 1em 0;
+}
+
+.panel-3col-33-stacked .panel-col-last .inside {
+    margin: 0 0 1em 0;
+}
+
+.panel-3col-33-stacked .panel-separator {
+    margin: 0 0 1em 0;
+}

@@ -1,0 +1,7 @@
+; $Id: custom.info,v 1.0 2015/09/11 10:03:00 preethi $
+name = Custom Funds
+description = Custom module for Data Expenditure and funds functionality for UNFPA Project.
+core = 7.x
+package = UNFPA Custom
+version = "7.x-1.0"
+project = unfpa

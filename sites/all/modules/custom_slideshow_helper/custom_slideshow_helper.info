@@ -1,0 +1,10 @@
+name = Custom Slideshow Helper
+description = Custom module for slideshow functionality.
+core = 7.x
+package = UNFPA Custom
+version = 7.x-1.1
+project = custom_slideshow_helper
+scripts[] = js/jquery.flexslider.js
+scripts[] = js/slideshow_script.js
+stylesheets[all][] = css/flexslider.css
+stylesheets[all][] = css/slideshow-style.css

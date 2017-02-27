@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the UNFPA Global Topics feature.
+ */
+
+include_once 'unfpa_global_topics.features.inc';

@@ -1,0 +1,1107 @@
+<?php
+
+/**
+ * @file
+ * Code for UNFPA Global Executive Board feature.
+ */
+include_once 'unfpa_global_executive_board.features.inc';
+
+/**
+ * Implements hook_block_info().
+ */
+function unfpa_global_executive_board_block_info() {
+  $blocks = array();
+  $blocks['eb_overview'] = array(
+    'info' => t('Executive Board Overview Block'),
+  );
+  $blocks['eb_board_members_map'] = array(
+    'info' => t('Executive Board Board Members Map'),
+  );
+  $blocks['eb_cpd_map'] = array(
+    'info' => t('Executive Board CPD Map'),
+  );
+  $blocks['eb_session_documents'] = array(
+    'info' => t('Executive Board Session Documents Block'),
+  );
+  $blocks['eb_session_documents_form'] = array(
+    'info' => t('Executive Board Session Documents Form'),
+  );
+  $blocks['eb_events_documents'] = array(
+    'info' => t('Executive Board Events Documents Block'),
+  );
+  $blocks['eb_event_documents_form'] = array(
+    'info' => t('Executive Board Event Documents Form'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function unfpa_global_executive_board_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'eb_overview':
+      $block['subject'] = t('Executive Board Overview Block');
+      $block['content'] = unfpa_global_executive_board_overview();
+      break;
+
+    case 'eb_board_members_map':
+      $block['subject'] = t('Board Members Map');
+      $block['content'] = unfpa_global_executive_board_board_members_map();
+      break;
+
+    case 'eb_cpd_map':
+      $block['subject'] = t('CPD Map');
+      $block['content'] = unfpa_global_cpd_map();
+      break;
+
+    case 'eb_session_documents':
+      $block['subject'] = t('Executive Board Documents Block');
+      $block['content'] = unfpa_global_executive_board_session_docments();
+      break;
+
+    case 'eb_session_documents_form':
+      $block['subject'] = t('Executive Board Documents Form');
+      $block['content'] = drupal_get_form('unfpa_global_executive_board_event_document_filter_form', TRUE);
+      break;
+
+    case 'eb_events_documents':
+      $block['subject'] = t('Executive Board Events Documents Block');
+      $block['content'] = unfpa_global_executive_board_events_docments();
+      break;
+
+    case 'eb_event_documents_form':
+      $block['subject'] = t('Executive Board Event Documents Form');
+      $block['content'] = drupal_get_form('unfpa_global_executive_board_event_document_filter_form', FALSE);
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function unfpa_global_executive_board_theme($path) {
+  $path = drupal_get_path('module', 'unfpa_global_executive_board');
+
+  return array(
+    // Define template file for Executive Board.
+    'unfpa_global_executive_board_overview' => array(
+      'template' => 'executive_board_overview',
+      'path' => $path . '/templates',
+    ),
+    'unfpa_global_executive_board_social_media' => array(
+      'template' => 'executive_board_social_media',
+      'path' => $path . '/templates',
+    ),
+    'unfpa_global_executive_board_board_members_map' => array(
+      'template' => 'executive_board_board_members_map',
+      'path' => $path . '/templates',
+    ),
+    'unfpa_global_cpd_map' => array(
+      'template' => 'executive_board_cpd_map',
+      'path' => $path . '/templates',
+    ),
+    'unfpa_global_executive_board_session_documents' => array(
+      'template' => 'executive_board_session_documents',
+      'path' => $path . '/templates',
+    ),
+    'unfpa_global_executive_board_events_documents' => array(
+      'template' => 'executive_board_events_documents',
+      'path' => $path . '/templates',
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function unfpa_global_executive_board_menu() {
+  $items = array();
+
+  $items['executive-board/programme-document/approved-cpd'] = array(
+    'page callback' => 'programme_doc_approved_cpd',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Callback function used to make all published CPDs as Approved.
+ */
+function programme_doc_approved_cpd() {
+  $nodes = node_load_multiple(array(), array('type' => 'ct_programme_documents'));
+  $value = array('approved');
+  foreach ($nodes as $node) {
+    $node_wrapper = entity_metadata_wrapper('node', $node);
+    $node_wrapper->field_cpd_approval_stage = $value;
+    $node_wrapper->save();
+  }
+}
+
+/**
+ * Callback function for Executive Board home page to get overview section.
+ *
+ * @return array
+ *   Generates themed output.
+ */
+function unfpa_global_executive_board_overview() {
+  // Function to include common css and js files.
+  unfpa_global_executive_board_common_css_js();
+  $variables = array(
+    'social_media' => unfpa_global_executive_board_social_media(),
+  );
+
+  return theme('unfpa_global_executive_board_overview', $variables);
+}
+
+/**
+ * Function to display social media icons.
+ *
+ * @return array
+ *   Generates themed output.
+ */
+function unfpa_global_executive_board_social_media() {
+
+  return theme('unfpa_global_executive_board_social_media');
+}
+
+/**
+ * Callback function to generate Board members Map.
+ *
+ * @return array
+ *   Generates themed output.
+ */
+function unfpa_global_executive_board_board_members_map() {
+  // Function to include common css and js files.
+  unfpa_global_executive_board_common_css_js();
+  // Attach css files.
+  $path = drupal_get_path('module', 'unfpa_global_executive_board');
+  drupal_add_css(drupal_get_path('theme', 'unfpa_global') . '/plugins/skins/futurico/futurico.css');
+  // Attach js files.
+  drupal_add_js($path . '/js/executive_board_board_members_map.js', array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_js(drupal_get_path('theme', 'unfpa_global') . '/templates/html5worldmap/worldmap.js');
+  $board_members_mapdata = array();
+  // Get regions color for map and description for Region info block.
+  $board_members_mapdata = unfpa_global_executive_board_board_members_mapdata();
+  drupal_add_js(array('mapdata' => $board_members_mapdata), 'setting');
+  // Pass all the existing years in year drop-down.
+  $total_years = array_unique($board_members_mapdata['total_years']);
+  rsort($total_years);
+  $variables = array(
+    'data' => $total_years,
+    'social_media' => unfpa_global_executive_board_social_media(),
+  );
+  
+  return theme('unfpa_global_executive_board_board_members_map', $variables);
+}
+
+/**
+ * Function returns filter and year wise data for Board members map.
+ *
+ * @return array
+ *    Returns data for board members map.
+ */
+function unfpa_global_executive_board_board_members_mapdata() {
+  // Function returns all nids of 'Executive Board' CT from database.
+  $executive_board_result = get_nid_from_content_type("executive_board");
+  // Define color set for regions in map.
+  $region_id_color = array(
+    0 => '#D3E8EE',
+    1 => '#AAD1E0',
+    2 => '#7FBBD0',
+    3 => '#2C90B1',
+    4 => '#124455',
+  );
+  $board_members_map_data = array();
+  // Iterate through each 'Executive Board' node.
+  foreach ($executive_board_result as $obj) {
+    $board_members_description = array();
+    // Create wrapper around the 'Executive Board' node.
+    $bm_node_wrapper = entity_metadata_wrapper('node', $obj->nid);
+    // Case for board members.
+    if ((!empty($bm_node_wrapper->field_eb_select_member->value())) && $bm_node_wrapper->field_eb_select_member->value() == "board members") {
+      $regionid = $bm_node_wrapper->field_regional_group->value();
+      $region_name = $bm_node_wrapper->field_regional_group->label();
+      $country_name = $bm_node_wrapper->field_eb_country->label();
+      $start_year = $bm_node_wrapper->field_eb_time_of_mandate->value->value();
+      $start_year = date('Y', $start_year);
+      $end_year = $bm_node_wrapper->field_eb_time_of_mandate->value2->value();
+      $end_year = date('Y', $end_year);
+
+      // Set region color code according to filters and year drop down in map.
+      $board_members_map_data[$start_year][$regionid]['color'] = $region_id_color[$regionid];
+      // Set country name to show in Region info block.
+      $board_members_description['country_name'] = $country_name;
+      // Set year to show in Region info block.
+      $board_members_description['start_year'] = $start_year;
+      $board_members_description['end_year'] = $end_year;
+      // Set region name to show in Region info block.
+      $board_members_description['region_name'] = $region_name;
+      // Set description to show in Region info block.
+      $board_members_map_data[$start_year][$regionid]['description'][] = $board_members_description;
+      // Used for year select list drop-down.
+      $board_members_map_data['total_years'][] = $start_year;
+    }
+  }
+
+  return $board_members_map_data;
+}
+
+/**
+ * Function returns node ids for given content type.
+ *
+ * @param string $ct_machine_name
+ *    Content type machine name.
+ *
+ * @return array
+ *    Returns nids of given content type.
+ */
+function get_nid_from_content_type($ct_machine_name) {
+  $result = db_query("SELECT nid FROM node WHERE type = :nodeType ", array(':nodeType' => $ct_machine_name));
+
+  return $result;
+}
+
+/**
+ * Callback function to generate CPD Map.
+ *
+ * @return array
+ *   Generates themed output.
+ */
+function unfpa_global_cpd_map() {
+  // Function to include common css and js files.
+  unfpa_global_executive_board_common_css_js();
+  // Attach css files.
+  $path = drupal_get_path('module', 'unfpa_global_executive_board');
+  drupal_add_css(drupal_get_path('theme', 'unfpa_global') . '/plugins/skins/futurico/futurico.css');
+  // Attach js files.
+  drupal_add_js($path . '/js/cpd_map.js', array('type' => 'file', 'scope' => 'footer'));
+  drupal_add_js(drupal_get_path('theme', 'unfpa_global') . '/templates/html5worldmap/worldmap.js');
+  $country_name = unfpa_global_executive_board_get_list_from_field('field_country_code');
+  // Static locations.
+  $location_static_array = array(
+    'Comoros', 'Maldives', 'Pacific-SRO', 'Sao Tome & Principe', 'Seychelles', 'Cape Verde', 'Caribbean SRO',
+  );
+  $location_static_latlon = array(
+    "Comoros" => array(
+      "lat" => "-12.1667",
+      "lng" => "44.25",
+      "size" => "16",
+    ),
+    "Maldives" => array(
+      "lat" => "-0.6",
+      "lng" => "73.1",
+      "size" => "16",
+    ),
+    "Sao Tome & Principe" => array(
+      "lat" => "0.333",
+      "lng" => "6.73",
+      "size" => "16",
+    ),
+    "Seychelles" => array(
+      "lat" => "-4.5833",
+      "lng" => "55.6667",
+      "size" => "16",
+    ),
+    "Cape Verde" => array(
+      "lat" => "15.1111",
+      "lng" => "-23.6167",
+      "size" => "16",
+    ),
+    "Pacific-SRO" => array(
+      "lat" => "-18.0000",
+      "lng" => "179.0000",
+      "size" => "16",
+    ),
+    "Caribbean SRO" => array(
+      "lat" => "18.1824",
+      "lng" => "-77.3218",
+      "size" => "16",
+    ),
+  );
+  $programme_document_mapdata = array();
+  // Get map color and description for CPD filters.
+  $programme_document_mapdata = unfpa_global_cpd_mapdata();
+  // For displaying data on the world map for CPD.
+  foreach ($programme_document_mapdata['country_code'] as $country_code => $val) {
+    $country_temp_name = isset($country_name[$country_code]) ? $country_name[$country_code] : $country_code;
+    if (isset($programme_document_mapdata['country_code'][$country_code]['cpd_approval_stage']) && $programme_document_mapdata['country_code'][$country_code]['cpd_approval_stage'] != "") {
+      // Iterate through each CPD approval stage for country in map.
+      foreach ($programme_document_mapdata['country_code'][$country_code]['cpd_approval_stage'] as $key => $val) {
+        // Gives CPD type to generate filter values.
+        $filter_cpd_type = $programme_document_mapdata['country_code'][$country_code]['cpd_approval_stage'][$key];
+        if (!in_array($country_temp_name, $location_static_array)) {
+          $country[$filter_cpd_type][$country_code]['name'] = isset($country_name[$country_code]) ? $country_name[$country_code] : $country_code;
+          $country[$filter_cpd_type][$country_code]['color'] = empty($programme_document_mapdata['cpd_filter'][$filter_cpd_type][$country_code]['color']) ? "" : $programme_document_mapdata['cpd_filter'][$filter_cpd_type][$country_code]['color'];
+          $country[$filter_cpd_type][$country_code]['hover_color'] = 'default';
+          $country[$filter_cpd_type][$country_code]['url'] = '';
+          $country[$filter_cpd_type][$country_code]['hide'] = "no";
+          $country[$filter_cpd_type][$country_code]['inactive'] = "no";
+        }
+        else {
+          $location[$filter_cpd_type][$country_code]['name'] = isset($country_name[$country_code]) ? $country_name[$country_code] : $country_code;
+          $location[$filter_cpd_type][$country_code]['color'] = empty($programme_document_mapdata['cpd_filter'][$filter_cpd_type][$country_code]['color']) ? "" : $programme_document_mapdata['cpd_filter'][$filter_cpd_type][$country_code]['color'];
+          $location[$filter_cpd_type][$country_code]['hover_color'] = 'default';
+          $location[$filter_cpd_type][$country_code]['url'] = '';
+          $location[$filter_cpd_type][$country_code]['type'] = "circle";
+          $location[$filter_cpd_type][$country_code]['display'] = "region";
+          $location[$filter_cpd_type][$country_code]['size'] = $location_static_latlon[$country_temp_name]["size"];
+          $location[$filter_cpd_type][$country_code]['lat'] = $location_static_latlon[$country_temp_name]["lat"];
+          $location[$filter_cpd_type][$country_code]['lng'] = $location_static_latlon[$country_temp_name]["lng"];
+        }
+      }
+    }
+  }
+  asort($programme_document_mapdata['country_list']);
+  $variables = array(
+    'location' => $location,
+    'country' => $programme_document_mapdata['country_list'],
+    'social_media' => unfpa_global_executive_board_social_media(),
+  );
+  drupal_add_js(array('location' => $location, 'popup_description' => $programme_document_mapdata['country_code']), 'setting');
+  drupal_add_js(array('country' => $country), 'setting');
+
+  return theme('unfpa_global_cpd_map', $variables);
+}
+
+/**
+ * Returns data about an individual field, given a field name.
+ *
+ * @param string $field_name
+ *   The name of the field to retrieve.
+ *
+ * @return array
+ *   The values of the field.
+ */
+function unfpa_global_executive_board_get_list_from_field($field_name) {
+  $field_data = field_info_field($field_name);
+
+  return ($field_data['settings']['allowed_values']);
+}
+
+/**
+ * Function used to create filter wise data for CPD map.
+ *
+ * @return array
+ *    Returns CPD map data.
+ */
+function unfpa_global_cpd_mapdata() {
+  $programme_doc = array();
+  $current_language = i18n_language_context()->language;
+  // Function returns all nids of programme documents cpd from database.
+  $current_lang_nids = db_query("SELECT tnid,entity_id FROM field_data_field_document_library d JOIN node n on d.entity_id=n.nid WHERE d.field_document_library_value =  :doc_type and n.language=:current_language", array(':doc_type' => 'CPD', ':current_language' => $current_language));
+  $current_lang_nids_list = array();
+  foreach ($current_lang_nids as $tnid_obj) {
+    if ($tnid_obj->tnid != 0) {
+      array_push($current_lang_nids_list, $tnid_obj->tnid);
+    }
+  }
+  $current_language_nid = (!empty($current_lang_nids_list)) ? $current_lang_nids_list : 0;
+  $programme_documents_result = db_query("SELECT entity_id FROM field_data_field_document_library d JOIN node n on d.entity_id=n.nid WHERE d.field_document_library_value = :doc_type and ((n.tnid NOT IN (:current_lang_nids_list) and n.language='en') or n.tnid = 0 or n.language=:current_language)", array(
+    ':doc_type' => 'CPD',
+    ':current_language' => $current_language,
+    ':current_lang_nids_list' => $current_language_nid,
+  ));
+  foreach ($programme_documents_result as $obj) {
+    // Create wrapper around the 'Programme Documents' node.
+    $pd_node_wrapper = entity_metadata_wrapper('node', $obj->entity_id);
+    $programme_doc_title = $pd_node_wrapper->title->value();
+    if (!empty($pd_node_wrapper->field_programme_country->value())) {
+      // Get 'Programme country' entity reference field.
+      $programme_country_entity = $pd_node_wrapper->field_programme_country->value();
+      // Get country code for current programme document.
+      $programme_country_code = get_programme_country_code($programme_country_entity);
+      $country_name = unfpa_global_executive_board_get_list_from_field('field_country_code');
+      $programme_country_name = $country_name[$programme_country_code];
+    }
+    // Get selected CPD type for current 'Programme Documents' node.
+    $cpd_type = empty($pd_node_wrapper->field_cpd_type->value()) ? 'CPD' : $pd_node_wrapper->field_cpd_type->label();
+    // Get selected CPD approval stage key - current 'Programme Documents' node.
+    $cpd_approval_stage_key = empty($pd_node_wrapper->field_cpd_approval_stage->value()) ? '' : $pd_node_wrapper->field_cpd_approval_stage->value();
+    // Show countries in select drop-down list.
+    $programme_doc['country_list'][$programme_country_code] = $programme_country_name;
+    // Add 'All' as filter value.
+    $programme_doc['country_code'][$programme_country_code]['cpd_approval_stage'][] = "All";
+    // Set to 'All' since it is atleast a CPD document library.
+    $programme_doc['cpd_filter']['All'][$programme_country_code]['color'] = "#ff8000";
+    if (!empty($cpd_approval_stage_key)) {
+      // Since single programme doc can have multiple approval stage.
+      foreach ($cpd_approval_stage_key as $cpd_approval_stage_val) {
+        $description = "";
+        if (!empty($cpd_approval_stage_val)) {
+          // Set country color for each CPD approval stage.
+          $programme_doc['cpd_filter'][$cpd_approval_stage_val][$programme_country_code]['color'] = "#ff8000";
+          // Set CPD approval stage for each country, also used as filter value.
+          $programme_doc['country_code'][$programme_country_code]['cpd_approval_stage'][] = $cpd_approval_stage_val;
+          // Description for pop-up in map.
+          if ($cpd_approval_stage_val == "approved") {
+            $description[$cpd_approval_stage_val] = "Approved" . " " . $cpd_type;
+          }
+          elseif ($cpd_approval_stage_val == "draft_for_review") {
+            $description[$cpd_approval_stage_val] = $cpd_type . " " . t("(Draft for review)");
+          }
+          else {
+            $description[$cpd_approval_stage_val] = $cpd_type . " " . 'for Discussion';
+          }
+        }
+        $temp_pop_up_pdf_title = "";
+        // Field collection Portal Document.
+        foreach ($pd_node_wrapper->field_portal_document_content->value() as $key => $val) {
+          $portal_document_field_collection_wrapper = entity_metadata_wrapper('field_collection_item', $val);
+          // Field collection PDF file link.
+          $pdf_file_link = empty($portal_document_field_collection_wrapper->field_portal_upload_file->value()) ? '' : $portal_document_field_collection_wrapper->field_portal_upload_file->value()['uri'];
+          $url = file_create_url($pdf_file_link);
+          $pdf_link = parse_url($url);
+          // Field collection available language entity ref.
+          $language = $portal_document_field_collection_wrapper->field_available_languages->label();
+          // Create pdf link with language.
+          $pop_up_pdf_title = ($temp_pop_up_pdf_title != $programme_doc_title) ? $programme_doc_title : "";
+          // Set the description for each country using all filters description.                    
+          $programme_doc['country_code'][$programme_country_code]['pdf_link'][$description[$cpd_approval_stage_val]][$programme_doc_title][$key]['cpd_title'] = $pop_up_pdf_title;
+          $programme_doc['country_code'][$programme_country_code]['pdf_link'][$description[$cpd_approval_stage_val]][$programme_doc_title][$key]['pdf_link'] = $pdf_link['path'];
+          $programme_doc['country_code'][$programme_country_code]['pdf_link'][$description[$cpd_approval_stage_val]][$programme_doc_title][$key]['pdf_language'] = $language;
+          $temp_pop_up_pdf_title = $programme_doc_title;
+        }
+        $programme_doc['country_code'][$programme_country_code]['popup_description'][$cpd_approval_stage_val][$description[$cpd_approval_stage_val]] = $programme_doc['country_code'][$programme_country_code]['pdf_link'][$description[$cpd_approval_stage_val]];
+      }
+    }
+  }
+
+  return $programme_doc;
+}
+
+/**
+ * Callback function to generate country code for current node.
+ *
+ * @param string $programme_country_entity
+ *   Programme country node.
+ *
+ * @return string
+ *   Returns Country code.
+ */
+function get_programme_country_code($programme_country_entity) {
+  // Create wrapper around the programme country node.
+  $programme_country_entity_wrapper = entity_metadata_wrapper('node', $programme_country_entity);
+  // Get programme country code from 'Programme Country' content type.
+  $programme_country_code = empty($programme_country_entity_wrapper->field_country_code->value()) ? '' : $programme_country_entity_wrapper->field_country_code->value();
+
+  return $programme_country_code;
+}
+
+/**
+ * Callback function for Exbo Board Session Documents.
+ *
+ * @return array
+ *   Generates themed output.
+ */
+function unfpa_global_executive_board_session_docments() {
+  // Function to include common css and js files.
+  unfpa_global_executive_board_common_css_js();
+  // Function returns all nids of 'Exbo Event' CT from database.
+  $exbo_events_result = get_nid_from_content_type("exbo_events");
+  foreach ($exbo_events_result as $exbo_events_key => $obj) {
+    // Returns programme and board docs from exbo event for session documents.
+    $exbo_doc[$exbo_events_key] = unfpa_global_executive_board_events_document_data($obj->nid);
+  }
+  $programme_doc_data = array();
+  $board_doc_data = array();
+  $supporting_title = array();
+  $session_title = array();
+  $document_data = array();
+  $no_data = TRUE;
+  foreach ($exbo_doc as $each_exbo_event => $each_exbo_event_result) {
+    foreach ($each_exbo_event_result as $key => $val) {
+      $supporting_title[$each_exbo_event][$key] = $exbo_doc[$each_exbo_event][$key]['supporting_doc_title'];
+      // Get all nodes of 'Programme Documents' content type.
+      $exbo_doc[$each_exbo_event][$key]['portal_doc'] = isset($exbo_doc[$each_exbo_event][$key]['portal_doc']) ? $exbo_doc[$each_exbo_event][$key]['portal_doc'] : '';
+      $exbo_doc[$each_exbo_event][$key]['board_doc'] = isset($exbo_doc[$each_exbo_event][$key]['board_doc']) ? $exbo_doc[$each_exbo_event][$key]['board_doc'] : '';
+      // Returns programme docs titles, pdf and language.
+      $programme_doc_data[$each_exbo_event][$key] = unfpa_global_executive_board_programme_document_data($exbo_doc[$each_exbo_event][$key]['portal_doc'], "All");
+      // Returns board docs titles, pdf and language.
+      $board_doc_data[$each_exbo_event][$key] = unfpa_global_executive_board_board_document_data($exbo_doc[$each_exbo_event][$key]['board_doc'], 'All');
+      if ((!empty($programme_doc_data[$each_exbo_event][$key]['pdf_present']) || !empty($board_doc_data[$each_exbo_event][$key]['pdf_present']))) {
+        $session_title[$each_exbo_event][$key] = $exbo_doc[$each_exbo_event][$key]['session_title'];
+        $no_data = FALSE;
+      }
+      // Function merges programme doc and board doc data array using country.
+      $document_data[$each_exbo_event][$key] = array_merge_recursive($programme_doc_data[$each_exbo_event][$key], $board_doc_data[$each_exbo_event][$key]);
+    }
+  }
+
+  return theme('unfpa_global_executive_board_session_documents', array(
+    'supporting_title' => $supporting_title,
+    'session_title' => $session_title,
+    'exbo_document_data' => $document_data,
+    'no_data' => $no_data,
+  ));
+}
+
+/**
+ * Callback function for Executive Board Events Detail page data.
+ *
+ * @param string $nid
+ *    Returns current nid of exbo event.
+ *
+ * @return array
+ *   Returns Session title,Programme, Board documents nids of current exboevent.
+ */
+function unfpa_global_executive_board_events_document_data($nid) {
+  $exbo_events_wrapper = entity_metadata_wrapper('node', $nid);
+  $exbo_doc = array();
+  // Session library Field collection.
+  if (!empty($exbo_events_wrapper->field_session_library->value())) {
+    foreach ($exbo_events_wrapper->field_session_library->value() as $key => $val) {
+      $exbo_events_field_collection_wrapper = entity_metadata_wrapper('field_collection_item', $val);
+      // Session library Programme Document entity reference field.
+      if (!empty($exbo_events_field_collection_wrapper->field_programme_documents->value())) {
+        $portal_doc_entity = $exbo_events_field_collection_wrapper->field_programme_documents->value();
+        foreach ($portal_doc_entity as $portal_doc_entity_val) {
+          // Get nids of the Programme Document used in session library.
+          $exbo_doc[$key]['portal_doc'][] = $portal_doc_entity_val->nid;
+        }
+      }
+      // Session library supporting document title.
+      $exbo_doc[$key]['supporting_doc_title'] = empty($exbo_events_field_collection_wrapper->field_supporting_documents_title->value()) ? '' : $exbo_events_field_collection_wrapper->field_supporting_documents_title->value();
+
+      // Session library Board Document entity reference field.
+      if (!empty($exbo_events_field_collection_wrapper->field_board_documents->value())) {
+        $board_doc_entity = $exbo_events_field_collection_wrapper->field_board_documents->value();
+        foreach ($board_doc_entity as $board_doc_entity_val) {
+          // Get nids of the Board Document used in session library.
+          $exbo_doc[$key]['board_doc'][] = $board_doc_entity_val->nid;
+        }
+      }
+      // Session library title.
+      $exbo_doc[$key]['session_title'] = (empty($exbo_events_field_collection_wrapper->field_session_title->value()) || empty($exbo_doc[$key]['portal_doc'])) ? '' : $exbo_events_field_collection_wrapper->field_session_title->value();
+    }
+  }
+
+  return $exbo_doc;
+}
+
+/**
+ * Function returns Prgramme documents data for Exbo session & events documents.
+ *
+ * @param array $nodes
+ *    Returns programme documents nodes.
+ * @param string $language_filter_val
+ *    Returns Language.
+ *
+ * @return array
+ *    Returns Programme documents data.
+ */
+function unfpa_global_executive_board_programme_document_data($nodes, $language_filter_val) {
+  $language_list = unfpa_global_executive_board_language_list();
+  $programme_doc = array();
+  // Get all nodes of 'Programme Documents' content type.
+  $programme_doc['pdf_present'] = FALSE;
+  if (!empty($nodes)) {
+    foreach ($nodes as $node) {
+      // Create wrapper around the 'Programme Documents' node.
+      $pd_node_wrapper = entity_metadata_wrapper('node', $node);
+      $title = $pd_node_wrapper->title->value();
+      if (!empty($pd_node_wrapper->field_programme_country->value())) {
+        // Get 'Programme country' entity reference field.
+        $programme_country_entity = $pd_node_wrapper->field_programme_country->value();
+        // Get country code for current programme document.
+        $programme_country_code = get_programme_country_code($programme_country_entity);
+      }
+      // Get selected document library for current programme document node.
+      $document_library = empty($pd_node_wrapper->field_document_library->value()) ? '' : $pd_node_wrapper->field_document_library->value();
+      // Case for Programme documents with CPD type.
+      if ($document_library == "CPD") {
+        // Field collection Portal Document.
+        foreach ($pd_node_wrapper->field_portal_document_content->value() as $val) {
+          $portal_document_field_collection_wrapper = entity_metadata_wrapper('field_collection_item', $val);
+          // Get the Language for PDF.
+          $language = empty($portal_document_field_collection_wrapper->field_available_languages->label()) ? '' : $portal_document_field_collection_wrapper->field_available_languages->label();
+          if ($language == $language_filter_val || $language_filter_val == "All") {
+            $programme_doc[$programme_country_code]['programme_doc']['title'][] = $title;
+            $language_code = array_search($language, $language_list);
+            $programme_doc[$programme_country_code]['programme_doc']['language'][] = $language_code;
+            $programme_doc['pdf_present'] = TRUE;
+          }
+          // Field collection PDF file link.
+          $pdf_file_link = empty($portal_document_field_collection_wrapper->field_portal_upload_file->value()) ? '' : $portal_document_field_collection_wrapper->field_portal_upload_file->value()['uri'];
+          $url = file_create_url($pdf_file_link);
+          $url = parse_url($url);
+          if ($language == $language_filter_val || $language_filter_val == "All") {
+            $programme_doc[$programme_country_code]['programme_doc']['pdf_file_link'][] = $url['path'];
+          }
+        }
+      }
+    }
+  }
+
+  return $programme_doc;
+}
+
+/**
+ * Function returnsBoard documents data for Exbo session and events documents.
+ *
+ * @param array $nodes
+ *    Returns Board documents nodes.
+ * @param string $language_filter_val
+ *    Returns Language.
+ *
+ * @return array
+ *    Returns Board documents data.
+ */
+function unfpa_global_executive_board_board_document_data($nodes, $language_filter_val) {
+  $language_list = unfpa_global_executive_board_language_list();
+  $board_doc = array();
+  $board_doc['pdf_present'] = FALSE;
+  // Get all nodes of 'Board Documents' content type.
+  if (!empty($nodes)) {
+    foreach ($nodes as $node) {
+      // Create wrapper around the programme documents node.
+      $bd_node_wrapper = entity_metadata_wrapper('node', $node);
+      if (!empty($bd_node_wrapper->field_programme_country->value())) {
+        // Get 'Board country' entity reference field.
+        $programme_country_entity = $bd_node_wrapper->field_programme_country->value();
+        // Get country code for current programme document.
+        $programme_country_code = get_programme_country_code($programme_country_entity);
+      }
+      // Get selected document library for current programme document node.
+      $document_type = empty($bd_node_wrapper->field_document_type->value()) ? '' : $bd_node_wrapper->field_document_type->value();
+      if ($document_type != "Decisions of the Board" && $document_type != "Reports on Board sessions") {
+        // Field collection Supporting Document.
+        foreach ($bd_node_wrapper->field_supporting_document->value() as $val) {
+          $board_document_field_collection_wrapper = entity_metadata_wrapper('field_collection_item', $val);
+          // Field collection Supporting documents entity ref.
+          if (!empty($board_document_field_collection_wrapper->field_supporting_document_title->value())) {
+            $supporting_document_title = $board_document_field_collection_wrapper->field_supporting_document_title->value();
+          }
+          $temp = "";
+          // Field collection Supporting Document Upload.
+          foreach ($board_document_field_collection_wrapper->field_supporting_doc_upload->value() as $val) {
+            $board_document_upload_field_collection_wrapper = entity_metadata_wrapper('field_collection_item', $val);
+            // Get the Language for PDF.
+            $language = empty($board_document_upload_field_collection_wrapper->field_available_languages->label()) ? '' : $board_document_upload_field_collection_wrapper->field_available_languages->label();
+            if ($language == $language_filter_val || $language_filter_val == "All") {
+              $language_code = array_search($language, $language_list);
+              $board_doc[$programme_country_code]['board_doc'][$supporting_document_title]['language'][] = $language_code;
+              $board_doc['pdf_present'] = TRUE;
+            }
+            // Field collection Supporting Document PDF file link.
+            $pdf_file_link = empty($board_document_upload_field_collection_wrapper->field_board_pdf_upload->value()) ? '' : $board_document_upload_field_collection_wrapper->field_board_pdf_upload->value()['uri'];
+            $url = file_create_url($pdf_file_link);
+            $url = parse_url($url);
+            if ($language == $language_filter_val || $language_filter_val == "All") {
+              $board_doc[$programme_country_code]['board_doc'][$supporting_document_title]['pdf_file_link'][] = $url['path'];
+            }
+            // Field collection available language entity ref.
+            if (!empty($board_document_field_collection_wrapper->field_supporting_document_title->value())) {
+              if ($language == $language_filter_val || $language_filter_val == "All") {
+                // Exclude the same titles.
+                if ($temp != $supporting_document_title) {
+                  $board_doc[$programme_country_code]['board_doc']['doc_title'][] = $supporting_document_title;
+                }
+                $temp = $supporting_document_title;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return $board_doc;
+}
+
+/**
+ * Function to generate language 2 digit code..
+ *
+ * @return array
+ *   Returns 2 digit for languages.
+ */
+function unfpa_global_executive_board_language_list() {
+  $languages = array(
+    'en' => 'English',
+    'fr' => 'French',
+    'sp' => 'Spanish',
+    'ar' => 'Arabic',
+    'ru' => 'Russian',
+    'zh' => 'Chinese',
+    'zh' => 'Chinese',
+    'pt' => 'Portuguese',
+    'tr' => 'Turkish',
+    'ja' => 'Japanese',
+    'de' => 'German',
+    'th' => 'Thai',
+    'vi' => 'Vietnamese',
+    'ko' => 'Korean',
+  );
+
+  return $languages;
+}
+
+/**
+ * Returns the render array for the form.
+ */
+function unfpa_global_executive_board_event_document_filter_form($form, &$form_state, $all_sessions) {
+  // Function to include common css and js files.
+  unfpa_global_executive_board_common_css_js();
+  // Attach css files.
+  drupal_add_css(drupal_get_path('theme', 'unfpa_global') . '/plugins/skins/polaris/polaris.css');
+  // Returns Exbo event detail node id in hidden field.
+  $nid = arg(1);
+  // Checks session board page or Exbo detail page.
+  $ajax_function_name = ($all_sessions) ? "exbo_session_doc_ajax_address_callback" : "exbo_event_doc_ajax_address_callback";
+  // Gets available languages.
+  $available_languages = array("All",
+    "English",
+    "French",
+    "Spanish",
+    "Arabic",
+    "Russian",
+    "Chinese",
+  );
+  $total_year = array();
+  // Set first element as 'Any'.
+  $total_year[0] = "Any";
+  // Returns current year.
+  $cur_year = date('Y');
+  for ($year = ($cur_year - 3); $year <= ($cur_year + 3); $year++) {
+    $total_year[] = $year;
+  }
+  // Get board document type field values to fill document type dropdown.
+  $doc_type_list = unfpa_global_executive_board_get_list_from_field('field_document_type');
+  // Set first doc type as 'Any'.
+  $doc_type[0] = t('Any');
+  $doc_type[1] = t('Programme documents');
+  foreach ($doc_type_list as $val) {
+    if ($val != "Decisions of the Board" && $val != "Reports on Board sessions") {
+      $doc_type[] = $val;
+    }
+  }
+  $form['keyword'] = array(
+    '#prefix' => '<div id="exbo-events-detail-form-filters" class="exbo-filter-wrapper"><div class="exbo-events-top-filters clearfix">',
+    '#type' => 'textfield',
+    '#title' => 'Keyword search:',
+    '#size' => 20,
+    '#maxlength' => 128,
+  );
+  $form['document_type'] = array(
+    '#type' => 'select',
+    '#title' => 'Document Type:',
+    '#options' => $doc_type,
+  );
+  $form['year'] = array(
+    '#type' => 'select',
+    '#title' => 'Year:',
+    '#options' => $total_year,
+    '#suffix' => '</div>',
+  );
+  $form['avail_lang'] = array(
+    '#prefix' => '<div class="form-radio-buttons-wrapper">',
+    '#type' => 'radios',
+    '#title' => 'Document language:',
+    '#options' => $available_languages,
+    '#default_value' => $available_languages[0],
+    '#suffix' => '</div>',
+  );
+  $form['hidden_nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $nid,
+  );
+  $form['button'] = array(
+    '#type' => 'button',
+    '#value' => 'Go',
+    '#prefix' => '<div class="form-action-wrapper">',
+    '#ajax' => array(
+      'callback' => $ajax_function_name,
+      'event' => 'click',
+      'progress' => array('type' => 'throbber'),
+      'method' => 'replace',
+      'wrapper' => 'session-documents-wrapper',
+    ),
+  );
+  $form['clear'] = array(
+    '#name' => 'clear',
+    '#type' => 'button',
+    '#value' => t('Reset'),
+    '#attributes' => array('onclick' => 'this.form.reset(); return false;'),
+    '#ajax' => array(
+      'callback' => $ajax_function_name,
+      'event' => 'click',
+      'progress' => array('type' => 'throbber'),
+      'method' => 'replace',
+      'wrapper' => 'session-documents-wrapper',
+    ),
+    '#suffix' => '</div></div>',
+  );
+
+  return $form;
+}
+
+/**
+ * Ajax callback function for Exbo Board Session Documents.
+ *
+ * @return array
+ *   Generates themed output.
+ */
+function exbo_session_doc_ajax_address_callback(&$form, &$form_state) {
+  $year = $form['year']['#options'][$form_state['values']['year']];
+  $doc_type = "";
+  $doc_type = $form['document_type']['#options'][$form_state['values']['document_type']];
+  $avail_lang = $form['avail_lang']['#options'][$form_state['values']['avail_lang']];
+  $keyword = $form_state['values']['keyword'];
+  // Returns Board documents nids as form filter result.
+  $board_doc_nids = ($doc_type != 'Programme documents' || $year != "") ? get_ajax_board_doc_nid($keyword, $doc_type, $year) : array();
+  // Returns Programme documents nids as form filter result.
+  $programme_doc_nids = ($doc_type == 'Programme documents' || $doc_type == 'Any') ? get_ajax_programme_doc_nid($keyword, $year) : array();
+  $exbo_doc = array();
+  // Function returns all nids of 'Exbo Event' CT from database.
+  $exbo_events_result = get_nid_from_content_type("exbo_events");
+  // Returns programme and board docs from exbo event for session documents.
+  foreach ($exbo_events_result as $exbo_events_key => $obj) {
+    $exbo_doc[$exbo_events_key] = unfpa_global_executive_board_events_document_data($obj->nid);
+  }
+  $programme_doc_data = array();
+  $board_doc_data = array();
+  $supporting_title = array();
+  $session_title = array();
+  $document_data = array();
+  $no_data = TRUE;
+  foreach ($exbo_doc as $each_exbo_event => $each_exbo_event_result) {
+    foreach ($each_exbo_event_result as $key => $val) {
+      $supporting_title[$each_exbo_event][$key] = $exbo_doc[$each_exbo_event][$key]['supporting_doc_title'];
+      $exbo_doc[$each_exbo_event][$key]['portal_doc'] = isset($exbo_doc[$each_exbo_event][$key]['portal_doc']) ? $exbo_doc[$each_exbo_event][$key]['portal_doc'] : array();
+      $exbo_doc[$each_exbo_event][$key]['board_doc'] = isset($exbo_doc[$each_exbo_event][$key]['board_doc']) ? $exbo_doc[$each_exbo_event][$key]['board_doc'] : array();
+      // Returns programme docs in given exbo event and satisfy filter form.
+      $portal_doc_result = array_intersect($programme_doc_nids, $exbo_doc[$each_exbo_event][$key]['portal_doc']);
+      // Returns board docs in given exbo event and satisfy filter form.
+      $board_doc_result = array_intersect($board_doc_nids, $exbo_doc[$each_exbo_event][$key]['board_doc']);
+      // Returns programme docs titles, pdf and language.
+      $programme_doc_data[$each_exbo_event][$key] = unfpa_global_executive_board_programme_document_data($portal_doc_result, $avail_lang);
+      // Returns programme docs titles, pdf and language.
+      $board_doc_data[$each_exbo_event][$key] = unfpa_global_executive_board_board_document_data($board_doc_result, $avail_lang);
+      if ($programme_doc_data[$each_exbo_event][$key]['pdf_present'] == TRUE || $board_doc_data[$each_exbo_event][$key]['pdf_present'] == TRUE) {
+        $session_title[$each_exbo_event][$key] = $exbo_doc[$each_exbo_event][$key]['session_title'];
+        $no_data = FALSE;
+      }
+      // Function merges programme doc and board doc data array using country.
+      $document_data[$each_exbo_event][$key] = array_merge_recursive($programme_doc_data[$each_exbo_event][$key], $board_doc_data[$each_exbo_event][$key]);
+    }
+  }
+
+  return theme('unfpa_global_executive_board_session_documents', array(
+    'supporting_title' => $supporting_title,
+    'session_title' => $session_title,
+    'exbo_document_data' => $document_data,
+    'no_data' => $no_data,
+  ));
+}
+
+/**
+ * Function returns board documents nids generated from filter.
+ *
+ * @return array
+ *   Generates Board document nids.
+ */
+function get_ajax_board_doc_nid($keyword, $doc_type, $year) {
+  $board_doc_nids = array();
+  $board_doc_query = new EntityFieldQuery();
+  $board_doc_query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'board_documents')
+    ->propertyCondition('status', 1)
+    ->propertyCondition('title', $keyword, 'CONTAINS');
+  if (($doc_type != 'Any')) {
+    $board_doc_query->fieldCondition('field_document_type', 'value', $doc_type, '=');
+  }
+  if (($year != 'Any')) {
+    $board_doc_query->fieldCondition('field_board_document_date', 'value', db_like("{$year}-") . '%', 'LIKE');
+  }
+  $board_doc_result = $board_doc_query->execute();
+  $board_doc_result['node'] = isset($board_doc_result['node']) ? $board_doc_result['node'] : array();
+  // Function returns an array containing the keys.
+  $board_doc_nids = array_keys($board_doc_result['node']);
+
+  return $board_doc_nids;
+}
+
+/**
+ * Function returns programme documents nids generated from filter.
+ *
+ * @return array
+ *   Generates Programme document nids.
+ */
+function get_ajax_programme_doc_nid($keyword, $year) {
+  $programme_doc_nids = array();
+  $programme_doc_query = new EntityFieldQuery();
+  $programme_doc_query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'ct_programme_documents')
+    ->propertyCondition('status', 1)
+    ->propertyCondition('title', $keyword, 'CONTAINS');
+  if (($year != 'Any')) {
+    $programme_doc_query->fieldCondition('field_programme_cycle_start_date', 'value', db_like("{$year}-") . '%', 'LIKE');
+  }
+  $programme_doc_result = array();
+  $programme_doc_result = $programme_doc_query->execute();
+  $programme_doc_result['node'] = isset($programme_doc_result['node']) ? $programme_doc_result['node'] : array();
+  // Function returns an array containing the keys.
+  $programme_doc_nids = array_keys($programme_doc_result['node']);
+
+  return $programme_doc_nids;
+}
+
+/**
+ * Callback function for Executive Board Events detail Page Documents.
+ *
+ * @return array
+ *   Generates themed output.
+ */
+function unfpa_global_executive_board_events_docments() {
+  // Function to include common css and js files.
+  unfpa_global_executive_board_common_css_js();
+  if (arg(0) == "node") {
+    $nid = arg(1);
+    // Returns programme and board doc nid and titles of current exbo event.
+    $exbo_doc = unfpa_global_executive_board_events_document_data($nid);
+    $programme_doc_data = array();
+    $board_doc_data = array();
+    $supporting_title = array();
+    $session_title = array();
+    $document_data = array();
+    $no_data = TRUE;
+    foreach ($exbo_doc as $key => $val) {
+      $supporting_title[$key] = $exbo_doc[$key]['supporting_doc_title'];
+      // Get all nodes of 'Programme Documents' content type.
+      $exbo_doc[$key]['portal_doc'] = isset($exbo_doc[$key]['portal_doc']) ? $exbo_doc[$key]['portal_doc'] : '';
+      $exbo_doc[$key]['board_doc'] = isset($exbo_doc[$key]['board_doc']) ? $exbo_doc[$key]['board_doc'] : '';
+      // Returns programme docs titles, pdf and language.
+      $programme_doc_data[$key] = unfpa_global_executive_board_programme_document_data($exbo_doc[$key]['portal_doc'], "All");
+      // Returns board docs titles, pdf and language.
+      $board_doc_data[$key] = unfpa_global_executive_board_board_document_data($exbo_doc[$key]['board_doc'], 'All');
+      if (!empty($programme_doc_data[$key]['pdf_present']) || !empty($board_doc_data[$key]['pdf_present'])) {
+        $session_title[$key] = $exbo_doc[$key]['session_title'];
+        $no_data = FALSE;
+      }
+      // Function merges programme doc and board doc data array using country.
+      $document_data[$key] = array_merge_recursive($programme_doc_data[$key], $board_doc_data[$key]);
+    }
+
+    return theme('unfpa_global_executive_board_events_documents', array(
+      'supporting_title' => $supporting_title,
+      'session_title' => $session_title,
+      'exbo_document_data' => $document_data,
+      'no_data' => $no_data,
+    ));
+  }
+}
+
+/**
+ * Ajax callback function for Exbo event detail page documents.
+ *
+ * @return array
+ *   Generates themed output.
+ */
+function exbo_event_doc_ajax_address_callback(&$form, &$form_state) {
+  $year = $form['year']['#options'][$form_state['values']['year']];
+  $doc_type = "";
+  $doc_type = $form['document_type']['#options'][$form_state['values']['document_type']];
+  $avail_lang = $form['avail_lang']['#options'][$form_state['values']['avail_lang']];
+  $keyword = $form_state['values']['keyword'];
+  // Returns Board documents nids as form filter result.
+  $board_doc_nids = ($doc_type != 'Programme documents' || $year != "") ? get_ajax_board_doc_nid($keyword, $doc_type, $year) : array();
+  // Returns Programme documents nids as form filter result.
+  $programme_doc_nids = ($doc_type == 'Programme documents' || $doc_type == 'Any') ? get_ajax_programme_doc_nid($keyword, $year) : array();
+
+  $node_id = $form_state['values']['hidden_nid'];
+  $exbo_doc = array();
+  // Returns programme, board docs nids and titles for exbo event detail page.
+  $exbo_doc = unfpa_global_executive_board_events_document_data($node_id);
+  $programme_doc_data = array();
+  $board_doc_data = array();
+  $supporting_title = array();
+  $session_title = array();
+  $document_data = array();
+  $no_data = TRUE;
+  foreach ($exbo_doc as $key => $val) {
+    $supporting_title[$key] = $exbo_doc[$key]['supporting_doc_title'];
+    $exbo_doc[$key]['portal_doc'] = isset($exbo_doc[$key]['portal_doc']) ? $exbo_doc[$key]['portal_doc'] : array();
+    $exbo_doc[$key]['board_doc'] = isset($exbo_doc[$key]['board_doc']) ? $exbo_doc[$key]['board_doc'] : array();
+    // Returns programme docs in given exbo event and satisfy filter form.
+    $portal_doc_result = array_intersect($programme_doc_nids, $exbo_doc[$key]['portal_doc']);
+    // Returns board docs in given exbo event and satisfy filter form.
+    $board_doc_result = array_intersect($board_doc_nids, $exbo_doc[$key]['board_doc']);
+    // Returns programme docs titles, pdf and language.
+    $programme_doc_data[$key] = unfpa_global_executive_board_programme_document_data($portal_doc_result, $avail_lang);
+    // Returns board docs titles, pdf and language.
+    $board_doc_data[$key] = unfpa_global_executive_board_board_document_data($board_doc_result, $avail_lang);
+    if ($programme_doc_data[$key]['pdf_present'] == TRUE || $board_doc_data[$key]['pdf_present'] == TRUE) {
+      $session_title[$key] = $exbo_doc[$key]['session_title'];
+      $no_data = FALSE;
+    }
+    // Function is used to merge programme doc and bolard doc using country.
+    $document_data[$key] = array_merge_recursive($programme_doc_data[$key], $board_doc_data[$key]);
+  }
+
+  return theme('unfpa_global_executive_board_events_documents', array(
+    'supporting_title' => $supporting_title,
+    'session_title' => $session_title,
+    'exbo_document_data' => $document_data,
+    'no_data' => $no_data,
+  ));
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function unfpa_global_executive_board_preprocess_views_view(&$variables) {
+  if ($variables['view']->name != 'executive_board') {
+    return;
+  }
+  $display_name_options = array(
+    'bureau_members',
+    'decisions_board_document_listing_pane',
+    'reports_board_document_listing_pane'
+  );
+
+  if (!in_array($variables['view']->current_display, $display_name_options)) {
+    return;
+  }
+  // Function to include common css and js files.
+  unfpa_global_executive_board_common_css_js();
+  $variables['year'] = isset($variables['view']->exposed_raw_input['field_eb_time_of_mandate_value']['value']) ? $variables['view']->exposed_raw_input['field_eb_time_of_mandate_value']['value'] : date("Y");
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function unfpa_global_executive_board_views_pre_render(&$view) {
+  if ($view->name != 'executive_board') {
+    return;
+  }
+  if (!in_array($view->current_display, array('bureau_members'))) {
+    return;
+  }
+  $result=$view->result;
+  foreach($result as $row){
+  $field_field_eb_time_of_mandate = $row->field_field_eb_time_of_mandate[0]['rendered']['#markup'];
+  if ($field_field_eb_time_of_mandate) {    
+    $row->field_field_eb_time_of_mandate[0]['rendered']['#markup'] = t("Time of mandate") . ": (" . str_replace("to", "-", $field_field_eb_time_of_mandate) . ")";
+  }
+  }
+}
+
+/*
+ * Wrapper function to include common css and js files.
+ */
+function unfpa_global_executive_board_common_css_js() {
+  // Attach css files.
+  $path = drupal_get_path('module', 'unfpa_global_executive_board');
+  drupal_add_css($path . '/css/executive-board-custom.css');
+  drupal_add_css($path . '/css/executive-board-responsive.css');
+  // Attach js files.
+  drupal_add_js($path . '/js/masonry.pkgd.min.js');
+  drupal_add_js($path . '/js/executive-board-custom.js');
+  drupal_add_js($path . '/js/icheck.min.js');
+}

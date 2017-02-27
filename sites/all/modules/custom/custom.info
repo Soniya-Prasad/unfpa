@@ -1,0 +1,9 @@
+; $Id: custom.info,v 1.0 2013/12/19 15:03:00 anand $
+name = Custom
+description = Custom module for All other custom functionality for UNFPA Project.
+core = 7.x
+package = UNFPA Custom
+
+version = "7.x-1.0"
+project = unfpa
+

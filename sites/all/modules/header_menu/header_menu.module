@@ -1,0 +1,138 @@
+<?php
+/**
+ * @file
+ * custom module for Header Menu Menu handling
+ */
+
+/**
+ * Implementation of hook_block_info().
+ * Recommendation block for offerings pages
+ */
+ 
+function header_menu_block_info() {
+  $blocks['dropdown_menu_topics'] = array(
+    'info' => t('Drop Down Menu Topics'),
+  );
+  /*
+  $blocks['dropdown_menu_insight'] = array(
+    'info' => t('Drop Down Menu Insight'),
+  );
+  
+  $blocks['dropdown_menu_aboutus'] = array(
+    'info' => t('Drop Down Menu About Us'),
+  );
+  
+  $blocks['head_menu'] = array(
+    'info' => t('Head Menu'),
+  );
+  
+  $blocks['dropdown_menu_footer'] = array(
+    'info' => t('Drop Down Menu Footer'),
+  );
+  */
+  return $blocks;
+}
+ 
+/**
+ * Implementation of hook_block_view().
+ */
+function header_menu_block_view($delta='') {
+  $block = array();
+  switch ($delta) {
+    case 'head_menu':
+	  $block['subject'] = t('Head Menu');
+      $block['content'] = head_menulist_contents();
+    break;  
+    
+	case 'dropdown_menu_topics':
+      $block['subject'] = t('Drop Down Menu Topics');
+      $block['content'] = dropdown_menulist_contents_topics();
+     break;
+	
+	/*case 'dropdown_menu_insight':
+      $block['subject'] = t('Drop Down Menu Insight');
+      $block['content'] = dropdown_menulist_contents_insight();
+    break;
+	
+	case 'dropdown_menu_aboutus':
+      $block['subject'] = t('Drop Down Menu About Us');
+      $block['content'] = dropdown_menulist_contents_aboutus();
+    break;
+ 
+    case 'dropdown_menu_footer':
+  	 $block['subject'] = t('Drop Down Menu Footer');
+	 $block['content'] = dropdown_menulist_contents_footer();
+	 break; 	
+	*/
+  }
+  return $block;
+}
+
+function head_menulist_contents(){
+	$menus = array();
+      $params = array();
+      $params['min_depth'] ='1';
+      $params['max_depth'] ='1';
+	$menu_1 = menu_build_tree('main-menu', $params);
+	return drupal_render(menu_tree_output($menu_1));
+}
+
+function dropdown_menulist_contents_topics($menu = 'main-menu') {
+    $tree = menu_tree_all_data($menu,'',3);
+//	$variables['secondary_menu_expanded'] = menu_tree_output(i18n_menu_localize_tree($tree));
+	$childtree = array();
+    foreach ($tree as $branch){
+	  if ($branch['link']['title'] == 'Topics'){
+        $childtree = $branch['below'];
+        break;
+      }
+    }
+	
+	$child_menu_output = menu_tree_output($childtree);
+	return drupal_render($child_menu_output);
+}
+/*
+function dropdown_menulist_contents_insight($menu = 'main-menu') {
+	global $base_url;
+    $tree = menu_tree_all_data($menu,'',3);
+	$childtree = array();
+    foreach ($tree as $branch){
+	if ($branch['link']['title'] == 'Insights'){
+        $childtree = $branch['below'];
+        break;
+      }
+    }
+	$view = views_get_view('banner_advertisement');
+  	$view->set_display('insight_advertisement');
+  	$insight_advertisement_output = $view->preview();
+	$insights_banner = module_invoke('block', 'block_view', 9);
+	$static_insights_adv= '<div class="megadrop-mid-content">'.$insights_banner['content'].'</div>';
+    return drupal_render(menu_tree_output($childtree)).$static_insights_adv.'<div class="megadrop-right-content">'.$insight_advertisement_output.'</div>';
+}
+
+function dropdown_menulist_contents_aboutus($menu = 'main-menu') {
+	global $base_url;
+    $tree = menu_tree_all_data($menu,'',3);
+	$childtree = array();
+    foreach ($tree as $branch){
+      if ($branch['link']['title'] == 'About Us'){
+        $childtree = $branch['below'];
+        break;
+      }
+    }
+	$view = views_get_view('banner_advertisement');
+  	$view->set_display('about_us_advertisement');
+  	$about_us_advertisement_output = $view->preview();
+	$aboutus_banner = module_invoke('block', 'block_view', 10);
+	$static_aboutus_adv= '<div class="megadrop-mid-content">'.$aboutus_banner['content'].'</div>';
+ 	return drupal_render(menu_tree_output($childtree)).$static_aboutus_adv.'<div class="megadrop-right-content">'.$about_us_advertisement_output.'</div>';
+
+}
+
+function dropdown_menulist_contents_footer(){
+	$menus = array();
+	
+	$tree = menu_tree_all_data('main-menu','',3);
+	return drupal_render(menu_tree_output($tree));
+}
+*/

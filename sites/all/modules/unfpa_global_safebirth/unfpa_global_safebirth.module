@@ -1,0 +1,451 @@
+<?php
+
+/**
+ * @file
+ * Code for the Safe Birth feature.
+ */
+include_once 'unfpa_global_safebirth.features.inc';
+
+/**
+ * Implements hook_block_info().
+ */
+function unfpa_global_safebirth_block_info() {
+  $blocks['safebirth_menu_block'] = array(
+    'info' => t('Safebirth Menu Block'),
+  );
+  $blocks['safebirth_intro_page_block'] = array(
+    'info' => t('Safebirth Intro Page'),
+  );
+  $blocks['safebirth_image_banner'] = array(
+    'info' => t('Safebirth Image Banner'),
+  );
+  $blocks['safebirth_video_block'] = array(
+    'info' => t('Safebirth Video Block'),
+  );
+  $blocks['safebirth_news_main_block'] = array(
+    'info' => t('Safebirth News Main Block'),
+  );
+  $blocks['safebirth_news_sub_block'] = array(
+    'info' => t('Safebirth News Sub Block'),
+  );
+  $blocks['safebirth_publication_sub_block'] = array(
+    'info' => t('Safebirth Publication Sub Block'),
+  );
+  $blocks['safebirth_about_us_block'] = array(
+    'info' => t('Safebirth About Us Block'),
+  );
+  $blocks['safebirth_partners_block'] = array(
+    'info' => t('Safebirth Partners Block'),
+  );
+  $blocks['safebirth_footer_block'] = array(
+    'info' => t('Safebirth Footer Block'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function unfpa_global_safebirth_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'safebirth_menu_block':
+      $block['subject'] = t('Home Page Menu Block');
+      $block['content'] = home_menu_block();
+      break;
+
+    case 'safebirth_intro_page_block':
+      $block['subject'] = t('Intro Page');
+      $block['content'] = intro_page_block();
+      break;
+
+    case 'safebirth_image_banner':
+      $block['subject'] = t('Home Page Image Banner');
+      $block['content'] = home_image_banner();
+      break;
+
+    case 'safebirth_video_block':
+      $block['subject'] = t('Home Page Video Block');
+      $block['content'] = home_video_block();
+      break;
+
+    case 'safebirth_news_main_block':
+      $block['subject'] = t('Home Page News Main Block');
+      $block['content'] = home_news_main_block();
+      break;
+
+    case 'safebirth_news_sub_block':
+      $block['subject'] = t('Home Page News Sub Block');
+      $block['content'] = home_news_sub_block();
+      break;
+
+    case 'safebirth_publication_sub_block':
+      $block['subject'] = t('Home Page Publication Sub Block');
+      $block['content'] = home_publication_sub_block();
+      break;
+
+    case 'safebirth_about_us_block':
+      $block['subject'] = t('Home Page About Us Block');
+      $block['content'] = home_about_us();
+      break;
+
+    case 'safebirth_partners_block':
+      $block['subject'] = t('Home Page Partners Block');
+      $block['content'] = home_partners_block();
+      break;
+
+    case 'safebirth_footer_block':
+      $block['subject'] = t('Home Page Footer Block');
+      $block['content'] = home_footer_block();
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function unfpa_global_safebirth_theme() {
+  $path = drupal_get_path('module', 'unfpa_global_safebirth');
+  return array(
+    'safebirth_menu_block' => array(
+      'template' => 'safebirth_menu_block',
+      'path' => $path . '/templates',
+    ),
+    'safebirth_intro_page' => array(
+      'template' => 'intro_page',
+      'path' => $path . '/templates',
+    ),
+    'safebirth_image_banner' => array(
+      'variables' => array('img_path' => ''),
+      'template' => 'image_banner',
+      'path' => $path . '/templates',
+    ),
+    'safebirth_video_block' => array(
+      'variables' => array(),
+      'template' => 'video_block',
+      'path' => $path . '/templates',
+    ),
+    'safebirth_news_main' => array(
+      'variables' => array(
+        'title' => '',
+        'date' => '',
+        'body' => '',
+        'node_link' => '',
+        'read_more_text' => '',
+        'news_image_url' => ''
+      ),
+      'template' => 'safebirth_news_main',
+      'path' => $path . '/templates',
+    ),
+    'safebirth_news_sub' => array(
+      'variables' => array(
+        'title' => '',
+        'date' => '',
+        'body' => '',
+        'news_type' => '',
+        'node_link' => '',
+        'read_more_text' => '',
+        'news_image_url' => ''
+      ),
+      'template' => 'safebirth_news_sub',
+      'path' => $path . '/templates',
+    ),
+    'safebirth_publication_sub' => array(
+      'variables' => array(
+        'type' => '',
+        'image' => '',
+        'node_link' => '',
+        'read_more_text' => '',
+      ),
+      'template' => 'safebirth_publication_sub',
+      'path' => $path . '/templates',
+    ),
+    'safebirth_about_us_block' => array(
+      'template' => 'about_us_block',
+      'path' => $path . '/templates',
+    ),
+    'safebirth_partners_block' => array(
+      'variables' => array(
+        'img_path' => '',
+        'theme_path' => ''),
+      'template' => 'partner_block',
+      'path' => $path . '/templates',
+    ),
+    'safebirth_footer_block' => array(
+      'template' => 'footer_block',
+      'path' => $path . '/templates',
+    ),
+  );
+}
+
+/**
+ * Block function for banner section.
+ */
+function home_image_banner() {
+  $theme_path = drupal_get_path('theme', 'safe_birth');
+  $img_path = $theme_path . '/images';
+  return theme('safebirth_image_banner', array('img_path' => $img_path));
+}
+
+/**
+ * Block function for video section.
+ */
+function home_video_block() {
+  return theme('safebirth_video_block');
+}
+
+/**
+ * Block function for news section.
+ */
+function home_news_main_block() {
+  $variables = array();
+  // Get the term id for term tagged as "safe birth".
+  $terms = taxonomy_get_term_by_name('safe birth', 'tags');
+  if (!empty($terms)) {
+    $term = array_shift($terms);
+    // Get the latest one new item which is tagged as "safe birth".
+    $query = new EntityFieldQuery();
+    $result = $query
+      ->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'ct_news')
+      ->propertyCondition('status', NODE_PUBLISHED)
+      ->propertyOrderBy('changed', 'DESC')
+      ->range(0, 1)
+      ->fieldCondition('field_related_tags', 'tid', $term->tid)
+      ->execute();
+
+    if (!empty($result['node'])) {
+      $news_item = array_shift($result['node']);
+      $node_wrapper = entity_metadata_wrapper('node', $news_item->nid);
+
+      $date = $node_wrapper->field_news_date->value();
+      $body = $node_wrapper->body->value->value(array('decode' => TRUE));
+      $trimmed_body_text = substr($body, 0, 450);
+
+      $node_link = url('node/' . $node_wrapper->getIdentifier());
+      $image_options = array('path' => $node_wrapper->field_news_image->value()['uri'], 'style_name' => 'safebirth_main_news_image');
+      $news_image_url = !empty($node_wrapper->field_news_image->value()['uri']) ? theme('image_style', $image_options) : '';
+
+      $variables = array(
+        'title' => $node_wrapper->label(),
+        'date' => format_date($date, 'custom', 'd F Y'),
+        'body' => $trimmed_body_text,
+        'node_link' => $node_link,
+        'read_more_text' => t('Read More'),
+        'news_image_url' => $news_image_url
+      );
+    }
+  }
+
+  return theme('safebirth_news_main', $variables);
+}
+
+/**
+ * Block function for news sub section.
+ */
+function home_news_sub_block() {
+  $variables = array();
+  // Get the term id for term tagged as "safe birth".
+  $terms = taxonomy_get_term_by_name('safe birth', 'tags');
+  if (!empty($terms)) {
+    $term = array_shift($terms);
+    // Get the latest one new item which is tagged as "safe birth".
+    $query = new EntityFieldQuery();
+    $result = $query
+      ->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'ct_news')
+      ->propertyCondition('status', NODE_PUBLISHED)
+      ->propertyOrderBy('changed', 'DESC')
+      ->range(1, 1)
+      ->fieldCondition('field_related_tags', 'tid', $term->tid)
+      ->execute();
+
+    if (!empty($result['node'])) {
+      $news_item = array_shift($result['node']);
+      $node_wrapper = entity_metadata_wrapper('node', $news_item->nid);
+      $date = $node_wrapper->field_news_date->value();
+      $body = $node_wrapper->body->value->value(array('decode' => TRUE));
+      $trimmed_body_text = substr($body, 0, 150);
+      $node_link = url('node/' . $node_wrapper->getIdentifier());
+      $news_image_url = !empty($node_wrapper->field_news_image->value()['uri']) ? theme('image_style', array('path' => $node_wrapper->field_news_image->value()['uri'], 'style_name' => 'safebirth_image')) : '';
+
+      $variables = array('title' => $node_wrapper->label(),
+        'date' => format_date($date, 'custom', 'd F Y'),
+        'body' => $trimmed_body_text,
+        'news_type' => $node_wrapper->field_news_type->value()[0],
+        'node_link' => $node_link,
+        'read_more_text' => t('Read More'),
+        'news_image_url' => $news_image_url
+      );
+    }
+  }
+
+  return theme('safebirth_news_sub', $variables);
+}
+
+/**
+ * Wrapper function to prepare variables for publication and resources block as
+ * per the latest node.
+ */
+function unfpa_global_safebirth_prepare_variables_for_sub_section($node_wrapper, $node_link, $type, $pdf_upload_field_name, $image_field_name, $field_collection_name) {
+  $language_fieldcollection = $node_wrapper->$field_collection_name->value();
+  $pdf_upload = array();
+  $bundle_type = $node_wrapper->getBundle();
+  if (!empty($language_fieldcollection)) {
+    foreach ($language_fieldcollection as $language_key => $val) {
+      if ($bundle_type == 'ct_publications') {
+        $available_language = $node_wrapper->field_languages[$language_key]->value();
+      }
+      if ($bundle_type == 'ct_resources') {
+        $available_language = $node_wrapper->field_resource_document[$language_key]->value();
+      }
+      $fc_wrapper = entity_metadata_wrapper('field_collection_item', $available_language);
+      $language_name = $fc_wrapper->field_available_language->label();
+      $pdf_file_info = $fc_wrapper->$pdf_upload_field_name->value();
+      $pdf_url = file_create_url($pdf_file_info['uri']);
+      $options = array(
+        'external' => TRUE,
+        'attributes' => array(
+          'class' => array('pdf-links'),
+          'target' => '_blank',
+          'title' => $language_name
+        )
+      );
+      $pdf_link = l($language_name, $pdf_url, $options);
+      $pdf_upload[$language_key]['pdf_link'] = $pdf_link;
+      $pdf_upload[$language_key]['pdf_file_info'] = $pdf_file_info;
+    }
+  }
+
+  // Create PDF preview from the first PDF in field collection on empty show
+  // publication cover image.
+  if (isset($pdf_upload[0])) {
+    $image_path = _pdfpreview_create_preview($pdf_upload[0]['pdf_file_info']);
+  }
+  else {
+    $image_path = !empty($node_wrapper->$image_field_name->value()['uri']) ? $node_wrapper->$image_field_name->value()['uri'] : '';
+  }
+  $image_options = array('path' => $image_path, 'style_name' => 'safebirth_image');
+  $image = !empty($image_path) ? theme('image_style', $image_options) : '';
+
+  $template_variables = array(
+    'type' => $type,
+    'image' => $image,
+    'read_more_text' => t('Read More'),
+    'node_link' => $node_link);
+
+  return $template_variables;
+}
+
+/**
+ * Block function for publication sub section.
+ */
+function home_publication_sub_block() {
+  $variables = array();
+
+  // Get the term id for term tagged as "safe birth".
+  $terms = taxonomy_get_term_by_name('safe birth', 'tags');
+  if (!empty($terms)) {
+    $term = array_shift($terms);
+    // Get the latest one new item which is tagged as "safe birth".
+    $query = new EntityFieldQuery();
+    $bundles = array('ct_publications', 'ct_events', 'ct_resources');
+    $result = $query
+      ->entityCondition('entity_type', 'node')
+      ->propertyCondition('type', $bundles, 'IN')
+      ->propertyCondition('status', NODE_PUBLISHED)
+      ->propertyOrderBy('changed', 'DESC')
+      ->range(0, 1)
+      ->fieldCondition('field_related_tags', 'tid', $term->tid)
+      ->execute();
+
+    if (!empty($result['node'])) {
+      $node = array_shift($result['node']);
+      $node_wrapper = entity_metadata_wrapper('node', $node->nid);
+      $bundle_type = $node_wrapper->getBundle();
+      $node_link = url('node/' . $node_wrapper->getIdentifier());
+
+      switch ($bundle_type) {
+        case 'ct_publications':
+          $type = !empty($node_wrapper->field_type_of_publication->value()) ? $node_wrapper->field_type_of_publication->value() : '';
+          $publication_pdf_upload_field_name = 'field_pdf_upload';
+          $publication_image_field_name = 'field_publication_cover_image';
+          $publication_field_collection_name = 'field_languages';
+
+          $variables = unfpa_global_safebirth_prepare_variables_for_sub_section($node_wrapper, $node_link, $type, $publication_pdf_upload_field_name, $publication_image_field_name, $publication_field_collection_name);
+
+          break;
+
+        case 'ct_events':
+          $type = t('Events');
+          $image_path = !empty($node_wrapper->field_photo->value()['uri']) ? $node_wrapper->field_photo->value()['uri'] : '';
+          $image_options = array('path' => $image_path, 'style_name' => 'safebirth_image');
+          $image = !empty($image_path) ? theme('image_style', $image_options) : '';
+          $variables = array(
+            'type' => $type,
+            'image' => $image,
+            'read_more_text' => t('Read More'),
+            'node_link' => $node_link
+          );
+
+          break;
+
+        case 'ct_resources':
+          $type = t('Resources');
+          $resource_pdf_upload_field_name = 'field_resource_pdf_upload';
+          $resource_image_field_name = 'field_resource_cover_image';
+          $resource_field_collection_name = 'field_resource_document';
+          $variables = unfpa_global_safebirth_prepare_variables_for_sub_section($node_wrapper, $node_link, $type, $resource_pdf_upload_field_name, $resource_image_field_name, $resource_field_collection_name);
+
+          break;
+      }
+    }
+  }
+
+  return theme('safebirth_publication_sub', $variables);
+}
+
+/**
+ * Block function for about us section.
+ */
+function home_about_us() {
+  return theme('safebirth_about_us_block');
+}
+
+/**
+ * Block function for partners section.
+ */
+function home_partners_block() {
+  $theme_path = drupal_get_path('theme', 'safe_birth');
+  $variables = array(
+    'theme_path' => $theme_path,
+    'img_path' => $theme_path . '/images');
+  return theme('safebirth_partners_block', $variables);
+}
+
+/**
+ * Block function for menu section.
+ */
+function home_menu_block() {
+  global $base_url;
+  $variables = array(
+    'base_url' => $base_url
+  );
+  return theme('safebirth_menu_block',$variables);
+}
+
+/**
+ * Block function for footer section.
+ */
+function home_footer_block() {
+  return theme('safebirth_footer_block');
+}
+
+/**
+ * Block function for intro section.
+ */
+function intro_page_block() {
+  return theme('safebirth_intro_page');
+}

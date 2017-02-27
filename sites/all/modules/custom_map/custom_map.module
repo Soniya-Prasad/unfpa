@@ -1,0 +1,527 @@
+<?php
+
+/**
+ * @file
+ * custom module for Worldwide Map on Home and Jobs Page
+ */
+
+/**
+ * Implements hook_block_info().
+ *
+ */
+function custom_map_block_info() {
+  $blocks['custom_home_map'] = array(
+    'info' => t('Block UNFPA WorldWide Map'),
+  );
+  $blocks['custom_jobs_map'] = array(
+    'info' => t('Block UNFPA WorldWide Jobs Map'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function custom_map_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'custom_home_map':
+      $block['subject'] = t('UNFPA - Home WorldWide Map');
+      $block['content'] = custom_home_map_view();
+      break;
+    case 'custom_jobs_map':
+      $block['subject'] = t('UNFPA - Jobs WorldWide Map');
+      $block['content'] = custom_jobs_map_view();
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ *
+ */
+function custom_map_theme() {
+  return array(
+    'custom_map_home' => array(
+      'variables' => array(
+        'image_map' => '',
+        'stories' => array(),
+        'locations' => array(),
+      ),
+      'template' => 'home-map-worldwide',
+    ),
+    'custom_map_jobs' => array(
+      'variables' => array(
+        'image_map' => '',
+        'jobs' => array(),
+      ),
+      'template' => 'jobs-map-worldwide',
+    ),
+  );
+}
+
+/**
+ * The function get_offices_data fetches
+ * the offices location added in the content type.
+ *
+ * @param int $home_map_width
+ * @param int $home_map_height
+ * @return array The array contains the pointer that is plotted on the map.
+ */
+function get_offices_data($home_map_width, $home_map_height) {
+  global $language;
+
+  $offices_data = &drupal_static(__FUNCTION__);
+
+  $cache_id = __FUNCTION__ . '__' . $language->language;
+
+  if (!isset($offices_data)) {
+    if ($cache = cache_get($cache_id)) {
+      $offices_data = $cache->data;
+    }
+    else {
+
+      global $language;
+      //Create Regions Taxonomy Terms Data used in the node data below
+      $regions_voc = taxonomy_vocabulary_machine_name_load('regions');
+      $regions_terms = entity_load('taxonomy_term', FALSE, array('vid' => $regions_voc->vid));
+      //Fetch Offices data
+      $site_language = $language->language;
+      $default_site_language = language_default('language');
+      $query = "SELECT node.title, node.nid, node.language, node.created, ot.field_office_type_tid, ttd.name, lm.field_location_map_lat, lm.field_location_map_lng, cou.field_country_office_url_value, lon.field_liaison_office_name_value,lou.field_liaison_office_url_value, pu.field_open_data_portal_url_value, re.field_region_tid, rou.field_regional_office_url_value, sron.field_sub_regional_office_name_value, srou.field_sub_regional_office_url_value
+        FROM
+        {node} node
+        LEFT JOIN {field_data_field_office_type} ot ON node.nid = ot.entity_id AND (ot.entity_type = 'node' AND ot.deleted = '0')
+        LEFT JOIN {field_data_field_location_map} lm ON node.nid = lm.entity_id AND (lm.entity_type = 'node' AND lm.deleted = '0')
+        LEFT JOIN {field_data_field_country_office_url} cou ON node.nid = cou.entity_id AND (cou.entity_type = 'node' AND cou.deleted = '0')
+        LEFT JOIN {field_data_field_liaison_office_name} lon ON node.nid = lon.entity_id AND (lon.entity_type = 'node' AND lon.deleted = '0')
+        LEFT JOIN {field_data_field_liaison_office_url} lou ON node.nid = lou.entity_id AND (lou.entity_type = 'node' AND lou.deleted = '0')
+        LEFT JOIN {field_data_field_open_data_portal_url} pu ON node.nid = pu.entity_id AND (pu.entity_type = 'node' AND pu.deleted = '0')
+        LEFT JOIN {field_data_field_region} re ON node.nid = re.entity_id AND (re.entity_type = 'node' AND re.deleted = '0')
+        LEFT JOIN {field_data_field_regional_office_url} rou ON node.nid = rou.entity_id AND (rou.entity_type = 'node' AND rou.deleted = '0')
+        LEFT JOIN {field_data_field_sub_regional_office_name} sron ON node.nid = sron.entity_id AND (sron.entity_type = 'node' AND sron.deleted = '0')
+        LEFT JOIN {field_data_field_sub_regional_office_url} srou ON node.nid = srou.entity_id AND (srou.entity_type = 'node' AND srou.deleted = '0')
+        LEFT JOIN {taxonomy_term_data} ttd ON ttd.tid = ot.field_office_type_tid
+        WHERE (( (node.status = '1') AND (ot.field_office_type_tid IS NOT NULL ) AND (node.tnid = 0
+        OR (node.language = '" . $site_language . "')
+        OR (node.language = '" . $default_site_language . "' AND
+        0 = (SELECT count(lmfh_node.nid)
+        FROM {node} AS lmfh_node
+        WHERE lmfh_node.tnid = node.tnid AND
+        ((lmfh_node.language = '" . $site_language . "'))))
+        OR (node.nid = node.tnid AND
+        0 = (SELECT count(lmfh_node.nid)
+        FROM {node} AS lmfh_node
+        WHERE lmfh_node.tnid = node.tnid AND
+        ((lmfh_node.language = '" . $site_language . "') OR (lmfh_node.language = '" . $default_site_language . "'))))) )AND( (node.type IN  ('ct_global_country')) ))
+        ORDER BY node.created DESC";
+
+      $result = db_query($query);
+      $offices_cnt = $result->rowCount();
+      //To show one story/latest news from a single location the following code will filter it based on the result set.
+      $offices_data = array();
+      if ($offices_cnt > 0) {
+        foreach ($result as $obj_result) {
+          $sub_arr = array();
+          $office_tid = $obj_result->field_office_type_tid;
+          $office_tid_name = $obj_result->name;
+          $class_name = '';
+          $filter_name = '';
+          switch ($office_tid_name) {
+            case 'Headquarter Offices':
+              $class_name = 'head';
+              $filter_name = 'head_liaison';
+              break;
+
+            case 'Liaison Offices':
+              $class_name = 'liaison';
+              $filter_name = 'head_liaison';
+              break;
+
+            case 'Regional Offices':
+              $class_name = 'regional';
+              $filter_name = 'regional';
+              break;
+
+            case 'Sub-Regional Offices':
+              $class_name = 'sub-regional';
+              $filter_name = 'sub-regional';
+              break;
+
+            case 'Country Offices':
+              $class_name = 'country';
+              $filter_name = 'country';
+              break;
+          }
+          $sub_arr["title"] = t($obj_result->title);
+          $sub_arr["tid_name"] = $office_tid_name;
+          $sub_arr["class_name"] = $class_name;
+          $sub_arr["filter_name"] = $filter_name;
+          $sub_arr["lat"] = $obj_result->field_location_map_lat;
+          $sub_arr["lng"] = $obj_result->field_location_map_lng;
+          $sub_arr["top"] = ylat_to_pixel($obj_result->field_location_map_lat, $home_map_height);
+          $sub_arr["left"] = xlng_to_pixel($obj_result->field_location_map_lng, $home_map_width);
+          $sub_arr["country_office_url"] = !empty($obj_result->field_country_office_url_value) ? $obj_result->field_country_office_url_value : '';
+          $sub_arr["liaison_office_name"] = !empty($obj_result->field_liaison_office_name_value) ? $obj_result->field_liaison_office_name_value : '';
+          $sub_arr["liaison_office_url"] = !empty($obj_result->field_liaison_office_url_value) ? $obj_result->field_liaison_office_url_value : '';
+          $sub_arr["open_data_portal_url"] = !empty($obj_result->field_open_data_portal_url_value) ? $obj_result->field_open_data_portal_url_value : '';
+          $sub_arr["region"] = !empty($obj_result->field_region_tid) ? $regions_terms[$obj_result->field_region_tid]->name : ''; //Loading the region name from the taxonomy $regions_terms array
+          $sub_arr["regional_office_url"] = !empty($obj_result->field_regional_office_url_value) ? $obj_result->field_regional_office_url_value : '';
+          $sub_arr["sub_regional_office_name"] = !empty($obj_result->field_sub_regional_office_name_value) ? $obj_result->field_sub_regional_office_name_value : '';
+          $sub_arr["sub_regional_office_url"] = !empty($obj_result->field_sub_regional_office_url_value) ? $obj_result->field_sub_regional_office_url_value : '';
+          $offices_data[$office_tid][] = $sub_arr;
+        }
+      }
+
+      cache_set($cache_id, $offices_data, 'cache', CACHE_TEMPORARY);
+    }
+  }
+  return $offices_data;
+}
+
+/**
+ * Wrapper function to fetch the country related data used in Home page and Job page Map for Latitude and Longitude
+ * @return array Country Array with details
+ */
+function fetch_countries_result($home_map_width, $home_map_height) {
+  global $language;
+
+  $countries_data = &drupal_static(__FUNCTION__);
+
+  $cache_id = __FUNCTION__ . '__' . $language->language;
+
+  if (!isset($countries_data)) {
+    if ($cache = cache_get($cache_id)) {
+      $countries_data = $cache->data;
+    }
+    else {
+
+      $countries_data = array();
+      $q = db_select('node', 'n');
+      $q->join('field_data_field_location_map', 'lm', 'lm.entity_id = n.nid');
+      $q->fields('n', array('nid', 'title'));
+      $q->fields('lm', array('field_location_map_lat', 'field_location_map_lng'));
+      $q->condition('n.type', 'ct_global_country');
+      $q->condition('n.status', NODE_PUBLISHED);
+      $country_result = $q->execute()->fetchAll();
+
+      if (is_array($country_result) && count($country_result) > 0) {
+        foreach ($country_result as $key => $c_result) {
+          $cid = $c_result->nid;
+          $latitude = !empty($c_result->field_location_map_lat) ? $c_result->field_location_map_lat : '';
+          $longitude = !empty($c_result->field_location_map_lng) ? $c_result->field_location_map_lng : '';
+          $countries_data[$cid]["title"] = $c_result->title;
+          $countries_data[$cid]["lat"] = $latitude;
+          $countries_data[$cid]["lng"] = $longitude;
+          $countries_data[$cid]["top"] = ylat_to_pixel($latitude, $home_map_height);
+          $countries_data[$cid]["left"] = xlng_to_pixel($longitude, $home_map_width);
+        }
+      }
+
+      cache_set($cache_id, $countries_data, 'cache', CACHE_TEMPORARY);
+    }
+  }
+  return $countries_data;
+}
+
+/**
+ * The function get_stories_data fetches the news stories added
+ * in the content type based on the location.
+ *
+ * @param int $home_map_width
+ * @param int $home_map_height
+ * @return array News stories with specific country
+ */
+function get_stories_data($home_map_width, $home_map_height) {
+  global $language;
+
+  $stories_data = &drupal_static(__FUNCTION__);
+
+  $cache_id = __FUNCTION__ . '__' . $language->language;
+
+  if (!isset($stories_data)) {
+    if ($cache = cache_get($cache_id)) {
+      $stories_data = $cache->data;
+    }
+    else {
+
+      global $language;
+      // Fetch the countries list for mapping data
+      $country_array = fetch_countries_result($home_map_width, $home_map_height);
+      // wrapper to fetch the TERM id parents ID
+      $v_thematic = taxonomy_vocabulary_machine_name_load('thematic_area');
+      $thematic_array = fetch_taxonomy_parent($v_thematic->vid);
+      // Fetch Stories data
+      $new_until_date = date("Y-m-d", strtotime("-6 months")); // Show only last 6 months news
+      $site_language = $language->language;
+      $default_language = language_default('language');
+      $query = "SELECT node.title, node.nid, node.language, field_data_field_country.field_country_target_id, field_data_field_thematic_area.field_thematic_area_tid, node.created, field_data_field_news_type.field_news_type_value, field_data_field_short_title.field_short_title_value,file_managed.uri
+        FROM
+        {node} node
+        INNER JOIN {field_data_field_country} field_data_field_country ON node.nid = field_data_field_country.entity_id AND (field_data_field_country.entity_type = 'node' AND field_data_field_country.deleted = '0')
+        LEFT JOIN {field_data_field_news_date} field_data_field_news_date ON node.nid = field_data_field_news_date.entity_id AND (field_data_field_news_date.entity_type = 'node' AND field_data_field_news_date.deleted = '0')
+        INNER JOIN {field_data_field_news_type} field_data_field_news_type ON node.nid = field_data_field_news_type.entity_id AND (field_data_field_news_type.field_news_type_value = 'News' OR field_data_field_news_type.field_news_type_value = 'Opinion')
+        LEFT JOIN {field_data_field_thematic_area} field_data_field_thematic_area ON node.nid = field_data_field_thematic_area.entity_id AND (field_data_field_thematic_area.entity_type = 'node' AND field_data_field_thematic_area.deleted = '0')
+        LEFT JOIN {field_data_field_short_title} field_data_field_short_title ON node.nid = field_data_field_short_title.entity_id AND (field_data_field_short_title.entity_type = 'node' AND field_data_field_short_title.deleted = '0')
+        LEFT JOIN {field_data_field_news_image} field_data_field_news_image ON node.nid = field_data_field_news_image.entity_id AND (field_data_field_news_image.entity_type = 'node' AND field_data_field_news_image.deleted = '0')
+        LEFT JOIN {file_managed} file_managed ON file_managed.fid = field_data_field_news_image.field_news_image_fid
+        WHERE (( (node.status = '1') AND (DATE_FORMAT(field_data_field_news_date.field_news_date_value, '%Y-%m-%d') > '" . $new_until_date . "') AND (node.tnid = 0
+        OR (node.language = '" . $site_language . "')
+        OR (node.language = '" . $default_language . "' AND
+        0 = (SELECT count(lmfh_node.nid)
+        FROM {node} AS lmfh_node
+        WHERE lmfh_node.tnid = node.tnid AND
+        ((lmfh_node.language = '" . $site_language . "'))))
+        OR (node.nid = node.tnid AND
+        0 = (SELECT count(lmfh_node.nid)
+        FROM {node} AS lmfh_node
+        WHERE lmfh_node.tnid = node.tnid AND
+        ((lmfh_node.language = '" . $site_language . "') OR (lmfh_node.language = '" . $default_language . "'))))) )AND( (node.type IN  ('ct_news')) ))
+        ORDER BY node.created DESC";
+      $result = db_query($query);
+      $stories_cnt = $result->rowCount();
+      $stories_data = array();
+      if ($stories_cnt > 0) {
+        foreach ($result as $obj_result) {
+          $sub_arr = array();
+          $country_id = $obj_result->field_country_target_id;
+          if (!empty($obj_result->field_thematic_area_tid)) {
+            $current_tid = $obj_result->field_thematic_area_tid;
+            $parent_term_id = $thematic_array[$current_tid];
+            $sub_arr["title"] = t($obj_result->title);
+            $sub_arr["news_type"] = !empty($obj_result->field_news_type_value) ? $obj_result->field_news_type_value : '';
+            $sub_arr["p_tid"] = $thematic_array[$current_tid];
+            $sub_arr["tid"] = $current_tid;
+            $sub_arr["lat"] = $country_array[$country_id]['lat'];
+            $sub_arr["lng"] = $country_array[$country_id]['lng'];
+            $sub_arr["top"] = $country_array[$country_id]['top'];
+            $sub_arr["left"] = $country_array[$country_id]['left'];
+            $sub_arr["cid"] = $country_id;
+            $sub_arr["short_title"] = !empty($obj_result->field_short_title_value) ? $obj_result->field_short_title_value : '';
+            $sub_arr["country"] = $country_array[$country_id]["title"];
+            $sub_arr["image"] = !empty($obj_result->uri) ? $obj_result->uri : '';
+            $sub_arr["node_link"] = drupal_get_path_alias('node/' . $obj_result->nid);
+            //For Each Thematic Category show latest news
+            $stories_data[$parent_term_id][$country_id][] = $sub_arr;
+            $stories_data["all"][$country_id][] = $sub_arr;
+          }
+        }
+      }
+
+      // Since the query is for the past 6 months we should keep this for one
+      // day only.
+      $expire = strtotime('+1 day', time());
+
+      cache_set($cache_id, $stories_data, 'cache', $expire);
+    }
+  }
+  return $stories_data;
+}
+
+/**
+ * The function get_jobs_data fetches the result from the view for
+ * the jobs stories added in the content type based on the location.
+ *
+ * @param int $home_map_width
+ * @param int $home_map_height
+ * @return array Jobs list with specific country
+ */
+function get_jobs_data($home_map_width, $home_map_height) {
+  global $language;
+
+  $jobs_data = &drupal_static(__FUNCTION__);
+
+  $cache_id = __FUNCTION__ . '__' . $language->language;
+
+  if (!isset($jobs_data)) {
+    if ($cache = cache_get($cache_id)) {
+      $jobs_data = $cache->data;
+    }
+    else {
+
+      global $language;
+      // Fetch the countries list for mapping data
+      $country_array = fetch_countries_result($home_map_width, $home_map_height);
+
+      //Fetch Jobs data
+      $today = date("Y-m-d");
+      $site_language = $language->language;
+      $default_language = language_default('language');
+      $query = "SELECT node.title, node.nid, node.language, field_data_field_country.field_country_target_id, node.created
+        FROM {node} node
+        INNER JOIN {field_data_field_country} field_data_field_country ON node.nid = field_data_field_country.entity_id AND (field_data_field_country.entity_type = 'node' AND field_data_field_country.deleted = '0')
+        LEFT JOIN {node} node_field_data_field_country ON field_data_field_country.field_country_target_id = node_field_data_field_country.nid
+        LEFT JOIN {field_data_field_closing_date} field_data_field_closing_date ON node.nid = field_data_field_closing_date.entity_id AND (field_data_field_closing_date.entity_type = 'node' AND field_data_field_closing_date.deleted = '0')
+        WHERE (( (node.status = '1') AND (node.tnid = 0
+        OR (node.language = '" . $site_language . "')
+        OR (node.language = '" . $default_language . "' AND
+        0 = (SELECT count(lmfh_node.nid)
+        FROM {node} AS lmfh_node
+        WHERE lmfh_node.tnid = node.tnid AND
+        ((lmfh_node.language = '" . $site_language . "'))))
+        OR (node.nid = node.tnid AND
+        0 = (SELECT count(lmfh_node.nid)
+        FROM {node} AS lmfh_node
+        WHERE lmfh_node.tnid = node.tnid AND
+        ((lmfh_node.language = '" . $site_language . "') OR (lmfh_node.language = '" . $default_language . "'))))) AND (node.type IN  ('ct_jobs')) AND (DATE_FORMAT(ADDTIME(field_data_field_closing_date.field_closing_date_value, SEC_TO_TIME(-18000)), '%Y-%m-%d') >= '" . $today . "') ))
+        ORDER BY node.created DESC";
+      $result = db_query($query);
+      $jobs_cnt = $result->rowCount();
+      $jobs_data = array();
+      if ($jobs_cnt > 0) {
+        foreach ($result as $obj_result) {
+          $sub_arr = array();
+          $country_id = $obj_result->field_country_target_id;
+          if (!empty($country_id)) {
+            $sub_arr["title"] = t($obj_result->title);
+            $sub_arr["lat"] = $country_array[$country_id]['lat'];
+            $sub_arr["lng"] = $country_array[$country_id]['lng'];
+            $sub_arr["top"] = $country_array[$country_id]['top'];
+            $sub_arr["left"] = $country_array[$country_id]['left'];
+            $sub_arr["cid"] = $country_id;
+            $sub_arr["country"] = $country_array[$country_id]["title"];
+            $sub_arr["node_link"] = drupal_get_path_alias('node/' . $obj_result->nid);
+            $jobs_data["all"][$country_id][] = $sub_arr;
+          }
+        }
+      }
+
+      // Since the query is related for the current day we should keep it for
+      // no longer than one day.
+      $expire = strtotime('+1 day', time());
+
+      cache_set($cache_id, $jobs_data, 'cache', $expire);
+    }
+  }
+  return $jobs_data;
+}
+
+/**
+ * Wrapper function to get image used in the template.
+ *
+ * @return string
+ *  HTML for an image.
+ */
+function custom_map_get_map_image() {
+  $map_image_variables = array(
+    'path' => drupal_get_path('module', 'custom_map') . '/images/unfpa_map.jpg',
+    'alt' => t('Map'),
+  );
+
+  return theme('image', $map_image_variables);
+}
+
+/**
+ * Callback function used in the block view to fetch the data and assign to
+ * custom template to be shown on Home Page for the map.
+ * @return type
+ */
+function custom_home_map_view() {
+  $home_map_width = 980;
+  $home_map_height = 520;
+
+  $variables = array(
+    'stories' => get_stories_data($home_map_width, $home_map_height),
+    'locations' => get_offices_data($home_map_width, $home_map_height),
+    'map_image' => custom_map_get_map_image(),
+  );
+
+  return theme('custom_map_home', $variables);
+}
+
+/**
+ * Callback function used in the block view to fetch the data and assign to
+ * custom template to be shown on Jobs Page for the map.
+ * @return type
+ */
+function custom_jobs_map_view() {
+  $home_map_width = 980;
+  $home_map_height = 520;
+
+  $variables = array(
+    'jobs' => get_jobs_data($home_map_width, $home_map_height),
+    'map_image' => custom_map_get_map_image(),
+  );
+
+  return theme('custom_map_jobs', $variables);
+}
+
+/**
+ * The below custom function fetch_taxonomy_parent takes the vocabulary id
+ * and prepars the array of terms with child parent array with tid as key
+ * in the array.
+ * @param int $vid
+ * @return array
+ */
+function fetch_taxonomy_parent($vid) {
+  $tree = taxonomy_get_tree($vid, 0, 2);
+  foreach ($tree as $term) {
+    if ($term->parents[0] == 0) {
+      $p_id = $term->tid;
+      $term_array[$p_id] = $p_id;
+    }
+    else {
+      $p_id = $term->parents[0];
+      $term_id = $term->tid;
+      $term_array[$term_id] = $p_id;
+    }
+  }
+  return $term_array;
+}
+
+/**
+ * The below function calculate the max and min value based on the passed value.
+ * https://developers.google.com/maps/documentation/javascript/examples/map-coordinates
+ *
+ * @param type $value
+ * @param type $opt_min
+ * @param type $opt_max
+ * @return type
+ */
+function bound($value, $opt_min, $opt_max) {
+  if ($opt_min != NULL)
+    $value = max($value, $opt_min);
+  if ($opt_max != NULL)
+    $value = min($value, $opt_max);
+  return $value;
+}
+
+/**
+ * The function calculates and return the latitude value to pixels.
+ * @param type $lat
+ * @param type $height
+ * @return type
+ */
+function ylat_to_pixel($lat, $height) {
+  /*
+    Formula
+    (givenLat*heightOfContainerElement)/180
+    where 360 is the total longitude in degrees
+    Height is calculated from the bottom
+   */
+  $container_height = 256;
+  $siny = bound(sin(deg2rad($lat)), -0.9999, 0.9999);
+  $lat = 90 + 0.5 * log((1 + $siny) / (1 - $siny)) * (-$container_height / (2 * pi()));
+  $lat = $lat * (980 / 256);
+  return $lat;
+}
+
+/**
+ * The function calculates and return the longitude value to pixels.
+ * @param type $lat
+ * @param type $height
+ * @return type
+ */
+function xlng_to_pixel($lng, $width) {
+  /*
+    Formula
+    (givenLng*widthOfContainerElement)/360
+    where 360 is the total longitude in degrees
+   */
+  $container_width = 256;
+  $lng = $lng + 180;
+  $lng = $lng * $container_width / 360;
+  $lng = $lng * (980 / 256);
+  return $lng;
+}
